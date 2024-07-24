@@ -2,10 +2,10 @@
   "name": "server",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "server_index.js",
   "type": "module",
   "scripts": {
-    "server": "nodemon --watch src --exec node src/index.js"
+    "server": "nodemon --watch src --exec node src/server_index.js"
   },
   "keywords": [],
   "author": "",
