@@ -72,7 +72,7 @@ export const Landing = () => {
       </section>
 
       <section className="snap-start min-h-screen landing-section4-card">
-        <div className="section-container flex justify-center landing-section2 flex-row gap-y-2 py-72 px-80">
+        <div className="section-container flex justify-center landing-section2 flex-row gap-y-2 px-80 pt-72 pb-44">
           <div className="card-container flex flex-row w-auto h-auto items-start justify-center bg-blue-700/50 px-12 py-20 rounded-3xl gap-x-52 shadow-lg backdrop-blur-3xl">
             <div className="space-y-8">
               <h1 className="card-title font-black text-5xl w-52 text-white">
@@ -88,7 +88,18 @@ export const Landing = () => {
             </div>
           </div>
         </div>
-      <Footer />
+        <div className="flex flex-col justify-center items-center pb-14">
+          <h1 className="text-4xl font-black text-slate-50 tracking-wide self-center pb-14 text-center w-3/6">
+            Join the community and start collaborating today!
+          </h1>
+
+          <SignedOut>
+            <button className="btn bg-landing-signin-button w-80 rounded-full text-white">
+              <SignInButton />
+            </button>
+          </SignedOut>
+        </div>
+        <Footer />
       </section>
     </div>
   );
