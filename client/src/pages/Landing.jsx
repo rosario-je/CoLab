@@ -34,7 +34,7 @@ export const Landing = () => {
 
       <section className="snap-start min-h-screen landing-section2-card">
         <div className="section-container flex justify-center landing-section2 flex-row gap-y-2 py-72 px-80">
-          <div className="card-container flex flex-row w-10/12 h-auto items-start justify-center bg-blue-700/50 px-0 py-20 rounded-3xl gap-x-52 shadow-lg backdrop-blur-3xl">
+          <div className="card-container flex flex-row w-auto h-auto items-start justify-center bg-blue-700/50 px-12 py-20 rounded-3xl gap-x-52 shadow-lg backdrop-blur-3xl">
             <div className="space-y-8">
               <h1 className="card-title font-black text-5xl w-52 text-white">
                 BROWSE PROJECTS!
@@ -54,7 +54,7 @@ export const Landing = () => {
 
       <section className="snap-start min-h-screen landing-section3-card">
         <div className="section-container flex justify-center landing-section2 flex-row gap-y-2 py-72 px-80">
-          <div className="card-container flex flex-row w-10/12 h-auto items-start justify-center bg-blue-700/50 px-0 py-20 rounded-3xl gap-x-52 shadow-lg backdrop-blur-3xl">
+          <div className="card-container flex flex-row w-auto h-auto items-start justify-center bg-blue-700/50 px-12 py-20 rounded-3xl gap-x-52 shadow-lg backdrop-blur-3xl">
             <div>
               <div className="w-72 h-80 bg-black rounded-3xl"></div>
             </div>
@@ -73,7 +73,7 @@ export const Landing = () => {
 
       <section className="snap-start min-h-screen landing-section4-card">
         <div className="section-container flex justify-center landing-section2 flex-row gap-y-2 py-72 px-80">
-          <div className="card-container flex flex-row w-10/12 h-auto items-start justify-center bg-blue-700/50 px-0 py-20 rounded-3xl gap-x-52 shadow-lg backdrop-blur-3xl">
+          <div className="card-container flex flex-row w-auto h-auto items-start justify-center bg-blue-700/50 px-12 py-20 rounded-3xl gap-x-52 shadow-lg backdrop-blur-3xl">
             <div className="space-y-8">
               <h1 className="card-title font-black text-5xl w-52 text-white">
                 COLLABORATE & CREATE!
