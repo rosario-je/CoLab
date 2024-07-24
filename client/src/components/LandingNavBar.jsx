@@ -1,28 +1,29 @@
 import React from "react";
+import {
+  SignedIn,
+  SignedOut,
+  SignInButton,
+  UserButton,
+} from "@clerk/clerk-react";
 
 export const LandingNavBar = () => {
   return (
-    <div>
-      <div className="navbar bg-base-100">
+    <div className="fixed top-0 left-0 right-0 z-50">
+      <div className="navbar bg-landing-navbar-color/50 backdrop-blur-xl">
         <div className="flex-1">
-          <a className="btn btn-ghost text-xl">daisyUI</a>
+          <a className="btn btn-ghost text-xl text-white">CoLab</a>
         </div>
         <div className="flex-none">
-          <button className="btn btn-square btn-ghost">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              className="inline-block h-5 w-5 stroke-current"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                d="M5 12h.01M12 12h.01M19 12h.01M6 12a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0z"
-              ></path>
-            </svg>
-          </button>
+          <div className="signin-button pr-5">
+            <SignedOut>
+              <div className="btn bg-landing-signin-button rounded-full text-white">
+                <SignInButton />
+              </div>
+            </SignedOut>
+          </div>
+          <SignedIn>
+            <UserButton />
+          </SignedIn>
         </div>
       </div>
     </div>
