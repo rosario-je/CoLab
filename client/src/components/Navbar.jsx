@@ -3,7 +3,7 @@ import Vial from "../images/vial.png";
 
 export const Navbar = () => {
   return (
-    <div className="navbar w-screen bg-navbar-color">
+    <div className="navbar w-screen bg-navbar-color text-text-color">
       <div className="flex-1">
         <a className="btn btn-ghost text-xl">
           <img src={Vial} className="h-7 mb-2" />

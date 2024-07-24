@@ -7,6 +7,7 @@ export default {
   theme: {
     extend: {
       colors: {
+        "text-color": "#DDF3F8",
         "navbar-color": "#19191F",
       },
       keyframes: {
