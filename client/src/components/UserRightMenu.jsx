@@ -34,7 +34,7 @@ export const UserRightMenu = () => {
           </ul>
         </li>
         <li className="pl-0 border-none">
-          <h2 className="text-text-color text-lg">Messages</h2>
+          <h2 className="text-text-color text-lg mt-10">Messages</h2>
           <ul className="pl-0 border-none">
             <li className="group">
               <a className="flex items-center">

@@ -10,7 +10,7 @@ export const Dashboard = () => {
       <Navbar />
       <div className="flex justify-space-between items-center w-screen">
         <UserLeftMenu />
-        <div className="flex-grow">
+        <div className="flex flex-col justify-center items-center flex-grow">
           <ProjectList />
         </div>
         <UserRightMenu />

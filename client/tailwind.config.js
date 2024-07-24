@@ -40,9 +40,9 @@ export default {
         },
         unstableBeaker: {
           "0%": { transform: "rotate(0deg) translateX(0)" },
-          "25%": { transform: "rotate(5deg) translateX(-7px)" },
+          "25%": { transform: "rotate(25deg) translateX(-7px)" },
           "50%": { transform: "rotate(0deg) translateX(0)" },
-          "75%": { transform: "rotate(-5deg) translateX(7px)" },
+          "75%": { transform: "rotate(-25deg) translateX(7px)" },
           "100%": { transform: "rotate(0deg) translateX(0)" },
         },
       },
