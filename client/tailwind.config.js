@@ -7,7 +7,8 @@ export default {
         "text-color": "#DDF3F8",
         "navbar-color": "#19191F",
         "menu-colors": "#282B2D",
-        "website-purple": "#8A2BE2",
+        "website-purple": "#422569",
+        "icon-purple": "#8A2BE2",
       },
       dropShadow: {
         "white-glow": "0 0 1rem #ffffff",

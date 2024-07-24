@@ -3,7 +3,7 @@ import { ProjectCard } from './ProjectCard'
 
 export const ProjectList = () => {
   return (
-    <div className='w-[90%] bg-website-purple'>
+    <div className='w-[90%]'>
       <ProjectCard />
     </div>
   )
