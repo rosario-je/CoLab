@@ -11,11 +11,11 @@ export const Navbar = () => {
         </a>
       </div>
       <div className="flex-none">
-        <button className="btn btn-square btn-ghost w-auto px-2 mx-1">
-          <i class="fa-solid fa-circle-plus"></i> Create a project
+        <button className="btn btn-square btn-ghost w-auto px-2 mx-1 group">
+          <i class="fa-solid fa-circle-plus group-hover:animate-bounceIn"></i> Create a project
         </button>
-        <button className="btn btn-square btn-ghost w-auto px-2 mx-1">
-          <i class="fa-solid fa-bell"></i> Join requests
+        <button className="btn btn-square btn-ghost w-auto px-2 mx-1 group">
+          <i class="fa-solid fa-bell group-hover:animate-swing"></i> Join requests
         </button>
       </div>
     </div>
