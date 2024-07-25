@@ -15,6 +15,7 @@ app.get('/', (req, res) => {
 
 app.use("/chats", chatsRoutes)
 app.use("/projects", projectsRoutes)
+app.use("/dashboard", projectsRoutes)
 
 app.listen(PORT, () => {
   console.log('Server is running on port', PORT);
