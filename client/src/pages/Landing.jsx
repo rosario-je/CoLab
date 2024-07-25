@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { LandingNavBar } from "../components/LandingNavBar";
 import {
   SignedIn,
@@ -7,8 +7,15 @@ import {
   UserButton,
 } from "@clerk/clerk-react";
 import { Footer } from "../components/Footer";
+import { useNavigate } from "react-router-dom";
 
 export const Landing = () => {
+  const navigate = useNavigate();
+
+  const handleDashboardRoute = () => {
+    navigate("/dashboard");
+  };
+
   return (
     <div className="bg-gradient-to-bl from-landing-gradient-one to-landing-gradient-two snap-y snap-mandatory overflow-y-scroll h-screen scroll-smooth">
       <LandingNavBar />
@@ -29,6 +36,14 @@ export const Landing = () => {
               <SignInButton />
             </button>
           </SignedOut>
+          <SignedIn>
+            <button
+              onClick={handleDashboardRoute}
+              className="btn bg-landing-signin-button w-80 rounded-full text-white"
+            >
+              <h1>Go to the dashboard</h1>
+            </button>
+          </SignedIn>
         </div>
       </section>
 
