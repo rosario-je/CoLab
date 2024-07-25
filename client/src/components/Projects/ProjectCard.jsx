@@ -4,11 +4,11 @@ export const ProjectCard = () => {
   return (
     <>
       <div className="card bg-base-100 w-full shadow-xl border-solid border-2 border-website-purple text-white my-8">
-        <div className="card-body">
+        <div className="card-body h-96">
           <div className="flex justify-between items-center text-white">
             <div className="flex">
               <i className="fa-regular fa-square text-5xl mr-2"></i>
-              <h2 className="card-title">Project Name</h2>
+              <h2 className="card-title font-bold text-4xl">Project Name</h2>
             </div>
             <div className="avatar-group -space-x-6 rtl:space-x-reverse">
               <div className="avatar">
@@ -33,7 +33,7 @@ export const ProjectCard = () => {
               </div>
             </div>
           </div>
-          <p>
+          <p className="font-light text-xl pt-5">
             Lorem ipsum dolor sit amet, consectetur adipisicing elit. Illo
             repudiandae nam dolore sit vitae, assumenda aperiam nemo. Nesciunt
             perspiciatis dolor libero accusantium! Accusamus deleniti vero fugit
@@ -41,36 +41,36 @@ export const ProjectCard = () => {
             animi quae, dolore sint? Nam reprehenderit rem eos, consequatur
             voluptate dolor cum non? Iusto, omnis!
           </p>
-          <div className="card-actions w-full justify-between items-center ">
+          <div className="flex card-actions w-full justify-between items-center ">
             <div className="w-[60%]">
-              <div className="badge bg-website-purple text-white p-3 mx-1">
+              <div className="badge bg-website-purple text-white px-5 py-4 mx-1 w-auto">
                 neutral
               </div>
-              <div className="badge bg-website-purple text-white p-3 mx-1">
+              <div className="badge bg-website-purple text-white px-5 py-4 mx-1 w-auto">
                 primary
               </div>
-              <div className="badge bg-website-purple text-white p-3 mx-1">
+              <div className="badge bg-website-purple text-white px-5 py-4 mx-1 w-auto">
                 secondary
               </div>
-              <div className="badge bg-website-purple text-white p-3 mx-1">
+              <div className="badge bg-website-purple text-white px-5 py-4 mx-1 w-auto">
                 accent
               </div>
-              <div className="badge bg-website-purple text-white p-3 mx-1">
+              <div className="badge bg-website-purple text-white px-5 py-4 mx-1 w-auto">
                 ghost
               </div>
             </div>
-            <button className="btn bg-website-purple text-white rounder-2xl">
+            <button className="btn bg-website-purple text-white rounded-full">
               Request to join
             </button>
           </div>
         </div>
       </div>
       <div className="card bg-base-100 w-full shadow-xl border-solid border-2 border-website-purple text-white my-8">
-        <div className="card-body">
+        <div className="card-body h-96">
           <div className="flex justify-between items-center text-white">
             <div className="flex">
               <i className="fa-regular fa-square text-5xl mr-2"></i>
-              <h2 className="card-title">Project Name</h2>
+              <h2 className="card-title font-bold text-4xl">Project Name</h2>
             </div>
             <div className="avatar-group -space-x-6 rtl:space-x-reverse">
               <div className="avatar">
@@ -95,7 +95,7 @@ export const ProjectCard = () => {
               </div>
             </div>
           </div>
-          <p>
+          <p className="font-light text-xl pt-5">
             Lorem ipsum dolor sit amet, consectetur adipisicing elit. Illo
             repudiandae nam dolore sit vitae, assumenda aperiam nemo. Nesciunt
             perspiciatis dolor libero accusantium! Accusamus deleniti vero fugit
@@ -105,23 +105,23 @@ export const ProjectCard = () => {
           </p>
           <div className="card-actions w-full justify-between items-center ">
             <div className="w-[60%]">
-              <div className="badge bg-website-purple text-white p-3 mx-1">
+              <div className="badge bg-website-purple text-white px-5 py-4 mx-1 w-auto">
                 neutral
               </div>
-              <div className="badge bg-website-purple text-white p-3 mx-1">
+              <div className="badge bg-website-purple text-white px-5 py-4 mx-1 w-auto">
                 primary
               </div>
-              <div className="badge bg-website-purple text-white p-3 mx-1">
+              <div className="badge bg-website-purple text-white px-5 py-4 mx-1 w-auto">
                 secondary
               </div>
-              <div className="badge bg-website-purple text-white p-3 mx-1">
+              <div className="badge bg-website-purple text-white px-5 py-4 mx-1 w-auto">
                 accent
               </div>
-              <div className="badge bg-website-purple text-white p-3 mx-1">
+              <div className="badge bg-website-purple text-white px-5 py-4 mx-1 w-auto">
                 ghost
               </div>
             </div>
-            <button className="btn bg-website-purple text-white rounder-2xl">
+            <button className="btn bg-website-purple text-white rounder-2xl rounded-full">
               Request to join
             </button>
           </div>
