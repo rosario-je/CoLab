@@ -18,7 +18,7 @@ export const CreateProjectNavbar = ({ handleCoLabHome}) => {
           <i className="fa-solid fa-comments group-hover:animate-sideToSide"></i>{" "}
           Message
         </button>
-        <button className="btn btn-square btn-ghost w-auto px-2 mx-1 group pr-8">
+        <button className="btn btn-square btn-ghost w-auto px-2 mx-1 group">
           <i className="fa-solid fa-bell group-hover:animate-swing"></i> Join
           requests
         </button>

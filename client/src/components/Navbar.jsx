@@ -24,7 +24,7 @@ export const Navbar = ({ handleCoLabHome}) => {
           <i className="fa-solid fa-circle-plus group-hover:animate-bounceFast"></i>{" "}
           Create a project
         </button>
-        <button className="btn btn-square btn-ghost w-auto px-2 mx-1 group pr-8">
+        <button className="btn btn-square btn-ghost w-auto px-2 mx-1 group">
           <i className="fa-solid fa-bell group-hover:animate-swing"></i> Join
           requests
         </button>
