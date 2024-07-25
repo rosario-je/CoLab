@@ -6,7 +6,7 @@ CREATE TABLE projects (
   description TEXT NOT NULL,
   owner_id INT NOT NULL,
   max_participants INT NOT NULL,
-  github_repo VARCHAR,
+  github_repo VARCHAR DEFAULT NULL,
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   is_accepting_users BOOL DEFAULT TRUE,
   is_in_progress BOOL DEFAULT TRUE,

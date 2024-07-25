@@ -43,19 +43,32 @@ const getAllProjects = async () => {
 
 // This will be for creating a new project
 
-// const createNewProject = async (name, description, user_id, max_participants, github_repo) => {
-//   try {
-//     const data = await db.query(
-//       `INSERT INTO projects (name, description, owner_id, max_participants, github_repo)
-//       VALUES ($1, $2, $3, $4, $5)
-//       RETURNING *`,
-//       [name, description, user_id, max_participants, github_repo]
-//     );
-//     return data.rows[0];
-//   } catch (error) {
-//     console.log(error);
-//   }
-// };
+const createNewProject = async (name, description, user_id, max_participants, github_repo) => {
+  try {
+    const data = await db.query(
+      `INSERT INTO projects (name, description, owner_id, max_participants, github_repo)
+      VALUES ($1, $2, $3, $4, $5)
+      RETURNING *`,
+      [name, description, user_id, max_participants, github_repo]
+    );
+    return data.rows[0];
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+const getProjectPage = async (project_id) => {
+  try {
+    const data = await db.query(
+      `SELECT * FROM projects
+      WHERE id = $1`,
+      [project_id]
+    );
+    return data.rows[0];
+  } catch (error) {
+    console.log(error);
+  }
+};
 
 // This will be for updating a project when the owner doesn't want to add more participants; only the owner can do this
 // const noNewParticipants = async (project_id, user_id) => {
@@ -91,4 +104,4 @@ const getAllProjects = async () => {
 //   }
 // };
 
-export { getAllProjects };
+export { getAllProjects, createNewProject, getProjectPage };
