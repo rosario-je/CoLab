@@ -1,4 +1,7 @@
-import React from "react";
+// Dashboard.jsx
+import React, { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { useUser } from "@clerk/clerk-react";
 import { Navbar } from "../components/Navbar";
 import { UserLeftMenu } from "../components/UserLeftMenu";
 import { UserRightMenu } from "../components/UserRightMenu";
@@ -6,6 +9,16 @@ import { ProjectList } from "../components/Projects/ProjectList";
 import { SearchBar } from "../components/SearchBar";
 
 export const Dashboard = () => {
+  const { isSignedIn } = useUser();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+
+    if (!isSignedIn) {
+      navigate("/");
+    }
+  }, [isSignedIn, navigate]);
+
   return (
     <div className="flex flex-col h-screen">
       <Navbar />
@@ -24,4 +37,3 @@ export const Dashboard = () => {
     </div>
   );
 };
-
