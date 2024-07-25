@@ -1,13 +1,16 @@
 import React from "react";
+import { SignedIn, UserButton, useUser } from "@clerk/clerk-react";
 
 export const UserLeftMenu = () => {
+  const { isSignedIn, user } = useUser();
+
   return (
-    <div className="w-1/5 flex flex-col justify-between h-screen text-text-color">
-      <div className="bg-menu-colors">
-        <ul className="menu  w-full flex-1 flex flex-col justify-between">
-          <li className="pl-0 border-none">
-            <h2 className="text-text-color text-lg">Main Menu</h2>
-            <ul className="pl-0 border-none">
+    <div className="w-96 flex flex-col justify-between text-text-color  bg-menu-colors h-screen">
+      <div className="top-menu-items p-1">
+        <ul className="menu w-full flex-1 flex flex-col justify-between gap-y-24">
+          <li>
+            <h2 className="text-text-color text-lg pb-5">Main Menu</h2>
+            <ul className="text-xl font-light pt-5">
               <li className="group">
                 <a className="flex items-center">
                   <i className="fa-solid fa-layer-group group-hover:animate-bounceSlow group-hover:text-icon-purple group-hover:drop-shadow-white-glow mr-2"></i>
@@ -17,13 +20,13 @@ export const UserLeftMenu = () => {
               <li className="group">
                 <a className="flex items-center">
                   <i className="fa-solid fa-briefcase group-hover:animate-bounceSlow group-hover:text-icon-purple group-hover:drop-shadow-white-glow mr-2"></i>
-                  Projects
+                  <p>Projects</p>
                 </a>
               </li>
               <li className="group">
                 <a className="flex items-center">
-                  <i className="fa-solid fa-comments group-hover:animate-bounceSlow group-hover:text-icon-purple group-hover:drop-shadow-white-glow mr-2"></i>
-                  Messages
+                  <i className="fa-solid fa-comments group-hover:animate-bounceSlow group-hover:text-icon-purple group-hover:drop-shadow-white-glow mr-0.5"></i>
+                  <p>Messages</p>
                 </a>
               </li>
               <li className="group">
@@ -34,9 +37,9 @@ export const UserLeftMenu = () => {
               </li>
             </ul>
           </li>
-          <li className="pl-0 border-none mt-10">
+          <li>
             <h2 className="text-text-color text-lg">Explore</h2>
-            <ul className="pl-0 border-none">
+            <ul className="text-lg font-light pt-5">
               <li className="group">
                 <a className="flex items-center">
                   <i className="fa-solid fa-heart group-hover:animate-bounceSlow group-hover:text-icon-purple group-hover:drop-shadow-white-glow mr-2"></i>
@@ -53,15 +56,16 @@ export const UserLeftMenu = () => {
           </li>
         </ul>
       </div>
-      <div className="flex flex-grow bg-menu-colors pt-10 justify-center gap-[5px] items-center w-full">
-        <i className="fa-regular fa-circle text-4xl mr-2"></i>
-        <div className="flex flex-col">
-          <h2>User</h2>
-          <h5>user@colab.com</h5>
-        </div>
-        <a className="">
-          <i className="fa-solid fa-arrow-right-from-bracket"></i>
-        </a>
+      <div className="flex justify-center pb-16">
+        <SignedIn>
+          <UserButton />
+          {isSignedIn && (
+            <div className="pl-2 space-y-1">
+              <h3 className="font-bold">@ {user.username}</h3>
+              <h4 className="font-light">{user.firstName} {user.lastName}</h4>
+            </div>
+          )}
+        </SignedIn>
       </div>
     </div>
   );
