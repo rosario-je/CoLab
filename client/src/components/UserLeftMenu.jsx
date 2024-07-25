@@ -2,8 +2,8 @@ import React from "react";
 
 export const UserLeftMenu = () => {
   return (
-    <div className="w-1/5 flex flex-col h-screen text-text-color">
-      <ul className="menu bg-menu-colors w-full flex-1 flex flex-col">
+    <div className="w-1/5 flex flex-col justify-between h-screen text-text-color">
+      <ul className="menu bg-menu-colors w-full flex-1 flex flex-col justify-between">
         <li className="pl-0 border-none">
           <h2 className="text-text-color text-lg">Main Menu</h2>
           <ul className="pl-0 border-none">
