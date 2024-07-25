@@ -2,6 +2,7 @@ import express from 'express';
 import { config } from 'dotenv';
 import chatsRoutes from './routes/chats_routes.js';
 import projectsRoutes from './routes/projects_routes.js';
+import homeRoutes from './routes/home_routes.js';
 import db from './db/connection.js';
 
 config();
@@ -15,7 +16,7 @@ app.get('/', (req, res) => {
 
 app.use("/chats", chatsRoutes)
 app.use("/projects", projectsRoutes)
-app.use("/dashboard", projectsRoutes)
+app.use("/dashboard", homeRoutes)
 
 app.listen(PORT, () => {
   console.log('Server is running on port', PORT);
