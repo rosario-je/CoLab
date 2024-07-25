@@ -18,6 +18,7 @@ app.use("/chats", chatsRoutes)
 app.use("/projects", projectsRoutes)
 app.use("/dashboard", homeRoutes)
 
+// TO START THE SERVER RUN THE COMMAND: npm run server
 app.listen(PORT, () => {
   console.log('Server is running on port', PORT);
 });
