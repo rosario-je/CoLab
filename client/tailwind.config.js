@@ -12,6 +12,8 @@ export default {
         "input-colors": "#202028",
         black: "#000000",
         white: "#ffffff",
+        create: "#6a1b9a",
+        wand: "#fbc02d",
         "landing-gradient-one": "#281E9F",
         "landing-gradient-two": "#8F9BD7",
         "landing-signin-button": "#322AA5",
@@ -54,8 +56,8 @@ export default {
           "100%": { transform: "rotate(0deg) translateX(0)" },
         },
         spin: {
-          "0%": {transform: "rotate(0deg)"},
-          "100%": {transform: "rotate(360deg)"},
+          "0%": { transform: "rotate(0deg)" },
+          "100%": { transform: "rotate(360deg)" },
         },
       },
       animation: {

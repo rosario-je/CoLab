@@ -1,7 +1,10 @@
 import React from "react";
+import { useState } from "react";
 import Vial from "../images/vial.png";
 
 export const CreateProjectNavbar = ({ handleCoLabHome}) => {
+const [techModal, setTechModal] = useState(false);
+
   return (
     <div className="navbar w-screen bg-navbar-color text-text-color fixed top-0 left-0 right-0 z-50 mb-6">
       <div className="flex-1">
@@ -16,7 +19,7 @@ export const CreateProjectNavbar = ({ handleCoLabHome}) => {
       <div className="flex-none">
         <button className="btn btn-square btn-ghost w-auto px-2 mx-1 group">
           <i className="fa-solid fa-comments group-hover:animate-sideToSide"></i>{" "}
-          Message
+          Messages
         </button>
         <button className="btn btn-square btn-ghost w-auto px-2 mx-1 group">
           <i className="fa-solid fa-bell group-hover:animate-swing"></i> Join
