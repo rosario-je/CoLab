@@ -1,3 +1,5 @@
+DROP TABLE IF EXISTS project_participants CASCADE;
+
 CREATE TABLE project_participants (
   id SERIAL PRIMARY KEY,
   project_id INT REFERENCES projects(id) ON DELETE CASCADE,

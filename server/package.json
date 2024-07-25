@@ -5,12 +5,14 @@
   "main": "server_index.js",
   "type": "module",
   "scripts": {
-    "server": "nodemon --watch src --exec node src/server_index.js"
+    "server": "nodemon --watch src --exec node src/server_index.js",
+    "db:reset": "node src/bin/reset_db.js"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "chalk": "^5.3.0",
     "cors": "^2.8.5",
     "dotenv": "^16.4.5",
     "express": "^4.19.2",
