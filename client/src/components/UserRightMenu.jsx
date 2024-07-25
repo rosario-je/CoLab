@@ -9,25 +9,25 @@ export const UserRightMenu = () => {
           <ul className="pl-0 border-none">
             <li className="group">
               <a className="flex items-center">
-                <i className="fa-regular fa-square text-2xl group-hover:animate-sideToSide group-hover:text-website-purple group-hover:drop-shadow-white-glow mr-2"></i>
+                <i className="fa-regular fa-square text-2xl group-hover:animate-sideToSide group-hover:text-icon-purple group-hover:drop-shadow-white-glow mr-2"></i>
                 Project 1
               </a>
             </li>
             <li className="group">
               <a className="flex items-center">
-                <i className="fa-regular fa-square text-2xl group-hover:animate-sideToSide group-hover:text-website-purple group-hover:drop-shadow-white-glow mr-2"></i>
+                <i className="fa-regular fa-square text-2xl group-hover:animate-sideToSide group-hover:text-icon-purple group-hover:drop-shadow-white-glow mr-2"></i>
                 Project 2
               </a>
             </li>
             <li className="group">
               <a className="flex items-center">
-                <i className="fa-regular fa-square text-2xl group-hover:animate-sideToSide group-hover:text-website-purple group-hover:drop-shadow-white-glow mr-2"></i>
+                <i className="fa-regular fa-square text-2xl group-hover:animate-sideToSide group-hover:text-icon-purple group-hover:drop-shadow-white-glow mr-2"></i>
                 Project 3
               </a>
             </li>
             <li className="group">
               <a className="flex items-center">
-                <i className="fa-regular fa-square text-2xl group-hover:animate-sideToSide group-hover:text-website-purple group-hover:drop-shadow-white-glow mr-2"></i>
+                <i className="fa-regular fa-square text-2xl group-hover:animate-sideToSide group-hover:text-icon-purple group-hover:drop-shadow-white-glow mr-2"></i>
                 Project 4
               </a>
             </li>
@@ -38,25 +38,25 @@ export const UserRightMenu = () => {
           <ul className="pl-0 border-none">
             <li className="group">
               <a className="flex items-center">
-                <i className="fa-regular fa-circle text-2xl group-hover:animate-sideToSide group-hover:text-website-purple group-hover:drop-shadow-white-glow group-hover:animate-bounceSlow mr-2"></i>
+                <i className="fa-regular fa-circle text-2xl group-hover:animate-sideToSide group-hover:text-icon-purple group-hover:drop-shadow-white-glow group-hover:animate-bounceSlow mr-2"></i>
                 User 1
               </a>
             </li>
             <li className="group">
               <a className="flex items-center">
-                <i className="fa-regular fa-circle text-2xl group-hover:animate-sideToSide group-hover:text-website-purple group-hover:drop-shadow-white-glow group-hover:animate-bounceSlow mr-2"></i>
+                <i className="fa-regular fa-circle text-2xl group-hover:animate-sideToSide group-hover:text-icon-purple group-hover:drop-shadow-white-glow group-hover:animate-bounceSlow mr-2"></i>
                 User 2
               </a>
             </li>
             <li className="group">
               <a className="flex items-center">
-                <i className="fa-regular fa-circle text-2xl group-hover:animate-sideToSide group-hover:text-website-purple group-hover:drop-shadow-white-glow group-hover:animate-bounceSlow mr-2"></i>
+                <i className="fa-regular fa-circle text-2xl group-hover:animate-sideToSide group-hover:text-icon-purple group-hover:drop-shadow-white-glow group-hover:animate-bounceSlow mr-2"></i>
                 User 3
               </a>
             </li>
             <li className="group">
               <a className="flex items-center">
-                <i className="fa-regular fa-circle text-2xl group-hover:animate-sideToSide group-hover:text-website-purple group-hover:drop-shadow-white-glow group-hover:animate-bounceSlow mr-2"></i>
+                <i className="fa-regular fa-circle text-2xl group-hover:animate-sideToSide group-hover:text-icon-purple group-hover:drop-shadow-white-glow group-hover:animate-bounceSlow mr-2"></i>
                User 4
               </a>
             </li>

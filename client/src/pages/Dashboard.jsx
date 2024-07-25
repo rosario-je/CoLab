@@ -11,7 +11,7 @@ export const Dashboard = () => {
       <Navbar />
       <div className="flex flex-1">
         <UserLeftMenu />
-        <div className="flex flex-col flex-grow w-full">
+        <div className="flex flex-col flex-grow w-full bg-black">
           <div className="flex justify-center">
             <SearchBar />
           </div>

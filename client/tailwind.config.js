@@ -9,6 +9,8 @@ export default {
         "menu-colors": "#282B2D",
         "website-purple": "#422569",
         "icon-purple": "#8A2BE2",
+        "black": "#000000",
+        "white": "#ffffff",
       },
       dropShadow: {
         "white-glow": "0 0 1rem #ffffff",

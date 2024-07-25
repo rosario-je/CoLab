@@ -51,7 +51,7 @@ export const UserLeftMenu = () => {
           </ul>
         </li>
       </ul>
-      <div className="flex flex-grow bg-menu-colors pt-10 justify-center gap-[20px] items-center w-full">
+      <div className="flex flex-grow bg-menu-colors pt-10 justify-center gap-[5px] items-center w-full">
         <i className="fa-regular fa-circle text-4xl mr-2"></i>
         <div className="flex flex-col">
           <h2>User</h2>
