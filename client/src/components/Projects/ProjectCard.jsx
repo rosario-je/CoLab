@@ -59,7 +59,7 @@ export const ProjectCard = () => {
                 ghost
               </div>
             </div>
-            <button className="btn bg-website-purple text-white rounded-full">
+            <button className="btn bg-website-purple hover:bg-create text-white rounded-full">
               Request to join
             </button>
           </div>
@@ -121,7 +121,7 @@ export const ProjectCard = () => {
                 ghost
               </div>
             </div>
-            <button className="btn bg-website-purple text-white rounder-2xl rounded-full">
+            <button className="btn bg-website-purple hover:bg-create text-white rounder-2xl rounded-full">
               Request to join
             </button>
           </div>
