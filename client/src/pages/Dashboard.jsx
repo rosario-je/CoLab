@@ -8,7 +8,7 @@ import { UserRightMenu } from "../components/UserRightMenu";
 import { ProjectList } from "../components/Projects/ProjectList";
 import { SearchBar } from "../components/SearchBar";
 
-export const Dashboard = () => {
+export const Dashboard = ({ handleCoLabHome}) => {
   const { isSignedIn } = useUser();
   const navigate = useNavigate();
 
@@ -21,7 +21,7 @@ export const Dashboard = () => {
 
   return (
     <div className="flex flex-col h-screen">
-      <Navbar />
+      <Navbar handleCoLabHome={handleCoLabHome}/>
       <div className="flex flex-1 mt-16">
         <UserLeftMenu />
         <div className="flex flex-col w-full bg-black overflow-hidden">
