@@ -3,7 +3,8 @@ import db from '../connection.js';
 const getAllProjects = async () => {
   try {
     const data = await db.query(
-      `SELECT * FROM projects`,
+      `SELECT * FROM projects
+      ORDER BY projects.created_at DESC`,
     );
     return data.rows;
   } catch (error) {
