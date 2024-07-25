@@ -9,13 +9,13 @@ export const Dashboard = () => {
   return (
     <div className="flex flex-col h-screen">
       <Navbar />
-      <div className="flex flex-1">
+      <div className="flex flex-1 mt-16">
         <UserLeftMenu />
-        <div className="flex flex-col flex-grow w-full bg-black">
-          <div className="flex justify-center">
+        <div className="flex flex-col w-full bg-black overflow-hidden">
+          <div className="z-10 bg-black">
             <SearchBar />
           </div>
-          <div className="flex-grow flex justify-center items-center">
+          <div className="flex-grow flex justify-center overflow-y-auto px-40">
             <ProjectList />
           </div>
         </div>
@@ -24,3 +24,4 @@ export const Dashboard = () => {
     </div>
   );
 };
+
