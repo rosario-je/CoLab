@@ -12,12 +12,12 @@ export const Dashboard = () => {
   const { isSignedIn } = useUser();
   const navigate = useNavigate();
 
-  useEffect(() => {
+  // useEffect(() => {
 
-    if (!isSignedIn) {
-      navigate("/");
-    }
-  }, [isSignedIn, navigate]);
+  //   if (!isSignedIn) {
+  //     navigate("/");
+  //   }
+  // }, [isSignedIn, navigate]);
 
   return (
     <div className="flex flex-col h-screen">
@@ -28,7 +28,7 @@ export const Dashboard = () => {
           <div className="z-10 bg-black">
             <SearchBar />
           </div>
-          <div className="flex-grow flex justify-center overflow-y-auto px-40">
+          <div className="flex-grow flex justify-center overflow-y-auto px-40 ">
             <ProjectList />
           </div>
         </div>
