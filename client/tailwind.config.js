@@ -15,6 +15,7 @@ export default {
         'landing-gradient-two': '#8F9BD7',
         'landing-signin-button': '#322AA5',
         'landing-navbar-color': '#19191F',
+        'project-left-menu': '#171819',
       },
       dropShadow: {
         "white-glow": "0 0 1rem #ffffff",
