@@ -10,6 +10,7 @@ import { ProjectRightMenu } from "../components/GroupProjectPage/ProjectRightMen
 
 export const ProjectPage = () => {
   const { isSignedIn } = useUser();
+
   const navigate = useNavigate();
 
   return (
