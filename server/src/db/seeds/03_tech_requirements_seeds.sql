@@ -1,6 +1,5 @@
 INSERT INTO tech_requirements (project_id, tech_name) VALUES
 
-INSERT INTO tech_requirements (project_id, tech_name) VALUES
 -- Konoha Village Chat
 (1, 'Tailwind CSS'), -- Frontend Styling Language
 (1, 'PostgreSQL'),   -- Database

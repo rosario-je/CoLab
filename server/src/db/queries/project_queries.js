@@ -4,6 +4,9 @@ const getAllProjects = async () => {
   try {
     const data = await db.query(
       `SELECT * FROM projects
+      JOIN project_participants ON projects.id = project_participants.project_id
+      JOIN projects_pics ON projects.id = projects_pics.project_id
+      JOIN tech_requirements ON projects.id = tech_requirements.project_id
       ORDER BY projects.created_at DESC`,
     );
     return data.rows;
