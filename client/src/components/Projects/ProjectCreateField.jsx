@@ -1,16 +1,20 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { useUser } from "@clerk/clerk-react";
 
 export const ProjectCreateField = ({ handleTechStacksModal }) => {
   const [description, setDescription] = useState("");
+
   const maxChars = 200;
 
   const handleDescriptionChange = (e) => {
+    e.preventDefault();
     if (e.target.value.length <= maxChars) {
       setDescription(e.target.value);
     }
   };
+  const createProject = (event) => {
+    event.preventDefault();
+    console.log("Project created");
+  }
 
   return (
     <div className="flex flex-col justify-evenly gap-[30px] h-full w-full my-5">
@@ -50,7 +54,10 @@ export const ProjectCreateField = ({ handleTechStacksModal }) => {
           <h6 className="">Choose the tech stack this project will utilize</h6>
         </div>
         <div className="w-1/2 flex justify-center items-center">
-          <button className="btn btn-ghost hover:bg-input-colors text-lg group mr-5" onClick={()=>handleTechStacksModal()}>
+          <button
+            className="btn btn-ghost hover:bg-input-colors text-lg group mr-5"
+            onClick={() => handleTechStacksModal()}
+          >
             <i className="fa-solid fa-plus group-hover:animate-spin group-hover:text-white group-hover:drop-shadow-white-glow"></i>{" "}
             Add
           </button>
@@ -93,7 +100,7 @@ export const ProjectCreateField = ({ handleTechStacksModal }) => {
           />
         </div>
       </div>
-      <button className="btn bg-website-purple hover:bg-create hover:text-white group w-1/5 self-end my-[7%] mr-[8%]">
+      <button on onClick={createProject} className="btn bg-website-purple hover:bg-create hover:text-white group w-1/5 self-end my-[7%] mr-[8%]">
         <i class="fa-solid fa-wand-magic-sparkles group-hover:text-wand group-hover:animate-bounceFast group-hover:drop-shadow-white-glow"></i>
         Create project
       </button>
