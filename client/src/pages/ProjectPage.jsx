@@ -17,7 +17,7 @@ export const ProjectPage = () => {
       <Navbar />
       <div className="flex flex-1 mt-16">
         <UserLeftMenu />
-        <div className="flex grow  justify-center overflow-y-auto">
+        <div className="flex grow  justify-center overflow-y-auto mx-1">
           <ProjectPageDetails />
         </div>
         <ProjectRightMenu />
