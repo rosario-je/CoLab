@@ -1,8 +1,13 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import { SignedIn, UserButton, useUser } from "@clerk/clerk-react";
 
 export const UserLeftMenu = () => {
   const { isSignedIn, user } = useUser();
+  const navigate = useNavigate();
+  const handleNavigateToDashboard = () => {
+    navigate("/dashboard");
+  }
 
   return (
     <div className="w-96 flex flex-col justify-between text-text-color  bg-menu-colors h-screen">
@@ -12,7 +17,7 @@ export const UserLeftMenu = () => {
             <h2 className="text-text-color text-lg pb-5">Main Menu</h2>
             <ul className="text-xl font-light pt-5">
               <li className="group">
-                <a className="flex items-center">
+                <a className="flex items-center" onClick={handleNavigateToDashboard}>
                   <i className="fa-solid fa-layer-group group-hover:animate-bounceSlow group-hover:text-icon-purple group-hover:drop-shadow-white-glow mr-2"></i>
                   Feed
                 </a>

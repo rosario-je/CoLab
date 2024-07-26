@@ -1,28 +1,55 @@
 // App.jsx
 import React from "react";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { Routes, Route } from "react-router-dom";
 import { Landing } from "./pages/Landing";
 import { Dashboard } from "./pages/Dashboard";
 import { ProjectPage } from "./pages/ProjectPage";
 import { CreateProject } from "./pages/CreateProject";
-import ProtectedRoute from "./components/helper_component/ProtectedRoute";
 
 function App() {
+  const [techModal, setTechModal] = useState(false);
+
+  const handleTechStacksModal = () => {
+    setTechModal(!techModal);
+  };
+
+  const navigate = useNavigate();
+  const handleCoLabHome = () => {
+    navigate("/");
+  };
+
   return (
     <div className="App">
       <Routes>
-        <Route path="/" element={<Landing />} />
+        <Route
+          path="/"
+          element={<Landing handleCoLabHome={handleCoLabHome} />}
+        />
         <Route
           path="/dashboard"
-          element={<ProtectedRoute element={<Dashboard />} />}
+          element={
+            <ProtectedRoute
+              element={<Dashboard handleCoLabHome={handleCoLabHome} />}
+            />
+          }
         />
         <Route
           path="/project/:id"
-          element={<ProtectedRoute element={<ProjectPage />} />}
+          element={
+            <ProtectedRoute
+              element={<ProjectPage handleCoLabHome={handleCoLabHome} />}
+            />
+          }
         />
         <Route
           path="/project/create"
-          element={<ProtectedRoute element={<CreateProject />} />}
+          element={
+            <ProtectedRoute
+              element={<CreateProject handleCoLabHome={handleCoLabHome} handleTechStacksModal={handleTechStacksModal} techModal={techModal}/>}
+            />
+          }
         />
       </Routes>
     </div>
