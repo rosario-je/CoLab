@@ -22,13 +22,13 @@ export const Dashboard = ({ handleCoLabHome}) => {
   return (
     <div className="flex flex-col h-screen">
       <Navbar handleCoLabHome={handleCoLabHome}/>
-      <div className="flex flex-1 mt-16">
+      <div className="flex mt-16">
         <UserLeftMenu />
-        <div className="flex flex-col w-full bg-black overflow-hidden">
+        <div className="flex flex-col w-full bg-project-background overflow-hidden">
           <div className="z-10 bg-black">
             <SearchBar />
           </div>
-          <div className="flex-grow flex justify-center overflow-y-auto px-40 ">
+          <div className="flex grow  justify-center overflow-y-auto mx-64 ">
             <ProjectList />
           </div>
         </div>
