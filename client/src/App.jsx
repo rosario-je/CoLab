@@ -1,22 +1,18 @@
 // App.jsx
 import React, { useState } from "react";
-import { Routes, Route, useNavigate } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import { Landing } from "./pages/Landing";
 import { Dashboard } from "./pages/Dashboard";
 import { ProjectPage } from "./pages/ProjectPage";
 import { CreateProject } from "./pages/CreateProject";
 import { MyProjects } from "./pages/MyProjects";
+import { MyProjectRequests } from "./pages/MyProjectRequests";
 
 function App() {
   const [techModal, setTechModal] = useState(false);
 
   const handleTechStacksModal = () => {
     setTechModal(!techModal);
-  };
-
-  const navigate = useNavigate();
-  const handleCoLabHome = () => {
-    navigate("/");
   };
 
   return (
@@ -35,6 +31,8 @@ function App() {
           }
         />
         <Route path="/:id/myprojects" element={<MyProjects />} />
+        <Route path="/:id/myprojectrequests" element={<MyProjectRequests />} />
+        {/* <Route path="/:id/mymessages" element={<MyMessages />} /> */}
       </Routes>
     </div>
   );
