@@ -3,7 +3,7 @@ import React from "react";
 export const ProjectCard = () => {
   return (
     <>
-      <div className="card bg-base-100 w-full shadow-xl border-solid border-2 border-website-purple/25 text-white my-8">
+      <div className="card bg-base-100 w-full shadow-xl border-solid border-2 border-website-purple/25 text-white my-16">
         <div className="card-body h-96">
           <div className="flex justify-between items-center text-white">
             <div className="flex">
