@@ -23,37 +23,14 @@ function App() {
   return (
     <div className="App">
       <Routes>
-        <Route
-          path="/"
-          element={<Landing handleCoLabHome={handleCoLabHome} />}
-        />
-        <Route
-          path="/dashboard"
-          element={
-            <ProtectedRoute
-              element={<Dashboard handleCoLabHome={handleCoLabHome} />}
-            />
-          }
-        />
-        <Route
-          path="/project/:id"
-          element={
-            <ProtectedRoute
-              element={<ProjectPage handleCoLabHome={handleCoLabHome} />}
-            />
-          }
-        />
-        <Route
-          path="/project/create"
-          element={
-            <ProtectedRoute
-              element={<CreateProject handleCoLabHome={handleCoLabHome} handleTechStacksModal={handleTechStacksModal} techModal={techModal}/>}
-            />
-          }
-        />
+        <Route path="/" element={<Landing handleCoLabHome={handleCoLabHome}/>} />
+        <Route path="/dashboard" element={<Dashboard handleCoLabHome={handleCoLabHome}/>} />
+        <Route path="/project/:id" element={<ProjectPage handleCoLabHome={handleCoLabHome}/>} />
+        <Route path="/project/create" element={<CreateProject  handleCoLabHome={handleCoLabHome} handleTechStacksModal={handleTechStacksModal} techModal={techModal}/>} />
       </Routes>
     </div>
   );
 }
+
 
 export default App;
