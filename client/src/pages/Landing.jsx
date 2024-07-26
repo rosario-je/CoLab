@@ -1,12 +1,12 @@
 import React, { useEffect } from "react";
-import { LandingNavBar } from "../components/LandingNavBar";
+import { LandingNavBar } from "../components/LandingComponents/LandingNavBar";
 import {
   SignedIn,
   SignedOut,
   SignInButton,
   UserButton,
 } from "@clerk/clerk-react";
-import { Footer } from "../components/Footer";
+import { Footer } from "../components/LandingComponents/Footer";
 import { useNavigate } from "react-router-dom";
 
 export const Landing = () => {

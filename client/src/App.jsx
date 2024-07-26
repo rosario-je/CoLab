@@ -1,8 +1,6 @@
 // App.jsx
 import React from "react";
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, useNavigate } from "react-router-dom";
 import { Landing } from "./pages/Landing";
 import { Dashboard } from "./pages/Dashboard";
 import { ProjectPage } from "./pages/ProjectPage";
@@ -27,6 +25,10 @@ function App() {
         <Route path="/dashboard" element={<Dashboard handleCoLabHome={handleCoLabHome}/>} />
         <Route path="/project/:id" element={<ProjectPage handleCoLabHome={handleCoLabHome}/>} />
         <Route path="/project/create" element={<CreateProject  handleCoLabHome={handleCoLabHome} handleTechStacksModal={handleTechStacksModal} techModal={techModal}/>} />
+        <Route path="/" element={<Landing />} />
+        <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/project/:id" element={<ProjectPage />} />
+        <Route path="/project/create" element={<CreateProject />} />
       </Routes>
     </div>
   );
