@@ -3,7 +3,7 @@ import React from "react";
 export const Footer = () => {
   return (
     <div>
-      <footer className="footer footer-center bg-gradient-to-b from-landing-gradient-one to-landing-gradient-two text-base-content rounded p-10 ">
+      <footer className="footer footer-center  bg-landing-gradient-one text-base-content rounded p-10 ">
         <nav className="grid grid-flow-col gap-4">
           <a className="link link-hover">About us</a>
           <a className="link link-hover">Contact</a>
