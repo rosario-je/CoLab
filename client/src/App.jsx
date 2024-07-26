@@ -7,6 +7,7 @@ import { ProjectPage } from "./pages/ProjectPage";
 import { CreateProject } from "./pages/CreateProject";
 import { MyProjects } from "./pages/MyProjects";
 import { MyProjectRequests } from "./pages/MyProjectRequests";
+import { MyMessages } from "./pages/MyMessages"; 
 
 function App() {
   const [techModal, setTechModal] = useState(false);
@@ -32,7 +33,7 @@ function App() {
         />
         <Route path="/:id/myprojects" element={<MyProjects />} />
         <Route path="/:id/myprojectrequests" element={<MyProjectRequests />} />
-        {/* <Route path="/:id/mymessages" element={<MyMessages />} /> */}
+        <Route path="/:id/mymessages" element={<MyMessages />} />
       </Routes>
     </div>
   );

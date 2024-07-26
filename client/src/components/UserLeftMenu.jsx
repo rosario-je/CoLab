@@ -6,10 +6,6 @@ export const UserLeftMenu = () => {
   const { isSignedIn, user } = useUser();
   const navigate = useNavigate();
 
-  const handleNavigateToMyProjects = () => {
-    navigate("/:id/myprojects");
-  }
-
   return (
     <div className="w-72 flex flex-col justify-between text-text-color  bg-menu-colors h-screen fixed left-0 z-10 inset-28">
       <div className="top-menu-items p-1">
@@ -24,13 +20,13 @@ export const UserLeftMenu = () => {
                 </a>
               </li>
               <li className="group">
-                <a className="flex items-center" onClick={handleNavigateToMyProjects}>
+                <a className="flex items-center" onClick={() => {navigate("/:id/myprojects")}}>
                   <i className="fa-solid fa-briefcase group-hover:animate-bounceSlow group-hover:text-icon-purple group-hover:drop-shadow-white-glow mr-2"></i>
                   <p>Projects</p>
                 </a>
               </li>
               <li className="group">
-                <a className="flex items-center">
+                <a className="flex items-center" onClick={() => {navigate("/:id/mymessages")}}>
                   <i className="fa-solid fa-comments group-hover:animate-bounceSlow group-hover:text-icon-purple group-hover:drop-shadow-white-glow mr-0.5"></i>
                   <p>Messages</p>
                 </a>
