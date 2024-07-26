@@ -2,7 +2,7 @@ import React from "react";
 
 export const UserRightMenu = () => {
   return (
-    <div className="w-96 text-text-color self-start  bg-menu-colors h-full">
+    <div className="w-72 text-text-color self-start  bg-menu-colors h-full fixed right-0 z-10 top-28">
       <ul className="menu">
         <li className="border-none">
           <h2 className="text-lg text-text-color">Projects</h2>
