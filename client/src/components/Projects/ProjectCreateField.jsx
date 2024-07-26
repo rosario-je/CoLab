@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useUser } from "@clerk/clerk-react";
 
-export const ProjectCreateField = () => {
+export const ProjectCreateField = ({ handleTechStacksModal }) => {
   const [description, setDescription] = useState("");
   const maxChars = 200;
 
@@ -50,7 +50,7 @@ export const ProjectCreateField = () => {
           <h6 className="">Choose the tech stack this project will utilize</h6>
         </div>
         <div className="w-1/2 flex justify-center items-center">
-          <button className="btn btn-ghost hover:bg-input-colors text-lg group mr-5">
+          <button className="btn btn-ghost hover:bg-input-colors text-lg group mr-5" onClick={()=>handleTechStacksModal()}>
             <i className="fa-solid fa-plus group-hover:animate-spin group-hover:text-white group-hover:drop-shadow-white-glow"></i>{" "}
             Add
           </button>

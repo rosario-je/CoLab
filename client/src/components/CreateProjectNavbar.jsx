@@ -1,9 +1,7 @@
 import React from "react";
-import { useState } from "react";
 import Vial from "../images/vial.png";
 
 export const CreateProjectNavbar = ({ handleCoLabHome}) => {
-const [techModal, setTechModal] = useState(false);
 
   return (
     <div className="navbar w-screen bg-navbar-color text-text-color fixed top-0 left-0 right-0 z-50 mb-6">

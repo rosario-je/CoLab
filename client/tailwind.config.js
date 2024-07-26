@@ -12,6 +12,7 @@ export default {
         "input-colors": "#202028",
         black: "#000000",
         white: "#ffffff",
+        red: "#FF6347",
         create: "#6a1b9a",
         wand: "#fbc02d",
         "landing-gradient-one": "#281E9F",
