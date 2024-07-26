@@ -1,8 +1,0 @@
-DROP TABLE IF EXISTS temp_users CASCADE;
-
-CREATE TABLE temp_users (
-  id SERIAL PRIMARY KEY,
-  name VARCHAR NOT NULL,
-  username VARCHAR NOT NULL,
-  email VARCHAR NOT NULL
-);

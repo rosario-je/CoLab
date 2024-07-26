@@ -1,0 +1,12 @@
+DROP TABLE IF EXISTS users CASCADE;
+
+CREATE TABLE users (
+  id SERIAL PRIMARY KEY,
+  first_name VARCHAR NOT NULL,
+  last_name VARCHAR NOT NULL,
+  password VARCHAR NOT NULL,
+  username VARCHAR NOT NULL,
+  email VARCHAR NOT NULL,
+  profile_pic VARCHAR DEFAULT NULL,
+  github_repo VARCHAR DEFAULT NULL
+);
