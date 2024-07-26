@@ -27,7 +27,7 @@ export const MyProjects = ({ handleCoLabHome }) => {
         <UserLeftMenu />
         <div className="flex flex-col w-full bg-grey overflow-hidden">
           <div className="flex justify-center items-center w-[100%] bg-menu-colors py-3 px-2">
-            <div className="flex justify-center items-center gap-[30px] bg-projects-bar rounded-[20px] w-[90%] py-1 w-full]">
+            <div className="flex justify-center items-center gap-[30px] bg-projects-bar rounded-[10px] w-[90%] py-1 w-full]">
               <button
                 onClick={() => handleButtonClick('allProjects')}
                 className={`btn w-[30%] text-white ${activeButton === 'allProjects' ? 'bg-projects-bar-button' : 'bg-default-color'}`}
