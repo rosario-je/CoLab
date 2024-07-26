@@ -5,6 +5,7 @@ import { Landing } from "./pages/Landing";
 import { Dashboard } from "./pages/Dashboard";
 import { ProjectPage } from "./pages/ProjectPage";
 import { CreateProject } from "./pages/CreateProject";
+import { MyProjects } from "./pages/MyProjects";
 
 function App() {
   const [techModal, setTechModal] = useState(false);
@@ -33,6 +34,7 @@ function App() {
             />
           }
         />
+        <Route path="/:id/myprojects" element={<MyProjects />} />
       </Routes>
     </div>
   );
