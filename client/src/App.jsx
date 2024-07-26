@@ -7,7 +7,6 @@ import { Landing } from "./pages/Landing";
 import { Dashboard } from "./pages/Dashboard";
 import { ProjectPage } from "./pages/ProjectPage";
 import { CreateProject } from "./pages/CreateProject";
-import ProtectedRoute from "./components/helper_component/ProtectedRoute";
 
 function App() {
   const [techModal, setTechModal] = useState(false);
