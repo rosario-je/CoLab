@@ -5,7 +5,7 @@ export const UserLeftMenu = () => {
   const { isSignedIn, user } = useUser();
 
   return (
-    <div className="w-96 flex flex-col justify-between text-text-color  bg-menu-colors h-screen">
+    <div className="w-96 flex flex-col justify-between text-text-color  bg-menu-colors h-screen ">
       <div className="top-menu-items p-1">
         <ul className="menu w-full flex-1 flex flex-col justify-between gap-y-24">
           <li>
