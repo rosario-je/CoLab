@@ -9,6 +9,10 @@ export const UserLeftMenu = () => {
     navigate("/dashboard");
   }
 
+  const handleNavigateToMyProjects = () => {
+    navigate("/:id/myprojects");
+  }
+
   return (
     <div className="w-96 flex flex-col justify-between text-text-color  bg-menu-colors h-screen">
       <div className="top-menu-items p-1">
@@ -23,7 +27,7 @@ export const UserLeftMenu = () => {
                 </a>
               </li>
               <li className="group">
-                <a className="flex items-center">
+                <a className="flex items-center" onClick={handleNavigateToMyProjects}>
                   <i className="fa-solid fa-briefcase group-hover:animate-bounceSlow group-hover:text-icon-purple group-hover:drop-shadow-white-glow mr-2"></i>
                   <p>Projects</p>
                 </a>
