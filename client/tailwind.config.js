@@ -26,6 +26,7 @@ export default {
         'landing-signin-button': '#322AA5',
         'landing-navbar-color': '#19191F',
         'project-left-menu': '#171819',
+        'project-background': '#333A3F',
       },
       dropShadow: {
         "white-glow": "0 0 1rem #ffffff",
