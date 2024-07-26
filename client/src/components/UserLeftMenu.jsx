@@ -58,7 +58,7 @@ export const UserLeftMenu = () => {
           </li>
         </ul>
       </div>
-      <div className="flex justify-center pb-16">
+      <div className="flex justify-center pb-44">
         <SignedIn>
           <UserButton />
           {isSignedIn && (
