@@ -22,6 +22,7 @@ router.post('/create', async (req, res) => {
     if (!newProject) {
       return res.status(500).send('Error creating project');
     }
+    
     await addOwnerToProject(newProject.id, user_id); // Add the owner as a participant
     await createGroupChat(newProject.id); // Create a group chat for the project
     await createTodoList(newProject.id); // Create a todo list for the project
