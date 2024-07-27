@@ -1,12 +1,15 @@
 import React, { useState } from "react";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, useNavigate } from "react-router-dom";
+
+import ProtectedRoute from "./components/Auth/ProtectedRoute";
+
 import { Landing } from "./pages/Landing";
 import { Dashboard } from "./pages/Dashboard";
 import { ProjectPage } from "./pages/ProjectPage";
 import { CreateProject } from "./pages/CreateProject";
 import { MyProjects } from "./pages/MyProjects";
 
-import ProtectedRoute from "./components/Auth/ProtectedRoute";
+
 import { SignUp } from "./pages/SignUp";
 import { SignIn } from "./pages/SignIn";
 import { MyProjectRequests } from "./pages/MyProjectRequests";
