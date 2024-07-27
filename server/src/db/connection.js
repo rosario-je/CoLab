@@ -13,7 +13,7 @@ const dbParams = {
 console.log(config);
 
 const db = new pg.Pool(dbParams);
-console.log(db);
+
 
 // TO RESET THE DATABASE RUN THE COMMAND: npm run db:reset
 db.connect()
