@@ -1,11 +1,12 @@
 INSERT INTO projects_participants (project_id, participant_id) VALUES
+
 -- Konoha Village Chat (Owner: Naruto)
 (1, 2), -- Sakura
 (1, 3), -- Luffy
 
 -- Naruto Missions Tracker (Owner: Sakura)
 (2, 1), -- Naruto
-(2, 3), -- Luffy
+(2, 3),-- Luffy
 
 -- Straw Hat Crew Task Manager (Owner: Luffy)
 (3, 1), -- Naruto
@@ -37,4 +38,4 @@ INSERT INTO projects_participants (project_id, participant_id) VALUES
 
 -- Attack on Titan Defense Simulator (Owner: Natsu)
 (10, 1), -- Naruto
-(10, 2); -- Sakura
+(10, 2) -- Sakura
