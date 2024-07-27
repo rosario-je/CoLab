@@ -66,7 +66,7 @@ function App() {
             </ProtectedRoute>
           }
         />
-        <Route path="/:id/myprojectrequests" element={<MyProjectRequests />} />
+        <Route path="/:id/myprojects/requests" element={<MyProjectRequests />} />
         <Route path="/:id/mymessages" element={<MyMessages />} />
       </Routes>
     </div>
