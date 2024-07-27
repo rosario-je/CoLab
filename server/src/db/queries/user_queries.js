@@ -87,7 +87,19 @@ const getUserByEmail = async (email) => {
   }
 }
 
+const getUserById = async (user_id) => {
+  try {
+    const data = await db.query(
+      `SELECT * FROM users
+      WHERE id = $1`,
+      [user_id]
+    );
+    return data.rows[0];
+  } catch (error) {
+    console.log('Error getting user by id:', error);
+  }
+}
 
 
 
-export { getOwnerById, getOwnerByProjectId, getProjectParticipants, askToJoinProject , createUser, getUserByEmail};
+export { getOwnerById, getOwnerByProjectId, getProjectParticipants, askToJoinProject , createUser, getUserByEmail, getUserById};

@@ -1,6 +1,7 @@
 import express from 'express';
 import { createNewProject, getProjectPage } from '../db/queries/project_queries.js';
 import { addPicsToProject, setCoverPic } from '../db/queries/picture_queries.js';
+import { getUserById } from '../db/queries/user_queries.js';
 import { addTechToProject } from '../db/queries/tech_queries.js';
 import { createGroupChat } from '../db/queries/group_chat_queries.js';
 import { createTodoList } from '../db/queries/todo_queries.js';
