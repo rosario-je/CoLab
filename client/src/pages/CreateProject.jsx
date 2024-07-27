@@ -22,7 +22,7 @@ export const CreateProject = ({
       <div className="flex flex-1 mt-16">
         <UserLeftMenu />
         <div className="flex flex-col w-full h-full bg-project-background overflow-hidden">
-          <div className="flex-grow flex justify-center h-full">
+          <div className="flex-grow flex justify-center h-full mx-10 my-5">
             {techModal === true && (
               <CreateProjectTechStackModal
                 handleTechStacksModal={handleTechStacksModal}
