@@ -1,41 +1,41 @@
-INSERT INTO projects_participants (project_id, participant_id, participant_pic, participant_username, participant_email) VALUES
+INSERT INTO projects_participants (project_id, participant_id) VALUES
 
 -- Konoha Village Chat (Owner: Naruto)
-(1, 2, 'user_1053244.png', 'sakura', 'sakura.haruno@example.com'), -- Sakura
-(1, 3, 'user_1053244.png', 'luffy', 'luffy.monkey@example.com'), -- Luffy
+(1, 2), -- Sakura
+(1, 3), -- Luffy
 
 -- Naruto Missions Tracker (Owner: Sakura)
-(2, 1, 'user_1053244.png', 'naruto', 'naruto.uzumaki@example.com'), -- Naruto
-(2, 3, 'user_1053244.png', 'luffy', 'luffy.monkey@example.com'), -- Luffy
+(2, 1), -- Naruto
+(2, 3),-- Luffy
 
 -- Straw Hat Crew Task Manager (Owner: Luffy)
-(3, 1, 'user_1053244.png', 'naruto', 'naruto.uzumaki@example.com'), -- Naruto
-(3, 2, 'user_1053244.png', 'sakura', 'sakura.haruno@example.com'), -- Sakura
+(3, 1), -- Naruto
+(3, 2), -- Sakura
 
 -- Dragon Ball Training Tracker (Owner: Goku)
-(4, 5, 'user_1053244.png', 'edward', 'edward.elric@example.com'), -- Edward
-(4, 6, 'user_1053244.png', 'natsu', 'natsu.dragneel@example.com'), -- Natsu
+(4, 5), -- Edward
+(4, 6), -- Natsu
 
 -- One Piece Treasure Market (Owner: Luffy)
-(5, 1, 'user_1053244.png', 'naruto', 'naruto.uzumaki@example.com'), -- Naruto
-(5, 2, 'user_1053244.png', 'sakura', 'sakura.haruno@example.com'), -- Sakura
+(5, 1), -- Naruto
+(5, 2), -- Sakura
 
 -- Fullmetal Alchemist Research Hub (Owner: Edward)
-(6, 1, 'user_1053244.png', 'naruto', 'naruto.uzumaki@example.com'), -- Naruto
-(6, 2, 'user_1053244.png', 'sakura', 'sakura.haruno@example.com'), -- Sakura
+(6, 1), -- Naruto
+(6, 2), -- Sakura
 
 -- Fairy Tail Guild Manager (Owner: Sakura)
-(7, 1, 'user_1053244.png', 'naruto', 'naruto.uzumaki@example.com'), -- Naruto
-(7, 3, 'user_1053244.png', 'luffy', 'luffy.monkey@example.com'), -- Luffy
+(7, 1), -- Naruto
+(7, 3), -- Luffy
 
 -- Death Note Analysis Tool (Owner: Light)
-(8, 1, 'user_1053244.png', 'naruto', 'naruto.uzumaki@example.com'), -- Naruto
-(8, 2, 'user_1053244.png', 'sakura', 'sakura.haruno@example.com'), -- Sakura
+(8, 1), -- Naruto
+(8, 2), -- Sakura
 
 -- Inuyasha Time Travel Diary (Owner: Inu)
-(9, 1, 'user_1053244.png', 'naruto', 'naruto.uzumaki@example.com'), -- Naruto
-(9, 2, 'user_1053244.png', 'sakura', 'sakura.haruno@example.com'), -- Sakura
+(9, 1), -- Naruto
+(9, 2), -- Sakura
 
 -- Attack on Titan Defense Simulator (Owner: Natsu)
-(10, 1, 'user_1053244.png', 'naruto', 'naruto.uzumaki@example.com'), -- Naruto
-(10, 2, 'user_1053244.png', 'sakura', 'sakura.haruno@example.com'); -- Sakura
+(10, 1), -- Naruto
+(10, 2) -- Sakura

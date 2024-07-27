@@ -14,6 +14,7 @@ const getAllProjects = async () => {
         p.github_repo,
         p.created_at,
         p.is_accepting_users,
+        p.is_in_progress,
         COALESCE(
           jsonb_agg(
             DISTINCT jsonb_build_object(
@@ -107,11 +108,11 @@ const getProjectsOwnedByMe = async (user_id) => {
         jsonb_agg(
           DISTINCT jsonb_build_object(
             'participant_id', par.participant_id,
-            'participant_pic', par.participant_pic,
-            'participant_username', par.participant_username,
-            'participant_email', par.participant_email
+            'participant_pic', u.profile_pic,
+            'participant_username', u.username,
+            'participant_email', u.email
           )
-        ) FILTER (WHERE par.participant_id IS NOT NULL),
+        ),
         '[]'
       ) AS participants,
     ARRAY_AGG(DISTINCT pic.picture_path) AS projects_pics,
@@ -120,6 +121,8 @@ const getProjectsOwnedByMe = async (user_id) => {
       projects p
     LEFT JOIN 
       projects_participants par ON p.id = par.project_id
+    LEFT JOIN 
+      users u ON par.participant_id = u.id
     LEFT JOIN 
       projects_pics pic ON p.id = pic.project_id
     LEFT JOIN 
@@ -178,11 +181,11 @@ const getProjectsIAmInById = async (project_ids) => {
         jsonb_agg(
           DISTINCT jsonb_build_object(
             'participant_id', par.participant_id,
-            'participant_pic', par.participant_pic,
-            'participant_username', par.participant_username,
-            'participant_email', par.participant_email
+            'participant_pic', u.profile_pic,
+            'participant_username', u.username,
+            'participant_email', u.email
           )
-        ) FILTER (WHERE par.participant_id IS NOT NULL),
+        ),
         '[]'
       ) AS participants,
     ARRAY_AGG(DISTINCT pic.picture_path) AS projects_pics,
@@ -191,6 +194,8 @@ const getProjectsIAmInById = async (project_ids) => {
       projects p
     LEFT JOIN 
       projects_participants par ON p.id = par.project_id
+    LEFT JOIN 
+      users u ON par.participant_id = u.id
     LEFT JOIN 
       projects_pics pic ON p.id = pic.project_id
     LEFT JOIN 
@@ -226,8 +231,26 @@ const createNewProject = async (name, description, user_id, max_participants, gi
 const getProjectPage = async (project_id) => {
   try {
     const data = await db.query(
-      `SELECT * FROM projects
-      WHERE id = $1`,
+      `SELECT
+      p.id AS project_id,
+      p.name AS project_name,
+      p.description AS project_description,
+      p.owner_id AS project_owner_id,
+      p.github_repo AS project_github_repo,
+      gc.id AS group_chat_id,
+      tl.id AS todo_list_id,
+      json_agg(DISTINCT pp.picture_path) AS pictures,
+      json_agg(DISTINCT tr.tech_name) AS tech_stack
+  FROM
+      projects p
+      LEFT JOIN projects_pics pp ON p.id = pp.project_id
+      LEFT JOIN tech_requirements tr ON p.id = tr.project_id
+      LEFT JOIN group_chats gc ON p.id = gc.project_id
+      LEFT JOIN todo_lists tl ON p.id = tl.project_id
+  WHERE
+      p.id = $1
+  GROUP BY
+    p.id, p.name, p.description, p.owner_id, p.github_repo, gc.id, tl.id;`,
       [project_id]
     );
     return data.rows[0];
