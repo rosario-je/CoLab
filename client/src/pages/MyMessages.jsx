@@ -1,8 +1,8 @@
 import React from 'react';  
 import { Navbar } from '../components/Navbar';
 import { UserLeftMenu } from '../components/UserLeftMenu';  
-import { MyMessageList } from '../components/MyMessageList';
-import { UserRightMenuMessages } from '../components/UserRightMenuMessages';
+import { MyMessageList } from '../components/MyMessages/MyMessageList';
+import { UserRightMenu } from '../components/UserRightMenu';
 
 export const MyMessages = () => { 
   return(
@@ -11,14 +11,11 @@ export const MyMessages = () => {
     <div className="flex flex-1 mt-16">
       <UserLeftMenu />
       <div className="flex flex-col w-full h-full bg-project-background overflow-hidden">
-        <div className="flex-grow flex flex-col justify-center items-center h-full">
-          <div className="w-full flex justify-start items-center py-1 bg-menu-colors h-[75px]">
-          <h1 className="text-white text-2xl">My Messages</h1>
-          </div>
+        <div className="flex-grow flex flex-col justify-center items-center h-full mx-72">
           <MyMessageList />
         </div>
       </div>
-      <UserRightMenuMessages />
+      <UserRightMenu />
     </div>
   </div>
   )
