@@ -34,7 +34,7 @@ export const UserLeftMenu = () => {
                 </a>
               </li>
               <li className="group">
-                <a className="flex items-center">
+                <a className="flex items-center" onClick={() => {navigate("/:id/mymessages")}}>
                   <i className="fa-solid fa-comments group-hover:animate-bounceSlow group-hover:text-icon-purple group-hover:drop-shadow-white-glow mr-0.5"></i>
                   <p>Messages</p>
                 </a>

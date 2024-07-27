@@ -2,7 +2,7 @@ import React from "react";
 import Vial from "../images/vial.png";
 import { useNavigate } from "react-router-dom";
 
-export const Navbar = () => {
+export const RequestsNavbar = () => {
   const navigate = useNavigate();
 
   return (
@@ -28,14 +28,17 @@ export const Navbar = () => {
             navigate("/project/create");
           }}
         >
-          <i className="fa-solid fa-circle-plus group-hover:animate-bounceFast"></i>{" "}
+          <i className="fa-solid fa-circle-plus group-hover:animate-bounceFast"></i>
           Create a project
         </button>
-        <button className="btn btn-square btn-ghost w-auto px-2 mx-1 group" onClick={()=> {
-          navigate("/:id/myprojectrequests");
-        }}>
-          <i className="fa-solid fa-bell group-hover:animate-swing"></i> Join
-          requests
+        <button
+          className="btn btn-square btn-ghost w-auto px-2 mx-1 group"
+          onClick={() => {
+            navigate("/:id/mymessages");
+          }}
+        >
+          <i className="fa-solid fa-comments group-hover:animate-sideToSide"></i>
+          Messages
         </button>
       </div>
     </div>

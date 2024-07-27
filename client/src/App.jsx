@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Routes, Route, useNavigate } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import { Landing } from "./pages/Landing";
 import { Dashboard } from "./pages/Dashboard";
 import { ProjectPage } from "./pages/ProjectPage";
@@ -9,6 +9,8 @@ import { MyProjects } from "./pages/MyProjects";
 import ProtectedRoute from "./components/Auth/ProtectedRoute";
 import { SignUp } from "./pages/SignUp";
 import { SignIn } from "./pages/SignIn";
+import { MyProjectRequests } from "./pages/MyProjectRequests";
+import { MyMessages } from "./pages/MyMessages"; 
 
 function App() {
   const [techModal, setTechModal] = useState(false);
@@ -61,6 +63,8 @@ function App() {
             </ProtectedRoute>
           }
         />
+        <Route path="/:id/myprojectrequests" element={<MyProjectRequests />} />
+        <Route path="/:id/mymessages" element={<MyMessages />} />
       </Routes>
     </div>
   );
