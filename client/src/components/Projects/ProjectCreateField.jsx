@@ -23,43 +23,43 @@ export const ProjectCreateField = ({ handleTechStacksModal }) => {
   };
 
   return (
-    <div className="flex flex-col justify-evenly gap-[30px] h-full w-full my-5">
-      <div className="flex justify-between items-center w-full mb-10">
-        <div className="w-1/2 flex flex-col justify-start items-start pl-10">
+    <section className="flex flex-col h-full w-full justify-around">
+      <div className="project-title flex justify-between py-4">
+        <div className="w-auto ">
           <h3 className="text-white">Project Title</h3>
           <h6>Choose a title for your new project</h6>
         </div>
-        <div className="w-1/2 flex justify-center items-center">
+        <div className="w-auto">
           <input
             type="text"
             placeholder="Title"
-            className="input input-bordered bg-input-colors w-full max-w-xs"
+            className="input input-bordered bg-input-colors w-96"
           />
         </div>
       </div>
-      <div className="flex items-start w-full mb-10">
-        <div className="w-1/2 flex flex-col justify-start items-start pl-10">
+
+      <div className="project-description flex items-start w-full mb-10 justify-between py-4">
+        <div className="w-auto">
           <h3 className="text-white">Project Description</h3>
           <h6>Provide a description about the project</h6>
         </div>
-        <div className="w-1/2 flex flex-col items-start">
+        <div className="flex flex-col">
           <textarea
-            className="textarea textarea-bordered min-h-[150px] w-full max-w-xs bg-input-colors resize-none mb-5 self-center"
+            className="textarea textarea-bordered min-h-[150px] min-w-[50px] bg-input-colors resize-none mb-5 self-center w-96"
             placeholder="Description..."
             value={description}
             onChange={handleDescriptionChange}
           ></textarea>
-          <h6 className="self-start ml-[18%]">
-            {maxChars - description.length}
-          </h6>
+          <h6 className="text-input-value">{maxChars - description.length}</h6>
         </div>
       </div>
-      <div className="flex justify-between items-center w-full mb-10">
-        <div className="w-1/2 flex flex-col justify-start items-start pl-10">
+
+      <div className="tech-stack flex justify-between py-4">
+        <div className="w-auto ">
           <h3 className="text-white">Tech Stack</h3>
           <h6>Choose the tech stack this project will utilize</h6>
         </div>
-        <div className="w-1/2 flex justify-center items-center">
+        <div className="tech-stack-select w-auto gap-y-3">
           <button
             className="btn btn-ghost hover:bg-input-colors text-lg group mr-5"
             onClick={handleTechStacksModal}
@@ -70,17 +70,18 @@ export const ProjectCreateField = ({ handleTechStacksModal }) => {
           <h2>(0) Selected</h2>
         </div>
       </div>
-      <div className="flex justify-between items-center w-full mb-10">
-        <div className="w-1/2 flex flex-col justify-start items-start pl-10">
+
+      <div className="user-capacity-container flex justify-between py-4">
+        <div className="w-auto">
           <h3 className="text-white">User Capacity</h3>
           <h6>
             Pick the maximum amount of users that can request to join this
             project
           </h6>
         </div>
-        <div className="w-1/2 flex justify-center items-center">
+        <div className="user-capacity w-auto ">
           <select
-            className="select select-bordered w-1/4 max-w-xs flex justify-center items-center bg-input-colors"
+            className="select select-bordered w-96 bg-input-colors"
             value={capacity}
             onChange={handleCapacityChange}
           >
@@ -95,28 +96,33 @@ export const ProjectCreateField = ({ handleTechStacksModal }) => {
           </select>
         </div>
       </div>
-      <div className="flex justify-between items-center w-full mb-10">
-        <div className="w-1/2 flex flex-col justify-start items-start pl-10">
+
+      <div className="images-input flex justify-between items-center w-full mb-10 py-4">
+        <div className="choose-file w-auto">
           <h3 className="text-white">Images</h3>
           <h6>
             Choose images to showcase the design or what might represent the
             design of the project
           </h6>
         </div>
-        <div className="w-1/2 flex justify-center items-center">
+        <div className="file-input-container w-auto">
           <input
             type="file"
-            className="file-input file-input-bordered w-full max-w-xs"
+            className="file-input file-input-bordered w-full max-w-lg bg-input-colors"
           />
         </div>
       </div>
-      <button
-        onClick={createProject}
-        className="btn bg-website-purple hover:bg-create hover:text-white group w-1/5 self-end my-[7%] mr-[8%]"
-      >
-        <i className="fa-solid fa-wand-magic-sparkles group-hover:text-wand group-hover:animate-bounceFast group-hover:drop-shadow-white-glow"></i>
-        Create project
-      </button>
-    </div>
+
+      <div className="create-project-btn-container flex flex-row justify-center border-t-2 border-slate-700 pt-11">
+        <button
+          onClick={createProject}
+          className="create-project btn bg-website-purple hover:bg-create hover:text-white w-5/12"
+        >
+          <i className="fa-solid fa-wand-magic-sparkles group-hover:text-wand group-hover:animate-bounceFast group-hover:drop-shadow-white-glow"></i>
+          Create project
+        </button>
+      </div>
+
+    </section>
   );
 };
