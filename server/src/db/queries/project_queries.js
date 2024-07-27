@@ -1,5 +1,6 @@
 import db from '../connection.js';
 
+// This gets all the projects for the main dashboard
 const getAllProjects = async () => {
   try {
     const data = await db.query(
@@ -12,8 +13,17 @@ const getAllProjects = async () => {
         p.github_repo,
         p.created_at,
         p.is_accepting_users,
-        p.is_in_progress,
-      ARRAY_AGG(DISTINCT par.participant_id) AS projects_participants,
+        COALESCE(
+          jsonb_agg(
+            DISTINCT jsonb_build_object(
+              'participant_id', par.participant_id,
+              'participant_pic', par.participant_pic,
+              'participant_username', par.participant_username,
+              'participant_email', par.participant_email
+            )
+          ) FILTER (WHERE par.participant_id IS NOT NULL),
+          '[]'
+        ) AS participants,
       ARRAY_AGG(DISTINCT pic.picture_path) AS projects_pics,
       ARRAY_AGG(DISTINCT tech.tech_name) AS tech_requirements
       FROM 
@@ -33,6 +43,8 @@ const getAllProjects = async () => {
   }
 };
 
+// The next 3 functions work together
+// This gets all the projects that a user is the owner of
 const getProjectsOwnedByMe = async (user_id) => {
   try {
     const data = await db.query(
@@ -46,7 +58,17 @@ const getProjectsOwnedByMe = async (user_id) => {
       p.created_at,
       p.is_accepting_users,
       p.is_in_progress,
-    ARRAY_AGG(DISTINCT par.participant_id) AS projects_participants,
+      COALESCE(
+        jsonb_agg(
+          DISTINCT jsonb_build_object(
+            'participant_id', par.participant_id,
+            'participant_pic', par.participant_pic,
+            'participant_username', par.participant_username,
+            'participant_email', par.participant_email
+          )
+        ) FILTER (WHERE par.participant_id IS NOT NULL),
+        '[]'
+      ) AS participants,
     ARRAY_AGG(DISTINCT pic.picture_path) AS projects_pics,
     ARRAY_AGG(DISTINCT tech.tech_name) AS tech_requirements
     FROM 
@@ -68,6 +90,7 @@ const getProjectsOwnedByMe = async (user_id) => {
   }
 };
 
+// This gets and array of project_ids that a user is a participant in
 const getProjectsIdsIAmIn = async (user_id) => {
   try {
     const data = await db.query(
@@ -92,10 +115,11 @@ const getProjectsIdsIAmIn = async (user_id) => {
   }
 };
 
-const getProjectsIAmInById = async (project_ids) => { 
+// This gets the rest of the data for all the projects that a user is a participant in
+const getProjectsIAmInById = async (project_ids) => {
   try {
     const data = await db.query(
-    `SELECT 
+      `SELECT 
       p.id AS project_id,
       p.name,
       p.description,
@@ -105,7 +129,17 @@ const getProjectsIAmInById = async (project_ids) => {
       p.created_at,
       p.is_accepting_users,
       p.is_in_progress,
-    ARRAY_AGG(DISTINCT par.participant_id) AS projects_participants,
+      COALESCE(
+        jsonb_agg(
+          DISTINCT jsonb_build_object(
+            'participant_id', par.participant_id,
+            'participant_pic', par.participant_pic,
+            'participant_username', par.participant_username,
+            'participant_email', par.participant_email
+          )
+        ) FILTER (WHERE par.participant_id IS NOT NULL),
+        '[]'
+      ) AS participants,
     ARRAY_AGG(DISTINCT pic.picture_path) AS projects_pics,
     ARRAY_AGG(DISTINCT tech.tech_name) AS tech_requirements
     FROM 
@@ -143,6 +177,7 @@ const createNewProject = async (name, description, user_id, max_participants, gi
 };
 
 // This will be for getting a single project page
+// Needs to be edited to include the participants, pictures, tech requirements, group chat, and todo list
 const getProjectPage = async (project_id) => {
   try {
     const data = await db.query(
