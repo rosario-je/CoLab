@@ -32,7 +32,7 @@ export const Navbar = () => {
           Create a project
         </button>
         <button className="btn btn-square btn-ghost w-auto px-2 mx-1 group" onClick={()=> {
-          navigate("/:id/myprojectrequests");
+          navigate("/:id/myprojects/requests");
         }}>
           <i className="fa-solid fa-bell group-hover:animate-swing"></i> Join
           requests
