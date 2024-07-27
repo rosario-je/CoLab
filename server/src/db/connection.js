@@ -10,12 +10,14 @@ const dbParams = {
   password: process.env.DB_PASS,
   database: process.env.DB_NAME
 };
+console.log(config);
 
 const db = new pg.Pool(dbParams);
+//console.log(db);
 
 // TO RESET THE DATABASE RUN THE COMMAND: npm run db:reset
 db.connect()
-  .then(() => console.log('Connected to the database'))
+  .then(() => console.log('Connected to the database final project'))
   .catch(err => console.error('Database connection error:', err));
 
 export default db;
