@@ -1,10 +1,4 @@
 import React from "react";
-import {
-  SignedIn,
-  SignedOut,
-  SignInButton,
-  UserButton,
-} from "@clerk/clerk-react";
 import vial from "../../images/vial.png";
 import { useNavigate } from "react-router-dom";
 
@@ -24,15 +18,15 @@ export const LandingNavBar = ({ handleCoLabHome }) => {
         </div>
         <div className="flex-none">
           <div className="signin-button pr-5">
-            <SignedOut>
-              <div className="btn bg-landing-signin-button rounded-full text-white">
-                <SignInButton />
-              </div>
-            </SignedOut>
+            <div
+              onClick={() => {
+                navigate("/signin");
+              }}
+              className="btn bg-landing-signin-button rounded-full text-white"
+            >
+              <h2>Sign In</h2>
+            </div>
           </div>
-          <SignedIn>
-            <UserButton />
-          </SignedIn>
         </div>
       </div>
     </div>
