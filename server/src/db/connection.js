@@ -1,7 +1,7 @@
 import pg from 'pg';
 import { config } from 'dotenv';
 
-config();
+config({path: '../.env'});
 
 const dbParams = {
   host: process.env.DB_HOST,
@@ -13,7 +13,7 @@ const dbParams = {
 console.log(config);
 
 const db = new pg.Pool(dbParams);
-//console.log(db);
+console.log(db);
 
 // TO RESET THE DATABASE RUN THE COMMAND: npm run db:reset
 db.connect()
