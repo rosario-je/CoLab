@@ -24,13 +24,12 @@ const addOwnerToProject = async (project_id, user_id) => {
 
 const createUser = async (user) => {
   const {first_name, last_name, email, password, username, profile_pic, github_repo} = user;
-  const hashedPassword = await bcrypt.hash(password, 10);
   try {
     const data = await db.query(
       `INSERT INTO users (first_name, last_name, email, password, username, profile_pic, github_repo)
       VALUES ($1, $2, $3, $4, $5, $6, $7)
       RETURNING *`,
-      [first_name, last_name, email, hashedPassword, username, profile_pic, github_repo]
+      [first_name, last_name, email, password, username, profile_pic, github_repo]
     );
     return data.rows[0];
   } catch (error) {
