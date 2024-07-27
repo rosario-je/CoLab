@@ -17,7 +17,6 @@ const app = express();
 app.use(express.json());
 app.use(morgan('dev'));
 
-// console.log(process.env);
 
 // Middleware for Auth, session secret should be in .env file
 app.use(session({
