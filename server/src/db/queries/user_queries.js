@@ -9,6 +9,7 @@ const getOwnerById = async (owner_id) => {
       WHERE id = $1`,
       [owner_id]
     );
+    return data.rows[0];
   } catch (error) {
     console.log(error);
   }
@@ -23,6 +24,7 @@ const getOwnerByProjectId = async (project_id) => {
       WHERE projects.id = $1`,
       [project_id]
     );
+    return data.rows[0];
   } catch (error) {
     console.log(error);
   }
@@ -37,9 +39,25 @@ const getProjectParticipants = async (project_id) => {
       WHERE projects_participants.project_id = $1`,
       [project_id]
     );
+    return data.rows;
   } catch (error) {
     console.log(error);
   }
 };
 
-export { getOwnerById, getOwnerByProjectId, getProjectParticipants };
+const askToJoinProject = async (project_id, user_id) => {
+  try {
+    const data = await db.query (
+      `INSERT INTO join_requests (project_id, user_id)
+      VALUES ($1, $2)
+      RETURNING *`,
+      [project_id, user_id]
+    );
+    return data.rows[0];
+  } catch (error) {
+    console.log(error);
+  }
+};
+    
+
+export { getOwnerById, getOwnerByProjectId, getProjectParticipants, askToJoinProject };

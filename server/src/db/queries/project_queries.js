@@ -1,7 +1,11 @@
 import db from '../connection.js';
 
 // This gets all the projects for the main dashboard
-
+// COALESCE is used to return an empty array if there are no participants
+// jsonb_agg is used to return the participants as a json array
+// jsonb_build_object is used to return the participant data as an object
+// DISTINCT is used to remove duplicates
+// ARRAY_AGG is used to return the pictures and tech requirements as arrays
 const getAllProjects = async () => {
   try {
     const data = await db.query(
@@ -46,48 +50,6 @@ const getAllProjects = async () => {
     console.log(error);
   }
 };
-
-// const getAllProjects = async () => {
-//   try {
-//     const data = await db.query(
-//       `SELECT 
-//         p.id AS project_id,
-//         p.name,
-//         p.description,
-//         p.owner_id,
-//         p.max_participants,
-//         p.github_repo,
-//         p.created_at,
-//         p.is_accepting_users,
-//         COALESCE(
-//           jsonb_agg(
-//             DISTINCT jsonb_build_object(
-//               'participant_id', par.participant_id,
-//               'participant_pic', par.participant_pic,
-//               'participant_username', par.participant_username,
-//               'participant_email', par.participant_email
-//             )
-//           ) FILTER (WHERE par.participant_id IS NOT NULL),
-//           '[]'
-//         ) AS participants,
-//       ARRAY_AGG(DISTINCT pic.picture_path) AS projects_pics,
-//       ARRAY_AGG(DISTINCT tech.tech_name) AS tech_requirements
-//       FROM 
-//         projects p
-//       LEFT JOIN 
-//         projects_participants par ON p.id = par.project_id
-//       LEFT JOIN 
-//         projects_pics pic ON p.id = pic.project_id
-//       LEFT JOIN 
-//         tech_requirements tech ON p.id = tech.project_id
-//       GROUP BY 
-//         p.id;`
-//     );
-//     return data.rows;
-//   } catch (error) {
-//     console.log(error);
-//   }
-// };
 
 // The next 3 functions work together
 // This gets all the projects that a user is the owner of
@@ -138,7 +100,8 @@ const getProjectsOwnedByMe = async (user_id) => {
   }
 };
 
-// This gets and array of project_ids that a user is a participant in
+// This gets an array of project_ids that a user is a participant in
+// The array is used in the next function to get the rest of the data for the projects
 const getProjectsIdsIAmIn = async (user_id) => {
   try {
     const data = await db.query(
@@ -227,7 +190,7 @@ const createNewProject = async (name, description, user_id, max_participants, gi
 };
 
 // This will be for getting a single project page
-// Needs to be edited to include the participants, pictures, tech requirements, group chat, and todo list
+// Needs to be edited to include the participants w/info, group chat w/msgs, and todo list w/todos
 const getProjectPage = async (project_id) => {
   try {
     const data = await db.query(
