@@ -2,6 +2,7 @@ import React, { useState } from "react";
 
 export const ProjectCreateField = ({ handleTechStacksModal }) => {
   const [description, setDescription] = useState("");
+  const [capacity, setCapacity] = useState(""); // Manage selected value for the <select> element
 
   const maxChars = 200;
 
@@ -11,17 +12,22 @@ export const ProjectCreateField = ({ handleTechStacksModal }) => {
       setDescription(e.target.value);
     }
   };
+
+  const handleCapacityChange = (e) => {
+    setCapacity(e.target.value);
+  };
+
   const createProject = (event) => {
     event.preventDefault();
     console.log("Project created");
-  }
+  };
 
   return (
     <div className="flex flex-col justify-evenly gap-[30px] h-full w-full my-5">
       <div className="flex justify-between items-center w-full mb-10">
         <div className="w-1/2 flex flex-col justify-start items-start pl-10">
           <h3 className="text-white">Project Title</h3>
-          <h6 className="">Choose a title for your new project</h6>
+          <h6>Choose a title for your new project</h6>
         </div>
         <div className="w-1/2 flex justify-center items-center">
           <input
@@ -34,7 +40,7 @@ export const ProjectCreateField = ({ handleTechStacksModal }) => {
       <div className="flex items-start w-full mb-10">
         <div className="w-1/2 flex flex-col justify-start items-start pl-10">
           <h3 className="text-white">Project Description</h3>
-          <h6 className="">Provide a description about the project</h6>
+          <h6>Provide a description about the project</h6>
         </div>
         <div className="w-1/2 flex flex-col items-start">
           <textarea
@@ -51,44 +57,48 @@ export const ProjectCreateField = ({ handleTechStacksModal }) => {
       <div className="flex justify-between items-center w-full mb-10">
         <div className="w-1/2 flex flex-col justify-start items-start pl-10">
           <h3 className="text-white">Tech Stack</h3>
-          <h6 className="">Choose the tech stack this project will utilize</h6>
+          <h6>Choose the tech stack this project will utilize</h6>
         </div>
         <div className="w-1/2 flex justify-center items-center">
           <button
             className="btn btn-ghost hover:bg-input-colors text-lg group mr-5"
-            onClick={() => handleTechStacksModal()}
+            onClick={handleTechStacksModal}
           >
             <i className="fa-solid fa-plus group-hover:animate-spin group-hover:text-white group-hover:drop-shadow-white-glow"></i>{" "}
             Add
           </button>
-          <h2>(0)Selected</h2>
+          <h2>(0) Selected</h2>
         </div>
       </div>
       <div className="flex justify-between items-center w-full mb-10">
         <div className="w-1/2 flex flex-col justify-start items-start pl-10">
           <h3 className="text-white">User Capacity</h3>
-          <h6 className="">
+          <h6>
             Pick the maximum amount of users that can request to join this
             project
           </h6>
         </div>
         <div className="w-1/2 flex justify-center items-center">
-          <select className="select select-bordered w-1/4 max-w-xs flex justify-center items-center bg-input-colors">
-            <option disabled selected>
+          <select
+            className="select select-bordered w-1/4 max-w-xs flex justify-center items-center bg-input-colors"
+            value={capacity}
+            onChange={handleCapacityChange}
+          >
+            <option value="" disabled>
               Capacity
             </option>
-            <option>1</option>
-            <option>2</option>
-            <option>3</option>
-            <option>4</option>
-            <option>5</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
           </select>
         </div>
       </div>
       <div className="flex justify-between items-center w-full mb-10">
         <div className="w-1/2 flex flex-col justify-start items-start pl-10">
           <h3 className="text-white">Images</h3>
-          <h6 className="">
+          <h6>
             Choose images to showcase the design or what might represent the
             design of the project
           </h6>
@@ -100,8 +110,11 @@ export const ProjectCreateField = ({ handleTechStacksModal }) => {
           />
         </div>
       </div>
-      <button on onClick={createProject} className="btn bg-website-purple hover:bg-create hover:text-white group w-1/5 self-end my-[7%] mr-[8%]">
-        <i class="fa-solid fa-wand-magic-sparkles group-hover:text-wand group-hover:animate-bounceFast group-hover:drop-shadow-white-glow"></i>
+      <button
+        onClick={createProject}
+        className="btn bg-website-purple hover:bg-create hover:text-white group w-1/5 self-end my-[7%] mr-[8%]"
+      >
+        <i className="fa-solid fa-wand-magic-sparkles group-hover:text-wand group-hover:animate-bounceFast group-hover:drop-shadow-white-glow"></i>
         Create project
       </button>
     </div>
