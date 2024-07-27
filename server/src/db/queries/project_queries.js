@@ -1,6 +1,7 @@
 import db from '../connection.js';
 
 // This gets all the projects for the main dashboard
+
 const getAllProjects = async () => {
   try {
     const data = await db.query(
@@ -17,19 +18,21 @@ const getAllProjects = async () => {
           jsonb_agg(
             DISTINCT jsonb_build_object(
               'participant_id', par.participant_id,
-              'participant_pic', par.participant_pic,
-              'participant_username', par.participant_username,
-              'participant_email', par.participant_email
+              'participant_pic', u.profile_pic,
+              'participant_username', u.username,
+              'participant_email', u.email
             )
-          ) FILTER (WHERE par.participant_id IS NOT NULL),
+          ),
           '[]'
         ) AS participants,
-      ARRAY_AGG(DISTINCT pic.picture_path) AS projects_pics,
-      ARRAY_AGG(DISTINCT tech.tech_name) AS tech_requirements
+        ARRAY_AGG(DISTINCT pic.picture_path) AS projects_pics,
+        ARRAY_AGG(DISTINCT tech.tech_name) AS tech_requirements
       FROM 
         projects p
       LEFT JOIN 
         projects_participants par ON p.id = par.project_id
+      LEFT JOIN 
+        users u ON par.participant_id = u.id
       LEFT JOIN 
         projects_pics pic ON p.id = pic.project_id
       LEFT JOIN 
@@ -42,6 +45,48 @@ const getAllProjects = async () => {
     console.log(error);
   }
 };
+
+// const getAllProjects = async () => {
+//   try {
+//     const data = await db.query(
+//       `SELECT 
+//         p.id AS project_id,
+//         p.name,
+//         p.description,
+//         p.owner_id,
+//         p.max_participants,
+//         p.github_repo,
+//         p.created_at,
+//         p.is_accepting_users,
+//         COALESCE(
+//           jsonb_agg(
+//             DISTINCT jsonb_build_object(
+//               'participant_id', par.participant_id,
+//               'participant_pic', par.participant_pic,
+//               'participant_username', par.participant_username,
+//               'participant_email', par.participant_email
+//             )
+//           ) FILTER (WHERE par.participant_id IS NOT NULL),
+//           '[]'
+//         ) AS participants,
+//       ARRAY_AGG(DISTINCT pic.picture_path) AS projects_pics,
+//       ARRAY_AGG(DISTINCT tech.tech_name) AS tech_requirements
+//       FROM 
+//         projects p
+//       LEFT JOIN 
+//         projects_participants par ON p.id = par.project_id
+//       LEFT JOIN 
+//         projects_pics pic ON p.id = pic.project_id
+//       LEFT JOIN 
+//         tech_requirements tech ON p.id = tech.project_id
+//       GROUP BY 
+//         p.id;`
+//     );
+//     return data.rows;
+//   } catch (error) {
+//     console.log(error);
+//   }
+// };
 
 // The next 3 functions work together
 // This gets all the projects that a user is the owner of
