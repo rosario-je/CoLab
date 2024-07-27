@@ -222,6 +222,34 @@ const getProjectPage = async (project_id) => {
   }
 };
 
+const getProjectById = async (project_id) => {
+  try {
+    const data = await db.query(
+      `SELECT * FROM projects
+      WHERE id = $1`,
+      [project_id]
+    );
+    return data.rows[0];
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+const getPendingJoinRequests = async (project_id, user_id) => {
+  try {
+    const data = await db.query(
+      `SELECT * FROM join_requests
+      WHERE project_id = $1
+      AND user_id = $2`,
+      [project_id, user_id]
+    );
+    return data.rows[0];
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+
 // This will be for updating a project when the owner doesn't want to add more participants; only the owner can do this
 // const noNewParticipants = async (project_id, user_id) => {
 //   try {
@@ -256,4 +284,4 @@ const getProjectPage = async (project_id) => {
 //   }
 // };
 
-export { getAllProjects, createNewProject, getProjectPage, getProjectsIdsIAmIn, getProjectsIAmInById, getProjectsOwnedByMe };
+export { getAllProjects, createNewProject, getProjectPage, getProjectsIdsIAmIn, getProjectsIAmInById, getProjectsOwnedByMe, getProjectById, getPendingJoinRequests };
