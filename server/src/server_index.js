@@ -10,7 +10,7 @@ import homeRoutes from './routes/home_routes.js';
 import userRoutes from './routes/user_routes.js';
 import db from './db/connection.js';
 
-config();
+config({path: '../.env'});
 
 const PORT = process.env.PORT || 5000;
 const app = express();
@@ -19,13 +19,13 @@ app.use(morgan('dev'));
 
 // console.log(process.env);
 
-//Middleware for Auth, session secret should be in .env file
-// app.use(session({
-//   secret: process.env.SESSION_SECRET,
-//   resave: false,
-//   saveUninitialized: true,
-//   cookie: { secure: true } // Set secure: true if using HTTPS
-// }));
+// Middleware for Auth, session secret should be in .env file
+app.use(session({
+  secret: process.env.SESSION_SECRET,
+  resave: false,
+  saveUninitialized: true,
+  cookie: { secure: true } // Set secure: true if using HTTPS
+}));
 
 app.get('/', (req, res) => {
   res.send('Welcome to CoLab!');
@@ -34,7 +34,7 @@ app.get('/', (req, res) => {
 app.use("/chats", chatsRoutes)
 app.use("/projects", projectsRoutes)
 app.use("/dashboard", homeRoutes)
-app.use("/home", userRoutes)
+app.use("/api", userRoutes)
 
 
 // TO START THE SERVER RUN THE COMMAND: npm run server
