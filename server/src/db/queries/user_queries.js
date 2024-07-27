@@ -1,4 +1,5 @@
 import db from '../connection.js';
+import bcrypt from 'bcrypt';
 
 const addOwnerToProject = async (project_id, user_id) => {
   try {
@@ -21,4 +22,34 @@ const addOwnerToProject = async (project_id, user_id) => {
   }
 };
 
-export { addOwnerToProject };
+const createUser = async (user) => {
+  const {first_name, last_name, email, password, username, profile_pic, github_repo} = user;
+  try {
+    const data = await db.query(
+      `INSERT INTO users (first_name, last_name, email, password, username, profile_pic, github_repo)
+      VALUES ($1, $2, $3, $4, $5, $6, $7)
+      RETURNING *`,
+      [first_name, last_name, email, password, username, profile_pic, github_repo]
+    );
+    return data.rows[0];
+  } catch (error) {
+    console.log('Error creating user:', error);
+  }
+}
+
+const getUserByEmail = async (email) => {
+  try {
+    const data = await db.query(
+      `SELECT * FROM users
+      WHERE email = $1`,
+      [email]
+    );
+    return data.rows[0];
+  } catch (error) {
+    console.log('Error getting user by email:', error);
+  }
+}
+
+
+
+export { addOwnerToProject , createUser, getUserByEmail};

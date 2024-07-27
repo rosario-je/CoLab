@@ -1,30 +1,34 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import { SignedIn, UserButton, useUser } from "@clerk/clerk-react";
 
 export const UserLeftMenu = () => {
-  const { isSignedIn, user } = useUser();
   const navigate = useNavigate();
 
-  const handleNavigateToMyProjects = () => {
-    navigate("/:id/myprojects");
-  }
-
   return (
-    <div className="w-72 flex flex-col justify-between text-text-color  bg-menu-colors h-screen fixed left-0 z-10 inset-28">
+    <div className="w-72 flex flex-col justify-between text-text-color  bg-menu-colors h-screen fixed left-0 z-10 inset-16 pt-16">
       <div className="top-menu-items p-1">
         <ul className="menu w-full flex-1 flex flex-col justify-between gap-y-24">
           <li>
             <h2 className="text-text-color text-lg pb-5">Main Menu</h2>
             <ul className="text-xl font-light pt-5">
               <li className="group">
-                <a className="flex items-center" onClick={() => {navigate("/dashboard")}}>
+                <a
+                  className="flex items-center"
+                  onClick={() => {
+                    navigate("/dashboard");
+                  }}
+                >
                   <i className="fa-solid fa-layer-group group-hover:animate-bounceSlow group-hover:text-icon-purple group-hover:drop-shadow-white-glow mr-2"></i>
                   Feed
                 </a>
               </li>
               <li className="group">
-                <a className="flex items-center" onClick={handleNavigateToMyProjects}>
+                <a
+                  className="flex items-center"
+                  onClick={() => {
+                    navigate("/:id/myprojects");
+                  }}
+                >
                   <i className="fa-solid fa-briefcase group-hover:animate-bounceSlow group-hover:text-icon-purple group-hover:drop-shadow-white-glow mr-2"></i>
                   <p>Projects</p>
                 </a>
@@ -63,15 +67,10 @@ export const UserLeftMenu = () => {
         </ul>
       </div>
       <div className="flex justify-center pb-44">
-        <SignedIn>
-          <UserButton />
-          {isSignedIn && (
-            <div className="pl-2 space-y-1">
-              <h3 className="font-bold">@ {user.username}</h3>
-              <h4 className="font-light">{user.firstName} {user.lastName}</h4>
-            </div>
-          )}
-        </SignedIn>
+        <div className="pl-2 space-y-1">
+          <h3 className="font-bold">@ username</h3>
+          <h4 className="font-light">firstname lastname</h4>
+        </div>
       </div>
     </div>
   );

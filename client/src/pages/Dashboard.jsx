@@ -1,27 +1,19 @@
 // Dashboard.jsx
-import React, { useEffect } from "react";
+import React from "react";
 import { useNavigate } from "react-router-dom";
-import { useUser } from "@clerk/clerk-react";
+
 import { Navbar } from "../components/Navbar";
 import { UserLeftMenu } from "../components/UserLeftMenu";
 import { UserRightMenu } from "../components/UserRightMenu";
 import { ProjectList } from "../components/Projects/ProjectList";
 import { SearchBar } from "../components/SearchBar";
 
-export const Dashboard = ({ handleCoLabHome}) => {
-  const { isSignedIn } = useUser();
+export const Dashboard = ({ handleCoLabHome }) => {
   const navigate = useNavigate();
-
-  // useEffect(() => {
-
-  //   if (!isSignedIn) {
-  //     navigate("/");
-  //   }
-  // }, [isSignedIn, navigate]);
 
   return (
     <div className="flex flex-col h-screen">
-      <Navbar handleCoLabHome={handleCoLabHome}/>
+      <Navbar handleCoLabHome={handleCoLabHome} />
       <div className="flex mt-16">
         <UserLeftMenu />
         <div className="flex flex-col w-full bg-project-background overflow-hidden">

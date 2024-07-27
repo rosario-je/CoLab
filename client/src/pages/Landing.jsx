@@ -1,11 +1,5 @@
 import React, { useEffect } from "react";
 import { LandingNavBar } from "../components/LandingComponents/LandingNavBar";
-import {
-  SignedIn,
-  SignedOut,
-  SignInButton,
-  UserButton,
-} from "@clerk/clerk-react";
 import { Footer } from "../components/LandingComponents/Footer";
 import { useNavigate } from "react-router-dom";
 
@@ -31,19 +25,14 @@ export const Landing = () => {
           </p>
         </div>
         <div className="flex justify-center">
-          <SignedOut>
-            <button className="btn bg-landing-signin-button w-80 rounded-full text-white">
-              <SignInButton />
-            </button>
-          </SignedOut>
-          <SignedIn>
-            <button
-              onClick={handleDashboardRoute}
-              className="btn bg-landing-signin-button w-80 rounded-full text-white"
-            >
-              <h1>Go to the dashboard</h1>
-            </button>
-          </SignedIn>
+          <button
+            onClick={() => {
+              navigate("/signin");
+            }}
+            className="btn bg-landing-signin-button w-80 rounded-full text-white"
+          >
+            <h1>Get started</h1>
+          </button>
         </div>
       </section>
 
@@ -108,11 +97,14 @@ export const Landing = () => {
             Join the community and start collaborating today!
           </h1>
 
-          <SignedOut>
-            <button className="btn bg-landing-signin-button w-80 rounded-full text-white">
-              <SignInButton />
-            </button>
-          </SignedOut>
+          <button
+            onClick={() => {
+              navigate("/signin");
+            }}
+            className="btn bg-landing-signin-button w-80 rounded-full text-white"
+          >
+            <h1>Get started</h1>
+          </button>
         </div>
         <Footer />
       </section>

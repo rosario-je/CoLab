@@ -2,7 +2,6 @@
 import React, { useEffect } from "react";
 
 import { useNavigate } from "react-router-dom";
-import { useUser } from "@clerk/clerk-react";
 import { CreateProjectNavbar } from "../components/CreateProjectNavbar";
 import { UserLeftMenu } from "../components/UserLeftMenu";
 import { UserRightMenu } from "../components/UserRightMenu";
@@ -14,17 +13,11 @@ export const CreateProject = ({
   handleTechStacksModal,
   techModal,
 }) => {
-  const { isSignedIn } = useUser();
   const navigate = useNavigate();
 
-  useEffect(() => {
-    if (!isSignedIn) {
-      navigate("/project/create");
-    }
-  }, [isSignedIn, navigate]);
 
   return (
-    <div className="flex flex-col h-screen">
+    <div className="flex flex-col h-screen mx-72">
       <CreateProjectNavbar handleCoLabHome={handleCoLabHome} />
       <div className="flex flex-1 mt-16">
         <UserLeftMenu />
