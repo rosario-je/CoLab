@@ -2,7 +2,6 @@ import "dotenv/config.js";
 import express from 'express';
 import { config } from 'dotenv';
 import session from 'express-session';
-import morgan from 'morgan';
 
 import chatsRoutes from './routes/chats_routes.js';
 import projectsRoutes from './routes/projects_routes.js';
@@ -10,12 +9,11 @@ import homeRoutes from './routes/home_routes.js';
 import userRoutes from './routes/user_routes.js';
 import db from './db/connection.js';
 
-config({path: '../.env'});
+config();
 
 const PORT = process.env.PORT || 5000;
 const app = express();
 app.use(express.json());
-app.use(morgan('dev'));
 
 
 // Middleware for Auth, session secret should be in .env file

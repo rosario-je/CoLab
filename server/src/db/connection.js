@@ -11,7 +11,6 @@ const dbParams = {
   password: process.env.DB_PASS,
   database: process.env.DB_NAME
 };
-console.log(config);
 
 const db = new pg.Pool(dbParams);
 

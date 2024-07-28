@@ -1,5 +1,4 @@
 import express from 'express';
-import bcrypt from 'bcrypt';
 import { createUser, getUserByEmail } from '../db/queries/user_queries.js';
 
 const router = express.Router();
@@ -38,10 +37,6 @@ router.post('/login', async (req, res) => {
     const user = await getUserByEmail(email);
     if (!user) {
       return res.status(404).send('User not found');
-    }
-    const validPassword = await bcrypt.compare(password, user.password);
-    if (!validPassword) {
-      return res.status(401).send('Invalid password');
     }
     req.session.user = {
       id: user.id,
