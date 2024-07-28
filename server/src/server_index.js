@@ -4,6 +4,7 @@ import { config } from 'dotenv';
 import session from 'express-session';
 import morgan from 'morgan';
 import cookieParser from 'cookie-parser';
+import cors from 'cors';
 
 import chatsRoutes from './routes/chats_routes.js';
 import projectsRoutes from './routes/projects_routes.js';
@@ -18,6 +19,10 @@ const app = express();
 app.use(express.json());
 app.use(morgan('dev'));
 app.use(cookieParser());
+app.use(cors({
+  origin: 'http://localhost:5173',
+  credentials: true // Allow cookies to be sent
+}));
 
 // Middleware for Auth, session secret should be in .env file
 app.use(session({
