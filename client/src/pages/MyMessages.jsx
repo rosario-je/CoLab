@@ -7,7 +7,7 @@ import { UserRightMenu } from "../components/UserRightMenu";
 export const MyMessages = ({ currentUser, handleLogout }) => {
   return (
     <div className="flex flex-col h-screen">
-      <Navbar />
+      <Navbar currentUser={currentUser}/>
       <div className="flex flex-1 mt-16">
         <UserLeftMenu currentUser={currentUser}/>
         <div className="flex flex-col w-full h-full bg-project-background overflow-hidden">
