@@ -5,19 +5,19 @@ import { UserRightMenu } from "../components/UserRightMenu";
 import { RequestsNavbar } from "../components/MyProjectRequests/RequestsNavbar";
 import { JoinRequestList } from "../components/MyProjectRequests/JoinRequestList";
 
-export const MyProjectRequests = () => {  
-  return(
+export const MyProjectRequests = ({ currentUser, handleLogout }) => {
+  return (
     <div className="flex flex-col h-screen">
-      <RequestsNavbar />
+      <RequestsNavbar currentUser={currentUser} />
       <div className="flex flex-1 mt-16">
-        <UserLeftMenu />
+        <UserLeftMenu currentUser={currentUser} />
         <div className="flex flex-col w-full h-full bg-project-background overflow-hidden">
           <div>
-            <JoinRequestList />
+            <JoinRequestList currentUser={currentUser} />
           </div>
         </div>
-        <UserRightMenu />
+        <UserRightMenu currentUser={currentUser} />
       </div>
     </div>
-  )
-}
+  );
+};
