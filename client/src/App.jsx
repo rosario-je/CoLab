@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Routes, Route, useNavigate } from "react-router-dom";
-import axios from 'axios';
+import axios from "axios";
 
 import ProtectedRoute from "./components/Auth/ProtectedRoute";
 import { Landing } from "./pages/Landing";
@@ -26,7 +26,10 @@ function App() {
         const response = await axios.get("/api/current-user");
         setCurrentUser(response.data);
       } catch (error) {
-        console.error("No user logged in:", error.response?.data || error.message);
+        console.error(
+          "No user logged in:",
+          error.response?.data || error.message
+        );
       }
     };
 
@@ -37,9 +40,12 @@ function App() {
     try {
       await axios.post("/api/logout");
       setCurrentUser(null);
-      navigate('/signin');
+      navigate("/signin");
     } catch (error) {
-      console.error("Error logging out:", error.response?.data || error.message);
+      console.error(
+        "Error logging out:",
+        error.response?.data || error.message
+      );
     }
   };
 
@@ -57,32 +63,54 @@ function App() {
         <Route
           path="/dashboard"
           element={
-            <ProtectedRoute currentUser={currentUser} setCurrentUser={setCurrentUser}>
-              <Dashboard currentUser={currentUser} handleLogout={handleLogout} />
+            <ProtectedRoute
+              currentUser={currentUser}
+              setCurrentUser={setCurrentUser}
+            >
+              <Dashboard
+                currentUser={currentUser}
+                handleLogout={handleLogout}
+              />
             </ProtectedRoute>
           }
         />
         <Route
           path="/project/:id"
           element={
-            <ProtectedRoute currentUser={currentUser} setCurrentUser={setCurrentUser}>
-              <ProjectPage />
+            <ProtectedRoute
+              currentUser={currentUser}
+              setCurrentUser={setCurrentUser}
+            >
+              <ProjectPage
+                currentUser={currentUser}
+                setCurrentUser={setCurrentUser}
+              />
             </ProtectedRoute>
           }
         />
         <Route
-          path="/project/create"
+          path="/:id/project/create"
           element={
-            <ProtectedRoute currentUser={currentUser} setCurrentUser={setCurrentUser}>
-              <CreateProject handleTechStacksModal={handleTechStacksModal} techModal={techModal} />
+            <ProtectedRoute
+              currentUser={currentUser}
+              setCurrentUser={setCurrentUser}
+            >
+              <CreateProject
+                handleTechStacksModal={handleTechStacksModal}
+                techModal={techModal}
+                currentUser={currentUser}
+              />
             </ProtectedRoute>
           }
         />
         <Route
-          path={`/:id/myprojects`}
+          path={"/:id/myprojects"}
           element={
-            <ProtectedRoute currentUser={currentUser} setCurrentUser={setCurrentUser}>
-              <MyProjects />
+            <ProtectedRoute
+              currentUser={currentUser}
+              setCurrentUser={setCurrentUser}
+            >
+              <MyProjects currentUser={currentUser} />
             </ProtectedRoute>
           }
         />
@@ -90,7 +118,7 @@ function App() {
           path="/:id/myprojects/requests"
           element={
             <ProtectedRoute currentUser={currentUser} setCurrentUser={setCurrentUser}>
-              <MyProjectRequests />
+              <MyProjectRequests currentUser={currentUser} />
             </ProtectedRoute>
           }
         />
@@ -98,7 +126,7 @@ function App() {
           path="/:id/mymessages"
           element={
             <ProtectedRoute currentUser={currentUser} setCurrentUser={setCurrentUser}>
-              <MyMessages />
+              <MyMessages currentUser={currentUser} />
             </ProtectedRoute>
           }
         />
