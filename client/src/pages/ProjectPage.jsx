@@ -8,7 +8,7 @@ import { UserLeftMenu } from "../components/UserLeftMenu";
 import { ProjectPageDetails } from "../components/GroupProjectPage/ProjectPageDetails";
 import { ProjectRightMenu } from "../components/GroupProjectPage/ProjectRightMenu";
 
-export const ProjectPage = () => {
+export const ProjectPage = ({currentUser, handleLogout}) => {
   const { isSignedIn } = useUser();
 
   const navigate = useNavigate();
@@ -17,11 +17,11 @@ export const ProjectPage = () => {
     <div className="flex flex-col h-screen">
       <Navbar />
       <div className="flex flex-1 mt-16">
-        <UserLeftMenu />
+        <UserLeftMenu currentUser={currentUser}/>
         <div className="flex grow  justify-center overflow-y-auto mx-1">
-          <ProjectPageDetails />
+          <ProjectPageDetails currentUser={currentUser}/>
         </div>
-        <ProjectRightMenu />
+        <ProjectRightMenu currentUser={currentUser}/>
       </div>
     </div>
   );
