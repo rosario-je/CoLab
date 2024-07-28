@@ -12,7 +12,8 @@ import homeRoutes from './routes/home_routes.js';
 import userRoutes from './routes/user_routes.js';
 import db from './db/connection.js';
 
-config({path: '../.env'});
+config();
+
 
 const PORT = process.env.PORT || 5000;
 const app = express();
