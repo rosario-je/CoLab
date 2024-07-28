@@ -8,12 +8,12 @@ import { UserRightMenu } from "../components/UserRightMenu";
 import { ProjectCreateField } from "../components/Projects/ProjectCreateField";
 import { CreateProjectTechStackModal } from "../components/CreateProjectTechStackModal";
 
-export const CreateProject = ({ handleCoLabHome, handleTechStacksModal, techModal, currentUser, handleLogout }) => {
+export const CreateProject = ({ handleCoLabHome, handleTechStacksModal, techModal, currentUser }) => {
   const navigate = useNavigate();
 
   return (
     <div className="flex flex-col h-screen mx-72">
-      <CreateProjectNavbar handleCoLabHome={handleCoLabHome} />
+      <CreateProjectNavbar handleCoLabHome={handleCoLabHome} currentUser={currentUser}/>
       <div className="flex flex-1 mt-16">
         <UserLeftMenu currentUser={currentUser}/>
         <div className="flex flex-col w-full h-full bg-project-background overflow-hidden">
