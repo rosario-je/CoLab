@@ -1,8 +1,15 @@
-# React + Vite
-
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
-
-Currently, two official plugins are available:
-
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+### Credits 
+- <a href="https://i.pinimg.com/originals/ab/08/9f/ab089f4568627b25427c6896292d8d11.png">Naruto Profile Picture</a> 
+- <a href="https://i.pinimg.com/originals/4d/96/c4/4d96c4eb4f2c2bfa6c6ce1f07b7851b0.jpg">Sakura Profile Picture</a>
+- <a href="https://i.pinimg.com/originals/5a/71/37/5a71371a2024061c6cf8f7c9d1ef043b.jpg">Luffy Profile Picture</a>
+- <a href="https://i.pinimg.com/originals/07/7b/70/077b707ee484fe1b24ca295fbe8542bf.jpg">Goku Profile Picture</a>
+- <a href="https://i.pinimg.com/originals/dd/ee/f5/ddeef5dd4173a48e8f8d69272aa064ca.jpg">Edward Elric Profile Picture</a>
+- <a href="https://i.pinimg.com/originals/5b/86/46/5b86461ec544822ab533cdce06528540.jpg">Natsu Profile Picture</a>
+- <a href="https://i.pinimg.com/originals/0c/89/95/0c8995dc80792ea76ce884ee7f791b77.png">Light Yagami Profile Picture</a>
+- <a href="https://i.pinimg.com/originals/c4/18/37/c41837027134824823e3195a193d8913.jpg">InuYasha Profile Picture</a>
+- <a href="https://i.pinimg.com/originals/ef/b7/0d/efb70d2fdacd5cb9a91af93637d7d528.jpg">Mikasa Profile Picture</a>
+- <a href="https://i.pinimg.com/originals/4f/67/f1/4f67f1731b4c4a414b63728cf9851da5.jpg">Zenistu Profile Picture</a>
+- <a href="https://i.pinimg.com/originals/92/f9/49/92f949510afd67fbc38bfcd91fca389e.png">Gojo Profile Picture</a>
+- <a href="https://i.pinimg.com/originals/a7/22/f0/a722f0b3026b8c30422ccbced5122652.jpg">Tanjiro Profile Picture</a>
+- <a href="https://i.pinimg.com/originals/de/78/f5/de78f5a47f498aa5b52bcdeb79fcad28.jpg">Megumi Profile Picture</a>
+- <a href="https://i.pinimg.com/originals/77/3f/93/773f932ac8541d54d1da11de2211214c.jpg">Reigen Profile Picture</a>
