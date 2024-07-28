@@ -17,7 +17,7 @@ router.post('/register', async (req, res) => {
   }
   const user = { first_name, last_name, email, password, username, profile_pic, github_repo };
   try {
-    const existingUser = await getUserByEmail(email);
+    const existingUser = await getUser(email, password);
     if (existingUser) {
       return res.status(409).send('User already exists');
     }
