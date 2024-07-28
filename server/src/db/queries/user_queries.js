@@ -106,13 +106,13 @@ const addUserToProject = async (project_id, user_id) => {
 };
     
 const createUser = async (user) => {
-  const { first_name, last_name, email, password, username, profile_pic, github_repo } = user;
+  const { first_name, last_name, email, password, username, profile_pic } = user;
   try {
     const data = await db.query(
-      `INSERT INTO users (first_name, last_name, email, password, username, profile_pic, github_repo)
-      VALUES ($1, $2, $3, $4, $5, $6, $7)
+      `INSERT INTO users (first_name, last_name, email, password, username, profile_pic)
+      VALUES ($1, $2, $3, $4, $5, $6)
       RETURNING *`,
-      [first_name, last_name, email, password, username, profile_pic, github_repo]
+      [first_name, last_name, email, password, username, profile_pic]
     );
     return data.rows[0];
   } catch (error) {
@@ -151,6 +151,6 @@ const getUserById = async (user_id) => {
 
 export { getOwnerById, getOwnerByProjectId, 
   getProjectParticipants, askToJoinProject , 
-  createUser, getUserByEmail, getUserById, 
+  createUser, getUser,  getUserById, 
   getAllJoinRequests, approveJoinRequest, 
   addUserToProject };
