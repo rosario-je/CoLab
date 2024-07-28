@@ -58,6 +58,52 @@ const askToJoinProject = async (project_id, user_id) => {
     console.log(error);
   }
 };
+
+const getAllJoinRequests = async (user_id) => {
+  try {
+    const data = await db.query(
+      `SELECT join_requests.*, projects.id AS project_id, projects.name AS project_name, users.id AS owner_id
+       FROM join_requests
+       JOIN projects ON join_requests.project_id = projects.id
+       JOIN users ON projects.owner_id = users.id
+       WHERE projects.owner_id = $1`,
+      [user_id]
+    );
+    return data.rows;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+const approveJoinRequest = async (project_id, user_id) => {
+  try {
+    const data = await db.query(
+      `UPDATE join_requests
+      SET is_approved = true
+      WHERE project_id = $1
+      AND user_id = $2
+      RETURNING *`,
+      [project_id, user_id]
+    );
+    return data.rows[0];
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+const addUserToProject = async (project_id, user_id) => {
+  try {
+    const data = await db.query(
+      `INSERT INTO projects_participants (project_id, participant_id)
+      VALUES ($1, $2)
+      RETURNING *`,
+      [project_id, user_id]
+    );
+    return data.rows[0];
+  } catch (error) {
+    console.log(error);
+  }
+};
     
 const createUser = async (user) => {
   const {first_name, last_name, email, password, username, profile_pic, github_repo} = user;
@@ -102,4 +148,8 @@ const getUserById = async (user_id) => {
 
 
 
-export { getOwnerById, getOwnerByProjectId, getProjectParticipants, askToJoinProject , createUser, getUserByEmail, getUserById};
+export { getOwnerById, getOwnerByProjectId, 
+  getProjectParticipants, askToJoinProject , 
+  createUser, getUserByEmail, getUserById, 
+  getAllJoinRequests, approveJoinRequest, 
+  addUserToProject };
