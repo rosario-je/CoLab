@@ -5,10 +5,10 @@ import { UserRightMenu } from "../components/UserRightMenu";
 import { RequestsNavbar } from "../components/MyProjectRequests/RequestsNavbar";
 import { JoinRequestList } from "../components/MyProjectRequests/JoinRequestList";
 
-export const MyProjectRequests = ({ currentUser, handleLogout }) => {
+export const MyProjectRequests = ({ currentUser, handleCoLabHome }) => {
   return (
     <div className="flex flex-col h-screen">
-      <RequestsNavbar currentUser={currentUser} />
+      <RequestsNavbar handleCoLabHome={handleCoLabHome} currentUser={currentUser} />
       <div className="flex flex-1 mt-16">
         <UserLeftMenu currentUser={currentUser} />
         <div className="flex flex-col w-full h-full bg-project-background overflow-hidden">
