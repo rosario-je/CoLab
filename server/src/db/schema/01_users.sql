@@ -7,6 +7,5 @@ CREATE TABLE users (
   password VARCHAR NOT NULL,
   username VARCHAR NOT NULL,
   email VARCHAR NOT NULL,
-  profile_pic VARCHAR DEFAULT NULL,
-  github_repo VARCHAR DEFAULT NULL
+  profile_pic VARCHAR DEFAULT NULL
 );

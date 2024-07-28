@@ -1,10 +1,8 @@
 import express from 'express';
 import { createNewProject, getProjectPage, getProjectById, getPendingJoinRequests } from '../db/queries/project_queries.js';
-import { addPicsToProject } from '../db/queries/picture_queries.js';
 import { getUserById, askToJoinProject } from '../db/queries/user_queries.js';
 import { addTechToProject } from '../db/queries/tech_queries.js';
 import { createGroupChat } from '../db/queries/group_chat_queries.js';
-import { createTodoList } from '../db/queries/todo_queries.js';
 const router = express.Router();
 
 router.get('/create', (req, res) => {
@@ -13,30 +11,25 @@ router.get('/create', (req, res) => {
 
 // http://localhost:5000/projects/create
 router.post('/create', async (req, res) => {
-  const { name, description, user_id, max_participants, github_repo, pictures, tech_names } = req.body;
+  const { name, description, user_id, max_participants, cover_photo_path, github_repo, figma_link, trello_link, tech_names } = req.body;
 
   // Mandatory fields: name, description, user_id, max_participants, tech_names
-  // Optional fields: github_repo, pictures
-  // Owner should be able to add github_repo later and a default cover picture should be set if no pictures are uploaded
+  // Optional fields: github_repo, figma_link, trello_link, cover_photo_path
+  // Owner should be able to add github_repo, figma_link, trello_link, cover_photo_path later
 
   if (!name || !description || !user_id || !max_participants || tech_names.length === 0) {
     return res.status(400).send('Missing required fields');
   }
 
   try {
-    const newProject = await createNewProject(name, description, user_id, max_participants, github_repo);
+    const newProject = await createNewProject(name, description, user_id, max_participants, cover_photo_path, github_repo, figma_link, trello_link);
     if (!newProject) {
       return res.status(500).send('Error creating project');
     }
-    await createGroupChat(newProject.id); // Create a group chat for the project
-    await createTodoList(newProject.id); // Create a todo list for the project
-    if (pictures.length > 0) {
-      const picPromises = pictures.map(picture_path => addPicsToProject(newProject.id, picture_path, user_id));
-      await Promise.all(picPromises); // Loop through array of picture URLs if any are uploaded and add pictures to the project
-    };
     const techPromises = tech_names.map(tech_name => addTechToProject(newProject.id, tech_name));
     await Promise.all(techPromises); // Loop through array of tech requirements and add them to the project
     res.redirect(`/projects/${newProject.id}`); // Redirect to the project page
+    await createGroupChat(newProject.id); // Create a group chat for the project
   } catch (error) {
     console.error('Error creating project:', error.message);
     res.status(500).send('Error creating project');

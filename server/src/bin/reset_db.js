@@ -6,6 +6,7 @@ import db from '../db/connection.js';
 import {config} from 'dotenv';
 
 config();
+// config({path: '../.env'});
 
 // PG connection setup
 // const connectionString = process.env.DATABASE_URL ||
