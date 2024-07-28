@@ -1,8 +1,18 @@
 import React from "react";
+import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
 export const UserLeftMenu = ({ currentUser }) => {
   const navigate = useNavigate();
+  if (!currentUser) {
+    return <div>Loading...</div>; // Or any other loading state or message
+  }
+  const handleLogout = async () => {
+    await axios.post("/api/logout")
+    .then(() => {
+      navigate('/signin');
+    })
+  };
 
   return (
     <div className="w-72 flex flex-col justify-between text-text-color bg-menu-colors h-screen fixed left-0 z-10 inset-16 pt-16">
@@ -15,7 +25,7 @@ export const UserLeftMenu = ({ currentUser }) => {
                 <a
                   className="flex items-center cursor-pointer"
                   onClick={() => {
-                    navigate("/dashboard");
+                    navigate(`/dashboard`);
                   }}
                 >
                   <i className="fa-solid fa-layer-group group-hover:animate-bounceSlow group-hover:text-icon-purple group-hover:drop-shadow-white-glow mr-2"></i>
@@ -71,10 +81,15 @@ export const UserLeftMenu = ({ currentUser }) => {
           </li>
         </ul>
       </div>
-      <div className="flex justify-center pb-44">
-        <div className="pl-2 space-y-1">
-          <h3 className="font-bold">@{currentUser.id}</h3>
-          <h4 className="font-light">{currentUser.email}</h4>
+      <div className="bottom-user-menu justify-center">
+        <div className="flex justify-center pb-20 flex-col items-center gap-y-5">
+          <div className="pl-2 space-y-1">
+            <h3 className="font-bold">@{currentUser.id}</h3>
+            <h4 className="font-light">{currentUser.email}</h4>
+          </div>
+          <div className="btn">
+            <button onClick={handleLogout}>Logout</button>
+          </div>
         </div>
       </div>
     </div>
