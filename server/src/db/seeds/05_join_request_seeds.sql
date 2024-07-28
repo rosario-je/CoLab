@@ -1,50 +1,36 @@
 INSERT INTO join_requests (user_id, project_id) VALUES
--- Requests for Konoha Village Chat
-(4, 1), -- Goku
-(5, 1), -- Edward
-(6, 1), -- Natsu
 
--- Requests for Naruto Missions Tracker
-(4, 2), -- Goku
-(5, 2), -- Edward
+-- Requests for Naruto Missions Tracker (Max: 4, Space available)
 (6, 2), -- Natsu
+(8, 2), -- Light
+(9, 2), -- Inu
 
--- Requests for Straw Hat Crew Task Manager
+-- Requests for Straw Hat Crew Task Manager (Max: 4, Space available)
 (4, 3), -- Goku
-(5, 3), -- Edward
-(6, 3), -- Natsu
+(7, 3), -- Fairy
+(8, 3), -- Light
 
--- Requests for Dragon Ball Training Tracker
-(1, 4), -- Naruto
-(2, 4), -- Sakura
-(3, 4), -- Luffy
+-- Requests for Fullmetal Alchemist Research Hub (Max: 4, Space available)
+(7, 6), -- Luffy
+(8, 6), -- Light
+(9, 6), -- Inu
 
--- Requests for One Piece Treasure Market
-(4, 5), -- Goku
-(5, 5), -- Edward
-(6, 5), -- Natsu
-
--- Requests for Fullmetal Alchemist Research Hub
-(3, 6), -- Luffy
-(4, 6), -- Goku
-(5, 6), -- Edward
-
--- Requests for Fairy Tail Guild Manager
-(4, 7), -- Goku
-(5, 7), -- Edward
+-- Requests for Fairy Tail Guild Manager (Max: 4, Space available)
 (6, 7), -- Natsu
+(8, 7), -- Light
+(9, 7), -- Inu
 
--- Requests for Death Note Analysis Tool
-(3, 8), -- Luffy
-(4, 8), -- Goku
-(5, 8), -- Edward
+-- Requests for Death Note Analysis Tool (Max: 4, Space available)
+(6, 8), -- Natsu
+(7, 8), -- Luffy
+(9, 8), -- Inu
 
--- Requests for Inuyasha Time Travel Diary
-(3, 9), -- Luffy
-(4, 9), -- Goku
-(5, 9), -- Edward
+-- Requests for Inuyasha Time Travel Diary (Max: 4, Space available)
+(6, 9), -- Natsu
+(7, 9), -- Luffy
+(8, 9), -- Light
 
--- Requests for Attack on Titan Defense Simulator
-(4, 10), -- Goku
-(5, 10), -- Edward
-(6, 10); -- Natsu
+-- Requests for Attack on Titan Defense Simulator (Max: 4, Space available)
+(6, 10), -- Natsu
+(7, 10), -- Luffy
+(8, 10); -- Light

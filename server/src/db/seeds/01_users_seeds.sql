@@ -7,4 +7,9 @@ INSERT INTO users (first_name, last_name, username, password, email, profile_pic
 ('Natsu', 'Dragneel', 'natsu', 'password', 'natsu.dragneel@example.com', 'user_1053244.png'),
 ('Light', 'Yagami', 'light', 'password', 'light.yagami@example.com', 'user_1053244.png'),
 ('Inu', 'Yasha', 'inuyasha', 'password', 'inuyasha@example.com', 'user_1053244.png'),
-('Mikasa', 'Ackerman', 'mikasa', 'password', 'mikasa.ackerman@example.com', 'user_1053244.png');
+('Mikasa', 'Ackerman', 'mikasa', 'password', 'mikasa.ackerman@example.com', 'user_1053244.png'),
+('Zenitsu', 'Agatsuma', 'zenitsu', 'password', 'zenitsu.agatsuma@example.com', 'user_1053244.png'),
+('Gojo', 'Satoru', 'gojo', 'password', 'gojo.satoru@example.com', 'user_1053244.png'),
+('Tanjiro', 'Kamado', 'tanjiro', 'password', 'tanjiro.kamado@example.com', 'user_1053244.png'),
+('Megumi', 'Fushiguro', 'megumi', 'password', 'megumi.fushiguro@example.com', 'user_1053244.png'),
+('Reigen', 'Arataka', 'reigen', 'password', 'reigen.arataka@example.com', 'user_1053244.png');

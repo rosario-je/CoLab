@@ -58,4 +58,16 @@ INSERT INTO tech_requirements (project_id, tech_name) VALUES
 (10, 'Materialize'), -- Frontend Styling Language
 (10, 'MySQL'),       -- Database
 (10, 'Java'),        -- Coding Language
-(10, 'Spring Boot'); -- Framework
+(10, 'Spring Boot'), -- Framework
+
+-- Dragon Ball Tournament Organizer
+(11, 'Materialize'),  -- Frontend Styling Language
+(11, 'PostgreSQL'),   -- Database
+(11, 'JavaScript'),   -- Coding Language
+(11, 'React'),       -- Framework
+
+-- Saiyan Training Log
+(12, 'Bootstrap'),    -- Frontend Styling Language
+(12, 'MongoDB'),      -- Database
+(12, 'TypeScript'),   -- Coding Language
+(12, 'Express.js');    -- Framework
