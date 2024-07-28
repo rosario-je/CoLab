@@ -1,7 +1,7 @@
 import pg from 'pg';
 import { config } from 'dotenv';
 
-config({path: '../.env'});
+config();
 
 const dbParams = {
   host: process.env.DB_HOST,

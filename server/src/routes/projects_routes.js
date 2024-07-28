@@ -62,7 +62,7 @@ router.get('/:id', async (req, res) => {
 router.post('/:id/join', async (req, res) => {
   const { id: project_id } = req.params;
   const project = await getProjectById(project_id);
-  const user_id = 1;
+  const { user_id } = req.body;
   try {
     const user = await getUserById(user_id);
     if (!user) {
