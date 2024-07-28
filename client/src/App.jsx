@@ -1,28 +1,57 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Routes, Route, useNavigate } from "react-router-dom";
+import axios from "axios";
 
 import ProtectedRoute from "./components/Auth/ProtectedRoute";
-
 import { Landing } from "./pages/Landing";
 import { Dashboard } from "./pages/Dashboard";
 import { ProjectPage } from "./pages/ProjectPage";
 import { CreateProject } from "./pages/CreateProject";
 import { MyProjects } from "./pages/MyProjects";
-
-
 import { SignUp } from "./pages/SignUp";
 import { SignIn } from "./pages/SignIn";
 import { MyProjectRequests } from "./pages/MyProjectRequests";
-import { MyMessages } from "./pages/MyMessages"; 
+import { MyMessages } from "./pages/MyMessages";
+
+axios.defaults.withCredentials = true;
 
 function App() {
   const [techModal, setTechModal] = useState(false);
+  const [currentUser, setCurrentUser] = useState(null);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const fetchCurrentUser = async () => {
+      try {
+        const response = await axios.get("/api/current-user");
+        setCurrentUser(response.data);
+      } catch (error) {
+        console.error(
+          "No user logged in:",
+          error.response?.data || error.message
+        );
+      }
+    };
+
+    fetchCurrentUser();
+  }, []);
+
+  const handleLogout = async () => {
+    try {
+      await axios.post("/api/logout");
+      setCurrentUser(null);
+      navigate("/signin");
+    } catch (error) {
+      console.error(
+        "Error logging out:",
+        error.response?.data || error.message
+      );
+    }
+  };
 
   const handleTechStacksModal = () => {
     setTechModal(!techModal);
   };
-
-  const navigate = useNavigate();
 
   return (
     <div className="App">
@@ -34,40 +63,73 @@ function App() {
         <Route
           path="/dashboard"
           element={
-            <ProtectedRoute>
-              <Dashboard />
+            <ProtectedRoute
+              currentUser={currentUser}
+              setCurrentUser={setCurrentUser}
+            >
+              <Dashboard
+                currentUser={currentUser}
+                handleLogout={handleLogout}
+              />
             </ProtectedRoute>
           }
         />
         <Route
           path="/project/:id"
           element={
-            <ProtectedRoute>
-              <ProjectPage />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="/project/create"
-          element={
-            <ProtectedRoute>
-              <CreateProject
-                handleTechStacksModal={handleTechStacksModal}
-                techModal={techModal}
+            <ProtectedRoute
+              currentUser={currentUser}
+              setCurrentUser={setCurrentUser}
+            >
+              <ProjectPage
+                currentUser={currentUser}
+                setCurrentUser={setCurrentUser}
               />
             </ProtectedRoute>
           }
         />
         <Route
-          path="/:id/myprojects"
+          path="/:id/project/create"
           element={
-            <ProtectedRoute>
-              <MyProjects />
+            <ProtectedRoute
+              currentUser={currentUser}
+              setCurrentUser={setCurrentUser}
+            >
+              <CreateProject
+                handleTechStacksModal={handleTechStacksModal}
+                techModal={techModal}
+                currentUser={currentUser}
+              />
             </ProtectedRoute>
           }
         />
-        <Route path="/:id/myprojects/requests" element={<MyProjectRequests />} />
-        <Route path="/:id/mymessages" element={<MyMessages />} />
+        <Route
+          path={"/:id/myprojects"}
+          element={
+            <ProtectedRoute
+              currentUser={currentUser}
+              setCurrentUser={setCurrentUser}
+            >
+              <MyProjects currentUser={currentUser} />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/:id/myprojects/requests"
+          element={
+            <ProtectedRoute currentUser={currentUser} setCurrentUser={setCurrentUser}>
+              <MyProjectRequests currentUser={currentUser} />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/:id/mymessages"
+          element={
+            <ProtectedRoute currentUser={currentUser} setCurrentUser={setCurrentUser}>
+              <MyMessages currentUser={currentUser} />
+            </ProtectedRoute>
+          }
+        />
       </Routes>
     </div>
   );

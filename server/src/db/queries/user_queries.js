@@ -106,7 +106,7 @@ const addUserToProject = async (project_id, user_id) => {
 };
     
 const createUser = async (user) => {
-  const {first_name, last_name, email, password, username, profile_pic, github_repo} = user;
+  const { first_name, last_name, email, password, username, profile_pic, github_repo } = user;
   try {
     const data = await db.query(
       `INSERT INTO users (first_name, last_name, email, password, username, profile_pic, github_repo)
@@ -120,12 +120,13 @@ const createUser = async (user) => {
   }
 }
 
-const getUserByEmail = async (email) => {
+const getUser = async (email, password) => {
   try {
     const data = await db.query(
       `SELECT * FROM users
-      WHERE email = $1`,
-      [email]
+      WHERE email = $1
+      AND password = $2`,
+      [email, password]
     );
     return data.rows[0];
   } catch (error) {

@@ -1,9 +1,10 @@
 import express from 'express';
-import { createUser, getUserByEmail } from '../db/queries/user_queries.js';
+
+import { createUser, getUser } from '../db/queries/user_queries.js';
 
 const router = express.Router();
 
-router.get ('/register', (req, res) => {
+router.get('/register', (req, res) => {
   res.send('Create a new user');
 });
 
@@ -16,9 +17,17 @@ router.post('/register', async (req, res) => {
   }
   const user = { first_name, last_name, email, password, username, profile_pic, github_repo };
   try {
+    const existingUser = await getUser(email, password);
+    if (existingUser) {
+      return res.status(409).send('User already exists');
+    }
     const newUser = await createUser(user);
     if (!newUser) {
       return res.status(500).send('Error creating user');
+    }
+    req.session.user = {
+      id: newUser.id,
+      email: newUser.email,
     }
     res.status(201).json(newUser);
   } catch (error) {
@@ -34,13 +43,14 @@ router.post('/login', async (req, res) => {
     return res.status(400).send('Missing required fields');
   }
   try {
-    const user = await getUserByEmail(email);
+    const user = await getUser(email, password);
     if (!user) {
       return res.status(404).send('User not found');
     }
+
     req.session.user = {
       id: user.id,
-      email: user.email
+      email: user.email,
     };
     res.status(200).json({ message: 'Logged in successfully' });
   } catch (error) {
@@ -57,6 +67,15 @@ router.post('/logout', (req, res) => {
     }
     res.status(200).send('Logged out successfully');
   });
+});
+
+router.get('/current-user', (req, res) => {
+  if (req.session.user) {
+    res.json(req.session.user);
+    console.log("user logged in")
+  } else {
+    res.status(401).send('No user logged in');
+  }
 });
 
 export default router;

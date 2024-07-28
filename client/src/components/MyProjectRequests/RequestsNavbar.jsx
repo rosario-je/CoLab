@@ -25,7 +25,7 @@ export const RequestsNavbar = () => {
         <button
           className="btn btn-square btn-ghost w-auto px-2 mx-1 group"
           onClick={() => {
-            navigate("/project/create");
+            navigate("/:id/project/create");
           }}
         >
           <i className="fa-solid fa-circle-plus group-hover:animate-bounceFast"></i>
