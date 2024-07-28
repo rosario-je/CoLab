@@ -1,36 +1,35 @@
 INSERT INTO join_requests (user_id, project_id) VALUES
+-- Join Requests for Naruto Missions Tracker (Max: 4, Space available)
+(6, 2),  -- Natsu
+(7, 2),  -- Light
+(8, 2),  -- Inu
 
--- Requests for Naruto Missions Tracker (Max: 4, Space available)
-(6, 2), -- Natsu
-(8, 2), -- Light
-(9, 2), -- Inu
+-- Join Requests for Straw Hat Crew Task Manager (Max: 4, Space available)
+(4, 3),  -- Goku
+(7, 3),  -- Light
+(8, 3),  -- Inu
 
--- Requests for Straw Hat Crew Task Manager (Max: 4, Space available)
-(4, 3), -- Goku
-(7, 3), -- Fairy
-(8, 3), -- Light
+-- Join Requests for Fullmetal Alchemist Research Hub (Max: 4, Space available)
+(4, 6),  -- Goku
+(7, 6),  -- Light
+(8, 6),  -- Inu
 
--- Requests for Fullmetal Alchemist Research Hub (Max: 4, Space available)
-(7, 6), -- Luffy
-(8, 6), -- Light
-(9, 6), -- Inu
+-- Join Requests for Fairy Tail Guild Manager (Max: 4, Space available)
+(4, 7),  -- Goku
+(7, 7),  -- Light
+(8, 7),  -- Inu
 
--- Requests for Fairy Tail Guild Manager (Max: 4, Space available)
-(6, 7), -- Natsu
-(8, 7), -- Light
-(9, 7), -- Inu
+-- Join Requests for Death Note Analysis Tool (Max: 4, Space available)
+(6, 8),  -- Natsu
+(7, 8),  -- Light
+(8, 8),  -- Inu
 
--- Requests for Death Note Analysis Tool (Max: 4, Space available)
-(6, 8), -- Natsu
-(7, 8), -- Luffy
-(9, 8), -- Inu
+-- Join Requests for Inuyasha Time Travel Diary (Max: 4, Space available)
+(6, 9),  -- Natsu
+(7, 9),  -- Light
+(8, 9),  -- Inu
 
--- Requests for Inuyasha Time Travel Diary (Max: 4, Space available)
-(6, 9), -- Natsu
-(7, 9), -- Luffy
-(8, 9), -- Light
-
--- Requests for Attack on Titan Defense Simulator (Max: 4, Space available)
-(6, 10), -- Natsu
-(7, 10), -- Luffy
-(8, 10); -- Light
+-- Join Requests for Saiyan Battle Simulator (Max: 4, Space available)
+(6, 12), -- Natsu
+(7, 12), -- Light
+(8, 12); -- Inu
