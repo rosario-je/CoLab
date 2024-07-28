@@ -18,6 +18,7 @@ axios.defaults.withCredentials = true;
 function App() {
   const [techModal, setTechModal] = useState(false);
   const [currentUser, setCurrentUser] = useState(null);
+ 
   const navigate = useNavigate();
 
   useEffect(() => {
