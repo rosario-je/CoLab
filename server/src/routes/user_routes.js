@@ -10,12 +10,12 @@ router.get('/register', (req, res) => {
 
 
 router.post('/register', async (req, res) => {
-  const { first_name, last_name, email, password, username, profile_pic, github_repo } = req.body;
+  const { first_name, last_name, email, password, username, profile_pic } = req.body;
 
   if (!first_name || !last_name || !email || !password || !username) {
     return res.status(400).send('Missing required fields');
   }
-  const user = { first_name, last_name, email, password, username, profile_pic, github_repo };
+  const user = { first_name, last_name, email, password, username, profile_pic };
   try {
     const existingUser = await getUser(email, password);
     if (existingUser) {
