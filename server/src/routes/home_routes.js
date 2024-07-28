@@ -1,12 +1,14 @@
 import express from 'express';
 import { getAllProjects, getProjectsOwnedByMe, getProjectsIAmInById, getProjectsIdsIAmIn } from '../db/queries/project_queries.js';
-import { getAllJoinRequests, addUserToProject, approveJoinRequest } from '../db/queries/user_queries.js';
+import { getAllJoinRequests, addUserToProject, approveJoinRequest,  } from '../db/queries/user_queries.js';
+// import { testTesting } from '../db/queries/project_queries.js';
 const router = express.Router();
 
-// http://localhost:5000/dashboard/
-router.get('/', async (req, res) => {
+// http://localhost:5000/api/dashboard/
+router.get('/projects', async (req, res) => {
   try {
     const projects = await getAllProjects();
+    console.log("Projects: ", projects);
     return res.status(200).json(projects);
   } catch (error) {
     console.error("Error in getting projects: ", error.message);
@@ -14,7 +16,7 @@ router.get('/', async (req, res) => {
   }
 });
 
-// http://localhost:5000/dashboard/my_projects/:id
+// http://localhost:5000/dashboard/api/my_projects/:id
 router.get('/my_projects/:id', async (req, res) => {
   try {
     const user_id = req.params.id;
@@ -29,7 +31,7 @@ router.get('/my_projects/:id', async (req, res) => {
   }
 });
 
-// http://localhost:5000/dashboard/manage_requests/:id
+// http://localhost:5000/dashboard/api/manage_requests/:id
 router.get('/manage_requests/:id', async (req, res) => {
   try {
     const user_id = req.params.id;
