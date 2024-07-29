@@ -1,7 +1,6 @@
 import express from 'express';
 import { getAllProjects, getProjectsOwnedByMe, getProjectsIAmInById, getProjectsIdsIAmIn } from '../db/queries/project_queries.js';
 import { getAllJoinRequests, addUserToProject, approveJoinRequest,  } from '../db/queries/user_queries.js';
-// import { testTesting } from '../db/queries/project_queries.js';
 const router = express.Router();
 
 // http://localhost:5000/api/dashboard/
@@ -16,7 +15,7 @@ router.get('/projects', async (req, res) => {
   }
 });
 
-// http://localhost:5000/dashboard/api/my_projects/:id
+// http://localhost:5000/api/dashboard/my_projects/
 router.get('/my_projects/:id', async (req, res) => {
   try {
     const user_id = req.params.id;

@@ -2,7 +2,6 @@ import "dotenv/config.js";
 import express from 'express';
 import { config } from 'dotenv';
 import session from 'express-session';
-import morgan from 'morgan';
 import cookieParser from 'cookie-parser';
 import cors from 'cors';
 
@@ -18,7 +17,6 @@ config();
 const PORT = process.env.PORT || 5000;
 const app = express();
 app.use(express.json());
-app.use(morgan('dev'));
 app.use(cookieParser());
 app.use(cors({
   origin: 'http://localhost:5173',
