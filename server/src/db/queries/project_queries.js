@@ -1,31 +1,49 @@
 import db from '../connection.js';
 
+// This gets all the projects for the main dashboard
+// COALESCE is used to return an empty array if there are no participants
+// jsonb_agg is used to return the participants as a json array
+// jsonb_build_object is used to return the participant data as an object
+// DISTINCT is used to remove duplicates
+// ARRAY_AGG is used to return the pictures and tech requirements as arrays
 const getAllProjects = async () => {
   try {
     const data = await db.query(
       `SELECT 
-    p.id AS project_id,
-    p.name,
-    p.description,
-    p.owner_id,
-    p.max_participants,
-    p.github_repo,
-    p.created_at,
-    p.is_accepting_users,
-    p.is_in_progress,
-    ARRAY_AGG(DISTINCT par.participant_id) AS projects_participants,
-    ARRAY_AGG(DISTINCT pic.picture_path) AS projects_pics,
-    ARRAY_AGG(DISTINCT tech.tech_name) AS tech_requirements
-    FROM 
-    projects p
-    LEFT JOIN 
-    projects_participants par ON p.id = par.project_id
-    LEFT JOIN 
-    projects_pics pic ON p.id = pic.project_id
-    LEFT JOIN 
-    tech_requirements tech ON p.id = tech.project_id
-    GROUP BY 
-    p.id;`
+        p.id AS project_id,
+        p.name,
+        p.description,
+        p.owner_id,
+        p.max_participants,
+        p.cover_photo_path,
+        p.github_repo,
+        p.figma_link,
+        p.trello_link,
+        p.is_accepting_users,
+        p.is_in_progress,
+        p.created_at,
+        COALESCE(
+          jsonb_agg(
+            DISTINCT jsonb_build_object(
+              'participant_id', par.participant_id,
+              'participant_pic', u.profile_pic,
+              'participant_username', u.username,
+              'participant_email', u.email
+            )
+          ),
+          '[]'
+        ) AS participants,
+        ARRAY_AGG(DISTINCT tech.tech_name) AS tech_requirements
+      FROM 
+        projects p
+      LEFT JOIN 
+        projects_participants par ON p.id = par.project_id
+      LEFT JOIN 
+        users u ON par.participant_id = u.id
+      LEFT JOIN 
+        tech_requirements tech ON p.id = tech.project_id
+      GROUP BY 
+        p.id;`
     );
     return data.rows;
   } catch (error) {
@@ -33,47 +51,135 @@ const getAllProjects = async () => {
   }
 };
 
-
-
-// This will be the improved version of the getAllProjects function
-// const getAllProjects = async (user_id) => {
-//   try {
-//     const data = await db.query(
-//       `SELECT * FROM projects
-//       WHERE NOT user_id = $1
-//       ORDER BY projects.created_at ASC`,
-//       [user_id]
-//     );
-//     return data.rows;
-//   } catch (error) {
-//     console.log(error);
-//   }
-// };
-
-//This will be to get the projects that a logged in user has created
-// const getMyProjects = async (user_id) => {
-//   try{
-//     const data = await db.query(
-//       `SELECT * FROM projects
-//       WHERE user_id = $1
-//       ORDER BY projects.created_at ASC`,
-//       [user_id]
-//     );
-//     return data.rows;
-//   } catch (error) {
-//     console.log(error);
-//   }
-// };
-
-// This will be for creating a new project
-
-const createNewProject = async (name, description, user_id, max_participants, github_repo) => {
+// The next 3 functions work together
+// This gets all the projects that a user is the owner of
+const getProjectsOwnedByMe = async (user_id) => {
   try {
     const data = await db.query(
-      `INSERT INTO projects (name, description, owner_id, max_participants, github_repo)
-      VALUES ($1, $2, $3, $4, $5)
+      `SELECT 
+        p.id AS project_id,
+        p.name,
+        p.description,
+        p.owner_id,
+        p.max_participants,
+        p.cover_photo_path,
+        p.github_repo,
+        p.figma_link,
+        p.trello_link,
+        p.is_accepting_users,
+        p.is_in_progress,
+        p.created_at,
+        COALESCE(
+          jsonb_agg(
+            DISTINCT jsonb_build_object(
+              'participant_id', par.participant_id,
+              'participant_pic', u.profile_pic,
+              'participant_username', u.username,
+              'participant_email', u.email
+            )
+          ),
+          '[]'
+        ) AS participants,
+        ARRAY_AGG(DISTINCT tech.tech_name) AS tech_requirements
+      FROM 
+        projects p
+      LEFT JOIN 
+        projects_participants par ON p.id = par.project_id
+      LEFT JOIN 
+        users u ON par.participant_id = u.id
+      LEFT JOIN 
+        tech_requirements tech ON p.id = tech.project_id
+    WHERE p.owner_id = $1
+    GROUP BY 
+      p.id;`,
+      [user_id]
+    );
+    return data.rows;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+// This gets an array of project_ids that a user is a participant in
+// The array is used in the next function to get the rest of the data for the projects
+const getProjectsIdsIAmIn = async (user_id) => {
+  try {
+    const data = await db.query(
+      `SELECT 
+      p.id AS project_id
+    FROM 
+      projects p
+    LEFT JOIN 
+      projects_participants par ON p.id = par.project_id
+    LEFT JOIN 
+      tech_requirements tech ON p.id = tech.project_id
+    WHERE par.participant_id = $1
+    GROUP BY 
+      p.id;`,
+      [user_id]
+    );
+    return data.rows;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+// This gets the rest of the data for all the projects that a user is a participant in
+const getProjectsIAmInById = async (project_ids) => {
+  try {
+    const data = await db.query(
+      `SELECT 
+        p.id AS project_id,
+        p.name,
+        p.description,
+        p.owner_id,
+        p.max_participants,
+        p.cover_photo_path,
+        p.github_repo,
+        p.figma_link,
+        p.trello_link,
+        p.is_accepting_users,
+        p.is_in_progress,
+        p.created_at,
+        COALESCE(
+          jsonb_agg(
+            DISTINCT jsonb_build_object(
+              'participant_id', par.participant_id,
+              'participant_pic', u.profile_pic,
+              'participant_username', u.username,
+              'participant_email', u.email
+            )
+          ),
+          '[]'
+        ) AS participants,
+        ARRAY_AGG(DISTINCT tech.tech_name) AS tech_requirements
+      FROM 
+        projects p
+      LEFT JOIN 
+        projects_participants par ON p.id = par.project_id
+      LEFT JOIN 
+        users u ON par.participant_id = u.id
+      LEFT JOIN 
+        tech_requirements tech ON p.id = tech.project_id
+    WHERE p.id = ANY($1)
+    GROUP BY 
+      p.id;`,
+      [project_ids]
+    );
+    return data.rows;
+  } catch (error) {
+    console.log(error);
+  };
+};
+
+// This will be for creating a new project
+const createNewProject = async (name, description, user_id, max_participants, cover_photo_path, github_repo, figma_link, trello_link) => {
+  try {
+    const data = await db.query(
+      `INSERT INTO projects (name, description, owner_id, max_participants, cover_photo_path, github_repo, figma_link, trello_link)
+      VALUES ($1, $2, $3, $4, $5, $6, $7, $8)
       RETURNING *`,
-      [name, description, user_id, max_participants, github_repo]
+      [name, description, user_id, max_participants, cover_photo_path, github_repo, figma_link, trello_link]
     );
     return data.rows[0];
   } catch (error) {
@@ -81,7 +187,39 @@ const createNewProject = async (name, description, user_id, max_participants, gi
   }
 };
 
+// This will be for getting a single project page
+// Needs to be edited to include the participants w/info, group chat w/msgs, and todo list w/todos
 const getProjectPage = async (project_id) => {
+  try {
+    const data = await db.query(
+      `SELECT
+      p.id AS project_id,
+      p.name,
+      p.description,
+      p.owner_id,
+      p.cover_photo_path,
+      p.github_repo,
+      p.figma_link,
+      p.trello_link,
+      gc.id AS group_chat_id,
+      json_agg(DISTINCT tr.tech_name) AS tech_stack
+  FROM
+      projects p
+      LEFT JOIN tech_requirements tr ON p.id = tr.project_id
+      LEFT JOIN group_chats gc ON p.id = gc.project_id
+  WHERE
+      p.id = $1
+  GROUP BY
+    p.id, p.name, p.description, p.owner_id, p.github_repo, p.figma_link, p.trello_link, gc.id;`,
+      [project_id]
+    );
+    return data.rows[0];
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+const getProjectById = async (project_id) => {
   try {
     const data = await db.query(
       `SELECT * FROM projects
@@ -93,6 +231,21 @@ const getProjectPage = async (project_id) => {
     console.log(error);
   }
 };
+
+const getPendingJoinRequests = async (project_id, user_id) => {
+  try {
+    const data = await db.query(
+      `SELECT * FROM join_requests
+      WHERE project_id = $1
+      AND user_id = $2`,
+      [project_id, user_id]
+    );
+    return data.rows[0];
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 
 // This will be for updating a project when the owner doesn't want to add more participants; only the owner can do this
 // const noNewParticipants = async (project_id, user_id) => {
@@ -128,4 +281,4 @@ const getProjectPage = async (project_id) => {
 //   }
 // };
 
-export { getAllProjects, createNewProject, getProjectPage };
+export { getAllProjects, createNewProject, getProjectPage, getProjectsIdsIAmIn, getProjectsIAmInById, getProjectsOwnedByMe, getProjectById, getPendingJoinRequests };

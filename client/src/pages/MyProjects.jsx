@@ -4,7 +4,7 @@ import { Navbar } from "../components/Navbar";
 import { UserLeftMenu } from "../components/UserLeftMenu";
 import { UserRightMenu } from "../components/UserRightMenu";
 
-export const MyProjects = ({ handleCoLabHome }) => {
+export const MyProjects = ({ handleCoLabHome, currentUser, handleLogout }) => {
   const navigate = useNavigate();
   const [activeButton, setActiveButton] = useState(null);
 
@@ -14,9 +14,9 @@ export const MyProjects = ({ handleCoLabHome }) => {
 
   return (
     <div className="flex flex-col h-screen">
-      <Navbar handleCoLabHome={handleCoLabHome} />
+      <Navbar handleCoLabHome={handleCoLabHome} currentUser={currentUser}/>
       <div className="flex flex-1 mt-16">
-        <UserLeftMenu />
+        <UserLeftMenu currentUser={currentUser}/>
         <div className="flex flex-col w-full bg-grey overflow-hidden mx-72">
           <div className="flex justify-center items-center w-[100%] bg-menu-colors py-3 px-2 h-16">
             <div className="flex justify-around items-center bg-projects-bar rounded-[10px] w-[90%] py-1 w-full]">
@@ -53,7 +53,7 @@ export const MyProjects = ({ handleCoLabHome }) => {
             </div>
           </div>
         </div>
-        <UserRightMenu />
+        <UserRightMenu currentUser={currentUser}/>
       </div>
     </div>
   );
