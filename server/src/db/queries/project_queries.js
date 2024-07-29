@@ -16,6 +16,7 @@ const getAllProjects = async () => {
         p.owner_id,
         owner.username AS owner_username,
         owner.profile_pic AS owner_pic,
+        owner.email AS owner_email,
         p.max_participants,
         p.cover_photo_path,
         p.github_repo,
@@ -47,7 +48,7 @@ const getAllProjects = async () => {
       LEFT JOIN 
         tech_requirements tech ON p.id = tech.project_id
       GROUP BY 
-        p.id, owner.username, owner.profile_pic;`
+        p.id, owner.username, owner.profile_pic, owner.email;`
     );
     return data.rows;
   } catch (error) {
@@ -67,6 +68,7 @@ const getProjectsOwnedByMe = async (user_id) => {
         p.owner_id,
         owner.username AS owner_username,
         owner.profile_pic AS owner_pic,
+        owner.email AS owner_email,
         p.max_participants,
         p.cover_photo_path,
         p.github_repo,
@@ -99,7 +101,7 @@ const getProjectsOwnedByMe = async (user_id) => {
         tech_requirements tech ON p.id = tech.project_id
     WHERE p.owner_id = $1
     GROUP BY 
-      p.id, owner.username, owner.profile_pic;`,
+      p.id, owner.username, owner.profile_pic, owner.email;`,
       [user_id]
     );
     return data.rows;
@@ -143,6 +145,7 @@ const getProjectsIAmInById = async (project_ids) => {
       p.owner_id,
       owner.username AS owner_username,
       owner.profile_pic AS owner_pic,
+      owner.email AS owner_email,
       p.max_participants,
       p.cover_photo_path,
       p.github_repo,
@@ -175,7 +178,7 @@ const getProjectsIAmInById = async (project_ids) => {
       tech_requirements tech ON p.id = tech.project_id
     WHERE p.id = ANY($1)
     GROUP BY 
-      p.id, owner.username, owner.profile_pic;`,
+      p.id, owner.username, owner.profile_pic, owner.email;`,
       [project_ids]
     );
     return data.rows;
@@ -211,6 +214,7 @@ const getProjectPage = async (project_id) => {
       p.owner_id,
       owner.username AS owner_username,
       owner.profile_pic AS owner_pic,
+      owner.email AS owner_email,
       p.cover_photo_path,
       p.github_repo,
       p.figma_link,
@@ -225,7 +229,7 @@ const getProjectPage = async (project_id) => {
   WHERE
       p.id = $1
   GROUP BY
-    p.id, p.name, p.description, p.owner_id, p.github_repo, p.figma_link, p.trello_link, owner_username, owner_pic, gc.id;`,
+    p.id, p.name, p.description, p.owner_id, p.github_repo, p.figma_link, p.trello_link, owner_username, owner_pic, owner_email, gc.id;`,
       [project_id]
     );
     return data.rows[0];

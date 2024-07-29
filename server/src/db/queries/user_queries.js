@@ -67,6 +67,7 @@ const getAllJoinRequests = async (user_id) => {
         projects.id AS project_id, 
         projects.name AS project_name,
         requester.username AS requester_username,
+        requester.email AS requester_email,
         requester.profile_pic AS requester_pic,
         projects.owner_id AS owner_id
       FROM 

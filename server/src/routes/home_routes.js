@@ -3,11 +3,10 @@ import { getAllProjects, getProjectsOwnedByMe, getProjectsIAmInById, getProjects
 import { getAllJoinRequests, addUserToProject, approveJoinRequest,  } from '../db/queries/user_queries.js';
 const router = express.Router();
 
-// http://localhost:5000/api/dashboard/
+// http://localhost:5000/api/dashboard/projects
 router.get('/projects', async (req, res) => {
   try {
     const projects = await getAllProjects();
-    console.log("Projects: ", projects);
     return res.status(200).json(projects);
   } catch (error) {
     console.error("Error in getting projects: ", error.message);
@@ -15,7 +14,7 @@ router.get('/projects', async (req, res) => {
   }
 });
 
-// http://localhost:5000/api/dashboard/my_projects/
+// http://localhost:5000/api/dashboard/my_projects/:id
 router.get('/my_projects/:id', async (req, res) => {
   try {
     const user_id = req.params.id;
