@@ -32,14 +32,14 @@
 - <a href="https://i.pinimg.com/originals/4d/f1/a0/4df1a066cbb26470ef104572a0c68e8d.jpg">Saiyan Battle Simulator</a>
 
 #### General Attributions:
-- Naruto
-- One Piece
-- Dragon Ball
-- Full Metal Alchemist 
-- Fairy Tale 
-- Death Note
-- Inuyasha 
-- Attack on Titan
-- Demon Slayer 
-- Jujutsu Kaisen
-- Mob Psycho 100 
+- Naruto © Masashi Kishimoto / VIZ Media / Pierrot 
+- One Piece © Eiichiro Oda / Funimation / Toei Animation
+- Dragon Ball © Akira Toriyama / Funimation / Toei Animation
+- Full Metal Alchemist © Hiromu Arakawa / Funimation / Bones
+- Fairy Tale © Hiro Mashima / A-1 Pictures / Bridge
+- Death Note © Tsugumi Ohba/ Takeshi Obata / VIZ Media / Madhouse
+- Inuyasha © Rumiko Takahashi / Sunrise / VIZ Media
+- Attack on Titan © Hajime Isayama / Funimation / Wit Studio / MAPPA
+- Demon Slayer © Koyoharu Gotouge / Aniplex / ufotable
+- Jujutsu Kaisen © Gege Akutami / VIZ Media / MAPPA
+- Mob Psycho 100 © ONE / Funimation / Bones
