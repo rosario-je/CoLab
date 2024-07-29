@@ -47,5 +47,5 @@ INSERT INTO join_requests (user_id, project_id) VALUES
 -- Join Requests for Saiyan Battle Simulator (Owner: Goku, Max: 4) -- TEST PROJECT
 (10, 14),  -- Gojo
 (8, 14),  -- Inu
-(12, 14); -- Tanjiro
-(9, 14), -- Mikasa
+(12, 14), -- Tanjiro
+(9, 14); -- Mikasa

@@ -62,11 +62,23 @@ const askToJoinProject = async (project_id, user_id) => {
 const getAllJoinRequests = async (user_id) => {
   try {
     const data = await db.query(
-      `SELECT join_requests.*, projects.id AS project_id, projects.name AS project_name, users.id AS owner_id
-       FROM join_requests
-       JOIN projects ON join_requests.project_id = projects.id
-       JOIN users ON projects.owner_id = users.id
-       WHERE projects.owner_id = $1`,
+      `SELECT 
+        join_requests.*, 
+        projects.id AS project_id, 
+        projects.name AS project_name,
+        requester.username AS requester_username,
+        requester.profile_pic AS requester_pic,
+        projects.owner_id AS owner_id
+      FROM 
+        join_requests
+      JOIN 
+        projects ON join_requests.project_id = projects.id
+      JOIN 
+        users AS owner ON projects.owner_id = owner.id
+      JOIN 
+        users AS requester ON join_requests.user_id = requester.id
+      WHERE 
+        projects.owner_id = $1`,
       [user_id]
     );
     return data.rows;
@@ -75,7 +87,7 @@ const getAllJoinRequests = async (user_id) => {
   }
 };
 
-const approveJoinRequest = async (project_id, user_id) => {
+const approveJoinRequest = async (project_id, requesting_user_id) => {
   try {
     const data = await db.query(
       `UPDATE join_requests
@@ -83,7 +95,7 @@ const approveJoinRequest = async (project_id, user_id) => {
       WHERE project_id = $1
       AND user_id = $2
       RETURNING *`,
-      [project_id, user_id]
+      [project_id, requesting_user_id]
     );
     return data.rows[0];
   } catch (error) {

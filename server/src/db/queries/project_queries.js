@@ -14,6 +14,8 @@ const getAllProjects = async () => {
         p.name,
         p.description,
         p.owner_id,
+        owner.username AS owner_username,
+        owner.profile_pic AS owner_pic,
         p.max_participants,
         p.cover_photo_path,
         p.github_repo,
@@ -26,9 +28,9 @@ const getAllProjects = async () => {
           jsonb_agg(
             DISTINCT jsonb_build_object(
               'participant_id', par.participant_id,
-              'participant_pic', u.profile_pic,
-              'participant_username', u.username,
-              'participant_email', u.email
+              'participant_pic', participant.profile_pic,
+              'participant_username', participant.username,
+              'participant_email', participant.email
             )
           ),
           '[]'
@@ -37,13 +39,15 @@ const getAllProjects = async () => {
       FROM 
         projects p
       LEFT JOIN 
+        users owner ON p.owner_id = owner.id
+      LEFT JOIN 
         projects_participants par ON p.id = par.project_id
       LEFT JOIN 
-        users u ON par.participant_id = u.id
+        users participant ON par.participant_id = participant.id
       LEFT JOIN 
         tech_requirements tech ON p.id = tech.project_id
       GROUP BY 
-        p.id;`
+        p.id, owner.username, owner.profile_pic;`
     );
     return data.rows;
   } catch (error) {
@@ -61,6 +65,8 @@ const getProjectsOwnedByMe = async (user_id) => {
         p.name,
         p.description,
         p.owner_id,
+        owner.username AS owner_username,
+        owner.profile_pic AS owner_pic,
         p.max_participants,
         p.cover_photo_path,
         p.github_repo,
@@ -73,9 +79,9 @@ const getProjectsOwnedByMe = async (user_id) => {
           jsonb_agg(
             DISTINCT jsonb_build_object(
               'participant_id', par.participant_id,
-              'participant_pic', u.profile_pic,
-              'participant_username', u.username,
-              'participant_email', u.email
+              'participant_pic', participant.profile_pic,
+              'participant_username', participant.username,
+              'participant_email', participant.email
             )
           ),
           '[]'
@@ -84,14 +90,16 @@ const getProjectsOwnedByMe = async (user_id) => {
       FROM 
         projects p
       LEFT JOIN 
+        users owner ON p.owner_id = owner.id
+      LEFT JOIN 
         projects_participants par ON p.id = par.project_id
       LEFT JOIN 
-        users u ON par.participant_id = u.id
+        users participant ON par.participant_id = participant.id
       LEFT JOIN 
         tech_requirements tech ON p.id = tech.project_id
     WHERE p.owner_id = $1
     GROUP BY 
-      p.id;`,
+      p.id, owner.username, owner.profile_pic;`,
       [user_id]
     );
     return data.rows;
@@ -129,41 +137,45 @@ const getProjectsIAmInById = async (project_ids) => {
   try {
     const data = await db.query(
       `SELECT 
-        p.id AS project_id,
-        p.name,
-        p.description,
-        p.owner_id,
-        p.max_participants,
-        p.cover_photo_path,
-        p.github_repo,
-        p.figma_link,
-        p.trello_link,
-        p.is_accepting_users,
-        p.is_in_progress,
-        p.created_at,
-        COALESCE(
-          jsonb_agg(
-            DISTINCT jsonb_build_object(
-              'participant_id', par.participant_id,
-              'participant_pic', u.profile_pic,
-              'participant_username', u.username,
-              'participant_email', u.email
-            )
-          ),
-          '[]'
-        ) AS participants,
-        ARRAY_AGG(DISTINCT tech.tech_name) AS tech_requirements
-      FROM 
-        projects p
-      LEFT JOIN 
-        projects_participants par ON p.id = par.project_id
-      LEFT JOIN 
-        users u ON par.participant_id = u.id
-      LEFT JOIN 
-        tech_requirements tech ON p.id = tech.project_id
+      p.id AS project_id,
+      p.name,
+      p.description,
+      p.owner_id,
+      owner.username AS owner_username,
+      owner.profile_pic AS owner_pic,
+      p.max_participants,
+      p.cover_photo_path,
+      p.github_repo,
+      p.figma_link,
+      p.trello_link,
+      p.is_accepting_users,
+      p.is_in_progress,
+      p.created_at,
+      COALESCE(
+        jsonb_agg(
+          DISTINCT jsonb_build_object(
+            'participant_id', par.participant_id,
+            'participant_pic', participant.profile_pic,
+            'participant_username', participant.username,
+            'participant_email', participant.email
+          )
+        ),
+        '[]'
+      ) AS participants,
+      ARRAY_AGG(DISTINCT tech.tech_name) AS tech_requirements
+    FROM 
+      projects p
+    LEFT JOIN 
+      users owner ON p.owner_id = owner.id
+    LEFT JOIN 
+      projects_participants par ON p.id = par.project_id
+    LEFT JOIN 
+      users participant ON par.participant_id = participant.id
+    LEFT JOIN 
+      tech_requirements tech ON p.id = tech.project_id
     WHERE p.id = ANY($1)
     GROUP BY 
-      p.id;`,
+      p.id, owner.username, owner.profile_pic;`,
       [project_ids]
     );
     return data.rows;
@@ -197,6 +209,8 @@ const getProjectPage = async (project_id) => {
       p.name,
       p.description,
       p.owner_id,
+      owner.username AS owner_username,
+      owner.profile_pic AS owner_pic,
       p.cover_photo_path,
       p.github_repo,
       p.figma_link,
@@ -207,10 +221,11 @@ const getProjectPage = async (project_id) => {
       projects p
       LEFT JOIN tech_requirements tr ON p.id = tr.project_id
       LEFT JOIN group_chats gc ON p.id = gc.project_id
+      LEFT JOIN users owner ON p.owner_id = owner.id
   WHERE
       p.id = $1
   GROUP BY
-    p.id, p.name, p.description, p.owner_id, p.github_repo, p.figma_link, p.trello_link, gc.id;`,
+    p.id, p.name, p.description, p.owner_id, p.github_repo, p.figma_link, p.trello_link, owner_username, owner_pic, gc.id;`,
       [project_id]
     );
     return data.rows[0];
