@@ -14,10 +14,10 @@ router.get('/projects', async (req, res) => {
   }
 });
 
-// http://localhost:5000/api/dashboard/my_projects/:id
-router.get('/my_projects/:id', async (req, res) => {
+// http://localhost:5000/api/dashboard/my_projects
+router.get('/my_projects', async (req, res) => {
+  const { id: user_id } = req.session.user;
   try {
-    const user_id = req.params.id;
     const myOwnedProjects = await getProjectsOwnedByMe(user_id);
     const myJoinedProjectsIdArray = await getProjectsIdsIAmIn(user_id);
     const projectsIdArray = myJoinedProjectsIdArray.map(project => project.project_id);
@@ -29,10 +29,10 @@ router.get('/my_projects/:id', async (req, res) => {
   }
 });
 
-// http://localhost:5000/dashboard/api/manage_requests/:id
+// http://localhost:5000/dashboard/api/manage_requests
 router.get('/manage_requests/:id', async (req, res) => {
+  const { id: user_id } = req.session.user;
   try {
-    const user_id = req.params.id;
     const joinRequests = await getAllJoinRequests(user_id);
     return res.status(200).json(joinRequests);
   } catch (error) {

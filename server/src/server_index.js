@@ -36,7 +36,7 @@ app.get('/', (req, res) => {
 });
 
 app.use("/chats", chatsRoutes)
-app.use("/projects", projectsRoutes)
+app.use("/api/projects", projectsRoutes)
 app.use("/api/dashboard", homeRoutes)
 app.use("/api", userRoutes)
 
