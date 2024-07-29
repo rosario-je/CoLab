@@ -2,7 +2,6 @@ import pg from 'pg';
 import { config } from 'dotenv';
 
 config();
-// config({path: '../.env'});
 
 const dbParams = {
   host: process.env.DB_HOST,
@@ -11,6 +10,7 @@ const dbParams = {
   password: process.env.DB_PASS,
   database: process.env.DB_NAME
 };
+
 
 const db = new pg.Pool(dbParams);
 

@@ -1,8 +1,33 @@
-import React from "react";
+import React, { useState } from "react";
+import axios from "axios";
 import { Navigate, useNavigate } from "react-router-dom";
 
 export const SignIn = () => {
   const navigate = useNavigate();
+
+  const [formData, setFormData] = useState({
+    email: "",
+    password: "",
+  });
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({
+      ...formData,
+      [name]: value,
+    });
+  };
+
+  const handleAccountLogin = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await axios.post("/api/login", formData);
+      console.log("User logged in successfully:", response.data);
+      navigate("/dashboard");
+    } catch (error) {
+      console.error("Error logging in user:", error.response.data);
+    }
+  }
 
   return (
     <div>
@@ -24,9 +49,12 @@ export const SignIn = () => {
                 </label>
                 <input
                   type="email"
+                  name="email"
                   placeholder="email"
                   className="input input-bordered"
                   required
+                  value={formData.email}
+                  onChange={handleChange}
                 />
               </div>
               <div className="form-control">
@@ -35,17 +63,15 @@ export const SignIn = () => {
                 </label>
                 <input
                   type="password"
+                  name="password"
                   placeholder="password"
                   className="input input-bordered"
                   required
+                  value={formData.password}
+                  onChange={handleChange}
                 />
-                <label className="label">
-                  <a href="#" className="label-text-alt link link-hover">
-                    Forgot password?
-                  </a>
-                </label>
               </div>
-              <div className="form-control mt-6 gap-y-4">
+              <div onClick={handleAccountLogin} className="form-control mt-6 gap-y-4">
                 <button className="btn btn-primary">Login</button>
               </div>
             </form>
