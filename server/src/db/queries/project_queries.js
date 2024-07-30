@@ -22,7 +22,6 @@ const getAllProjects = async () => {
         p.github_repo,
         p.figma_link,
         p.trello_link,
-        p.is_accepting_users,
         p.is_in_progress,
         p.created_at,
         COALESCE(
@@ -74,7 +73,6 @@ const getProjectsOwnedByMe = async (user_id) => {
         p.github_repo,
         p.figma_link,
         p.trello_link,
-        p.is_accepting_users,
         p.is_in_progress,
         p.created_at,
         COALESCE(
@@ -151,7 +149,6 @@ const getProjectsIAmInById = async (project_ids) => {
       p.github_repo,
       p.figma_link,
       p.trello_link,
-      p.is_accepting_users,
       p.is_in_progress,
       p.created_at,
       COALESCE(
@@ -187,7 +184,7 @@ const getProjectsIAmInById = async (project_ids) => {
   };
 };
 
-// This will be for creating a new project
+// This creates a new project
 const createNewProject = async (name, description, user_id, max_participants, cover_photo_path, github_repo, figma_link, trello_link) => {
   try {
     const data = await db.query(
@@ -203,7 +200,7 @@ const createNewProject = async (name, description, user_id, max_participants, co
 };
 
 // This will be for getting a single project page
-// Needs to be edited to include the participants w/info, group chat w/msgs, and todo list w/todos
+// Needs to be edited to include the participants w/info, group chat w/msgs
 const getProjectPage = async (project_id) => {
   try {
     const data = await db.query(
@@ -238,6 +235,7 @@ const getProjectPage = async (project_id) => {
   }
 };
 
+// Get a project by its id
 const getProjectById = async (project_id) => {
   try {
     const data = await db.query(
@@ -251,6 +249,7 @@ const getProjectById = async (project_id) => {
   }
 };
 
+// Get all join requests for projects that a user owns
 const getPendingJoinRequests = async (project_id, user_id) => {
   try {
     const data = await db.query(
@@ -265,6 +264,7 @@ const getPendingJoinRequests = async (project_id, user_id) => {
   }
 };
 
+// Get the number of participants in a project
 const projectFull = async (project_id) => {
   try {
     const data = await db.query(
@@ -277,39 +277,6 @@ const projectFull = async (project_id) => {
     console.log(error);
   }
 };
-
-const updateFullProject = async (project_id) => {
-  try {
-    const data = await db.query(
-      `UPDATE projects
-      SET is_accepting_users = false
-      WHERE id = $1
-      RETURNING *`,
-      [project_id]
-    );
-    return data.rows[0];
-  } catch (error) {
-    console.log(error);
-  }
-};
-
-
-// This will be for updating a project when the owner doesn't want to add more participants; only the owner can do this
-// const noNewParticipants = async (project_id, user_id) => {
-//   try {
-//     const data = await db.query(
-//       `UPDATE projects
-//       SET is_accepting_users = false
-//       WHERE project_id = $1
-//       AND owner_id = $2
-//       RETURNING *`,
-//       [project_id]
-//     );
-//     return data.rows[0];
-//   } catch (error) {
-//     console.log(error);
-//   }
-// };
 
 // This will be for updating a project when it is completed; only the owner can do this
 // const projectCompleted = async (project_id, user_id) => {
@@ -328,4 +295,4 @@ const updateFullProject = async (project_id) => {
 //   }
 // };
 
-export { getAllProjects, createNewProject, getProjectPage, getProjectsIdsIAmIn, getProjectsIAmInById, getProjectsOwnedByMe, getProjectById, getPendingJoinRequests, projectFull, updateFullProject };
+export { getAllProjects, createNewProject, getProjectPage, getProjectsIdsIAmIn, getProjectsIAmInById, getProjectsOwnedByMe, getProjectById, getPendingJoinRequests, projectFull };

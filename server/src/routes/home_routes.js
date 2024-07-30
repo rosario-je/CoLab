@@ -1,8 +1,9 @@
 import express from 'express';
 import { getAllProjects, getProjectsOwnedByMe, getProjectsIAmInById, getProjectsIdsIAmIn, getProjectById, projectFull } from '../db/queries/project_queries.js';
-import { getAllJoinRequests, addUserToProject, approveJoinRequest,  } from '../db/queries/user_queries.js';
+import { getAllJoinRequests } from '../db/queries/user_queries.js';
 const router = express.Router();
 
+// View all projects
 // http://localhost:5000/api/dashboard/projects
 router.get('/projects', async (req, res) => {
   try {
@@ -14,6 +15,7 @@ router.get('/projects', async (req, res) => {
   }
 });
 
+// View all projects you own and are a part of
 // http://localhost:5000/api/dashboard/my_projects
 router.get('/my_projects', async (req, res) => {
   const { id: user_id } = req.session.user;
@@ -29,6 +31,8 @@ router.get('/my_projects', async (req, res) => {
   }
 });
 
+// View all join requests for projects you own
+// http://localhost:5000/api/dashboard/manage_requests
 router.get('/manage_requests', async (req, res) => {
   const { id: user_id } = req.session.user;
   try {

@@ -135,13 +135,12 @@ const createUser = async (user) => {
   }
 }
 
-const getUser = async (email, password) => {
+const getUserByEmail = async (email) => {
   try {
     const data = await db.query(
       `SELECT * FROM users
-      WHERE email = $1
-      AND password = $2`,
-      [email, password]
+      WHERE email = $1`,
+      [email]
     );
     return data.rows[0];
   } catch (error) {
@@ -166,6 +165,6 @@ const getUserById = async (user_id) => {
 
 export { getOwnerById, getOwnerByProjectId, 
   getProjectParticipants, askToJoinProject , 
-  createUser, getUser,  getUserById, 
+  createUser, getUserByEmail,  getUserById, 
   getAllJoinRequests, approveJoinRequest, 
   addUserToProject };
