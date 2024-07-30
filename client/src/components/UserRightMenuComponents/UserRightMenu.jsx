@@ -1,6 +1,5 @@
 import React from "react";
 import { UserMenuProject } from "./UserMenuProject";
-import { UserMenuMessage } from "./UserMenuMessage";
 
 export const UserRightMenu = () => {
   return (
@@ -13,15 +12,6 @@ export const UserRightMenu = () => {
             <UserMenuProject projectName="Project 2" />
             <UserMenuProject projectName="Project 3" />
             <UserMenuProject projectName="Project 4" />
-          </ul>
-        </li>
-        <li className="text-xl font-light mt-10">
-          <h2 className="text-lg text-text-color">Messages</h2>
-          <ul className="pt-5 ">
-            <UserMenuMessage userName="User 1" />
-            <UserMenuMessage userName="User 2" />
-            <UserMenuMessage userName="User 3" />
-            <UserMenuMessage userName="User 4" />
           </ul>
         </li>
       </ul>

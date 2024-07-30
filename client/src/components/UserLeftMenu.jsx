@@ -39,18 +39,6 @@ export const UserLeftMenu = ({ currentUser }) => {
                 </a>
               </li>
 
-              <li className="group messages-btn">
-                <a
-                  className="flex items-center cursor-pointer"
-                  onClick={() => {
-                    navigate(`/${currentUser.id}/mymessages`);
-                  }}
-                >
-                  <i className="fa-solid fa-comments group-hover:animate-bounceSlow group-hover:text-icon-purple group-hover:drop-shadow-white-glow mr-0.5"></i>
-                  <p>Messages</p>
-                </a>
-              </li>
-
               <li className="group create-project-btn">
                 <a
                   className="flex items-center cursor-pointer"

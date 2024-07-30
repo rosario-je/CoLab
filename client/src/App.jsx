@@ -11,14 +11,13 @@ import { MyProjects } from "./pages/MyProjects";
 import { SignUp } from "./pages/SignUp";
 import { SignIn } from "./pages/SignIn";
 import { MyProjectRequests } from "./pages/MyProjectRequests";
-import { MyMessages } from "./pages/MyMessages";
 
 axios.defaults.withCredentials = true;
 
 function App() {
   const [techModal, setTechModal] = useState(false);
   const [currentUser, setCurrentUser] = useState(null);
- 
+
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -115,19 +114,15 @@ function App() {
             </ProtectedRoute>
           }
         />
+
         <Route
           path="/:id/myprojects/requests"
           element={
-            <ProtectedRoute currentUser={currentUser} setCurrentUser={setCurrentUser}>
+            <ProtectedRoute
+              currentUser={currentUser}
+              setCurrentUser={setCurrentUser}
+            >
               <MyProjectRequests currentUser={currentUser} />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="/:id/mymessages"
-          element={
-            <ProtectedRoute currentUser={currentUser} setCurrentUser={setCurrentUser}>
-              <MyMessages currentUser={currentUser} />
             </ProtectedRoute>
           }
         />
