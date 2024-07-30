@@ -10,7 +10,7 @@ export const ProjectList = () => {
       try {
         const projectData = await axios.get("/api/dashboard/projects");
         setProjects(projectData.data);
-        console.log("Projects: ", projectData);
+        console.log("Projects: ", projectData.data);
       } catch (error) {
         console.error("Error in getting projects: ", error.message);
       }
@@ -18,7 +18,6 @@ export const ProjectList = () => {
     fetchProjects();
   }, []);
 
-  //will be populated with data from the backend
   return (
     <div className="w-11/12">
       {projects.map((project) => (
@@ -27,6 +26,8 @@ export const ProjectList = () => {
           name={project.name}
           description={project.description}
           participants={project.participants}
+          techStack={project.tech_requirements}
+          acceptingUsers={project.is_accepting_users}
         />
       ))}
     </div>
