@@ -1,6 +1,6 @@
 import express from 'express';
 import { createNewProject, getProjectPage, getProjectById, getPendingJoinRequests } from '../db/queries/project_queries.js';
-import { getUserById, askToJoinProject } from '../db/queries/user_queries.js';
+import { getUserById, askToJoinProject, approveJoinRequest, addUserToProject } from '../db/queries/user_queries.js';
 import { addTechToProject } from '../db/queries/tech_queries.js';
 import { createGroupChat } from '../db/queries/group_chat_queries.js';
 const router = express.Router();
@@ -52,7 +52,8 @@ router.get('/:id', async (req, res) => {
 router.post('/:id/join', async (req, res) => {
   const { id: project_id } = req.params;
   const project = await getProjectById(project_id);
-  const { user_id } = req.body;
+  const { id: user_id } = req.session.user;
+  // const { user_id } = req.body;
   try {
     const user = await getUserById(user_id);
     if (!user) {
@@ -76,6 +77,22 @@ router.post('/:id/join', async (req, res) => {
   } catch (error) {
     console.error('Error joining project:', error.message);
     res.status(500).send('Error joining project');
+  }
+});
+
+// http://localhost:5000/api/projects/approve_join_request
+router.post('/approve_join_request', async (req, res) => {
+  const { project_id, requesting_user_id } = req.body;
+  try {
+    const joinRequest = await approveJoinRequest(project_id, requesting_user_id);
+    if (!joinRequest) {
+      return res.status(500).send('Error approving join request');
+    }
+    const addToProject = await addUserToProject(project_id, requesting_user_id);
+    res.status(200).json(addToProject);
+  } catch (error) {
+    console.error('Error approving join request:', error.message);
+    res.status(500).send('Error approving join request');
   }
 });
 

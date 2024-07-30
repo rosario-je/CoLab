@@ -30,7 +30,7 @@ router.get('/my_projects', async (req, res) => {
 });
 
 // http://localhost:5000/dashboard/api/manage_requests
-router.get('/manage_requests/:id', async (req, res) => {
+router.get('/manage_requests', async (req, res) => {
   const { id: user_id } = req.session.user;
   try {
     const joinRequests = await getAllJoinRequests(user_id);

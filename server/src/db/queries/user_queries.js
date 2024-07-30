@@ -78,7 +78,9 @@ const getAllJoinRequests = async (user_id) => {
         users AS owner ON projects.owner_id = owner.id
       JOIN 
         users AS requester ON join_requests.user_id = requester.id
-      WHERE 
+      WHERE
+        join_requests.is_accepted = false
+      AND 
         projects.owner_id = $1`,
       [user_id]
     );
@@ -92,7 +94,7 @@ const approveJoinRequest = async (project_id, requesting_user_id) => {
   try {
     const data = await db.query(
       `UPDATE join_requests
-      SET is_approved = true
+      SET is_accepted = true
       WHERE project_id = $1
       AND user_id = $2
       RETURNING *`,
