@@ -1,6 +1,7 @@
 import React from "react";
 import Vial from "../images/vial.png";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 export const Navbar = ({ currenUser }) => {
   const navigate = useNavigate();
