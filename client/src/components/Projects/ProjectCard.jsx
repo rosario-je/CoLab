@@ -7,6 +7,7 @@ export const ProjectCard = (props) => {
   const {
     name,
     description,
+    cover_photo_path,
     owner,
     participants,
     techStack,
@@ -15,7 +16,6 @@ export const ProjectCard = (props) => {
     owner_username,
     owner_pic,
   } = props;
-
 
   const isOwner = owner === currentUserId;
   const isParticipant = participants.some(
@@ -26,12 +26,16 @@ export const ProjectCard = (props) => {
     <>
       <div className="card bg-base-100 w-full shadow-xl border-solid border-2 border-website-purple/25 text-white my-8">
         <div className="card-body h-96">
-          <div className="flex justify-between items-center text-white">
+          <div className="flex justify-between items-center text-white mb-5">
             <div className="project-details-1 flex space-x-6">
-              <div className="w-28 h-28 bg-white rounded-3xl" />
+              <img
+                src={`/project_pics/${cover_photo_path}`}
+                alt="Owner Avatar"
+                className="w-[150px] h-[150px] rounded-xl object-cover"
+              />
               <div className="flex flex-col justify-center">
                 <h2 className="card-title font-bold text-4xl">{name}</h2>
-                <h3>@{owner.username}</h3>
+                <h3 className="font-semibold mt-5"><span className="text-icon-purple text-xl">Creator:</span> @{owner_username}</h3>
               </div>
             </div>
             <div className="avatar-group -space-x-6 rtl:space-x-reverse w-2/5 flex justify-end items-end h-[100px]">
@@ -50,7 +54,7 @@ export const ProjectCard = (props) => {
               })}
             </div>
           </div>
-          <p className="font-light text-xl pt-5">{description}</p>
+          <p className="font-light text-xl pt-5 mb-5">{description}</p>
           <div className="flex card-actions w-full justify-between items-center ">
             <div className="w-[60%]">
               {techStack.map((tech, index) => {

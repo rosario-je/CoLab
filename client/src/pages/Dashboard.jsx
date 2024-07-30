@@ -39,6 +39,7 @@ export const Dashboard = ({ handleCoLabHome, currentUser, handleLogout }) => {
               <ProjectCard
                 key={project.project_id}
                 name={project.name}
+                cover_photo_path={project.cover_photo_path}
                 owner={project.owner_id}
                 owner_username={project.owner_username}
                 owner_pic={project.owner_pic}
