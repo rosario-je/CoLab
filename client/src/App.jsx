@@ -76,7 +76,7 @@ function App() {
           }
         />
         <Route
-          path="/project/:id"
+          path="/:id/project/:id"
           element={
             <ProtectedRoute
               currentUser={currentUser}
