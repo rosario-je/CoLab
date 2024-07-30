@@ -2,7 +2,7 @@ import React from "react";
 import { Navbar } from "../components/Navbar";
 import { UserLeftMenu } from "../components/UserLeftMenu";
 import { MyMessageList } from "../components/MyMessages/MyMessageList";
-import { UserRightMenu } from "../components/UserRightMenu";
+import { UserRightMenu } from "../components/UserRightMenuComponents/UserRightMenu";
 
 export const MyMessages = ({ currentUser, handleLogout }) => {
   return (
