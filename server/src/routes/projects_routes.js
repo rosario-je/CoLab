@@ -5,13 +5,10 @@ import { addTechToProject } from '../db/queries/tech_queries.js';
 import { createGroupChat } from '../db/queries/group_chat_queries.js';
 const router = express.Router();
 
-router.get('/create', (req, res) => {
-  res.send('Create a new project');
-});
-
-// http://localhost:5000/projects/create
+// http://localhost:5000/api/projects/create
 router.post('/create', async (req, res) => {
-  const { name, description, user_id, max_participants, cover_photo_path, github_repo, figma_link, trello_link, tech_names } = req.body;
+  const { id: user_id } = req.session.user;
+  const { name, description, max_participants, cover_photo_path, github_repo, figma_link, trello_link, tech_names } = req.body;
 
   // Mandatory fields: name, description, user_id, max_participants, tech_names
   // Optional fields: github_repo, figma_link, trello_link, cover_photo_path
@@ -28,15 +25,15 @@ router.post('/create', async (req, res) => {
     }
     const techPromises = tech_names.map(tech_name => addTechToProject(newProject.id, tech_name));
     await Promise.all(techPromises); // Loop through array of tech requirements and add them to the project
-    res.redirect(`/projects/${newProject.id}`); // Redirect to the project page
     await createGroupChat(newProject.id); // Create a group chat for the project
+    res.redirect(`/api/projects/${newProject.id}`); // Redirect to the project page
   } catch (error) {
     console.error('Error creating project:', error.message);
     res.status(500).send('Error creating project');
   }
 });
 
-// http://localhost:5000/projects/:id
+// http://localhost:5000/api/projects/:id
 router.get('/:id', async (req, res) => {
   const { id } = req.params;
   try {
@@ -51,7 +48,7 @@ router.get('/:id', async (req, res) => {
   }
 });
 
-// http://localhost:5000/projects/:id/join
+// http://localhost:5000/api/projects/:id/join
 router.post('/:id/join', async (req, res) => {
   const { id: project_id } = req.params;
   const project = await getProjectById(project_id);

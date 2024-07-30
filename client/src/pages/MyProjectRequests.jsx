@@ -1,17 +1,17 @@
 import React from "react";
-import { UserLeftMenu } from "../components/UserLeftMenu";
-import { UserRightMenu } from "../components/UserRightMenu";
 
-import { RequestsNavbar } from "../components/MyProjectRequests/RequestsNavbar";
+import { UserLeftMenu } from "../components/UserLeftMenu";
+import { UserRightMenu } from "../components//UserRightMenuComponents/UserRightMenu";
+import { Navbar } from "../components/Navbar";
 import { JoinRequestList } from "../components/MyProjectRequests/JoinRequestList";
 
-export const MyProjectRequests = ({ currentUser, handleCoLabHome }) => {
+export const MyProjectRequests = ({ currentUser }) => {
   return (
     <div className="flex flex-col h-screen">
-      <RequestsNavbar handleCoLabHome={handleCoLabHome} currentUser={currentUser} />
+      <Navbar currentUser={currentUser} />
       <div className="flex flex-1 mt-16">
         <UserLeftMenu currentUser={currentUser} />
-        <div className="flex flex-col w-full h-full bg-project-background overflow-hidden">
+        <div className="flex flex-col w-full h-full bg-project-background overflow-hidden pt-4">
           <div>
             <JoinRequestList currentUser={currentUser} />
           </div>

@@ -34,10 +34,12 @@ app.get("/", (req, res) => {
   res.send("Welcome to CoLab!");
 });
 
-app.use("/chats", chatsRoutes);
-app.use("/projects", projectsRoutes);
-app.use("/api/dashboard", homeRoutes);
-app.use("/api", userRoutes);
+app.use("/chats", chatsRoutes)
+app.use("/api/projects", projectsRoutes)
+app.use("/api/dashboard", homeRoutes)
+app.use("/api", userRoutes)
+
+
 
 app.listen(PORT, () => {
   console.log("Server is running on port", PORT);

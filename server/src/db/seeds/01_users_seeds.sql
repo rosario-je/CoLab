@@ -1,15 +1,29 @@
 INSERT INTO users (first_name, last_name, username, password, email, profile_pic) VALUES
-('Naruto', 'Uzumaki', 'naruto', 'password', 'naruto.uzumaki@example.com', 'user_1053244.png'),
-('Sakura', 'Haruno', 'sakura', 'password', 'sakura.haruno@example.com', 'user_1053244.png'),
-('Luffy', 'Monkey', 'luffy', 'password', 'luffy.monkey@example.com', 'user_1053244.png'),
-('Goku', 'Son', 'goku', 'password', 'goku.son@example.com', 'user_1053244.png'),
-('Edward', 'Elric', 'edward', 'password', 'edward.elric@example.com', 'user_1053244.png'),
-('Natsu', 'Dragneel', 'natsu', 'password', 'natsu.dragneel@example.com', 'user_1053244.png'),
-('Light', 'Yagami', 'light', 'password', 'light.yagami@example.com', 'user_1053244.png'),
-('Inu', 'Yasha', 'inuyasha', 'password', 'inuyasha@example.com', 'user_1053244.png'),
-('Mikasa', 'Ackerman', 'mikasa', 'password', 'mikasa.ackerman@example.com', 'user_1053244.png'),
-('Zenitsu', 'Agatsuma', 'zenitsu', 'password', 'zenitsu.agatsuma@example.com', 'user_1053244.png'),
-('Gojo', 'Satoru', 'gojo', 'password', 'gojo.satoru@example.com', 'user_1053244.png'),
-('Tanjiro', 'Kamado', 'tanjiro', 'password', 'tanjiro.kamado@example.com', 'user_1053244.png'),
-('Megumi', 'Fushiguro', 'megumi', 'password', 'megumi.fushiguro@example.com', 'user_1053244.png'),
-('Reigen', 'Arataka', 'reigen', 'password', 'reigen.arataka@example.com', 'user_1053244.png');
+-- user 1
+('Naruto', 'Uzumaki', 'naruto', 'password', 'naruto@test.com', 'naruto_pfp.png'),
+-- user 2
+('Sakura', 'Haruno', 'sakura', 'password', 'sakura@test.com', 'sakura_pfp.png'),
+-- user 3
+('Luffy', 'Monkey', 'luffy', 'password', 'luffy@test.com', 'luffy_pfp.png'),
+-- user 4
+('Goku', 'Son', 'goku', 'password', 'goku@test.com', 'goku_pfp.png'),
+-- user 5
+('Edward', 'Elric', 'edward', 'password', 'edward@test.com', 'ed_pfp.png'),
+-- user 6
+('Natsu', 'Dragneel', 'natsu', 'password', 'natsu@test.com', 'natsu_pfp.png'),
+-- user 7
+('Light', 'Yagami', 'light', 'password', 'light@test.com', 'light_pfp.png'),
+-- user 8
+('Inu', 'Yasha', 'inuyasha', 'password', 'inuyasha@test.com', 'inuyasha_pfp.png'),
+-- user 9
+('Mikasa', 'Ackerman', 'mikasa', 'password', 'mikasa@test.com', 'mikasa_pfp.png'),
+-- user 10
+('Zenitsu', 'Agatsuma', 'zenitsu', 'password', 'zenitsu@test.com', 'zenitsu_pfp.png'),
+-- user 11
+('Gojo', 'Satoru', 'gojo', 'password', 'gojo@test.com', 'gojo_pfp.png'),
+-- user 12
+('Tanjiro', 'Kamado', 'tanjiro', 'password', 'tanjiro@test.com', 'tanjiro_pfp.png'),
+-- user 13
+('Megumi', 'Fushiguro', 'megumi', 'password', 'megumi@test.com', 'megumi_pfp.png'),
+-- user 14
+('Reigen', 'Arataka', 'reigen', 'password', 'reigena@test.com', 'reigen_pfp.png');

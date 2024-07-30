@@ -4,24 +4,18 @@ import { useNavigate } from "react-router-dom";
 
 export const UserLeftMenu = ({ currentUser }) => {
   const navigate = useNavigate();
-  if (!currentUser) {
-    return <div>Loading...</div>; // Or any other loading state or message
-  }
-  const handleLogout = async () => {
-    await axios.post("/api/logout")
-    .then(() => {
-      navigate('/signin');
-    })
-  };
 
   return (
-    <div className="w-72 flex flex-col justify-between text-text-color bg-menu-colors h-screen fixed left-0 z-10 inset-16 pt-16">
+    <div className="w-72 flex flex-col justify-between text-text-color bg-menu-colors h-screen fixed left-0 z-10 inset-20 pt-16">
       <div className="top-menu-items p-1">
         <ul className="menu w-full flex-1 flex flex-col justify-between gap-y-24">
-          <li>
-            <h2 className="text-text-color text-lg pb-5">Main Menu</h2>
-            <ul className="text-xl font-light pt-5">
-              <li className="group">
+          <li className="main-menu-left-menu">
+            <h2 className="menu-title text-text-color text-lg pb-5">
+              Main Menu
+            </h2>
+
+            <ul className="menu-item text-xl font-light pt-5 space-y-3.5">
+              <li className="group feed-btn">
                 <a
                   className="flex items-center cursor-pointer"
                   onClick={() => {
@@ -32,7 +26,8 @@ export const UserLeftMenu = ({ currentUser }) => {
                   Feed
                 </a>
               </li>
-              <li className="group">
+
+              <li className="group projects-btn">
                 <a
                   className="flex items-center cursor-pointer"
                   onClick={() => {
@@ -43,7 +38,8 @@ export const UserLeftMenu = ({ currentUser }) => {
                   <p>Projects</p>
                 </a>
               </li>
-              <li className="group">
+
+              <li className="group messages-btn">
                 <a
                   className="flex items-center cursor-pointer"
                   onClick={() => {
@@ -54,41 +50,61 @@ export const UserLeftMenu = ({ currentUser }) => {
                   <p>Messages</p>
                 </a>
               </li>
-              <li className="group">
-                <a className="flex items-center cursor-pointer">
-                  <i className="fa-solid fa-user group-hover:animate-bounceSlow group-hover:text-icon-purple group-hover:drop-shadow-white-glow mr-2"></i>
-                  Profile
+
+              <li className="group create-project-btn">
+                <a
+                  className="flex items-center cursor-pointer"
+                  onClick={() => {
+                    navigate(`/${currentUser.id}/project/create`);
+                  }}
+                >
+                  <i className="fa-solid fa-circle-plus group-hover:animate-bounceSlow group-hover:text-icon-purple group-hover:drop-shadow-white-glow mr-0.5"></i>
+                  <p>Create a project</p>
+                </a>
+              </li>
+
+              <li className="group join-requests-btn">
+                <a
+                  className="flex items-center cursor-pointer"
+                  onClick={() => {
+                    navigate(`/${currentUser.id}/myprojects/requests`);
+                  }}
+                >
+                  <i className="fa-solid fa-circle-plus group-hover:animate-bounceSlow group-hover:text-icon-purple group-hover:drop-shadow-white-glow mr-0.5"></i>
+                  <p>Join Requests</p>
                 </a>
               </li>
             </ul>
           </li>
-          <li>
-            <h2 className="text-text-color text-lg">Explore</h2>
-            <ul className="text-lg font-light pt-5">
+
+          <li className="explore-section-left-menu">
+            <h2 className="menu-title text-text-color text-lg">Explore</h2>
+
+            <ul className="text-lg font-light pt-5 space-y-3.5">
               <li className="group">
                 <a className="flex items-center cursor-pointer">
                   <i className="fa-solid fa-heart group-hover:animate-bounceSlow group-hover:text-icon-purple group-hover:drop-shadow-white-glow mr-2"></i>
                   Liked Projects
                 </a>
               </li>
+
               <li className="group">
                 <a className="flex items-center cursor-pointer">
                   <i className="fa-solid fa-bullseye group-hover:animate-bounceSlow group-hover:text-icon-purple group-hover:drop-shadow-white-glow mr-2"></i>
                   Recommended
                 </a>
               </li>
+              
             </ul>
           </li>
         </ul>
       </div>
+
       <div className="bottom-user-menu justify-center">
-        <div className="flex justify-center pb-20 flex-col items-center gap-y-5">
-          <div className="pl-2 space-y-1">
-            <h3 className="font-bold">@{currentUser.id}</h3>
+        <div className="flex justify-center pb-20 flex-col items-center gap-y-5 h-80">
+          <div className="flex flex-col w-full pl-20 space-y-1">
+            <h3 className="font-bold">@{currentUser.username}</h3>
             <h4 className="font-light">{currentUser.email}</h4>
-          </div>
-          <div className="btn">
-            <button onClick={handleLogout}>Logout</button>
           </div>
         </div>
       </div>
