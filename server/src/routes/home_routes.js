@@ -4,7 +4,7 @@ import { getAllJoinRequests } from '../db/queries/user_queries.js';
 const router = express.Router();
 
 // View all projects
-// http://localhost:5000/api/dashboard/projects
+// http://localhost:8080/api/dashboard/projects
 router.get('/projects', async (req, res) => {
   try {
     const projects = await getAllProjects();
@@ -16,7 +16,7 @@ router.get('/projects', async (req, res) => {
 });
 
 // View all projects you own and are a part of
-// http://localhost:5000/api/dashboard/my_projects
+// http://localhost:8080/api/dashboard/my_projects
 router.get('/:id/my_projects', async (req, res) => {
   const { id: user_id } = req.session.user;
   try {
@@ -32,7 +32,7 @@ router.get('/:id/my_projects', async (req, res) => {
 });
 
 // View all join requests for projects you own
-// http://localhost:5000/api/dashboard/manage_requests
+// http://localhost:8080/api/dashboard/manage_requests
 router.get('/manage_requests', async (req, res) => {
   const { id: user_id } = req.session.user;
   try {

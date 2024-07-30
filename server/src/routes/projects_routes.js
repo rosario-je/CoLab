@@ -6,7 +6,7 @@ import { createGroupChat } from '../db/queries/group_chat_queries.js';
 const router = express.Router();
 
 // Creates a new project
-// http://localhost:5000/api/projects/create
+// http://localhost:8080/api/projects/create
 router.post('/create', async (req, res) => {
   const { id: user_id } = req.session.user;
   const { name, description, max_participants, cover_photo_path, github_repo, figma_link, trello_link, tech_names } = req.body;
@@ -35,7 +35,7 @@ router.post('/create', async (req, res) => {
 });
 
 // Fetches a project by its ID
-// http://localhost:5000/api/projects/:id
+// http://localhost:8080/api/projects/:id
 router.get('/:id', async (req, res) => {
   const { id } = req.params;
   try {
@@ -51,7 +51,7 @@ router.get('/:id', async (req, res) => {
 });
 
 // Creates a new join request for a project
-// http://localhost:5000/api/projects/:id/join
+// http://localhost:8080/api/projects/:id/join
 router.post('/:id/join', async (req, res) => {
   const { id: project_id } = req.params;
   const { id: user_id } = req.session.user;
@@ -83,7 +83,7 @@ router.post('/:id/join', async (req, res) => {
 });
 
 // Approves a join request and adds the user to the project
-// http://localhost:5000/api/projects/approve_join_request
+// http://localhost:8080/api/projects/approve_join_request
 router.post('/approve_join_request', async (req, res) => {
   const { project_id, requesting_user_id } = req.body;
   try {
