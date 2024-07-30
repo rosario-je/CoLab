@@ -29,7 +29,7 @@ export const ProjectCreateField = ({ handleTechStacksModal, techModal }) => {
     }
   };
 
-  console.log(techRequirements);
+  // console.log(techRequirements);
 
   const isValidImageUrl = (url) => {
     return /\.(jpg|jpeg|png)$/i.test(url);
@@ -166,7 +166,7 @@ export const ProjectCreateField = ({ handleTechStacksModal, techModal }) => {
         </div>
         <div className="tech-stack-select w-auto gap-y-3">
           <button
-            className="btn btn-ghost hover:bg-input-colors text-lg group mr-5"
+            className="btn btn-ghost hover:bg-input-colors text-lg group mr-5 mb-5"
             onClick={handleTechStacksModal}
           >
             <i className="fa-solid fa-plus group-hover:animate-spin group-hover:text-white group-hover:drop-shadow-white-glow"></i>
