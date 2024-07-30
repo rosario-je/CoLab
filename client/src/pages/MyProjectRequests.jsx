@@ -1,7 +1,7 @@
 import React from "react";
 
 import { UserLeftMenu } from "../components/UserLeftMenu";
-import { UserRightMenu } from "../components/UserRightMenu";
+import { UserRightMenu } from "../components//UserRightMenuComponents/UserRightMenu";
 import { Navbar } from "../components/Navbar";
 import { JoinRequestList } from "../components/MyProjectRequests/JoinRequestList";
 
