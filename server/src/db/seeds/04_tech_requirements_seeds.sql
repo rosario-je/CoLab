@@ -67,7 +67,19 @@ INSERT INTO tech_requirements (project_id, tech_name) VALUES
 (11, 'React'),       -- Framework
 
 -- Saiyan Training Log
-(12, 'Bootstrap'),    -- Frontend Styling Language
+(12, 'SCSS'),    -- Frontend Styling Language
 (12, 'MongoDB'),      -- Database
 (12, 'TypeScript'),   -- Coding Language
-(12, 'Express.js');    -- Framework
+(12, 'Express.js'),    -- Framework
+
+-- Thunder Breathing Training Hub 
+(13, 'Ant Design'),    -- Frontend Styling Language
+(13, 'SQLite'),       -- Database
+(13, 'JavaScript'),   -- Coding Language
+(13, 'Vue.js'),      -- Framework
+
+-- Saiyan Battle Simulator
+(14, 'Bulma'),    -- Frontend Styling Language
+(14, 'PostgreSQL'),       -- Database
+(14, 'JavaScript'),   -- Coding Language
+(14, 'React');       -- Framework
