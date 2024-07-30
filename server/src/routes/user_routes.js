@@ -28,6 +28,7 @@ router.post('/register', async (req, res) => {
     req.session.user = {
       id: newUser.id,
       email: newUser.email,
+      username: newUser.username
     }
     res.status(201).json(newUser);
   } catch (error) {
@@ -55,7 +56,9 @@ router.post('/login', async (req, res) => {
       lastName: user.last_name,
       username: user.username,
     };
-    res.status(200).json({ message: 'Logged in successfully' });
+    res.status(200).json({ message: 'Logged in successfully',
+    user_id: req.session.user.id,
+    email: req.session.user.email});
   } catch (error) {
     console.error('Error logging in:', error.message);
     res.status(500).send('Error logging in');
