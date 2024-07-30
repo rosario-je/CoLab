@@ -2,7 +2,7 @@ import React from "react";
 
 import { Navbar } from "../components/Navbar";
 import { UserLeftMenu } from "../components/UserLeftMenu";
-import { UserRightMenu } from "../components/UserRightMenu";
+import { UserRightMenu } from "../components/UserRightMenuComponents/UserRightMenu";
 import { ProjectCreateField } from "../components/Projects/ProjectCreateField";
 
 export const CreateProject = ({
