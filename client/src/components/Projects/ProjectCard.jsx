@@ -3,7 +3,13 @@ import { ProjectUserAvatar } from "./ProjectUserAvatar";
 import { ProjectTechStack } from "./ProjectTechStack";
 
 export const ProjectCard = (props) => {
-  const { name, description, participants, techStack, acceptingUsers } = props;
+  const { name, description, owner, participants, techStack, currentUserId } =
+    props;
+
+  const isOwner = owner === currentUserId;
+  const isParticipant = participants.some(
+    (participant) => participant.participant_id === currentUserId
+  );
 
   return (
     <>
@@ -14,7 +20,7 @@ export const ProjectCard = (props) => {
               <div className="w-28 h-28 bg-white rounded-3xl" />
               <div className="flex flex-col justify-center">
                 <h2 className="card-title font-bold text-4xl">{name}</h2>
-                <h3>@Project Owner</h3>
+                <h3>@{owner.username}</h3>
               </div>
             </div>
             <div className="avatar-group -space-x-6 rtl:space-x-reverse">
@@ -35,13 +41,13 @@ export const ProjectCard = (props) => {
                 return <ProjectTechStack key={index} tech={tech} />;
               })}
             </div>
-            {acceptingUsers ? (
+            {isOwner || isParticipant ? (
               <button className="btn bg-website-purple hover:bg-create text-white rounded-full">
-                Request to join
+                View Project
               </button>
             ) : (
               <button className="btn bg-website-purple hover:bg-create text-white rounded-full">
-                View Project
+                Request to Join
               </button>
             )}
           </div>
