@@ -16,7 +16,7 @@ export const Dashboard = ({ handleCoLabHome, currentUser, handleLogout }) => {
       try {
         const projectData = await axios.get("/api/dashboard/projects");
         setProjects(projectData.data);
-        // console.log("Projects: ", projectData.data);
+        console.log("Projects: ", projectData.data);
       } catch (error) {
         console.error("Error in getting projects: ", error.message);
       }

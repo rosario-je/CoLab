@@ -3,8 +3,15 @@ import { ProjectUserAvatar } from "./ProjectUserAvatar";
 import { ProjectTechStack } from "./ProjectTechStack";
 
 export const ProjectCard = (props) => {
-  const { name, description, owner, participants, techStack, currentUserId } =
-    props;
+  const {
+    name,
+    description,
+    owner,
+    participants,
+    techStack,
+    currentUserId,
+    maxParticipants
+  } = props;
 
   const isOwner = owner === currentUserId;
   const isParticipant = participants.some(
@@ -46,9 +53,17 @@ export const ProjectCard = (props) => {
                 View Project
               </button>
             ) : (
-              <button className="btn bg-website-purple hover:bg-create text-white rounded-full">
-                Request to Join
-              </button>
+              <>
+                {participants.length < maxParticipants ? (
+                  <button className="btn bg-website-purple hover:bg-create text-white rounded-full">
+                    Request to Join
+                  </button>
+                ) : (
+                  <button className="btn bg-website-purple hover:bg-create text-white rounded-full" disabled>
+                    Project Capacity: Full
+                  </button>
+                )}
+              </>
             )}
           </div>
         </div>
