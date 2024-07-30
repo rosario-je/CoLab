@@ -70,7 +70,7 @@ export const UserLeftMenu = ({ currentUser }) => {
                     navigate(`/${currentUser.id}/myprojects/requests`);
                   }}
                 >
-                  <i className="fa-solid fa-circle-plus group-hover:animate-bounceSlow group-hover:text-icon-purple group-hover:drop-shadow-white-glow mr-0.5"></i>
+                  <i className="fa-solid fa-bell group-hover:animate-bounceSlow group-hover:text-icon-purple group-hover:drop-shadow-white-glow mr-0.5"></i>
                   <p>Join Requests</p>
                 </a>
               </li>
