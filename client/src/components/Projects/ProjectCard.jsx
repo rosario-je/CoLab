@@ -1,6 +1,7 @@
 import React from "react";
 import { ProjectUserAvatar } from "./ProjectUserAvatar";
 import { ProjectTechStack } from "./ProjectTechStack";
+import { OwnerProjectAvatar } from "./OwnerProjectAvatar";
 
 export const ProjectCard = (props) => {
   const {
@@ -10,8 +11,11 @@ export const ProjectCard = (props) => {
     participants,
     techStack,
     currentUserId,
-    maxParticipants
+    maxParticipants,
+    owner_username,
+    owner_pic,
   } = props;
+
 
   const isOwner = owner === currentUserId;
   const isParticipant = participants.some(
@@ -30,7 +34,12 @@ export const ProjectCard = (props) => {
                 <h3>@{owner.username}</h3>
               </div>
             </div>
-            <div className="avatar-group -space-x-6 rtl:space-x-reverse">
+            <div className="avatar-group -space-x-6 rtl:space-x-reverse w-2/5 flex justify-end items-end h-[100px]">
+              <OwnerProjectAvatar
+                owner_username={owner_username}
+                owner_pic={owner_pic}
+                owner_id={owner}
+              />
               {participants.map((participant) => {
                 return (
                   <ProjectUserAvatar
@@ -59,7 +68,10 @@ export const ProjectCard = (props) => {
                     Request to Join
                   </button>
                 ) : (
-                  <button className="btn bg-website-purple hover:bg-create text-white rounded-full" disabled>
+                  <button
+                    className="btn bg-website-purple hover:bg-create text-white rounded-full"
+                    disabled
+                  >
                     Project Capacity: Full
                   </button>
                 )}

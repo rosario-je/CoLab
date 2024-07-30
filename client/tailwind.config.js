@@ -19,6 +19,8 @@ export default {
         create: "#6a1b9a",
         wand: "#fbc02d",
         green: "#32CD32",
+        "royal-yellow": "#FFD700",
+        "yellow-name": "#FFF9DB",
         "dark-green": "#228B22",
         "dark-red": "#8B0000",
         "landing-gradient-one": "#281E9F",
@@ -36,6 +38,7 @@ export default {
       },
       dropShadow: {
         "white-glow": "0 0 1rem #ffffff",
+        "yellow-glow": "0 0 1rem #FFF9DB",
       },
       keyframes: {
         swing: {

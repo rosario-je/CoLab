@@ -40,6 +40,8 @@ export const Dashboard = ({ handleCoLabHome, currentUser, handleLogout }) => {
                 key={project.project_id}
                 name={project.name}
                 owner={project.owner_id}
+                owner_username={project.owner_username}
+                owner_pic={project.owner_pic}
                 description={project.description}
                 participants={project.participants}
                 techStack={project.tech_requirements}
