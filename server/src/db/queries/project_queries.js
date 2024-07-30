@@ -265,6 +265,34 @@ const getPendingJoinRequests = async (project_id, user_id) => {
   }
 };
 
+const projectFull = async (project_id) => {
+  try {
+    const data = await db.query(
+      `SELECT COUNT(*) FROM projects_participants
+      WHERE project_id = $1`,
+      [project_id]
+    );
+    return data.rows[0];
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+const updateFullProject = async (project_id) => {
+  try {
+    const data = await db.query(
+      `UPDATE projects
+      SET is_accepting_users = false
+      WHERE id = $1
+      RETURNING *`,
+      [project_id]
+    );
+    return data.rows[0];
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 
 // This will be for updating a project when the owner doesn't want to add more participants; only the owner can do this
 // const noNewParticipants = async (project_id, user_id) => {
@@ -300,4 +328,4 @@ const getPendingJoinRequests = async (project_id, user_id) => {
 //   }
 // };
 
-export { getAllProjects, createNewProject, getProjectPage, getProjectsIdsIAmIn, getProjectsIAmInById, getProjectsOwnedByMe, getProjectById, getPendingJoinRequests };
+export { getAllProjects, createNewProject, getProjectPage, getProjectsIdsIAmIn, getProjectsIAmInById, getProjectsOwnedByMe, getProjectById, getPendingJoinRequests, projectFull, updateFullProject };

@@ -1,5 +1,5 @@
 import express from 'express';
-import { createNewProject, getProjectPage, getProjectById, getPendingJoinRequests } from '../db/queries/project_queries.js';
+import { createNewProject, getProjectPage, getProjectById, getPendingJoinRequests, projectFull } from '../db/queries/project_queries.js';
 import { getUserById, askToJoinProject, approveJoinRequest, addUserToProject } from '../db/queries/user_queries.js';
 import { addTechToProject } from '../db/queries/tech_queries.js';
 import { createGroupChat } from '../db/queries/group_chat_queries.js';
@@ -51,9 +51,8 @@ router.get('/:id', async (req, res) => {
 // http://localhost:5000/api/projects/:id/join
 router.post('/:id/join', async (req, res) => {
   const { id: project_id } = req.params;
-  const project = await getProjectById(project_id);
   const { id: user_id } = req.session.user;
-  // const { user_id } = req.body;
+  const project = await getProjectById(project_id);
   try {
     const user = await getUserById(user_id);
     if (!user) {
