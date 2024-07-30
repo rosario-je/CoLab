@@ -1,66 +1,66 @@
-// ProjectCreateField.jsx
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { CreateProjectTechStackModal } from "../CreateProjectTechStackModal";
 
 export const ProjectCreateField = ({ handleTechStacksModal, techModal }) => {
-  const [title, setTitle] = useState("");
-  const [description, setDescription] = useState("");
-  const [capacity, setCapacity] = useState(1);
-  const [githubRepo, setGithubRepo] = useState("");
-  const [figmaLink, setFigmaLink] = useState("");
-  const [trelloLink, setTrelloLink] = useState("");
-  const [coverPhotoPath, setCoverPhotoPath] = useState("");
-  const [techRequirements, setTechRequirements] = useState([]);
-  const [newPicture, setNewPicture] = useState("");
+  const [projectData, setProjectData] = useState({
+    title: "",
+    description: "",
+    capacity: 1,
+    githubRepo: "",
+    figmaLink: "",
+    trelloLink: "",
+    coverPhotoPath: "",
+    techRequirements: [],
+    newPicture: "",
+  });
 
   const maxChars = 200;
   const navigate = useNavigate();
 
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setProjectData((prevData) => ({ ...prevData, [name]: value }));
+  };
+
   const handleDescriptionChange = (e) => {
-    if (e.target.value.length <= maxChars) {
-      setDescription(e.target.value);
+    const { value } = e.target;
+    if (value.length <= maxChars) {
+      setProjectData((prevData) => ({ ...prevData, description: value }));
     }
   };
 
   const handleAddTech = (techLanguage) => {
     if (techLanguage.trim() !== "") {
-      setTechRequirements([...techRequirements, techLanguage]);
+      setProjectData((prevData) => ({
+        ...prevData,
+        techRequirements: [...prevData.techRequirements, techLanguage],
+      }));
     }
   };
-
-  // console.log(techRequirements);
 
   const isValidImageUrl = (url) => {
     return /\.(jpg|jpeg|png)$/i.test(url);
   };
 
   const handleAddCoverPhoto = () => {
-    if (newPicture.trim() && isValidImageUrl(newPicture)) {
-      setCoverPhotoPath(newPicture);
+    if (projectData.newPicture.trim() && isValidImageUrl(projectData.newPicture)) {
+      setProjectData((prevData) => ({
+        ...prevData,
+        coverPhotoPath: projectData.newPicture,
+        newPicture: "",
+      }));
     } else {
       alert("Please enter a valid image URL (e.g., .jpg, .png, .jpeg)");
     }
-    setNewPicture("");
   };
 
   const handleRemoveCoverPhoto = () => {
-    setCoverPhotoPath("");
+    setProjectData((prevData) => ({ ...prevData, coverPhotoPath: "" }));
   };
 
   const createProject = async (event) => {
     event.preventDefault();
-
-    const projectData = {
-      name: title,
-      description: description,
-      user_capacity: capacity,
-      cover_photo_path: coverPhotoPath,
-      github_repo: githubRepo,
-      figma_link: figmaLink,
-      trello_link: trelloLink,
-      tech_stack: techRequirements,
-    };
 
     try {
       const response = await fetch("/api/projects", {
@@ -85,7 +85,6 @@ export const ProjectCreateField = ({ handleTechStacksModal, techModal }) => {
   return (
     <section className="flex flex-col h-full w-full justify-around">
       {/* PROJECT TITLE */}
-
       <div className="project-title flex justify-between py-4 mt-5 mb-10">
         <div className="w-auto">
           <h3 className="text-white">Project Title</h3>
@@ -94,10 +93,11 @@ export const ProjectCreateField = ({ handleTechStacksModal, techModal }) => {
         <div className="w-auto">
           <input
             type="text"
+            name="title"
             placeholder="Title"
             className="input input-bordered bg-input-colors w-96"
-            value={title}
-            onChange={(e) => setTitle(e.target.value)}
+            value={projectData.title}
+            onChange={handleInputChange}
             required
           />
         </div>
@@ -107,13 +107,14 @@ export const ProjectCreateField = ({ handleTechStacksModal, techModal }) => {
         <CreateProjectTechStackModal
           handleTechStacksModal={handleTechStacksModal}
           handleAddTech={handleAddTech}
-          techRequirements={techRequirements}
-          setTechRequirements={setTechRequirements}
+          techRequirements={projectData.techRequirements}
+          setTechRequirements={(techRequirements) =>
+            setProjectData((prevData) => ({ ...prevData, techRequirements }))
+          }
         />
       )}
 
       {/* PROJECT DESCRIPTION */}
-
       <div className="project-description flex items-start w-full mb-10 justify-between py-4">
         <div className="w-auto">
           <h3 className="text-white">Project Description</h3>
@@ -123,27 +124,27 @@ export const ProjectCreateField = ({ handleTechStacksModal, techModal }) => {
           <textarea
             className="textarea textarea-bordered min-h-[150px] min-w-[50px] bg-input-colors resize-none mb-5 self-center w-96"
             placeholder="Description..."
-            value={description}
+            value={projectData.description}
             onChange={handleDescriptionChange}
           ></textarea>
-          <h6 className="text-input-value">{maxChars - description.length}</h6>
+          <h6 className="text-input-value">{maxChars - projectData.description.length}</h6>
         </div>
       </div>
 
       {/* USER CAPACITY */}
-
       <div className="user-capacity-container flex justify-between py-4 mb-10">
         <div className="w-auto">
           <h3 className="text-white">User Capacity</h3>
           <h6>
-          Pick the maximum amount of users that can request to join this project
+            Pick the maximum amount of users that can request to join this project
           </h6>
         </div>
         <div className="user-capacity w-1/3 flex flex-col justify-center items-end">
           <select
             className="select select-bordered w-1/2 bg-input-colors"
-            value={capacity}
-            onChange={(e) => setCapacity(e.target.value)}
+            name="capacity"
+            value={projectData.capacity}
+            onChange={handleInputChange}
           >
             <option value="" disabled>
               Capacity
@@ -158,7 +159,6 @@ export const ProjectCreateField = ({ handleTechStacksModal, techModal }) => {
       </div>
 
       {/* TECH STACK */}
-
       <div className="tech-stack flex justify-between py-4 mb-10">
         <div className="w-auto">
           <h3 className="text-white">Tech Stack</h3>
@@ -172,28 +172,27 @@ export const ProjectCreateField = ({ handleTechStacksModal, techModal }) => {
             <i className="fa-solid fa-plus group-hover:animate-spin group-hover:text-white group-hover:drop-shadow-white-glow"></i>
             Add
           </button>
-          <h2>({techRequirements.length}) Selected</h2>
+          <h2>({projectData.techRequirements.length}) Selected</h2>
         </div>
       </div>
 
       {/* COVER PHOTO */}
-
       <div className="images-input flex justify-between items-center w-full mb-10 py-4">
         <div className="choose-file w-auto self-start">
           <h3 className="text-white">Cover Photo</h3>
           <h6>Choose images to showcase the design or what might represent the design of the project</h6>
-          {coverPhotoPath && (
+          {projectData.coverPhotoPath && (
             <button
               className="text-white mt-5 btn hover:bg-red text-lg group mr-5"
               onClick={handleRemoveCoverPhoto}
             >
               <i className="fa-solid fa-image group-hover:text-white group-hover:drop-shadow-white-glow"></i>
-              {coverPhotoPath}
+              {projectData.coverPhotoPath}
             </button>
           )}
         </div>
         <div className="file-input-container w-1/3 flex flex-col justify-center items-end gap-5">
-          {coverPhotoPath.length > 0 ? (
+          {projectData.coverPhotoPath.length > 0 ? (
             <>
               <input
                 type="url"
@@ -216,8 +215,9 @@ export const ProjectCreateField = ({ handleTechStacksModal, techModal }) => {
               <input
                 type="url"
                 placeholder="Image URL"
-                value={newPicture}
-                onChange={(e) => setNewPicture(e.target.value)}
+                name="newPicture"
+                value={projectData.newPicture}
+                onChange={handleInputChange}
                 className="input input-bordered bg-input-colors w-full max-w-lg"
               />
               <button
@@ -234,7 +234,6 @@ export const ProjectCreateField = ({ handleTechStacksModal, techModal }) => {
       </div>
 
       {/* PROJECT LINKS */}
-
       <div className="project-link-inputs flex justify-between items-center w-full mb-10 py-4">
         <div className="w-1/2 self-start">
           <h3 className="text-white">Project Links</h3>
@@ -243,44 +242,44 @@ export const ProjectCreateField = ({ handleTechStacksModal, techModal }) => {
 
         <div className="w-1/2 flex flex-col items-end">
           <label className="input input-bordered w-4/5 flex justify-between items-center gap-2 p-0 mb-2">
-            <div className="flex justify-center items-center border-solid border-white border-2 rounded-lg w-2/5 h-full px-3">
-              <i className="fa-brands fa-github mr-2"></i>
-              <p>github.com/</p>
+            <div className="flex justify-center items-center border-solid border-white border-2 rounded-lg w-2/5 h-10 bg-white">
+              <i className="fa-brands fa-github text-black"></i>
             </div>
             <input
+              className="input w-full h-10 bg-input-colors p-3"
+              name="githubRepo"
+              value={projectData.githubRepo}
+              onChange={handleInputChange}
+              placeholder="Github Repo URL"
               type="url"
-              placeholder="GitHub Repo"
-              className="grow ml-1"
-              value={githubRepo || ""}
-              onChange={(e) => setGithubRepo(e.target.value)}
             />
           </label>
 
           <label className="input input-bordered w-4/5 flex justify-between items-center gap-2 p-0 mb-2">
-            <div className="flex justify-center items-center border-solid border-white border-2 rounded-lg w-2/5 h-full px-3">
-              <i className="fa-brands fa-trello mr-2"></i>
-              <p>trello.com/</p>
+            <div className="flex justify-center items-center border-solid border-white border-2 rounded-lg w-2/5 h-10 bg-white">
+              <i className="fa-brands fa-figma text-black"></i>
             </div>
             <input
+              className="input w-full h-10 bg-input-colors p-3"
+              name="figmaLink"
+              value={projectData.figmaLink}
+              onChange={handleInputChange}
+              placeholder="Figma URL"
               type="url"
-              placeholder="Trello Link"
-              className="grow ml-1"
-              value={trelloLink || ""}
-              onChange={(e) => setTrelloLink(e.target.value)}
             />
           </label>
 
-          <label className="input input-bordered w-4/5 flex justify-between items-center gap-2 p-0">
-            <div className="flex justify-center items-center border-solid border-white border-2 rounded-lg w-2/5 h-full px-3">
-              <i className="fa-brands fa-figma mr-2"></i>
-              <p>figma.com/</p>
+          <label className="input input-bordered w-4/5 flex justify-between items-center gap-2 p-0 mb-2">
+            <div className="flex justify-center items-center border-solid border-white border-2 rounded-lg w-2/5 h-10 bg-white">
+              <i className="fa-brands fa-trello text-black"></i>
             </div>
             <input
+              className="input w-full h-10 bg-input-colors p-3"
+              name="trelloLink"
+              value={projectData.trelloLink}
+              onChange={handleInputChange}
+              placeholder="Trello URL"
               type="url"
-              placeholder="Figma Link"
-              className="grow ml-1"
-              value={figmaLink || ""}
-              onChange={(e) => setFigmaLink(e.target.value)}
             />
           </label>
         </div>
