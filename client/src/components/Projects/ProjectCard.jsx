@@ -10,7 +10,7 @@ export const ProjectCard = (props) => {
     participants,
     techStack,
     currentUserId,
-    acceptingUsers,
+    maxParticipants
   } = props;
 
   const isOwner = owner === currentUserId;
@@ -54,7 +54,7 @@ export const ProjectCard = (props) => {
               </button>
             ) : (
               <>
-                {acceptingUsers ? (
+                {participants.length < maxParticipants ? (
                   <button className="btn bg-website-purple hover:bg-create text-white rounded-full">
                     Request to Join
                   </button>
