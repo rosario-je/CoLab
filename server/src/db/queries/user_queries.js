@@ -78,7 +78,9 @@ const getAllJoinRequests = async (user_id) => {
         users AS owner ON projects.owner_id = owner.id
       JOIN 
         users AS requester ON join_requests.user_id = requester.id
-      WHERE 
+      WHERE
+        join_requests.is_accepted = false
+      AND 
         projects.owner_id = $1`,
       [user_id]
     );
@@ -92,7 +94,7 @@ const approveJoinRequest = async (project_id, requesting_user_id) => {
   try {
     const data = await db.query(
       `UPDATE join_requests
-      SET is_approved = true
+      SET is_accepted = true
       WHERE project_id = $1
       AND user_id = $2
       RETURNING *`,
@@ -133,13 +135,12 @@ const createUser = async (user) => {
   }
 }
 
-const getUser = async (email, password) => {
+const getUserByEmail = async (email) => {
   try {
     const data = await db.query(
       `SELECT * FROM users
-      WHERE email = $1
-      AND password = $2`,
-      [email, password]
+      WHERE email = $1`,
+      [email]
     );
     return data.rows[0];
   } catch (error) {
@@ -164,6 +165,6 @@ const getUserById = async (user_id) => {
 
 export { getOwnerById, getOwnerByProjectId, 
   getProjectParticipants, askToJoinProject , 
-  createUser, getUser,  getUserById, 
+  createUser, getUserByEmail,  getUserById, 
   getAllJoinRequests, approveJoinRequest, 
   addUserToProject };

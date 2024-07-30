@@ -1,10 +1,11 @@
 import express from 'express';
 import { createNewProject, getProjectPage, getProjectById, getPendingJoinRequests } from '../db/queries/project_queries.js';
-import { getUserById, askToJoinProject } from '../db/queries/user_queries.js';
+import { getUserById, askToJoinProject, approveJoinRequest, addUserToProject } from '../db/queries/user_queries.js';
 import { addTechToProject } from '../db/queries/tech_queries.js';
 import { createGroupChat } from '../db/queries/group_chat_queries.js';
 const router = express.Router();
 
+// Creates a new project
 // http://localhost:5000/api/projects/create
 router.post('/create', async (req, res) => {
   const { id: user_id } = req.session.user;
@@ -33,6 +34,7 @@ router.post('/create', async (req, res) => {
   }
 });
 
+// Fetches a project by its ID
 // http://localhost:5000/api/projects/:id
 router.get('/:id', async (req, res) => {
   const { id } = req.params;
@@ -48,11 +50,12 @@ router.get('/:id', async (req, res) => {
   }
 });
 
+// Creates a new join request for a project
 // http://localhost:5000/api/projects/:id/join
 router.post('/:id/join', async (req, res) => {
   const { id: project_id } = req.params;
+  const { id: user_id } = req.session.user;
   const project = await getProjectById(project_id);
-  const { user_id } = req.body;
   try {
     const user = await getUserById(user_id);
     if (!user) {
@@ -76,6 +79,23 @@ router.post('/:id/join', async (req, res) => {
   } catch (error) {
     console.error('Error joining project:', error.message);
     res.status(500).send('Error joining project');
+  }
+});
+
+// Approves a join request and adds the user to the project
+// http://localhost:5000/api/projects/approve_join_request
+router.post('/approve_join_request', async (req, res) => {
+  const { project_id, requesting_user_id } = req.body;
+  try {
+    const joinRequest = await approveJoinRequest(project_id, requesting_user_id);
+    if (!joinRequest) {
+      return res.status(500).send('Error approving join request');
+    }
+    const addToProject = await addUserToProject(project_id, requesting_user_id);
+    res.status(200).json(addToProject);
+  } catch (error) {
+    console.error('Error approving join request:', error.message);
+    res.status(500).send('Error approving join request');
   }
 });
 

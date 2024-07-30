@@ -1,6 +1,6 @@
 import express from 'express';
 
-import { createUser, getUser } from '../db/queries/user_queries.js';
+import { createUser, getUserByEmail } from '../db/queries/user_queries.js';
 
 const router = express.Router();
 
@@ -8,7 +8,7 @@ router.get('/register', (req, res) => {
   res.send('Create a new user');
 });
 
-
+// Create a new user
 router.post('/register', async (req, res) => {
   const { first_name, last_name, email, password, username, profile_pic } = req.body;
 
@@ -17,7 +17,7 @@ router.post('/register', async (req, res) => {
   }
   const user = { first_name, last_name, email, password, username, profile_pic };
   try {
-    const existingUser = await getUser(email, password);
+    const existingUser = await getUserByEmail(email);
     if (existingUser) {
       return res.status(409).send('User already exists');
     }
@@ -37,14 +37,15 @@ router.post('/register', async (req, res) => {
   }
 });
 
-
+// Login a user and create a session
+// Pass up user info to frontend
 router.post('/login', async (req, res) => {
   const { email, password } = req.body;
   if (!email || !password) {
     return res.status(400).send('Missing required fields');
   }
   try {
-    const user = await getUser(email, password);
+    const user = await getUserByEmail(email);
     if (!user) {
       return res.status(404).send('User not found');
     }
@@ -55,17 +56,20 @@ router.post('/login', async (req, res) => {
       firstName: user.first_name,
       lastName: user.last_name,
       username: user.username,
+      username: user.username,
+      profile_pic: user.profile_pic
     };
+
     res.status(200).json({ message: 'Logged in successfully',
-    user_id: req.session.user.id,
-    email: req.session.user.email});
+    user_id: req.session.user.id });
+
   } catch (error) {
     console.error('Error logging in:', error.message);
     res.status(500).send('Error logging in');
   }
 });
 
-
+// Logout a user and destroy the session
 router.post('/logout', (req, res) => {
   req.session.destroy(err => {
     if (err) {

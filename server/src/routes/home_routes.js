@@ -1,8 +1,9 @@
 import express from 'express';
-import { getAllProjects, getProjectsOwnedByMe, getProjectsIAmInById, getProjectsIdsIAmIn } from '../db/queries/project_queries.js';
-import { getAllJoinRequests, addUserToProject, approveJoinRequest, } from '../db/queries/user_queries.js';
+import { getAllProjects, getProjectsOwnedByMe, getProjectsIAmInById, getProjectsIdsIAmIn, getProjectById, projectFull } from '../db/queries/project_queries.js';
+import { getAllJoinRequests } from '../db/queries/user_queries.js';
 const router = express.Router();
 
+// View all projects
 // http://localhost:5000/api/dashboard/projects
 router.get('/projects', async (req, res) => {
   try {
@@ -14,6 +15,7 @@ router.get('/projects', async (req, res) => {
   }
 });
 
+// View all projects you own and are a part of
 // http://localhost:5000/api/dashboard/my_projects
 router.get('/:id/my_projects', async (req, res) => {
   const { id: user_id } = req.session.user;
@@ -29,12 +31,24 @@ router.get('/:id/my_projects', async (req, res) => {
   }
 });
 
-// http://localhost:5000/dashboard/api/manage_requests
-router.get('/manage_requests/:id', async (req, res) => {
+// View all join requests for projects you own
+// http://localhost:5000/api/dashboard/manage_requests
+router.get('/manage_requests', async (req, res) => {
   const { id: user_id } = req.session.user;
   try {
-    const joinRequests = await getAllJoinRequests(user_id);
-    return res.status(200).json(joinRequests);
+    const joinRequests = await getAllJoinRequests(user_id);    
+    // Create an array of promises to fetch project data and participant count
+    const requestsWithProjects = await Promise.all(joinRequests.map(async (request) => {
+      const project = await getProjectById(request.project_id);
+      const participants = await projectFull(project.id);  
+      return { ...request, project, participants: Number(participants.count) };
+    }));
+    // Filter the completed results based on your condition
+    const filteredRequests = requestsWithProjects.filter(({ project, participants }) => {
+      return project.max_participants > participants;
+    });
+       
+    return res.status(200).json(filteredRequests);
   } catch (error) {
     console.error("Error in getting join requests: ", error.message);
     res.status(500).json({ error: "Internal server error" });

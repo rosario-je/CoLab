@@ -10,7 +10,6 @@ CREATE TABLE projects (
   github_repo VARCHAR DEFAULT NULL,
   figma_link VARCHAR DEFAULT NULL,
   trello_link VARCHAR DEFAULT NULL,
-  is_accepting_users BOOL DEFAULT TRUE,
   is_in_progress BOOL DEFAULT TRUE,
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
