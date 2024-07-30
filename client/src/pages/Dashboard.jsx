@@ -13,11 +13,11 @@ export const Dashboard = ({ handleCoLabHome, currentUser, handleLogout }) => {
       <Navbar handleCoLabHome={handleCoLabHome} currentUser={currentUser}/>
       <div className="flex mt-16">
         <UserLeftMenu currentUser={currentUser} />
-        <div className="flex flex-col w-full bg-project-background overflow-hidden">
+        <div className="flex flex-col w-full bg-project-background overflow-hidden pt-4">
           <div className="z-10 bg-black">
             <SearchBar />
           </div>
-          <div className="flex grow justify-center overflow-y-auto mx-64">
+          <div className="flex grow justify-center overflow-y-auto mx-[290px] mt-16">
             <ProjectList currentUser={currentUser} />
           </div>
         </div>
