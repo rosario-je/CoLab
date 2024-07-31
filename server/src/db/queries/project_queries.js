@@ -57,6 +57,57 @@ const getAllProjects = async () => {
   }
 };
 
+// This gets all projects for the search page
+const getAllProjectsById = async (project_id) => {
+  try {
+    const data = await db.query(
+      `SELECT 
+        p.id AS project_id,
+        p.name,
+        p.description,
+        p.owner_id,
+        owner.username AS owner_username,
+        owner.profile_pic AS owner_pic,
+        owner.email AS owner_email,
+        p.max_participants,
+        p.cover_photo_path,
+        p.github_repo,
+        p.figma_link,
+        p.trello_link,
+        p.is_in_progress,
+        p.created_at,
+        COALESCE(
+          jsonb_agg(
+            DISTINCT jsonb_build_object(
+              'participant_id', par.participant_id,
+              'participant_pic', participant.profile_pic,
+              'participant_username', participant.username,
+              'participant_email', participant.email
+            )
+          ),
+          '[]'
+        ) AS participants,
+        ARRAY_AGG(DISTINCT tech.tech_name) AS tech_requirements
+      FROM 
+        projects p
+      LEFT JOIN 
+        users owner ON p.owner_id = owner.id
+      LEFT JOIN 
+        projects_participants par ON p.id = par.project_id
+      LEFT JOIN 
+        users participant ON par.participant_id = participant.id
+      LEFT JOIN 
+        tech_requirements tech ON p.id = tech.project_id
+      WHERE p.id = $1
+      GROUP BY 
+        p.id, owner.username, owner.profile_pic, owner.email;`,
+      [project_id]
+    );
+    return data.rows[0]; // Return a single project object
+  } catch (error) {
+    console.log(error);
+  }
+};
 
 // The next 3 functions work together
 // This gets all the projects that a user is the owner of
@@ -300,4 +351,4 @@ const projectFull = async (project_id) => {
 //   }
 // };
 
-export { getAllProjects, createNewProject, getProjectPage, getProjectsIdsIAmIn, getProjectsIAmInById, getProjectsOwnedByMe, getProjectById, getPendingJoinRequests, projectFull };
+export { getAllProjects, createNewProject, getProjectPage, getProjectsIdsIAmIn, getProjectsIAmInById, getProjectsOwnedByMe, getProjectById, getPendingJoinRequests, projectFull, getAllProjectsById };
