@@ -77,18 +77,12 @@ export const SignIn = () => {
                 </button>
               </div>
             </form>
-            <div className="signup-btn flex flex-col justify-center mt-4">
+            <div className="signup-btn mt-4">
               <button
                 onClick={() => navigate("/signup")}
                 className="btn btn-link"
               >
                 Don't have an account?
-              </button>
-              <button
-                onClick={() => navigate("/")}
-                className="btn btn-link"
-              >
-                Home Page
               </button>
             </div>
           </div>
