@@ -9,6 +9,7 @@ import { ProjectCard } from "../components/Projects/ProjectCard";
 
 export const Dashboard = ({ handleCoLabHome, currentUser, handleLogout }) => {
   const [projects, setProjects] = useState([]);
+  const [allProjects, setAllProjects] = useState([]);
   const userId = currentUser.id;
 
   useEffect(() => {
@@ -16,6 +17,7 @@ export const Dashboard = ({ handleCoLabHome, currentUser, handleLogout }) => {
       try {
         const projectData = await axios.get("/api/dashboard/projects");
         setProjects(projectData.data);
+        setAllProjects(projectData.data);
         console.log("Projects: ", projectData.data);
       } catch (error) {
         console.error("Error in getting projects: ", error.message);
@@ -24,6 +26,22 @@ export const Dashboard = ({ handleCoLabHome, currentUser, handleLogout }) => {
     fetchProjects();
   }, []);
 
+  const handleSearch = async (query) => {
+    if (query.trim()) {
+      try {
+        const response = await axios.post("/api/dashboard/search", {
+          tech_name: query,
+        });
+        const searchResults = response.data;
+        setProjects(searchResults);
+      } catch (error) {
+        console.error("Error fetching search results:", error);
+      }
+    } else {
+      setProjects(allProjects);
+    }
+  };
+
   return (
     <div className="flex flex-col h-screen">
       <Navbar handleCoLabHome={handleCoLabHome} currentUser={currentUser} />
@@ -31,9 +49,9 @@ export const Dashboard = ({ handleCoLabHome, currentUser, handleLogout }) => {
         <UserLeftMenu currentUser={currentUser} />
         <div className="flex flex-col w-full bg-project-background overflow-hidden pt-4">
           <div className="z-10 bg-black">
-            <SearchBar />
+            <SearchBar handleSearch={handleSearch} />
           </div>
-          <div className="flex flex-col grow justify-center overflow-y-auto mx-72 mt-16 px-10">
+          <div className="flex flex-col grow justify-center overflow-y-auto mx-72 mt-16 px-10 h-max">
             {projects.map((project) => (
               <ProjectCard
                 key={project.project_id}
@@ -49,7 +67,7 @@ export const Dashboard = ({ handleCoLabHome, currentUser, handleLogout }) => {
                 acceptingUsers={project.is_accepting_users}
                 maxParticipants={project.max_participants}
                 page="dashboard"
-                currentUserId = {userId}
+                currentUserId={userId}
               />
             ))}
           </div>
