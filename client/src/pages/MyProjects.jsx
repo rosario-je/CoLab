@@ -27,7 +27,6 @@ export const MyProjects = ({ handleCoLabHome, currentUser}) => {
     };
     fetchUserProjects();
   }, []);
-console.log("my project:" ,projects);
   return (
     <div className="flex flex-col h-screen">
       <Navbar handleCoLabHome={handleCoLabHome} currentUser={currentUser} />
