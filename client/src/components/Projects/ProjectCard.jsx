@@ -1,9 +1,12 @@
 import React from "react";
+import axios from "axios";
+
 import { ProjectUserAvatar } from "./ProjectUserAvatar";
 import { ProjectTechStack } from "./ProjectTechStack";
 import { OwnerProjectAvatar } from "./OwnerProjectAvatar";
 
 export const ProjectCard = ({
+  project_id,
   name,
   description,
   cover_photo_path,
@@ -20,14 +23,26 @@ export const ProjectCard = ({
     (participant) => participant.participant_id === currentUserId
   );
 
+  const handleJoinRequest = async (e) => {
+    e.preventDefault();
+    try {
+      const requestToJoin = await axios.post(
+        `/api/projects/${project_id}/join`
+      );
+      console.log("Request to join:", requestToJoin.data);
+    } catch (error) {
+      console.error("Error joining project:", error.message);
+    }
+  };
+
   return (
     <div className="card bg-base-100 w-full shadow-xl border-solid border-2 border-website-purple/25 text-white my-8">
       <div className="card-body h-96">
         <div className="top-project-card-container flex justify-between items-center mb-5">
           <div className="project-details-1 flex space-x-6">
             <img
-              src={`${cover_photo_path}`} //<---online
-              // src={`/project_pics/${cover_photo_path}`} <---not online
+              //src={`${cover_photo_path}`} //<---online
+              src={`/project_pics/${cover_photo_path}`} // <---not online
               alt="Project Cover"
               className="project-cover rounded-xl object-cover h-40 w-40 shadow-2xl border-2"
             />
@@ -45,13 +60,14 @@ export const ProjectCard = ({
               owner_pic={owner_pic}
               owner_id={owner}
             />
-            {participants.length > 1 && (
-              participants.map((participant) => (
-                <ProjectUserAvatar
-                  key={participant.participant_id}
-                  participant={participant}
-                />
-              ))
+            {participants.map(
+              (participant) =>
+                participant.participant_id !== null && (
+                  <ProjectUserAvatar
+                    key={participant.participant_id}
+                    participant={participant}
+                  />
+                )
             )}
           </div>
         </div>
@@ -67,7 +83,10 @@ export const ProjectCard = ({
               View Project
             </button>
           ) : participants.length < maxParticipants ? (
-            <button className="btn bg-website-purple hover:bg-create text-white rounded-full">
+            <button
+              onClick={handleJoinRequest}
+              className="btn bg-website-purple hover:bg-create text-white rounded-full"
+            >
               Request to Join
             </button>
           ) : (
