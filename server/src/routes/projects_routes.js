@@ -1,6 +1,6 @@
 import express from 'express';
 import { createNewProject, getProjectPage, getProjectById, getPendingJoinRequests } from '../db/queries/project_queries.js';
-import { getUserById, askToJoinProject, approveJoinRequest, addUserToProject, isUserOwner, rejectJoinRequest } from '../db/queries/user_queries.js';
+import { getUserById, askToJoinProject, approveJoinRequest, addUserToProject, isUserOwner, rejectJoinRequest, limitAccessToProject } from '../db/queries/user_queries.js';
 import { addTechToProject } from '../db/queries/tech_queries.js';
 import { createGroupChat, getChatHistory } from '../db/queries/chat_queries.js';
 const router = express.Router();
@@ -38,9 +38,14 @@ router.post('/create', async (req, res) => {
 // Fetches a project by its ID
 // http://localhost:8080/api/projects/:id
 router.get('/:id', async (req, res) => {
-  const { id } = req.params;
+  const { id: project_id } = req.params;
+  const { id: user_id } = req.session.user;
+  const checkUserAccess = await limitAccessToProject(project_id, user_id);
+  if (!checkUserAccess) {
+    return res.status(403).json({ error: "Unauthorized to view this project" });
+  };
   try {
-    const project = await getProjectPage(id);
+    const project = await getProjectPage(project_id);
     if (!project) {
       return res.status(404).send('Project not found');
     }
