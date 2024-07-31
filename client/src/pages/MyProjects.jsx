@@ -38,16 +38,19 @@ export const MyProjects = ({ handleCoLabHome, currentUser}) => {
           {projects.map((project) => (
             <ProjectCard
               key={project.project_id}
-              name={project.name}
-              owner={project.owner_id}
-              description={project.description}
-              cover_photo_path={project.cover_photo_path}
-              participants={project.participants}
-              techStack={project.tech_requirements}
-              acceptingUsers={project.is_accepting_users}
-              maxParticipants={project.max_participants}
+              // name={project.name}
+              // description={project.description}
+              // owner={project.owner_id}
+              // owner_pic={project.owner_pic}
+              // owner_username={project.owner_username}
+              // cover_photo_path={project.cover_photo_path}
+              // participants={project.participants}
+              // techStack={project.tech_requirements}
+              // acceptingUsers={project.is_accepting_users}
+              // maxParticipants={project.max_participants}
               page="myprojects"
               currentUserId = {userId}
+              project={project}
             />
           ))}
         </div>
