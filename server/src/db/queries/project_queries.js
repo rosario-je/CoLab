@@ -334,21 +334,32 @@ const projectFull = async (project_id) => {
   }
 };
 
-// This will be for updating a project when it is completed; only the owner can do this
-// const projectCompleted = async (project_id, user_id) => {
-//   try {
-//     const data = await db.query(
-//       `UPDATE projects
-//       SET is_completed = true
-//       WHERE project_id = $1
-//       AND owner_id = $2
-//       RETURNING *`,
-//       [project_id]
-//     );
-//     return data.rows[0];
-//   } catch (error) {
-//     console.log(error);
-//   }
-// };
+//Update a project when it is completed; only the owner can do this
+const projectCompleted = async (project_id) => {
+  try {
+    const data = await db.query(
+      `UPDATE projects
+      SET is_in_progress = false
+      WHERE id = $1
+      RETURNING *`,
+      [project_id]
+    );
+    return data.rows[0];
+  } catch (error) {
+    console.log(error);
+  }
+};
 
-export { getAllProjects, createNewProject, getProjectPage, getProjectsIdsIAmIn, getProjectsIAmInById, getProjectsOwnedByMe, getProjectById, getPendingJoinRequests, projectFull, getAllProjectsById };
+export { 
+  getAllProjects, 
+  createNewProject, 
+  getProjectPage, 
+  getProjectsIdsIAmIn, 
+  getProjectsIAmInById, 
+  getProjectsOwnedByMe, 
+  getProjectById, 
+  getPendingJoinRequests, 
+  projectFull, 
+  getAllProjectsById, 
+  projectCompleted
+};
