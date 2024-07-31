@@ -5,20 +5,22 @@ import { ProjectUserAvatar } from "./ProjectUserAvatar";
 import { ProjectTechStack } from "./ProjectTechStack";
 import { OwnerProjectAvatar } from "./OwnerProjectAvatar";
 
-export const ProjectCard = ({
-  project_id,
-  name,
-  description,
-  cover_photo_path,
-  owner,
-  participants,
-  techStack,
-  currentUserId,
-  maxParticipants,
-  owner_username,
-  owner_pic,
-}) => {
-  const isOwner = owner === currentUserId;
+export const ProjectCard = ({ currentUserId, project }) => {
+  const {
+    name,
+    description,
+    owner_id,
+    owner_pic,
+    owner_username,
+    cover_photo_path,
+    participants,
+    tech_requirements,
+    project_id,
+    is_accepting_users,
+    max_participants,
+  } = project;
+
+  const isOwner = owner_id === currentUserId;
   const isParticipant = participants.some(
     (participant) => participant.participant_id === currentUserId
   );
@@ -58,7 +60,7 @@ export const ProjectCard = ({
             <OwnerProjectAvatar
               owner_username={owner_username}
               owner_pic={owner_pic}
-              owner_id={owner}
+              owner_id={owner_id}
             />
             {participants.map(
               (participant) =>
@@ -74,7 +76,7 @@ export const ProjectCard = ({
         <p className="font-light text-xl pt-5 mb-5 italic">{description}</p>
         <div className="flex card-actions w-full justify-between items-center">
           <div className="w-[60%]">
-            {techStack.map((tech, index) => (
+            {tech_requirements.map((tech, index) => (
               <ProjectTechStack key={index} tech={tech} />
             ))}
           </div>
@@ -82,7 +84,7 @@ export const ProjectCard = ({
             <button className="btn bg-website-purple hover:bg-create text-white rounded-full">
               View Project
             </button>
-          ) : participants.length < maxParticipants ? (
+          ) : participants.length < max_participants ? (
             <button
               onClick={handleJoinRequest}
               className="btn bg-website-purple hover:bg-create text-white rounded-full"
