@@ -27,7 +27,7 @@ export const MyProjects = ({ handleCoLabHome, currentUser}) => {
     };
     fetchUserProjects();
   }, []);
-console.log(projects);
+console.log("my project:" ,projects);
   return (
     <div className="flex flex-col h-screen">
       <Navbar handleCoLabHome={handleCoLabHome} currentUser={currentUser} />
@@ -42,6 +42,7 @@ console.log(projects);
               name={project.name}
               owner={project.owner_id}
               description={project.description}
+              cover_photo_path={project.cover_photo_path}
               participants={project.participants}
               techStack={project.tech_requirements}
               acceptingUsers={project.is_accepting_users}
