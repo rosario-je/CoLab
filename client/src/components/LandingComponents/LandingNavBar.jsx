@@ -5,7 +5,6 @@ import { useNavigate } from "react-router-dom";
 export const LandingNavBar = ({
   currentUser,
   handleLogout,
-  handleCoLabHome,
 }) => {
   const navigate = useNavigate();
   return (
