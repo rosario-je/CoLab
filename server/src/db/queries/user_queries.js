@@ -202,6 +202,21 @@ const getUserById = async (user_id) => {
   }
 };
 
+const limitAccessToProject = async (project_id, user_id) => {
+  try {
+    const data = await db.query(
+      `SELECT pp.participant_id, pp.project_id, p.owner_id
+      FROM projects_participants pp
+      JOIN projects p ON pp.project_id = p.id
+      WHERE pp.project_id = $1 
+      AND (pp.participant_id = $2 OR p.owner_id = $2)`,
+      [project_id, user_id]
+    );
+    return data.rows[0];
+  } catch (error) {
+    console.log('Error limiting access to project:', error);
+  }
+};
 
 
 export {
@@ -216,5 +231,6 @@ export {
   approveJoinRequest,
   addUserToProject, 
   isUserOwner, 
-  rejectJoinRequest
+  rejectJoinRequest,
+  limitAccessToProject
 };

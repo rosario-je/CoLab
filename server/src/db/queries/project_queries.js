@@ -255,34 +255,45 @@ const createNewProject = async (name, description, user_id, max_participants, co
   }
 };
 
-// This will be for getting a single project page
-// Needs to be edited to include the participants w/info, group chat w/msgs
+
+// This gets all the data for a single project, minus the chat history
 const getProjectPage = async (project_id) => {
   try {
     const data = await db.query(
       `SELECT
-      p.id AS project_id,
-      p.name,
-      p.description,
-      p.owner_id,
-      owner.username AS owner_username,
-      owner.profile_pic AS owner_pic,
-      owner.email AS owner_email,
-      p.cover_photo_path,
-      p.github_repo,
-      p.figma_link,
-      p.trello_link,
-      gc.id AS group_chat_id,
-      json_agg(DISTINCT tr.tech_name) AS tech_stack
-  FROM
-      projects p
-      LEFT JOIN tech_requirements tr ON p.id = tr.project_id
-      LEFT JOIN group_chats gc ON p.id = gc.project_id
-      LEFT JOIN users owner ON p.owner_id = owner.id
-  WHERE
-      p.id = $1
-  GROUP BY
-    p.id, p.name, p.description, p.owner_id, p.github_repo, p.figma_link, p.trello_link, owner_username, owner_pic, owner_email, gc.id;`,
+        p.id AS project_id,
+        p.name,
+        p.description,
+        p.owner_id,
+        owner.username AS owner_username,
+        owner.profile_pic AS owner_pic,
+        owner.email AS owner_email,
+        p.cover_photo_path,
+        p.github_repo,
+        p.figma_link,
+        p.trello_link,
+        c.id AS chat_id,
+        ARRAY_AGG(DISTINCT tr.tech_name) AS tech_requirements,
+        COALESCE(
+          json_agg(DISTINCT jsonb_build_object(
+            'participant_id', par.participant_id,
+            'participant_pic', participant.profile_pic,
+            'participant_username', participant.username,
+            'participant_email', participant.email
+          )) FILTER (WHERE par.participant_id IS NOT NULL),
+          '[]'
+        ) AS participants
+      FROM
+        projects p
+        LEFT JOIN tech_requirements tr ON p.id = tr.project_id
+        LEFT JOIN chat_rooms c ON p.id = c.project_id
+        LEFT JOIN users owner ON p.owner_id = owner.id
+        LEFT JOIN projects_participants par ON p.id = par.project_id
+        LEFT JOIN users participant ON par.participant_id = participant.id
+      WHERE p.id = $1
+      GROUP BY
+        p.id, p.name, p.description, p.owner_id, owner.username, owner.profile_pic, owner.email, p.cover_photo_path, p.github_repo, p.figma_link, p.trello_link, c.id;
+      `,
       [project_id]
     );
     return data.rows[0];
