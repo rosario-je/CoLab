@@ -1,6 +1,6 @@
 import express from 'express';
 import { createNewProject, getProjectPage, getProjectById, getPendingJoinRequests } from '../db/queries/project_queries.js';
-import { getUserById, askToJoinProject, approveJoinRequest, addUserToProject } from '../db/queries/user_queries.js';
+import { getUserById, askToJoinProject, approveJoinRequest, addUserToProject, isUserOwner } from '../db/queries/user_queries.js';
 import { addTechToProject } from '../db/queries/tech_queries.js';
 import { createGroupChat } from '../db/queries/group_chat_queries.js';
 const router = express.Router();
@@ -87,7 +87,12 @@ router.post('/:id/join', async (req, res) => {
 // http://localhost:8080/api/projects/approve_join_request
 router.post('/approve_join_request', async (req, res) => {
   const { project_id, requesting_user_id } = req.body;
+  const { id: user_id } = req.session.user;
   try {
+    const isCurrentUserOwner = await isUserOwner(user_id, project_id);
+    if (!isCurrentUserOwner) {
+      return res.status(403).json({ error: "Unauthorized to complete this action" });
+    }
     const joinRequest = await approveJoinRequest(project_id, requesting_user_id);
     if (!joinRequest) {
       return res.status(500).send('Error approving join request');

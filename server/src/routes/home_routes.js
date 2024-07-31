@@ -1,7 +1,7 @@
 import express from 'express';
-import { getAllProjects, getProjectsOwnedByMe, getProjectsIAmInById, getProjectsIdsIAmIn, getProjectById, projectFull, getAllProjectsById } from '../db/queries/project_queries.js';
+import { getAllProjects, getProjectsOwnedByMe, getProjectsIAmInById, getProjectsIdsIAmIn, getProjectById, projectFull, getAllProjectsById, projectCompleted } from '../db/queries/project_queries.js';
 import { getTechByName } from '../db/queries/tech_queries.js';
-import { getAllJoinRequests } from '../db/queries/user_queries.js';
+import { getAllJoinRequests, isUserOwner } from '../db/queries/user_queries.js';
 const router = express.Router();
 
 // View all projects
@@ -32,23 +32,45 @@ router.get('/:id/my_projects', async (req, res) => {
   }
 });
 
+// Complete a project you own
+// http://localhost:8080/api/dashboard/my_projects/complete
+router.post('/my_projects/complete', async (req, res) => {
+  const { id: user_id } = req.session.user;
+  const { project_id } = req.body;
+  try {
+    const isCurrentUserOwner = await isUserOwner(user_id, project_id);
+    if (!isCurrentUserOwner) {
+      return res.status(403).json({ error: "Unauthorized to complete this project" });
+    }
+    const completeProject = await projectCompleted(project_id);
+    return res.status(200).json(completeProject);
+
+  } catch (error) {
+    console.error("Error in getting user projects: ", error.message);
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+
 // View all join requests for projects you own
 // http://localhost:8080/api/dashboard/manage_requests
 router.get('/manage_requests', async (req, res) => {
   const { id: user_id } = req.session.user;
   try {
-    const joinRequests = await getAllJoinRequests(user_id);    
+    const joinRequests = await getAllJoinRequests(user_id);
+
     // Create an array of promises to fetch project data and participant count
     const requestsWithProjects = await Promise.all(joinRequests.map(async (request) => {
       const project = await getProjectById(request.project_id);
-      const participants = await projectFull(project.id);  
-      return { ...request, project, participants: Number(participants.count) };
+      const participants = await projectFull(project.id);
+      const inProgress = project.is_in_progress === true; // Explicitly check if the project is in progress
+      return { ...request, project, participants: Number(participants.count), inProgress };
     }));
-    // Filter the completed results based on your condition
-    const filteredRequests = requestsWithProjects.filter(({ project, participants }) => {
-      return project.max_participants > participants;
+
+    // Filter the completed results based on your conditions
+    const filteredRequests = requestsWithProjects.filter(({ project, participants, inProgress }) => {
+      return project.max_participants > participants && inProgress;
     });
-       
+
     return res.status(200).json(filteredRequests);
   } catch (error) {
     console.error("Error in getting join requests: ", error.message);

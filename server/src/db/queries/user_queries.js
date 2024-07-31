@@ -45,9 +45,10 @@ const getProjectParticipants = async (project_id) => {
   }
 };
 
+// Create a join request to a project
 const askToJoinProject = async (project_id, user_id) => {
   try {
-    const data = await db.query (
+    const data = await db.query(
       `INSERT INTO join_requests (project_id, user_id)
       VALUES ($1, $2)
       RETURNING *`,
@@ -59,6 +60,7 @@ const askToJoinProject = async (project_id, user_id) => {
   }
 };
 
+// Get all join requests a user has for their projects
 const getAllJoinRequests = async (user_id) => {
   try {
     const data = await db.query(
@@ -92,6 +94,7 @@ const getAllJoinRequests = async (user_id) => {
   }
 };
 
+// Approve a specific join request
 const approveJoinRequest = async (project_id, requesting_user_id) => {
   try {
     const data = await db.query(
@@ -106,8 +109,9 @@ const approveJoinRequest = async (project_id, requesting_user_id) => {
   } catch (error) {
     console.log(error);
   }
-}
+};
 
+// Add the approved user to the project
 const addUserToProject = async (project_id, user_id) => {
   try {
     const data = await db.query(
@@ -121,7 +125,23 @@ const addUserToProject = async (project_id, user_id) => {
     console.log(error);
   }
 };
-    
+
+// Check if the current logged in user is the owner of a project
+const isUserOwner = async (user_id, project_id) => {
+  try {
+    const data = await db.query(
+      `SELECT * FROM projects 
+       WHERE owner_id = $1 AND id = $2`,
+      [user_id, project_id]
+    );
+    return data.rows.length > 0; // Return true if the user is the owner
+  } catch (error) {
+    console.log(error);
+    throw error;
+  }
+};
+
+// Create a new user
 const createUser = async (user) => {
   const { first_name, last_name, email, password, username, profile_pic } = user;
   try {
@@ -135,7 +155,7 @@ const createUser = async (user) => {
   } catch (error) {
     console.log('Error creating user:', error);
   }
-}
+};
 
 const getUserByEmail = async (email) => {
   try {
@@ -148,7 +168,7 @@ const getUserByEmail = async (email) => {
   } catch (error) {
     console.log('Error getting user by email:', error);
   }
-}
+};
 
 const getUserById = async (user_id) => {
   try {
@@ -161,12 +181,20 @@ const getUserById = async (user_id) => {
   } catch (error) {
     console.log('Error getting user by id:', error);
   }
-}
+};
 
 
 
-export { getOwnerById, getOwnerByProjectId, 
-  getProjectParticipants, askToJoinProject , 
-  createUser, getUserByEmail,  getUserById, 
-  getAllJoinRequests, approveJoinRequest, 
-  addUserToProject };
+export {
+  getOwnerById, 
+  getOwnerByProjectId,
+  getProjectParticipants, 
+  askToJoinProject,
+  createUser, 
+  getUserByEmail,
+  getUserById,
+  getAllJoinRequests, 
+  approveJoinRequest,
+  addUserToProject, 
+  isUserOwner
+};
