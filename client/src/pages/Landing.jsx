@@ -3,7 +3,7 @@ import { LandingNavBar } from "../components/LandingComponents/LandingNavBar";
 import { Footer } from "../components/LandingComponents/Footer";
 import { useNavigate } from "react-router-dom";
 
-export const Landing = () => {
+export const Landing = ({currentUser, handleLogout}) => {
   const navigate = useNavigate();
 
   const handleDashboardRoute = () => {
@@ -12,7 +12,7 @@ export const Landing = () => {
 
   return (
     <div className="bg-gradient-to-bl from-landing-gradient-one to-landing-gradient-two snap-y snap-mandatory overflow-y-scroll h-screen scroll-smooth">
-      <LandingNavBar />
+      <LandingNavBar currentUser={currentUser} handleLogout={handleLogout}/>
 
       <section className="snap-start min-h-screen landing-section1 p-48">
         <div className="grid w-3/5 gap-y-8 pb-20">
