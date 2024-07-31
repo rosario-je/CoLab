@@ -111,6 +111,23 @@ const approveJoinRequest = async (project_id, requesting_user_id) => {
   }
 };
 
+// Reject a specific join request
+const rejectJoinRequest = async (project_id, requesting_user_id) => {
+  try {
+    const data = await db.query(
+      `DELETE FROM join_requests
+      WHERE project_id = $1
+      AND user_id = $2
+      RETURNING *`,
+      [project_id, requesting_user_id]
+    );
+    return data.rows[0];
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+
 // Add the approved user to the project
 const addUserToProject = async (project_id, user_id) => {
   try {
@@ -157,6 +174,7 @@ const createUser = async (user) => {
   }
 };
 
+// Get a user by their email
 const getUserByEmail = async (email) => {
   try {
     const data = await db.query(
@@ -170,6 +188,7 @@ const getUserByEmail = async (email) => {
   }
 };
 
+// Get a user by their user_id
 const getUserById = async (user_id) => {
   try {
     const data = await db.query(
@@ -196,5 +215,6 @@ export {
   getAllJoinRequests, 
   approveJoinRequest,
   addUserToProject, 
-  isUserOwner
+  isUserOwner, 
+  rejectJoinRequest
 };
