@@ -4,7 +4,6 @@ import { useNavigate } from "react-router-dom";
 
 export const UserLeftMenu = ({ currentUser }) => {
   const navigate = useNavigate();
-  console.log(currentUser);
 
   return (
     <div className="w-72 flex flex-col justify-between text-text-color bg-menu-colors h-screen fixed left-0 z-10 inset-20 pt-16">
