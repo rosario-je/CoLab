@@ -18,7 +18,7 @@ export const Dashboard = ({ handleCoLabHome, currentUser, handleLogout }) => {
         const projectData = await axios.get("/api/dashboard/projects");
         setProjects(projectData.data);
         setAllProjects(projectData.data);
-        console.log("Projects: ", projectData.data);
+        //console.log("Projects: ", projectData.data);
       } catch (error) {
         console.error("Error in getting projects: ", error.message);
       }
@@ -55,19 +55,9 @@ export const Dashboard = ({ handleCoLabHome, currentUser, handleLogout }) => {
             {projects.map((project) => (
               <ProjectCard
                 key={project.project_id}
-                project_id={project.project_id}
-                name={project.name}
-                cover_photo_path={project.cover_photo_path}
-                owner={project.owner_id}
-                owner_username={project.owner_username}
-                owner_pic={project.owner_pic}
-                description={project.description}
-                participants={project.participants}
-                techStack={project.tech_requirements}
-                acceptingUsers={project.is_accepting_users}
-                maxParticipants={project.max_participants}
                 page="dashboard"
                 currentUserId={userId}
+                project={project}
               />
             ))}
           </div>
