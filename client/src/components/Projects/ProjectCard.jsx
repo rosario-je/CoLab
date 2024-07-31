@@ -16,8 +16,9 @@ export const ProjectCard = ({ currentUserId, project }) => {
     participants,
     tech_requirements,
     project_id,
-    is_accepting_users,
+    is_in_progress,
     max_participants,
+    github_repo,
   } = project;
 
   const isOwner = owner_id === currentUserId;
@@ -46,7 +47,7 @@ export const ProjectCard = ({ currentUserId, project }) => {
               //src={`${cover_photo_path}`} //<---online
               src={`/project_pics/${cover_photo_path}`} // <---not online
               alt="Project Cover"
-              className="project-cover rounded-xl object-cover h-40 w-40 shadow-2xl border-2"
+              className="project-cover rounded-xl object-cover h-40 w-40 shadow-2xl border-2 "
             />
             <div className="flex flex-col justify-center">
               <h2 className="card-title font-bold text-4xl">{name}</h2>
@@ -56,7 +57,7 @@ export const ProjectCard = ({ currentUserId, project }) => {
               </h3>
             </div>
           </div>
-          <div className="avatar-group -space-x-6 rtl:space-x-reverse w-2/5 flex justify-end items-end">
+          <div className="avatar-group -space-x-6 rtl:space-x-reverse w-2/5 flex justify-end items-end self-end pb-10">
             <OwnerProjectAvatar
               owner_username={owner_username}
               owner_pic={owner_pic}
@@ -81,23 +82,59 @@ export const ProjectCard = ({ currentUserId, project }) => {
             ))}
           </div>
           {isOwner || isParticipant ? (
-            <button className="btn bg-website-purple hover:bg-create text-white rounded-full">
-              View Project
-            </button>
+            <>
+              {is_in_progress ? (
+                <button className="btn bg-website-purple hover:bg-create text-white rounded-full">
+                  View Project
+                </button>
+              ) : (
+                <div className="flex gap-x-2">
+                  <button className="btn bg-royal-blue hover:bg-racing-blue text-white rounded-full">
+                    <a href={`${github_repo}`} target="_blank">
+                      Github Repo
+                    </a>
+                  </button>
+
+                  <button className="btn bg-website-purple hover:bg-create text-white rounded-full">
+                    View Project
+                  </button>
+                </div>
+              )}
+            </>
           ) : participants.length < max_participants ? (
-            <button
-              onClick={handleJoinRequest}
-              className="btn bg-website-purple hover:bg-create text-white rounded-full"
-            >
-              Request to Join
-            </button>
+            <>
+              {is_in_progress ? (
+                <button
+                  onClick={handleJoinRequest}
+                  className="btn bg-website-purple hover:bg-create text-white rounded-full"
+                >
+                  Request to Join
+                </button>
+              ) : (
+                <button className="btn bg-royal-blue hover:bg-racing-blue text-white rounded-full">
+                  <a href={`${github_repo}`} target="_blank">
+                    Github Repo
+                  </a>
+                </button>
+              )}
+            </>
           ) : (
-            <button
-              className="btn bg-website-purple hover:bg-create text-white rounded-full"
-              disabled
-            >
-              Project Capacity: Full
-            </button>
+            <>
+              {is_in_progress ? (
+                <button
+                  className="btn bg-website-purple hover:bg-create text-white rounded-full"
+                  disabled
+                >
+                  Project Capacity: Full
+                </button>
+              ) : (
+                <button className="btn bg-royal-blue hover:bg-racing-blue text-white rounded-full">
+                  <a href={`${github_repo}`} target="_blank">
+                    Github Repo
+                  </a>
+                </button>
+              )}
+            </>
           )}
         </div>
       </div>

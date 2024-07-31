@@ -42,6 +42,8 @@ export const Dashboard = ({ handleCoLabHome, currentUser, handleLogout }) => {
     }
   };
 
+  console.log("Projects: ", projects);
+
   return (
     <div className="flex flex-col h-screen">
       <Navbar handleCoLabHome={handleCoLabHome} currentUser={currentUser} />

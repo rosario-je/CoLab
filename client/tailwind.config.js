@@ -19,6 +19,8 @@ export default {
         create: "#6a1b9a",
         wand: "#fbc02d",
         green: "#32CD32",
+        "racing-blue": "#5B8EE0",
+        "royal-blue": "#4169E1",
         "royal-yellow": "#FFD700",
         "yellow-name": "#FFF9DB",
         "dark-green": "#228B22",
