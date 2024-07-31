@@ -1,4 +1,4 @@
-INSERT INTO group_chats (project_id) VALUES
+INSERT INTO chat_rooms (project_id) VALUES
 (1), -- 'Konoha Village Chat'
 (2), -- 'Naruto Missions Tracker'
 (3), -- 'Straw Hat Crew Task Manager'

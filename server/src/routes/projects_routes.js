@@ -2,7 +2,7 @@ import express from 'express';
 import { createNewProject, getProjectPage, getProjectById, getPendingJoinRequests } from '../db/queries/project_queries.js';
 import { getUserById, askToJoinProject, approveJoinRequest, addUserToProject, isUserOwner, rejectJoinRequest } from '../db/queries/user_queries.js';
 import { addTechToProject } from '../db/queries/tech_queries.js';
-import { createGroupChat } from '../db/queries/group_chat_queries.js';
+import { createGroupChat } from '../db/queries/chat_queries.js';
 const router = express.Router();
 
 // Creates a new project

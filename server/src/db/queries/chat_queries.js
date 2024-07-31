@@ -3,7 +3,7 @@ import db from '../connection.js';
 const createGroupChat = async (project_id) => {
   try {
     const data = await db.query(
-      `INSERT INTO group_chats (project_id)
+      `INSERT INTO chat_rooms (project_id)
       VALUES ($1)
       RETURNING *`,
       [project_id]

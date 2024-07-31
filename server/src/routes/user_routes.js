@@ -1,5 +1,4 @@
 import express from 'express';
-
 import { createUser, getUserByEmail } from '../db/queries/user_queries.js';
 
 const router = express.Router();

@@ -272,12 +272,12 @@ const getProjectPage = async (project_id) => {
       p.github_repo,
       p.figma_link,
       p.trello_link,
-      gc.id AS group_chat_id,
+      c.id AS chat_id,
       json_agg(DISTINCT tr.tech_name) AS tech_stack
   FROM
       projects p
       LEFT JOIN tech_requirements tr ON p.id = tr.project_id
-      LEFT JOIN group_chats gc ON p.id = gc.project_id
+      LEFT JOIN chat_rooms gc ON p.id = c.project_id
       LEFT JOIN users owner ON p.owner_id = owner.id
   WHERE
       p.id = $1
