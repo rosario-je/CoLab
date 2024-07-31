@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 
 export const UserLeftMenu = ({ currentUser }) => {
   const navigate = useNavigate();
+  console.log(currentUser);
 
   return (
     <div className="w-72 flex flex-col justify-between text-text-color bg-menu-colors h-screen fixed left-0 z-10 inset-20 pt-16">
@@ -82,7 +83,6 @@ export const UserLeftMenu = ({ currentUser }) => {
                   Recommended
                 </a>
               </li>
-              
             </ul>
           </li>
         </ul>
@@ -90,9 +90,18 @@ export const UserLeftMenu = ({ currentUser }) => {
 
       <div className="bottom-user-menu justify-center">
         <div className="flex justify-center pb-20 flex-col items-center gap-y-5 h-80">
-          <div className="flex flex-col w-full pl-20 space-y-1">
-            <h3 className="font-bold">@{currentUser.username}</h3>
-            <h4 className="font-light">{currentUser.email}</h4>
+          <div className="flex flex-row w-full space-y-1 items-center justify-center gap-x-4">
+            <img
+              src={`/profile_pics/${currentUser.profile_pic}`}
+              alt="profile"
+              className="rounded-full h-24 w-24 border-slate-50 border-4"
+            />
+            <div className="flex flex-col space-y-1">
+              <h3 className="font-bold text-xl">@{currentUser.username}</h3>
+              <h4 className="font-extralight text-sm italic">
+                {currentUser.email}
+              </h4>
+            </div>
           </div>
         </div>
       </div>
