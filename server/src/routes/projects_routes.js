@@ -9,6 +9,7 @@ const router = express.Router();
 // http://localhost:8080/api/projects/create
 router.post('/create', async (req, res) => {
   const { id: user_id } = req.session.user;
+  console.log(req.session.user);
   const { name, description, max_participants, cover_photo_path, github_repo, figma_link, trello_link, tech_names } = req.body;
 
   // Mandatory fields: name, description, user_id, max_participants, tech_names
