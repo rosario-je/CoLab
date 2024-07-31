@@ -2,7 +2,7 @@ import express from 'express';
 import { createNewProject, getProjectPage, getProjectById, getPendingJoinRequests } from '../db/queries/project_queries.js';
 import { getUserById, askToJoinProject, approveJoinRequest, addUserToProject, isUserOwner, rejectJoinRequest } from '../db/queries/user_queries.js';
 import { addTechToProject } from '../db/queries/tech_queries.js';
-import { createGroupChat } from '../db/queries/chat_queries.js';
+import { createGroupChat, getChatHistory } from '../db/queries/chat_queries.js';
 const router = express.Router();
 
 // Creates a new project
@@ -44,7 +44,9 @@ router.get('/:id', async (req, res) => {
     if (!project) {
       return res.status(404).send('Project not found');
     }
-    res.status(200).json(project);
+    const projectChat = await getChatHistory(project.chat_id);
+    const projectWithChat = { ...project, chat: projectChat };
+    res.status(200).json(projectWithChat);
   } catch (error) {
     console.error('Error fetching project details:', error.message);
     res.status(500).send('Error fetching project details');
