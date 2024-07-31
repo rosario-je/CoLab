@@ -26,7 +26,8 @@ export const ProjectCard = ({
         <div className="top-project-card-container flex justify-between items-center mb-5">
           <div className="project-details-1 flex space-x-6">
             <img
-              src={`/project_pics/${cover_photo_path}`}
+              src={`${cover_photo_path}`} //<---online
+              // src={`/project_pics/${cover_photo_path}`} <---not online
               alt="Project Cover"
               className="project-cover rounded-xl object-cover h-40 w-40 shadow-2xl border-2"
             />
