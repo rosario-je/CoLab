@@ -56,7 +56,7 @@ function App() {
   return (
     <div className="App">
       <Routes>
-        <Route path="/" element={<Landing />} />
+        <Route path="/" element={<Landing currentUser={currentUser} handleLogout={handleLogout} />}/>
         <Route path="/signin" element={<SignIn />} />
         <Route path="/signup" element={<SignUp />} />
 
