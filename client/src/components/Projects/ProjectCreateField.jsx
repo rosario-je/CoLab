@@ -1,21 +1,23 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
+
 import { CreateProjectTechStackModal } from "../CreateProjectTechStackModal";
 
 export const ProjectCreateField = ({ handleTechStacksModal, techModal }) => {
   const [projectData, setProjectData] = useState({
-    title: "",
+    name: "",
     description: "",
-    capacity: 1,
-    githubRepo: "",
-    figmaLink: "",
-    trelloLink: "",
-    coverPhotoPath: "",
-    techRequirements: [],
+    max_participants: 1,
+    cover_photo_path: "",
+    github_repo: "",
+    figma_link: "",
+    trello_link: "",
+    tech_names: [],
     newPicture: "",
   });
 
-  const maxChars = 200;
+  const maxChars = 300;
   const navigate = useNavigate();
 
   const handleInputChange = (e) => {
@@ -34,7 +36,7 @@ export const ProjectCreateField = ({ handleTechStacksModal, techModal }) => {
     if (techLanguage.trim() !== "") {
       setProjectData((prevData) => ({
         ...prevData,
-        techRequirements: [...prevData.techRequirements, techLanguage],
+        tech_names: [...prevData.tech_names, techLanguage],
       }));
     }
   };
@@ -44,10 +46,13 @@ export const ProjectCreateField = ({ handleTechStacksModal, techModal }) => {
   };
 
   const handleAddCoverPhoto = () => {
-    if (projectData.newPicture.trim() && isValidImageUrl(projectData.newPicture)) {
+    if (
+      projectData.newPicture.trim() &&
+      isValidImageUrl(projectData.newPicture)
+    ) {
       setProjectData((prevData) => ({
         ...prevData,
-        coverPhotoPath: projectData.newPicture,
+        cover_photo_path: projectData.newPicture,
         newPicture: "",
       }));
     } else {
@@ -56,29 +61,16 @@ export const ProjectCreateField = ({ handleTechStacksModal, techModal }) => {
   };
 
   const handleRemoveCoverPhoto = () => {
-    setProjectData((prevData) => ({ ...prevData, coverPhotoPath: "" }));
+    setProjectData((prevData) => ({ ...prevData, cover_photo_path: "" }));
   };
 
-  const createProject = async (event) => {
-    event.preventDefault();
-
+  const createProject = async (e) => {
+    e.preventDefault();
     try {
-      const response = await fetch("/api/projects", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(projectData),
-      });
-
-      if (response.ok) {
-        navigate("/dashboard");
-      } else {
-        alert("Failed to create project");
-      }
+      const project = await axios.post("/api/projects/create", projectData);
+      console.log("Project created successfully:", project.data);
     } catch (error) {
-      console.error("Error:", error);
-      alert("Failed to create project");
+      console.error("Error creating project:", error.response.data);
     }
   };
 
@@ -93,10 +85,10 @@ export const ProjectCreateField = ({ handleTechStacksModal, techModal }) => {
         <div className="w-auto">
           <input
             type="text"
-            name="title"
+            name="name"
             placeholder="Title"
             className="input input-bordered bg-input-colors w-96"
-            value={projectData.title}
+            value={projectData.name}
             onChange={handleInputChange}
             required
           />
@@ -107,9 +99,9 @@ export const ProjectCreateField = ({ handleTechStacksModal, techModal }) => {
         <CreateProjectTechStackModal
           handleTechStacksModal={handleTechStacksModal}
           handleAddTech={handleAddTech}
-          techRequirements={projectData.techRequirements}
-          setTechRequirements={(techRequirements) =>
-            setProjectData((prevData) => ({ ...prevData, techRequirements }))
+          tech_names={projectData.tech_names}
+          setTechRequirements={(tech_names) =>
+            setProjectData((prevData) => ({ ...prevData, tech_names }))
           }
         />
       )}
@@ -126,8 +118,11 @@ export const ProjectCreateField = ({ handleTechStacksModal, techModal }) => {
             placeholder="Description..."
             value={projectData.description}
             onChange={handleDescriptionChange}
+            name="description"
           ></textarea>
-          <h6 className="text-input-value">{maxChars - projectData.description.length}</h6>
+          <h6 className="text-input-value">
+            {maxChars - projectData.description.length}
+          </h6>
         </div>
       </div>
 
@@ -136,14 +131,15 @@ export const ProjectCreateField = ({ handleTechStacksModal, techModal }) => {
         <div className="w-auto">
           <h3 className="text-white">User Capacity</h3>
           <h6>
-            Pick the maximum amount of users that can request to join this project
+            Pick the maximum amount of users that can request to join this
+            project
           </h6>
         </div>
         <div className="user-capacity w-1/3 flex flex-col justify-center items-end">
           <select
             className="select select-bordered w-1/2 bg-input-colors"
-            name="capacity"
-            value={projectData.capacity}
+            name="max_participants"
+            value={projectData.max_participants}
             onChange={handleInputChange}
           >
             <option value="" disabled>
@@ -153,7 +149,6 @@ export const ProjectCreateField = ({ handleTechStacksModal, techModal }) => {
             <option value="2">2</option>
             <option value="3">3</option>
             <option value="4">4</option>
-            <option value="5">5</option>
           </select>
         </div>
       </div>
@@ -172,7 +167,7 @@ export const ProjectCreateField = ({ handleTechStacksModal, techModal }) => {
             <i className="fa-solid fa-plus group-hover:animate-spin group-hover:text-white group-hover:drop-shadow-white-glow"></i>
             Add
           </button>
-          <h2>({projectData.techRequirements.length}) Selected</h2>
+          <h2>({projectData.tech_names.length}) Selected</h2>
         </div>
       </div>
 
@@ -180,19 +175,22 @@ export const ProjectCreateField = ({ handleTechStacksModal, techModal }) => {
       <div className="images-input flex justify-between items-center w-full mb-10 py-4">
         <div className="choose-file w-auto self-start">
           <h3 className="text-white">Cover Photo</h3>
-          <h6>Choose images to showcase the design or what might represent the design of the project</h6>
-          {projectData.coverPhotoPath && (
+          <h6>
+            Choose images to showcase the design or what might represent the
+            design of the project
+          </h6>
+          {projectData.cover_photo_path && (
             <button
               className="text-white mt-5 btn hover:bg-red text-lg group mr-5"
               onClick={handleRemoveCoverPhoto}
             >
               <i className="fa-solid fa-image group-hover:text-white group-hover:drop-shadow-white-glow"></i>
-              {projectData.coverPhotoPath}
+              {projectData.cover_photo_path}
             </button>
           )}
         </div>
         <div className="file-input-container w-1/3 flex flex-col justify-center items-end gap-5">
-          {projectData.coverPhotoPath.length > 0 ? (
+          {projectData.cover_photo_path.length > 0 ? (
             <>
               <input
                 type="url"
@@ -237,7 +235,10 @@ export const ProjectCreateField = ({ handleTechStacksModal, techModal }) => {
       <div className="project-link-inputs flex justify-between items-center w-full mb-10 py-4">
         <div className="w-1/2 self-start">
           <h3 className="text-white">Project Links</h3>
-          <h6>Choose images to showcase the design or what might represent the design of the project</h6>
+          <h6>
+            Choose images to showcase the design or what might represent the
+            design of the project
+          </h6>
         </div>
 
         <div className="w-1/2 flex flex-col items-end">
