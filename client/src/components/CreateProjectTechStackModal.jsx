@@ -3,7 +3,7 @@ import React, { useState } from "react";
 export const CreateProjectTechStackModal = ({
   handleTechStacksModal,
   handleAddTech,
-  techRequirements,
+  tech_names,
   setTechRequirements,
 }) => {
   const [newTech, setNewTech] = useState("");
@@ -49,7 +49,7 @@ export const CreateProjectTechStackModal = ({
           </button>
         </div>
         <div className="flex flex-wrap mt-10 gap-5">
-          {techRequirements.map((tech, index) => (
+          {tech_names.map((tech, index) => (
             <div
               key={index}
               className="bg-website-purple text-white px-2 py-1 rounded-md cursor-pointer h-1/5 hover:bg-red"
