@@ -27,23 +27,23 @@ export const SignIn = () => {
     } catch (error) {
       console.error("Error logging in user:", error.response.data);
     }
-  }
+  };
 
   return (
-    <div>
-      <div className="hero bg-base-200 min-h-screen">
-        <div className="hero-content flex-col lg:flex-row-reverse">
-          <div className="text-center lg:text-left">
-            <h1 className="text-5xl font-bold">Login now!</h1>
-            <p className="py-6">
-              Provident cupiditate voluptatem et in. Quaerat fugiat ut assumenda
-              excepturi exercitationem quasi. In deleniti eaque aut repudiandae
-              et a id nisi.
-            </p>
-          </div>
-          <div className="card bg-base-100 w-full max-w-sm shrink-0 shadow-2xl">
-            <form className="card-body">
-              <div className="form-control">
+    <div className="hero bg-base-200 min-h-screen flex items-center">
+      <div className="container mx-auto flex justify-between items-center h-full px-4">
+        <div className="w-1/2 flex flex-col items-center text-center p-8">
+          <h1 className="text-5xl font-bold">Welcome back to CoLab!</h1>
+          <p className="py-6 text-2xl font-light">
+            Login to your account to start collaborating!
+          </p>
+        </div>
+
+        <div className="w-1/2 flex flex-col items-center">
+          <div className="card bg-base-100 w-full max-w-md p-8 rounded-lg shadow-lg flex flex-col items-center">
+            <h2 className="text-4xl font-bold mb-4">Sign In</h2>
+            <form className="w-full" onSubmit={handleAccountLogin}>
+              <div className="form-control mb-4">
                 <label className="label">
                   <span className="label-text">Email</span>
                 </label>
@@ -51,13 +51,13 @@ export const SignIn = () => {
                   type="email"
                   name="email"
                   placeholder="email"
-                  className="input input-bordered"
+                  className="input input-bordered w-full"
                   required
                   value={formData.email}
                   onChange={handleChange}
                 />
               </div>
-              <div className="form-control">
+              <div className="form-control mb-4">
                 <label className="label">
                   <span className="label-text">Password</span>
                 </label>
@@ -65,22 +65,30 @@ export const SignIn = () => {
                   type="password"
                   name="password"
                   placeholder="password"
-                  className="input input-bordered"
+                  className="input input-bordered w-full"
                   required
                   value={formData.password}
                   onChange={handleChange}
                 />
               </div>
-              <div onClick={handleAccountLogin} className="form-control mt-6 gap-y-4">
-                <button className="btn btn-primary">Login</button>
+              <div className="form-control mt-6">
+                <button type="submit" className="btn btn-primary w-full">
+                  Login
+                </button>
               </div>
             </form>
-            <div className="flex mt-6 gap-y-4 justify-center pb-8 ">
+            <div className="signup-btn flex flex-col justify-center mt-4">
               <button
                 onClick={() => navigate("/signup")}
-                className="btn btn-primary w-80"
+                className="btn btn-link"
               >
                 Don't have an account?
+              </button>
+              <button
+                onClick={() => navigate("/")}
+                className="btn btn-link"
+              >
+                Home Page
               </button>
             </div>
           </div>
