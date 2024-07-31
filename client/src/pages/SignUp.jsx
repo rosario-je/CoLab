@@ -117,19 +117,13 @@ export const SignUp = () => {
               </button>
             </div>
           </form>
-          <div className="mt-4 flex flex-col justify-center">
+          <div className="mt-4 justify-center">
             <button
               onClick={() => navigate("/signin")}
               className="btn btn-link"
             >
               Already have an account?
             </button>
-            <button
-                onClick={() => navigate("/")}
-                className="btn btn-link"
-              >
-                Home Page
-              </button>
           </div>
         </div>
 
