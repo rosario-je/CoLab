@@ -47,13 +47,16 @@ const getAllProjects = async () => {
       LEFT JOIN 
         tech_requirements tech ON p.id = tech.project_id
       GROUP BY 
-        p.id, owner.username, owner.profile_pic, owner.email;`
+        p.id, owner.username, owner.profile_pic, owner.email
+      ORDER BY 
+        p.created_at DESC;`
     );
     return data.rows;
   } catch (error) {
     console.log(error);
   }
 };
+
 
 // The next 3 functions work together
 // This gets all the projects that a user is the owner of
@@ -99,7 +102,9 @@ const getProjectsOwnedByMe = async (user_id) => {
         tech_requirements tech ON p.id = tech.project_id
     WHERE p.owner_id = $1
     GROUP BY 
-      p.id, owner.username, owner.profile_pic, owner.email;`,
+      p.id, owner.username, owner.profile_pic, owner.email
+      ORDER BY 
+        p.created_at DESC;`,
       [user_id]
     );
     return data.rows;
