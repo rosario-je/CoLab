@@ -23,7 +23,6 @@ export const Dashboard = ({ handleCoLabHome, currentUser, handleLogout }) => {
     };
     fetchProjects();
   }, []);
-  console.log("dashboard:", projects);
 
   return (
     <div className="flex flex-col h-screen">
@@ -38,6 +37,7 @@ export const Dashboard = ({ handleCoLabHome, currentUser, handleLogout }) => {
             {projects.map((project) => (
               <ProjectCard
                 key={project.project_id}
+                project_id={project.project_id}
                 name={project.name}
                 cover_photo_path={project.cover_photo_path}
                 owner={project.owner_id}
