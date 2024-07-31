@@ -202,7 +202,7 @@ const getUserById = async (user_id) => {
   }
 };
 
-const limitAccessToProject = async (project_id, user_id) => {
+const limitAccess = async (project_id, user_id) => {
   try {
     const data = await db.query(
       `SELECT pp.participant_id, pp.project_id, p.owner_id
@@ -232,5 +232,5 @@ export {
   addUserToProject, 
   isUserOwner, 
   rejectJoinRequest,
-  limitAccessToProject
+  limitAccess
 };

@@ -1,8 +1,8 @@
 import express from 'express';
 import { createNewProject, getProjectPage, getProjectById, getPendingJoinRequests } from '../db/queries/project_queries.js';
-import { getUserById, askToJoinProject, approveJoinRequest, addUserToProject, isUserOwner, rejectJoinRequest, limitAccessToProject } from '../db/queries/user_queries.js';
+import { getUserById, askToJoinProject, approveJoinRequest, addUserToProject, isUserOwner, rejectJoinRequest, limitAccess } from '../db/queries/user_queries.js';
 import { addTechToProject } from '../db/queries/tech_queries.js';
-import { createGroupChat, getChatHistory } from '../db/queries/chat_queries.js';
+import { createGroupChat, getChatHistory, newChatMessage, getProjectChatId } from '../db/queries/chat_queries.js';
 const router = express.Router();
 
 // Creates a new project
@@ -40,7 +40,7 @@ router.post('/create', async (req, res) => {
 router.get('/:id', async (req, res) => {
   const { id: project_id } = req.params;
   const { id: user_id } = req.session.user;
-  const checkUserAccess = await limitAccessToProject(project_id, user_id);
+  const checkUserAccess = await limitAccess(project_id, user_id);
   if (!checkUserAccess) {
     return res.status(403).json({ error: "Unauthorized to view this project" });
   };
@@ -55,6 +55,33 @@ router.get('/:id', async (req, res) => {
   } catch (error) {
     console.error('Error fetching project details:', error.message);
     res.status(500).send('Error fetching project details');
+  }
+});
+
+// Approved user can send a message to a chat
+// http://localhost:8080/api/projects/:id/chat
+router.post('/:id/chat', async (req, res) => {
+  const { id: project_id } = req.params;
+  const { id: sender_id } = req.session.user;
+  const { message } = req.body;
+  const chat_room_id = await getProjectChatId(project_id);
+  const checkUserAccess = await limitAccess(project_id, sender_id);
+
+  if (!checkUserAccess) {
+    return res.status(403).json({ error: "Unauthorized to access this project and send messages" });
+  };
+  try {
+    const newMessage = await newChatMessage(sender_id, chat_room_id, message);
+    res.status(201).json({
+      message: "Message sent successfully",
+      data: {
+        chat_room_id: chat_room_id,
+        newMessage: newMessage
+      }
+    });
+  } catch (error) {
+    console.error('Error sending message:', error.message);
+    res.status(500).send('Error sending message');
   }
 });
 

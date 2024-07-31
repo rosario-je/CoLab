@@ -1,11 +1,9 @@
 import "dotenv/config.js";
 import express from "express";
 import { config } from "dotenv";
-
 import session from "express-session";
 import cookieParser from "cookie-parser";
 import cors from "cors";
-import chatsRoutes from "./routes/chats_routes.js";
 import projectsRoutes from "./routes/projects_routes.js";
 import homeRoutes from "./routes/home_routes.js";
 import userRoutes from "./routes/user_routes.js";
@@ -34,7 +32,6 @@ app.get("/", (req, res) => {
   res.send("Welcome to CoLab!");
 });
 
-app.use("/chats", chatsRoutes)
 app.use("/api/projects", projectsRoutes)
 app.use("/api/dashboard", homeRoutes)
 app.use("/api", userRoutes)

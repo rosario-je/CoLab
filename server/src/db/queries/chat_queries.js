@@ -15,6 +15,21 @@ const createGroupChat = async (project_id) => {
   }
 };
 
+// Get the chat_id for a project
+const getProjectChatId = async (project_id) => {
+  try {
+    const data = await db.query(
+      `SELECT chat_rooms.id AS chat_id FROM chat_rooms
+      JOIN projects ON chat_rooms.project_id = projects.id
+      WHERE projects.id = $1`
+      , [project_id]
+    );
+    return data.rows[0].chat_id;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 // This gets the chat history for a project
 const getChatHistory = async (chat_id) => {
   try {
@@ -41,4 +56,23 @@ const getChatHistory = async (chat_id) => {
   }
 };
 
-export { createGroupChat, getChatHistory };
+const newChatMessage = async (sender_id, chat_id, message) => {
+  try {
+    const data = await db.query(
+      `INSERT INTO group_chat_messages (sender_id, chat_room_id, message) 
+      VALUES ($1, $2, $3) 
+      RETURNING *`,
+      [sender_id, chat_id, message]
+    );
+    return data.rows[0];
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export { 
+createGroupChat, 
+getChatHistory, 
+newChatMessage, 
+getProjectChatId
+};
