@@ -1,32 +1,59 @@
 import React from "react";
 import { ProjectPageAvatars } from "./ProjectPageAvatars";
-import { ProjectInspoBoard } from "./ProjectInspoBoard";
 
-export const ProjectPageDetails = () => {
+import { OwnerProjectAvatar } from "../Projects/OwnerProjectAvatar";
+
+export const ProjectPageDetails = ({ project }) => {
+  const {
+    name,
+    cover_photo_path,
+    description,
+    figma_link,
+    github_repo,
+    owner_email,
+    owner_pic,
+    owner_username,
+    participants,
+    tech_requirements,
+  } = project;
+
   return (
-    <div className="project-chat-details-container flex grow h-32  flex-col">
-      <div className="flex flex-row w-full p-9 justify-between items-center border-b-2 border-slate-700">
-        <div className="project-title ">
-          <h1 className="text-white font-3xl font-light text-3xl">
-            Project Name
-          </h1>
-        </div>
+    <div className="project-chat-details-container flex grow h-40 flex-col mt-3.5">
+      <div className="flex flex-row w-full p-9 justify-between border-b-2 border-slate-700 h-full items-center">
+        {name && (
+          <div className="project-title">
+            <h1 className="text-white font-3xl font-light text-3xl">{name}</h1>
+          </div>
+        )}
         <div className="tech-stack flex flex-row justify-around gap-x-8">
-          <p className="rounded-full bg-website-purple px-3.5 py-1">ReactJS</p>
-          <p className="rounded-full bg-website-purple px-3.5 py-1">MongoDB</p>
-          <p className="rounded-full bg-website-purple px-3.5 py-1">NodeJS</p>
-          <p className="rounded-full bg-website-purple px-3.5 py-1">
-            TailwindCSS
-          </p>
+          {tech_requirements &&
+            tech_requirements.map((tech, index) => (
+              <p
+                key={index}
+                className="rounded-full bg-website-purple px-3.5 py-1"
+              >
+                {tech}
+              </p>
+            ))}
         </div>
-        <div className="project-participants-avatars flex flex-row flex-end gap-x-3">
-          <ProjectPageAvatars />
-          <ProjectPageAvatars />
-          <ProjectPageAvatars />
-          <ProjectPageAvatars />
+        <div className="project-participants-avatars avatar-group flex flex-row flex-end gap-x-3">
+          <OwnerProjectAvatar
+            owner={owner_email}
+            owner_username={owner_username}
+            owner_pic={owner_pic}
+          />
         </div>
+        {participants && participants.length > 0 && (
+          <div className="project-participants-avatars flex flex-row flex-end gap-x-3">
+            {participants.map((participant) => (
+              <ProjectPageAvatars
+                key={participant.id}
+                participant={participant}
+              />
+            ))}
+          </div>
+        )}
       </div>
-      <ProjectInspoBoard />
     </div>
   );
 };
