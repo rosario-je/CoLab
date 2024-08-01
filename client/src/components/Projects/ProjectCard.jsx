@@ -1,5 +1,6 @@
 import React from "react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 import { ProjectUserAvatar } from "./ProjectUserAvatar";
 import { ProjectTechStack } from "./ProjectTechStack";
@@ -20,11 +21,13 @@ export const ProjectCard = ({ currentUserId, project }) => {
     max_participants,
     github_repo,
   } = project;
+  const navigate = useNavigate();
 
   const isOwner = owner_id === currentUserId;
   const isParticipant = participants.some(
     (participant) => participant.participant_id === currentUserId
   );
+
 
   const handleJoinRequest = async (e) => {
     e.preventDefault();
@@ -84,7 +87,12 @@ export const ProjectCard = ({ currentUserId, project }) => {
           {isOwner || isParticipant ? (
             <>
               {is_in_progress ? (
-                <button className="btn bg-website-purple hover:bg-create text-white rounded-full">
+                <button
+                  onClick={() => {
+                    navigate(`/${currentUserId}/project/${project_id}`);
+                  }}
+                  className="btn bg-website-purple hover:bg-create text-white rounded-full"
+                >
                   View Project
                 </button>
               ) : (
