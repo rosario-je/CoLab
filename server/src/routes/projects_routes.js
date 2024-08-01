@@ -39,7 +39,7 @@ router.post('/create', async (req, res) => {
 });
 
 // Fetches a project by its ID
-// http://localhost:8080/api/projects/:id
+// http://localhost:8080/api/projects/:projectId
 router.get('/:projectId', async (req, res) => {
   const { projectId } = req.params;
   const { id: user_id } = req.session.user;
@@ -67,14 +67,14 @@ router.get('/:projectId', async (req, res) => {
 
 // Approved user can send a message to a chat
 // http://localhost:8080/api/projects/:id/chat
-router.post('/:id/chat', async (req, res) => {
-  const { id: project_id } = req.params;
+router.post('/:projectId/chat', async (req, res) => {
+  const { projectId } = req.params;
   const { id: sender_id } = req.session.user;
   const { message } = req.body;
-  const chat_room_id = await getProjectChatId(project_id);
-  const checkUserAccess = await limitAccess(project_id, sender_id);
+  const chat_room_id = await getProjectChatId(projectId);
+  const checkUserAccess = await limitAccess(projectId, sender_id);
 
-  if (!project_id) {
+  if (!projectId) {
     return res.status(404).send('Project not found');
   }
   if (!checkUserAccess) {
@@ -96,27 +96,27 @@ router.post('/:id/chat', async (req, res) => {
 });
 
 // Creates a new join request for a project
-// http://localhost:8080/api/projects/:id/join
-router.post('/:id/join', async (req, res) => {
-  const { id: project_id } = req.params;
+// http://localhost:8080/api/projects/:projectId/join
+router.post('/:projectId/join', async (req, res) => {
+  const { projectId } = req.params;
   const { id: user_id } = req.session.user;
-  const project = await getProjectById(project_id);
+  const project = await getProjectById(projectId);
   try {
     const user = await getUserById(user_id);
     if (!user) {
       return res.status(404).send('User not found');
     }
-    if (!project_id) {
+    if (!projectId) {
       return res.status(404).send('Project not found');
     }
     if (user_id === project.owner_id) {
       return res.status(400).send('Owner cannot join own project');
     }
-    const existingRequest = await getPendingJoinRequests(project_id, user_id);
+    const existingRequest = await getPendingJoinRequests(projectId, user_id);
     if (existingRequest) {
       return res.status(400).send('Join request already exists');
     }
-    const joinRequest = await askToJoinProject(project_id, user_id);
+    const joinRequest = await askToJoinProject(projectId, user_id);
     if (!joinRequest) {
       return res.status(500).send('Error joining project');
     }
