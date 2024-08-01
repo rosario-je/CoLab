@@ -62,6 +62,18 @@ export const UserLeftMenu = ({ currentUser }) => {
                   <p>Join Requests</p>
                 </a>
               </li>
+
+              <li className="group notifications-btn">
+                <a
+                  className="flex items-center cursor-pointer"
+                  onClick={() => {
+                    navigate(`/${currentUser.id}/notifications`);
+                  }}
+                >
+                  <i className="fa-solid fa-bell group-hover:animate-bounceSlow group-hover:text-icon-purple group-hover:drop-shadow-white-glow mr-0.5"></i>
+                  <p>Notifications</p>
+                </a>
+              </li>
             </ul>
           </li>
 
