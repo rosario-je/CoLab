@@ -89,6 +89,7 @@ router.post('/manage_requests/approve_join_request', async (req, res) => {
   const { project_id, requesting_user_id } = req.body;
   const { id: user_id } = req.session.user;
   try {
+    const project = await getProjectById(project_id);
     const isCurrentUserOwner = await isUserOwner(user_id, project_id);
     if (!isCurrentUserOwner) {
       return res.status(403).json({ error: "Unauthorized to complete this action" });
@@ -98,7 +99,7 @@ router.post('/manage_requests/approve_join_request', async (req, res) => {
       return res.status(500).send('Error approving join request');
     }
     const addToProject = await addUserToProject(project_id, requesting_user_id);
-    const message = `Your request to join project ${project_id} has been approved!`;
+    const message = `Your request to join project ${project.name} has been approved!`;
     const sendmsg = await sendProjectNotification(user_id, requesting_user_id, message);
 
     res.status(201).json({
@@ -118,6 +119,7 @@ router.delete('/manage_requests/reject_join_request', async (req, res) => {
   const { project_id, requesting_user_id } = req.body;
   const { id: user_id } = req.session.user;
   try {
+    const project = await getProjectById(project_id);
     const isCurrentUserOwner = await isUserOwner(user_id, project_id);
     if (!isCurrentUserOwner) {
       return res.status(403).json({ error: "Unauthorized to complete this action" });
@@ -126,7 +128,7 @@ router.delete('/manage_requests/reject_join_request', async (req, res) => {
     if (!rejectRequest) {
       return res.status(500).send('Error deleting join request');
     }
-    const message = `Your request to join project ${project_id} has been rejected.`;
+    const message = `Your request to join project ${project.name} has been rejected.`;
     const sendmsg = await sendProjectNotification(user_id, requesting_user_id, message);
     res.status(201).json({
       message: sendmsg,

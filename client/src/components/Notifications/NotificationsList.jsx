@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { JoinRequestListItems } from "./JoinRequestListItems";
+import { NotificationListItems } from "./NotificationListItems";
 
-export const JoinRequestList = () => {
-  const [requests, setRequests] = useState([]);
+export const  NotificationList = () => {
+  const [notifications, setNotifications] = useState([]);
 
   useEffect(() => {
-    const fetchRequests = async () => {
+    const fetchNotifications = async () => {
       try {
         const requestList = await axios.get("/api/dashboard/manage_requests");
         setRequests(requestList.data);
@@ -32,7 +32,7 @@ export const JoinRequestList = () => {
       <div className="flex flex-col w-full items-center mt-16">
         {requests.map((request) => {
           return (
-            <JoinRequestListItems
+            <NotificationListItems
               key={request.id}
               requester_username={request.requester_username}
               project_name={request.project.name}

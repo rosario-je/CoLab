@@ -1,7 +1,7 @@
 import React from "react";
 import axios from "axios";
 
-export const JoinRequestListItems = ({
+export const NotificationListItems = ({
   project_id,
   requester_user_id,
   requester_username,
