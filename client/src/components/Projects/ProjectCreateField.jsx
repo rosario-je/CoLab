@@ -298,33 +298,33 @@ export const ProjectCreateField = ({ handleTechStacksModal, techModal }) => {
               <h3>Github Repository</h3>
               <input
                 type="text"
-                placeholder="/:repoPath"
+                placeholder="/<username>/<repo>"
                 name="githubRepo"
                 value={projectData.githubRepo}
                 onChange={handleInputChange}
-                className="input input-bordered bg-input-colors w-3/4"
+                className="input input-bordered bg-input-colors w-2/6"
               />
             </div>
             <div className="project-links-container__figma flex justify-between">
               <h3>Figma Link</h3>
               <input
                 type="text"
-                placeholder="/:figmaPath"
+                placeholder="/Figma Link"
                 name="figmaLink"
                 value={projectData.figmaLink}
                 onChange={handleInputChange}
-                className="input input-bordered bg-input-colors w-3/4"
+                className="input input-bordered bg-input-colors w-2/6"
               />
             </div>
             <div className="project-links-container__trello flex justify-between">
               <h3>Trello Board</h3>
               <input
                 type="text"
-                placeholder="/:trelloPath"
+                placeholder="/Trello link"
                 name="trelloLink"
                 value={projectData.trelloLink}
                 onChange={handleInputChange}
-                className="input input-bordered bg-input-colors w-3/4"
+                className="input input-bordered bg-input-colors w-2/6"
               />
             </div>
           </div>
