@@ -20,7 +20,7 @@ export const MyProjects = ({ handleCoLabHome, currentUser}) => {
       try {
         const userProjectData = await axios.get(`/api/dashboard/${userId}/my_projects`);
         setProjects(userProjectData.data);
-        console.log("User Projects: ", userProjectData.data);
+        // console.log("User Projects: ", userProjectData.data);
       } catch (error) {
         console.error("Error in getting user projects: ", error.message);
       }
