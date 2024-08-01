@@ -12,7 +12,7 @@ export const MyNotifications = ({ currentUser }) => {
       <div className="flex flex-1 mt-16">
         <UserLeftMenu currentUser={currentUser} />
         <div className="flex flex-col w-full h-full bg-project-background overflow-hidden pt-4">
-          <div>
+          <div className="h-full mx-[300px]">
             <NotificationsList currentUser={currentUser} />
           </div>
         </div>
