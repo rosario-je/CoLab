@@ -11,9 +11,9 @@ export const ProjectCreateField = ({ handleTechStacksModal, techModal }) => {
     description: "",
     max_participants: 1,
     cover_photo_path: "",
-    github_repo: "",
-    figma_link: "",
-    trello_link: "",
+    githubRepo: "",
+    figmaLink: "",
+    trelloLink: "",
     tech_names: [],
     newPicture: "",
   });
@@ -65,14 +65,51 @@ export const ProjectCreateField = ({ handleTechStacksModal, techModal }) => {
     setProjectData((prevData) => ({ ...prevData, cover_photo_path: "" }));
   };
 
+  const validateLink = (link, baseUrl) => {
+    if (link.startsWith("/") && !link.startsWith(baseUrl)) {
+      return `${baseUrl}${link}`;
+    }
+    return null;
+  };
+
   const createProject = async (e) => {
     e.preventDefault();
     try {
       setProjectCreating(true);
-      const project = await axios.post("/api/projects/create", projectData);
-      //console.log("Project created successfully:", project.data);
-      const { projectData: { id: projectId, owner_id: ownerId } } = project.data;
-      
+
+      // Validate and prepend base URLs
+      const githubRepo = validateLink(
+        projectData.githubRepo,
+        "https://github.com"
+      );
+      const figmaLink = validateLink(
+        projectData.figmaLink,
+        "https://www.figma.com"
+      );
+      const trelloLink = validateLink(
+        projectData.trelloLink,
+        "https://trello.com"
+      );
+
+      if (!githubRepo || !figmaLink || !trelloLink) {
+        alert(
+          "Please enter valid links starting with '/' and ensure they do not contain the base URL."
+        );
+        setProjectCreating(false);
+        return;
+      }
+
+      const project = await axios.post("/api/projects/create", {
+        ...projectData,
+        githubRepo,
+        figmaLink,
+        trelloLink,
+      });
+
+      const {
+        projectData: { id: projectId, owner_id: ownerId },
+      } = project.data;
+
       setTimeout(() => {
         setProjectCreating(false);
         navigate(`/${ownerId}/project/${projectId}`);
@@ -214,107 +251,92 @@ export const ProjectCreateField = ({ handleTechStacksModal, techModal }) => {
               <>
                 <input
                   type="url"
-                  placeholder="Delete picture file to add new one"
-                  className="input input-bordered bg-input-colors w-full max-w-lg"
+                  placeholder="Delete picture file first"
+                  className="input input-bordered bg-disabled-input w-full"
                   disabled
                 />
                 <button
-                  type="button"
-                  onClick={handleAddCoverPhoto}
-                  className="btn btn-ghost hover:bg-input-colors text-lg group mr-5"
+                  className="btn bg-disabled-input text-white w-1/2"
                   disabled
                 >
-                  <i className="fa-solid fa-image group-hover:text-white group-hover:drop-shadow-white-glow"></i>
-                  Add
+                  Add Picture
                 </button>
               </>
             ) : (
               <>
                 <input
                   type="url"
-                  placeholder="Image URL"
+                  placeholder="Enter image URL"
                   name="newPicture"
                   value={projectData.newPicture}
                   onChange={handleInputChange}
-                  className="input input-bordered bg-input-colors w-full max-w-lg"
+                  className="input input-bordered bg-input-colors w-full"
                 />
                 <button
-                  type="button"
+                  className="btn bg-slate-600 text-white w-1/2"
                   onClick={handleAddCoverPhoto}
-                  className="btn btn-ghost hover:bg-input-colors text-lg group mr-5"
                 >
-                  <i className="fa-solid fa-image group-hover:text-white group-hover:drop-shadow-white-glow"></i>
-                  Add
+                  Add Picture
                 </button>
               </>
             )}
           </div>
         </div>
 
-        {/* PROJECT LINKS */}
-        <div className="project-link-inputs flex justify-between items-center w-full mb-10 py-4">
-          <div className="w-1/2 self-start">
+        {/* Project links */}
+        <div className="project-links-container flex flex-col justify-around">
+          <div className="project-links-container__header">
             <h3 className="text-white">Project Links</h3>
             <h6>
-              Choose images to showcase the design or what might represent the
-              design of the project
+              Add any external links to your project, such as the Github
+              repository, Figma file, and Trello board.
             </h6>
           </div>
 
-          <div className="w-1/2 flex flex-col items-end">
-            <label className="input input-bordered w-4/5 flex justify-between items-center gap-2 p-0 mb-2">
-              <div className="flex justify-center items-center border-solid border-white border-2 rounded-lg w-2/5 h-10 bg-white">
-                <i className="fa-brands fa-github text-black"></i>
-              </div>
+          <div className="project-links-container__links grid grid-cols-1 gap-5 w-full my-5 py-4">
+            <div className="project-links-container__github flex justify-between">
+              <h3>Github Repository</h3>
               <input
-                className="input w-full h-10 bg-input-colors p-3"
+                type="text"
+                placeholder="/:repoPath"
                 name="githubRepo"
                 value={projectData.githubRepo}
                 onChange={handleInputChange}
-                placeholder="Github Repo URL"
-                type="url"
+                className="input input-bordered bg-input-colors w-3/4"
               />
-            </label>
-
-            <label className="input input-bordered w-4/5 flex justify-between items-center gap-2 p-0 mb-2">
-              <div className="flex justify-center items-center border-solid border-white border-2 rounded-lg w-2/5 h-10 bg-white">
-                <i className="fa-brands fa-figma text-black"></i>
-              </div>
+            </div>
+            <div className="project-links-container__figma flex justify-between">
+              <h3>Figma Link</h3>
               <input
-                className="input w-full h-10 bg-input-colors p-3"
+                type="text"
+                placeholder="/:figmaPath"
                 name="figmaLink"
                 value={projectData.figmaLink}
                 onChange={handleInputChange}
-                placeholder="Figma URL"
-                type="url"
+                className="input input-bordered bg-input-colors w-3/4"
               />
-            </label>
-
-            <label className="input input-bordered w-4/5 flex justify-between items-center gap-2 p-0 mb-2">
-              <div className="flex justify-center items-center border-solid border-white border-2 rounded-lg w-2/5 h-10 bg-white">
-                <i className="fa-brands fa-trello text-black"></i>
-              </div>
+            </div>
+            <div className="project-links-container__trello flex justify-between">
+              <h3>Trello Board</h3>
               <input
-                className="input w-full h-10 bg-input-colors p-3"
+                type="text"
+                placeholder="/:trelloPath"
                 name="trelloLink"
                 value={projectData.trelloLink}
                 onChange={handleInputChange}
-                placeholder="Trello URL"
-                type="url"
+                className="input input-bordered bg-input-colors w-3/4"
               />
-            </label>
+            </div>
           </div>
         </div>
 
-        {/* CREATE PROJECT BUTTON */}
-
-        <div className="create-project-btn-container flex flex-row justify-center border-t-2 border-slate-700 pt-11">
+        <div className="flex justify-end mt-10">
           <button
             onClick={createProject}
-            className="create-project btn bg-website-purple hover:bg-create hover:text-white w-5/12"
+            className="btn btn-primary w-auto h-14 self-end"
+            disabled={projectCreating}
           >
-            <i className="fa-solid fa-wand-magic-sparkles group-hover:text-wand group-hover:animate-bounceFast group-hover:drop-shadow-white-glow"></i>
-            Create project
+            {projectCreating ? "Creating..." : "Create Project"}
           </button>
         </div>
       </section>
