@@ -28,7 +28,10 @@ router.post('/create', async (req, res) => {
     const techPromises = tech_names.map(tech_name => addTechToProject(newProject.id, tech_name));
     await Promise.all(techPromises); // Loop through array of tech requirements and add them to the project
     await createGroupChat(newProject.id); // Create a group chat for the project
-    res.status(201).send('Project successfully created');
+    res.status(201).json({
+      message: 'Project successfully created',
+      projectData: newProject
+    });
   } catch (error) {
     console.error('Error creating project:', error.message);
     res.status(500).send('Error creating project');
