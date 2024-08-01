@@ -12,10 +12,10 @@ export const ProjectPage = ({ currentUser, handleLogout, handleCoLabHome }) => {
 
   return (
     <div className="flex flex-col h-screen">
-      <Navbar handleCoLabHome={handleCoLabHome} currentUser={currentUser}/>
+      <Navbar handleCoLabHome={handleCoLabHome} currentUser={currentUser} />
       <div className="flex flex-1 mt-16">
         <UserLeftMenu currentUser={currentUser} />
-        <div className="flex grow  justify-center overflow-y-auto mx-1">
+        <div className="flex grow  justify-center overflow-y-auto mx-72 w-screen">
           <ProjectPageDetails currentUser={currentUser} />
         </div>
         <ProjectRightMenu currentUser={currentUser} />
