@@ -1,44 +1,44 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { NotificationListItems } from "./NotificationListItems";
+import { NotificationListItems } from "./NotificationsListItems";
 
-export const  NotificationList = () => {
+export const NotificationsList = () => {
   const [notifications, setNotifications] = useState([]);
 
   useEffect(() => {
     const fetchNotifications = async () => {
       try {
-        const requestList = await axios.get("/api/dashboard/manage_requests");
-        setRequests(requestList.data);
-        console.log("Requests: ", requestList.data);
+        const notifList = await axios.get("/api/dashboard/notifications");
+        setNotifications(notifList.data);
+        console.log("Notifications: ", notifList.data);
       } catch (error) {
-        console.error("Error in getting requests: ", error.message);
+        console.error("Error in getting notifications: ", error.message);
       }
     };
-    fetchRequests();
+    fetchNotifications();
   }, []);
 
-  const handleRequestAcceptance = (acceptedRequestId) => {
-    setRequests((prevRequests) =>
-      prevRequests.filter((request) => request.id !== acceptedRequestId)
+  const handleDismiss = (dismissedNotificationId) => {
+    setNotifications((prevNotifications) =>
+      prevNotifications.filter(
+        (notification) => notification.id !== dismissedNotificationId
+      )
     );
   };
 
   return (
-    <div className="my-join-requests h-full w-auto flex flex-col items-center mx-72">
+    <div className="my-notifications h-full w-auto flex flex-col items-center mx-72">
       <div className="bg-menu-colors p-5 fixed w-full z-10 mx-auto">
-        <h1 className="text-white text-2xl mx-72">My Project Requests</h1>
+        <h1 className="text-white text-2xl mx-72">Notifications</h1>
       </div>
       <div className="flex flex-col w-full items-center mt-16">
-        {requests.map((request) => {
+        {notifications.map((notification) => {
           return (
             <NotificationListItems
-              key={request.id}
-              requester_username={request.requester_username}
-              project_name={request.project.name}
-              requester_user_id={request.user_id}
-              project_id={request.project.id}
-              onAccept={() => handleRequestAcceptance(request.id)}
+              key={notification.id}
+              notification_id={notification.id}
+              message={notification.message}
+              onDesicion={() => handleDismiss(notification.id)}
             />
           );
         })}

@@ -11,6 +11,7 @@ import { MyProjects } from "./pages/MyProjects";
 import { SignUp } from "./pages/SignUp";
 import { SignIn } from "./pages/SignIn";
 import { MyProjectRequests } from "./pages/MyProjectRequests";
+import { MyNotifications } from "./pages/MyNotifications";
 
 axios.defaults.withCredentials = true;
 
@@ -56,7 +57,12 @@ function App() {
   return (
     <div className="App">
       <Routes>
-        <Route path="/" element={<Landing currentUser={currentUser} handleLogout={handleLogout} />}/>
+        <Route
+          path="/"
+          element={
+            <Landing currentUser={currentUser} handleLogout={handleLogout} />
+          }
+        />
         <Route path="/signin" element={<SignIn />} />
         <Route path="/signup" element={<SignUp />} />
 
@@ -123,6 +129,17 @@ function App() {
               setCurrentUser={setCurrentUser}
             >
               <MyProjectRequests currentUser={currentUser} />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/:userId/notifications"
+          element={
+            <ProtectedRoute
+              currentUser={currentUser}
+              setCurrentUser={setCurrentUser}
+            >
+              <MyNotifications currentUser={currentUser} />
             </ProtectedRoute>
           }
         />

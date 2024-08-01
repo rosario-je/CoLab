@@ -174,8 +174,8 @@ router.get('/notifications', async (req, res) => {
 
 // Dismiss a read notification
 // http://localhost:8080/api/dashboard/notifications
-router.delete('/notifications', async (req, res) => {
-  const { id: notification_id } = req.body;
+router.delete('/notifications/:notification_id', async (req, res) => {
+  const { notification_id } = req.params;
   try {
     const deleteNotification = await dismissNotification(notification_id);
     return res.status(200).json(deleteNotification);
