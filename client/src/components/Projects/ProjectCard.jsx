@@ -43,7 +43,9 @@ export const ProjectCard = ({ currentUserId, project }) => {
   const handleCompleteProject = async (e) => {
     e.preventDefault();
     try {
-      const completeProject = await axios.post(`/api/projects/${project_id}/complete`);
+      const completeProject = await axios.post(
+        `/api/projects/${project_id}/complete`
+      );
       console.log("Project marked as complete:", completeProject.data);
       navigate("/my_projects/complete");
     } catch (error) {
@@ -64,19 +66,22 @@ export const ProjectCard = ({ currentUserId, project }) => {
             <div className="flex flex-col justify-center">
               <h2 className="card-title font-bold text-4xl">{name}</h2>
               {isOwner ? (
-              <div className="flex flex-col gap-y-5 my-5 w-full">
-                <button className="bg-website-purple text-white text-2xl hover:bg-create rounded-full w-[150px] p-1">
-                  Edit
-                </button>
-                <button
-                  className="bg-grey text-royal-yellow text-2xl hover:bg-royal-yellow hover:text-grey rounded-full w-[150px] p-1"
-                  onClick={handleCompleteProject}
-                >
-                  Complete
-                </button>
-              </div>
+                <div className="flex flex-col gap-y-5 my-5 w-full">
+                  <button className="bg-website-purple text-white text-2xl hover:bg-create rounded-full w-[150px] p-1">
+                    Edit
+                  </button>
+                  <button
+                    className="bg-grey text-royal-yellow text-2xl hover:bg-royal-yellow hover:text-grey rounded-full w-[150px] p-1"
+                    onClick={handleCompleteProject}
+                  >
+                    Complete
+                  </button>
+                </div>
               ) : (
-
+                <h3 className="font-semibold mt-5">
+                  <span className="text-icon-purple text-xl">Creator:</span> @
+                  {owner_username}
+                </h3>
               )}
             </div>
           </div>
