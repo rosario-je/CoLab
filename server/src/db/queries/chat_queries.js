@@ -87,6 +87,23 @@ const sendProjectNotification = async (sender_id, receiver_id, message) => {
   }
 };
 
+// Send a notification when a user requests to join a project
+const sendJoinNotification = async (receiver_id, message) => {
+  try {
+    const data = await db.query(
+      `INSERT INTO notifications (receiver_id, message)
+      VALUES ($1, $2)
+      RETURNING *`,
+      [receiver_id, message]
+    );
+    return data.rows[0];
+  }
+  catch (error) {
+    console.log(error);
+  }
+};
+
+// Get all notifications for a user
 const getNotifications = async (user_id) => {
   try {
     const data = await db.query(
@@ -125,5 +142,6 @@ newChatMessage,
 getProjectChatId,
 sendProjectNotification,
 dismissNotification,
-getNotifications
+getNotifications,
+sendJoinNotification
 };

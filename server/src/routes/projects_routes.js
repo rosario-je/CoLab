@@ -2,7 +2,7 @@ import express from 'express';
 import { createNewProject, getProjectPage, getProjectById, getPendingJoinRequests } from '../db/queries/project_queries.js';
 import { getUserById, askToJoinProject, limitAccess } from '../db/queries/user_queries.js';
 import { addTechToProject } from '../db/queries/tech_queries.js';
-import { createGroupChat, getChatHistory, newChatMessage, getProjectChatId } from '../db/queries/chat_queries.js';
+import { createGroupChat, getChatHistory, newChatMessage, getProjectChatId, sendJoinNotification } from '../db/queries/chat_queries.js';
 const router = express.Router();
 
 // Creates a new project
@@ -120,7 +120,15 @@ router.post('/:projectId/join', async (req, res) => {
     if (!joinRequest) {
       return res.status(500).send('Error joining project');
     }
-    res.status(200).json(joinRequest);
+    const message = `You have requested to join the project: ${project.name}`;
+    const sendmsg = await sendJoinNotification(user_id, message);
+    res.status(200).json({
+      message: "Message sent successfully",
+      data: {
+        message: sendmsg,
+        joinRequest: joinRequest
+      }
+    });
   } catch (error) {
     console.error('Error joining project:', error.message);
     res.status(500).send('Error joining project');
