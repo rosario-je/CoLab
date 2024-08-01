@@ -56,6 +56,7 @@ const getChatHistory = async (chat_id) => {
   }
 };
 
+// Send a new message to chat
 const newChatMessage = async (sender_id, chat_id, message) => {
   try {
     const data = await db.query(
@@ -70,9 +71,59 @@ const newChatMessage = async (sender_id, chat_id, message) => {
   }
 };
 
+// Send a notification to user when they are added to a project or the request was rejected
+const sendProjectNotification = async (sender_id, receiver_id, message) => {
+  try {
+    const data = await db.query(
+      `INSERT INTO notifications (sender_id, receiver_id, message)
+      VALUES ($1, $2, $3)
+      RETURNING *`,
+      [sender_id, receiver_id, message]
+    );
+    return data.rows[0];
+  }
+  catch (error) {
+    console.log(error);
+  }
+};
+
+const getNotifications = async (user_id) => {
+  try {
+    const data = await db.query(
+      `SELECT * FROM notifications
+      WHERE receiver_id = $1
+      ORDER BY created_at DESC`,
+      [user_id]
+    );
+    return data.rows;
+  }
+  catch (error) {
+    console.log(error);
+  }
+};
+
+// For a user to delete a notification one they have read it
+const dismissNotification = async (notification_id) => {
+  try {
+    const data = await db.query(
+      `DELETE FROM notifications
+      WHERE id = $1
+      RETURNING *`,
+      [notification_id]
+    );
+    return data.rows[0];
+  }
+  catch (error) {
+    console.log(error);
+  }
+};
+
 export { 
 createGroupChat, 
 getChatHistory, 
 newChatMessage, 
-getProjectChatId
+getProjectChatId,
+sendProjectNotification,
+dismissNotification,
+getNotifications
 };

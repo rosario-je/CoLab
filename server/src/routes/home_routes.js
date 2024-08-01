@@ -2,6 +2,8 @@ import express from 'express';
 import { getAllProjects, getProjectsOwnedByMe, getProjectsIAmInById, getProjectsIdsIAmIn, getProjectById, projectFull, getAllProjectsById, projectCompleted } from '../db/queries/project_queries.js';
 import { getTechByName } from '../db/queries/tech_queries.js';
 import { getAllJoinRequests, isUserOwner } from '../db/queries/user_queries.js';
+import { getNotifications, dismissNotification } from '../db/queries/chat_queries.js';
+
 const router = express.Router();
 
 // View all projects
@@ -78,6 +80,7 @@ router.get('/manage_requests', async (req, res) => {
   }
 });
 
+// Search for projects by tech name
 // http://localhost:8080/api/dashboard/search
 router.post('/search', async (req, res) => {
   const { tech_name } = req.body;
@@ -95,5 +98,32 @@ router.post('/search', async (req, res) => {
     res.status(500).json({ error: "Internal server error" });
   }
 });
+
+// Get notifications about project join requests
+// http://localhost:8080/api/dashboard/notifications
+router.get('/notifications', async (req, res) => {
+  const { id: user_id } = req.session.user;
+  try {
+    const notifications = await getNotifications(user_id);
+    return res.status(200).json(notifications);
+  } catch (error) {
+    console.error("Error in getting notifications: ", error.message);
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+
+// Dismiss a read notification
+// http://localhost:8080/api/dashboard/notifications
+router.delete('/notifications', async (req, res) => {
+  const { notification_id } = req.body;
+  try {
+    const deleteNotification = await dismissNotification(notification_id);
+    return res.status(200).json(deleteNotification);
+  } catch (error) {
+    console.error("Error in dismissing notification: ", error.message);
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+
 
 export default router;
