@@ -20,7 +20,7 @@ router.get('/projects', async (req, res) => {
 
 // View all projects you own and are a part of
 // http://localhost:8080/api/dashboard/my_projects
-router.get('/my_projects', async (req, res) => {
+router.get('/:userId/my_projects', async (req, res) => {
   const { id: user_id } = req.session.user;
   try {
     const myOwnedProjects = await getProjectsOwnedByMe(user_id);
