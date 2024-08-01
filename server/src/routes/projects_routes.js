@@ -1,8 +1,8 @@
 import express from 'express';
 import { createNewProject, getProjectPage, getProjectById, getPendingJoinRequests } from '../db/queries/project_queries.js';
-import { getUserById, askToJoinProject, approveJoinRequest, addUserToProject, isUserOwner, rejectJoinRequest, limitAccess } from '../db/queries/user_queries.js';
+import { getUserById, askToJoinProject, limitAccess } from '../db/queries/user_queries.js';
 import { addTechToProject } from '../db/queries/tech_queries.js';
-import { createGroupChat, getChatHistory, newChatMessage, getProjectChatId, sendProjectNotification } from '../db/queries/chat_queries.js';
+import { createGroupChat, getChatHistory, newChatMessage, getProjectChatId } from '../db/queries/chat_queries.js';
 const router = express.Router();
 
 // Creates a new project
@@ -117,59 +117,6 @@ router.post('/:id/join', async (req, res) => {
   } catch (error) {
     console.error('Error joining project:', error.message);
     res.status(500).send('Error joining project');
-  }
-});
-
-// Approves a join request and adds the user to the project
-// http://localhost:8080/api/projects/approve_join_request
-router.post('/approve_join_request', async (req, res) => {
-  const { project_id, requesting_user_id } = req.body;
-  const { id: user_id } = req.session.user;
-  try {
-    if (!project_id) {
-      return res.status(404).send('Project not found');
-    }
-    const isCurrentUserOwner = await isUserOwner(user_id, project_id);
-    if (!isCurrentUserOwner) {
-      return res.status(403).json({ error: "Unauthorized to complete this action" });
-    }
-    const joinRequest = await approveJoinRequest(project_id, requesting_user_id);
-    if (!joinRequest) {
-      return res.status(500).send('Error approving join request');
-    }
-    const addToProject = await addUserToProject(project_id, requesting_user_id);
-    const message = `Your request to join ${project_id} has been approved!`;
-    const sendmsg = await sendProjectNotification(user_id, requesting_user_id, message);
-    res.status(200).json(addToProject, sendmsg);
-  } catch (error) {
-    console.error('Error approving join request:', error.message);
-    res.status(500).send('Error approving join request');
-  }
-});
-
-// Rejects a join request and adds the user to the project
-// http://localhost:8080/api/projects/reject_join_request
-router.delete('/reject_join_request', async (req, res) => {
-  const { project_id, requesting_user_id } = req.body;
-  const { id: user_id } = req.session.user;
-  try {
-    if (!project_id) {
-      return res.status(404).send('Project not found');
-    }
-    const isCurrentUserOwner = await isUserOwner(user_id, project_id);
-    if (!isCurrentUserOwner) {
-      return res.status(403).json({ error: "Unauthorized to complete this action" });
-    }
-    const rejectRequest = await rejectJoinRequest(project_id, requesting_user_id);
-    if (!rejectRequest) {
-      return res.status(500).send('Error deleting join request');
-    }
-    const message = `Your request to join ${project_id} has been rejected.`;
-    const sendmsg = await sendProjectNotification(user_id, requesting_user_id, message);
-    res.status(200).json(rejectRequest, sendmsg);
-  } catch (error) {
-    console.error('Error approving join request:', error.message);
-    res.status(500).send('Error approving join request');
   }
 });
 

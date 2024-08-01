@@ -1,8 +1,8 @@
 import express from 'express';
 import { getAllProjects, getProjectsOwnedByMe, getProjectsIAmInById, getProjectsIdsIAmIn, getProjectById, projectFull, getAllProjectsById, projectCompleted } from '../db/queries/project_queries.js';
 import { getTechByName } from '../db/queries/tech_queries.js';
-import { getAllJoinRequests, isUserOwner } from '../db/queries/user_queries.js';
-import { getNotifications, dismissNotification } from '../db/queries/chat_queries.js';
+import { getAllJoinRequests, isUserOwner, approveJoinRequest, addUserToProject, rejectJoinRequest } from '../db/queries/user_queries.js';
+import { getNotifications, dismissNotification, sendProjectNotification } from '../db/queries/chat_queries.js';
 
 const router = express.Router();
 
@@ -20,7 +20,7 @@ router.get('/projects', async (req, res) => {
 
 // View all projects you own and are a part of
 // http://localhost:8080/api/dashboard/my_projects
-router.get('/:id/my_projects', async (req, res) => {
+router.get('/my_projects', async (req, res) => {
   const { id: user_id } = req.session.user;
   try {
     const myOwnedProjects = await getProjectsOwnedByMe(user_id);
@@ -36,7 +36,7 @@ router.get('/:id/my_projects', async (req, res) => {
 
 // Complete a project you own
 // http://localhost:8080/api/dashboard/my_projects/complete
-router.post('/my_projects/complete', async (req, res) => {
+router.put('/my_projects/complete', async (req, res) => {
   const { id: user_id } = req.session.user;
   const { project_id } = req.body;
   try {
@@ -45,7 +45,10 @@ router.post('/my_projects/complete', async (req, res) => {
       return res.status(403).json({ error: "Unauthorized to complete this project" });
     }
     const completeProject = await projectCompleted(project_id);
-    return res.status(200).json(completeProject);
+    return res.status(200).json({
+      message: "Project Completed!",
+      data: completeProject
+    });
 
   } catch (error) {
     console.error("Error in getting user projects: ", error.message);
@@ -77,6 +80,61 @@ router.get('/manage_requests', async (req, res) => {
   } catch (error) {
     console.error("Error in getting join requests: ", error.message);
     res.status(500).json({ error: "Internal server error" });
+  }
+});
+
+// Approves a join request and adds the user to the project
+// http://localhost:8080/api/dashboard/manage_requests/approve_join_request
+router.post('/manage_requests/approve_join_request', async (req, res) => {
+  const { project_id, requesting_user_id } = req.body;
+  const { id: user_id } = req.session.user;
+  try {
+    const isCurrentUserOwner = await isUserOwner(user_id, project_id);
+    if (!isCurrentUserOwner) {
+      return res.status(403).json({ error: "Unauthorized to complete this action" });
+    }
+    const joinRequest = await approveJoinRequest(project_id, requesting_user_id);
+    if (!joinRequest) {
+      return res.status(500).send('Error approving join request');
+    }
+    const addToProject = await addUserToProject(project_id, requesting_user_id);
+    const message = `Your request to join project ${project_id} has been approved!`;
+    const sendmsg = await sendProjectNotification(user_id, requesting_user_id, message);
+
+    res.status(201).json({
+      message: sendmsg,
+      joinRequest: joinRequest,
+      addToProject: addToProject
+    });
+  } catch (error) {
+    console.error('Error approving join request:', error.message);
+    res.status(500).send('Error approving join request');
+  }
+});
+
+// Rejects a join request and adds the user to the project
+// http://localhost:8080/api/dashboard/manage_requests/reject_join_request
+router.delete('/manage_requests/reject_join_request', async (req, res) => {
+  const { project_id, requesting_user_id } = req.body;
+  const { id: user_id } = req.session.user;
+  try {
+    const isCurrentUserOwner = await isUserOwner(user_id, project_id);
+    if (!isCurrentUserOwner) {
+      return res.status(403).json({ error: "Unauthorized to complete this action" });
+    }
+    const rejectRequest = await rejectJoinRequest(project_id, requesting_user_id);
+    if (!rejectRequest) {
+      return res.status(500).send('Error deleting join request');
+    }
+    const message = `Your request to join project ${project_id} has been rejected.`;
+    const sendmsg = await sendProjectNotification(user_id, requesting_user_id, message);
+    res.status(201).json({
+      message: sendmsg,
+      data: rejectRequest
+    });
+  } catch (error) {
+    console.error('Error approving join request:', error.message);
+    res.status(500).send('Error approving join request');
   }
 });
 
@@ -115,8 +173,9 @@ router.get('/notifications', async (req, res) => {
 // Dismiss a read notification
 // http://localhost:8080/api/dashboard/notifications
 router.delete('/notifications', async (req, res) => {
-  const { notification_id } = req.body;
+  const { id: notification_id } = req.body;
   try {
+    console.log(notification_id);
     const deleteNotification = await dismissNotification(notification_id);
     return res.status(200).json(deleteNotification);
   } catch (error) {
