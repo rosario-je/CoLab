@@ -75,7 +75,7 @@ function App() {
           }
         />
         <Route
-          path="/:id/project/:id"
+          path="/:userId/project/:projectId"
           element={
             <ProtectedRoute
               currentUser={currentUser}
@@ -89,7 +89,7 @@ function App() {
           }
         />
         <Route
-          path="/:id/project/create"
+          path="/:userId/project/create"
           element={
             <ProtectedRoute
               currentUser={currentUser}
@@ -104,7 +104,7 @@ function App() {
           }
         />
         <Route
-          path={"/:id/myprojects"}
+          path={"/:userId/myprojects"}
           element={
             <ProtectedRoute
               currentUser={currentUser}
@@ -116,7 +116,7 @@ function App() {
         />
 
         <Route
-          path="/:id/myprojects/requests"
+          path="/:userId/myprojects/requests"
           element={
             <ProtectedRoute
               currentUser={currentUser}
