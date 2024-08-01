@@ -28,7 +28,6 @@ export const ProjectCard = ({ currentUserId, project }) => {
     (participant) => participant.participant_id === currentUserId
   );
 
-
   const handleJoinRequest = async (e) => {
     e.preventDefault();
     try {
@@ -41,9 +40,19 @@ export const ProjectCard = ({ currentUserId, project }) => {
     }
   };
 
+  const handleCompleteProject = async (e) => {
+    e.preventDefault();
+    try {
+      const completeProject = await axios.post(`/api/projects/${project_id}/complete`);
+      console.log("Project marked as complete:", completeProject.data);
+      navigate("/my_projects/complete");
+    } catch (error) {
+      console.error("Error completing project:", error);
+    }
+  };
   return (
     <div className="card bg-base-100 w-full shadow-xl border-solid border-2 border-website-purple/25 text-white my-8">
-      <div className="card-body h-96">
+      <div className="card-body h-auto">
         <div className="top-project-card-container flex justify-between items-center mb-5">
           <div className="project-details-1 flex space-x-6">
             <img
@@ -54,10 +63,21 @@ export const ProjectCard = ({ currentUserId, project }) => {
             />
             <div className="flex flex-col justify-center">
               <h2 className="card-title font-bold text-4xl">{name}</h2>
-              <h3 className="font-semibold mt-5">
-                <span className="text-icon-purple text-xl">Creator:</span> @
-                {owner_username}
-              </h3>
+              {isOwner ? (
+              <div className="flex flex-col gap-y-5 my-5 w-full">
+                <button className="bg-website-purple text-white text-2xl hover:bg-create rounded-full w-[150px] p-1">
+                  Edit
+                </button>
+                <button
+                  className="bg-grey text-royal-yellow text-2xl hover:bg-royal-yellow hover:text-grey rounded-full w-[150px] p-1"
+                  onClick={handleCompleteProject}
+                >
+                  Complete
+                </button>
+              </div>
+              ) : (
+
+              )}
             </div>
           </div>
           <div className="avatar-group -space-x-6 rtl:space-x-reverse w-2/5 flex justify-end items-end self-end pb-10">
