@@ -1,5 +1,5 @@
 import React from "react";
-import { ProjectPageAvatars } from "./ProjectPageAvatars";
+import { ProjectUserAvatar } from "../Projects/ProjectUserAvatar";
 
 import { OwnerProjectAvatar } from "../Projects/OwnerProjectAvatar";
 
@@ -42,17 +42,15 @@ export const ProjectPageDetails = ({ project }) => {
             owner_username={owner_username}
             owner_pic={owner_pic}
           />
-        </div>
-        {participants && participants.length > 0 && (
-          <div className="project-participants-avatars flex flex-row flex-end gap-x-3">
-            {participants.map((participant) => (
-              <ProjectPageAvatars
+          {participants &&
+            participants.length > 0 &&
+            participants.map((participant) => (
+              <ProjectUserAvatar
                 key={participant.id}
                 participant={participant}
               />
             ))}
-          </div>
-        )}
+        </div>
       </div>
     </div>
   );
