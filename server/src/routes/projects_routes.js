@@ -40,15 +40,19 @@ router.post('/create', async (req, res) => {
 
 // Fetches a project by its ID
 // http://localhost:8080/api/projects/:id
-router.get('/:id', async (req, res) => {
-  const { id: project_id } = req.params;
+router.get('/:projectId', async (req, res) => {
+  const { projectId } = req.params;
   const { id: user_id } = req.session.user;
-  const checkUserAccess = await limitAccess(project_id, user_id);
-  if (!checkUserAccess) {
-    return res.status(403).json({ error: "Unauthorized to view this project" });
-  };
+  // console.log("This is the userId:", user_id);
+  // console.log("This is the projectId:", projectId);
+
+
+  // const checkUserAccess = await limitAccess(projectId, user_id);
+  // if (!checkUserAccess) {
+  //   return res.status(403).json({ error: "Unauthorized to view this project" });
+  // };
   try {
-    const project = await getProjectPage(project_id);
+    const project = await getProjectPage(projectId);
     if (!project) {
       return res.status(404).send('Project not found');
     }
