@@ -91,13 +91,6 @@ export const ProjectCreateField = ({ handleTechStacksModal, techModal }) => {
         "https://trello.com"
       );
 
-      if (!githubRepo || !figmaLink || !trelloLink) {
-        alert(
-          "Please enter valid links starting with '/' and ensure they do not contain the base URL."
-        );
-        setProjectCreating(false);
-        return;
-      }
 
       const project = await axios.post("/api/projects/create", {
         ...projectData,
