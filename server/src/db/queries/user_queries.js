@@ -212,6 +212,7 @@ const limitAccess = async (project_id, user_id) => {
       AND (pp.participant_id = $2 OR p.owner_id = $2)`,
       [project_id, user_id]
     );
+    console.log(data.rows[0])
     return data.rows[0];
   } catch (error) {
     console.log('Error limiting access to project:', error);
