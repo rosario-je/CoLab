@@ -3,7 +3,7 @@ import { UserMenuProject } from "./UserMenuProject";
 
 export const UserRightMenu = () => {
   return (
-    <div className="w-72 text-text-color self-start  bg-menu-colors h-full fixed right-0 z-10 top-20 pt-16">
+    <div className="flex flex-col fixed top-0 right-0 w-[300px] h-full bg-menu-colors justify-between mt-20 pt-16">
       <ul className="menu">
         <li className="border-none">
           <h2 className="menu-title text-text-color text-lg pb-5">Projects</h2>
