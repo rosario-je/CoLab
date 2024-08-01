@@ -175,7 +175,6 @@ router.get('/notifications', async (req, res) => {
 router.delete('/notifications', async (req, res) => {
   const { id: notification_id } = req.body;
   try {
-    console.log(notification_id);
     const deleteNotification = await dismissNotification(notification_id);
     return res.status(200).json(deleteNotification);
   } catch (error) {
