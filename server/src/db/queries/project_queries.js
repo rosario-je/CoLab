@@ -100,7 +100,9 @@ const getAllProjectsById = async (project_id) => {
         tech_requirements tech ON p.id = tech.project_id
       WHERE p.id = $1
       GROUP BY 
-        p.id, owner.username, owner.profile_pic, owner.email;`,
+        p.id, owner.username, owner.profile_pic, owner.email
+      ORDER BY 
+        p.created_at DESC;`,
       [project_id]
     );
     return data.rows[0]; // Return a single project object
@@ -154,7 +156,7 @@ const getProjectsOwnedByMe = async (user_id) => {
     WHERE p.owner_id = $1
     GROUP BY 
       p.id, owner.username, owner.profile_pic, owner.email
-      ORDER BY 
+    ORDER BY 
         p.created_at DESC;`,
       [user_id]
     );
@@ -231,7 +233,9 @@ const getProjectsIAmInById = async (project_ids) => {
       tech_requirements tech ON p.id = tech.project_id
     WHERE p.id = ANY($1)
     GROUP BY 
-      p.id, owner.username, owner.profile_pic, owner.email;`,
+      p.id, owner.username, owner.profile_pic, owner.email
+    ORDER BY 
+      p.created_at DESC;`,
       [project_ids]
     );
     return data.rows;
@@ -322,7 +326,8 @@ const getPendingJoinRequests = async (project_id, user_id) => {
     const data = await db.query(
       `SELECT * FROM join_requests
       WHERE project_id = $1
-      AND user_id = $2`,
+      AND user_id = $2
+      ORDER BY created_at DESC`,
       [project_id, user_id]
     );
     return data.rows[0];
