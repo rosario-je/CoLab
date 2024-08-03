@@ -11,10 +11,10 @@ INSERT INTO projects_participants (project_id, participant_id) VALUES
 
 -- Straw Hat Crew Task Manager (Owner: Luffy, Max: 4)
 (3, 1),  -- Naruto
-(3, 8), -- Tanjiro
+(3, 12), -- Tanjiro
 
 -- Dragon Ball Training Tracker (Owner: Goku, Max: 4)
-(4, 6),  -- Natsu
+(4, 6),  -- Jotaro
 (4, 13), -- Megumi
 (4, 5), -- Edward
 
@@ -29,13 +29,14 @@ INSERT INTO projects_participants (project_id, participant_id) VALUES
 (6, 7),  -- Light
 (6, 8), -- Inu
 
--- Fairy Tail Guild Manager (Owner: Natsu, Max: 4)
+-- Stand User Network (Owner: Jotaro, Max: 4)
 (7, 1),  -- Naruto
 (7, 3),  -- Luffy
 (7, 11), -- Gojo
 
 -- Death Note Analysis Tool (Owner: Light, Max: 4)
 (8, 14),  -- Reigan
+(8, 5), -- Edward
 
 -- Inuyasha Time Travel Diary (Owner: Inu, Max: 4)
 (9, 1),  -- Naruto
@@ -44,25 +45,25 @@ INSERT INTO projects_participants (project_id, participant_id) VALUES
 
 -- Attack on Titan Defense Simulator (Owner: Mikasa, Max: 4)  -- AT MAX CAPACITY
 (10, 4), -- Goku
-(10, 6), -- Natsu
+(10, 6), -- Jotaro
 (10, 13), -- Megumi
 (10, 11), -- Gojo
 
 -- Dragon Ball Tournament Organizer (Owner: Goku, Max: 4) -- AT MAX CAPACITY
-(11, 6), -- Natsu
+(11, 6), -- Jotaro
 (11, 13), -- Megumi
 (11, 14), -- Reigen
 (11, 2), -- Sakura
 
 -- Saiyan Training Log (Owner: Goku, Max: 4) 
-(12, 8), -- Tanjiro
+(12, 8), -- Inuyasha
 (12, 13), -- Megumi
 (12, 14), -- Reigen
 
 -- Thunder Breathing Training Hub (Owner: Zenitsu, Max: 4) 
-(13, 5), -- Edward
+(13, 12), -- Tanjiro
 
 -- Saiyan Battle Simulator (Owner: Goku, Max: 4) -- TEST PROJECT
-(14, 6), -- Natsu
+(14, 6), -- Jotaro
 (14, 13), -- Megumi
 (14, 9); -- Mikasa

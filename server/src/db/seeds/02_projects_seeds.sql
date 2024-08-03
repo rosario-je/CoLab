@@ -12,7 +12,7 @@ INSERT INTO projects (name, description, owner_id, max_participants, cover_photo
 -- project 6
 ('Fullmetal Alchemist Research Hub', 'A networking site for alchemists and researchers to share discoveries and collaborate.', 5, 4, 'https://i.pinimg.com/originals/5b/3f/46/5b3f46519bd873bc20e765ae122ed329.jpg', 'https://github.com/example/fullmetal-alchemist-research-hub', 'https://figma.com/example/fullmetal-alchemist-research-hub', 'https://trello.com/example/fullmetal-alchemist-research-hub', false, '2024-06-20 11:45:35'),
 -- project 7
-('Fairy Tail Guild Manager', 'An app for managing guild members, missions, and magical training sessions.', 6, 4, 'https://i.pinimg.com/originals/6f/2a/0a/6f2a0aa595ead6fab63424c6cd392635.jpg', 'https://github.com/example/fairy-tail-guild-manager', 'https://figma.com/example/fairy-tail-guild-manager', 'https://trello.com/example/fairy-tail-guild-manager', true, '2024-05-20 15:22:10'),
+('Stand User Network', 'An app for tracking Stand users, their abilities, and their battles. Includes features for managing Stand stats, user interactions, and fight records.', 6, 4, 'https://i.kym-cdn.com/entries/icons/original/000/028/952/cover4.jpg', 'https://github.com/example/stand-user-network', 'https://figma.com/example/stand-user-network', 'https://trello.com/example/stand-user-network', true, '2024-05-20 15:22:10'),
 -- project 8
 ('Death Note Analysis Tool', 'An application for analyzing and tracking Death Notes to prevent misuse and identify patterns.', 7, 4, 'https://i.redd.it/7n2k6cqfeu381.jpg', 'https://github.com/example/death-note-analysis-tool', 'https://figma.com/example/death-note-analysis-tool', 'https://trello.com/example/death-note-analysis-tool', true, '2024-07-05 08:42:30'),
 -- project 9

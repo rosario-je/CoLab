@@ -22,22 +22,22 @@ INSERT INTO group_chat_messages (chat_room_id, sender_id, message, created_at) V
 
 -- Conversation for 'Saiyan Battle Simulator'
 (14, 4, 'Hey team, we need to start planning our work for the Saiyan Battle Simulator. Let''s discuss our goals and set up our tasks.', '2024-07-26 09:00:00'), -- Goku
-(14, 6, 'I think the first step should be to sketch out the UI design. We need to decide on the layout for battle strategies and training logs.', '2024-07-26 09:15:00'), -- Natsu
+(14, 6, 'I think the first step should be to sketch out the UI design. We need to decide on the layout for battle strategies and training logs.', '2024-07-26 09:15:00'), -- Jotaro
 (14, 13, 'I can start working on the UI mockups based on our initial ideas. We need to make sure it aligns with the project vision.', '2024-07-26 09:30:00'), -- Megumi
 (14, 9, 'I''ll handle the backend setup and database schema. We should prepare for various battle scenarios and track user progress.', '2024-07-26 09:45:00'), -- Mikasa
 (14, 4, 'Great. Mikasa, ensure the backend can support our planned features and user data.', '2024-07-26 10:00:00'), -- Goku
-(14, 6, 'I''ll work on the initial design for the main dashboard and battle interface. I''ll need everyone''s input before finalizing it.', '2024-07-26 10:15:00'), -- Natsu
+(14, 6, 'I''ll work on the initial design for the main dashboard and battle interface. I''ll need everyone''s input before finalizing it.', '2024-07-26 10:15:00'), -- Jotaro
 (14, 13, 'I''ll review the mockups and give feedback. We should also discuss user roles and permissions soon.', '2024-07-26 10:30:00'), -- Megumi
 (14, 9, 'I''ll start setting up user roles in the backend. We''ll need different roles for users, admins, and so on.', '2024-07-26 10:45:00'), -- Mikasa
 (14, 4, 'Sounds good. Let''s plan a quick meeting for tomorrow to review what we have and decide on our next steps.', '2024-07-26 11:00:00'), -- Goku
-(14, 6, 'I''ll aim to have some initial mockups ready by then for everyone to look at.', '2024-07-26 11:15:00'), -- Natsu
+(14, 6, 'I''ll aim to have some initial mockups ready by then for everyone to look at.', '2024-07-26 11:15:00'), -- Jotaro
 (14, 13, 'I''ll prepare some initial scenarios and use cases to test the UI concepts.', '2024-07-26 11:30:00'), -- Megumi
 (14, 9, 'I''ll ensure that the backend is ready for integration with the frontend as soon as we have the initial designs.', '2024-07-26 11:45:00'), -- Mikasa
 (14, 4, 'Perfect. Please document your progress and any issues you encounter. We''ll review everything in tomorrow''s meeting.', '2024-07-26 12:00:00'), -- Goku
-(14, 6, 'Will do. I''ll keep everyone updated with my progress on the UI design.', '2024-07-26 12:15:00'), -- Natsu
+(14, 6, 'Will do. I''ll keep everyone updated with my progress on the UI design.', '2024-07-26 12:15:00'), -- Jotaro
 (14, 13, 'I''ll gather feedback and prepare questions for our discussion tomorrow.', '2024-07-26 12:30:00'), -- Megumi
 (14, 9, 'Hey team, I''ve completed the backend setup and tested the initial endpoints. Everything is working as expected so far, but we need to start integrating with the frontend soon.', '2024-08-02 09:00:00'), -- Mikasa
 (14, 4, 'Thanks for the update, Mikasa. Once the frontend integration starts, let''s ensure we have a solid testing plan in place.', '2024-08-02 09:15:00'), -- Goku
-(14, 6, 'I''m almost done with the revised UI designs. I''ll be ready to share them with everyone for feedback by tomorrow.', '2024-08-02 09:30:00'), -- Natsu
+(14, 6, 'I''m almost done with the revised UI designs. I''ll be ready to share them with everyone for feedback by tomorrow.', '2024-08-02 09:30:00'), -- Jotaro
 (14, 13, 'Great to hear. I''m also finalizing the user scenarios and test cases. I''ll have them ready for review by the end of the day.', '2024-08-02 09:45:00'), -- Megumi
 (14, 4, 'Perfect. Let''s aim to have a detailed review session in a few weeks to align on our progress and address any issues.', '2024-08-02 10:00:00'); -- Goku
