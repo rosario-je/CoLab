@@ -95,7 +95,7 @@ export const CreateProjectTechStackModal = ({
   return (
     <div className="fixed inset-0 flex items-center justify-center z-50 w-screen h-screen">
       <div className="fixed inset-0 bg-black bg-opacity-50 w-screen h-screen"></div>
-      <div className="relative bg-input-colors text-white rounded-lg p-8 shadow-lg w-1/2 h-3/4 overflow-y-auto">
+      <div className="relative bg-input-colors text-white rounded-lg p-8 shadow-lg w-auto h-auto overflow-y-auto">
         <button
           className="absolute top-4 right-4 text-2xl hover:animate-spin hover:text-red mt-3 mr-6"
           onClick={handleTechStacksModal}
