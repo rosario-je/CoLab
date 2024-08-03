@@ -43,7 +43,7 @@ export const CreateProjectTechStackModal = ({
     "Kubernetes",
     "AWS",
     "Azure",
-    "Google Cloud"
+    "Google Cloud",
   ];
   const testingOptions = ["Jest", "Mocha", "Jasmine", "Cypress", "Chai"];
 
@@ -54,7 +54,6 @@ export const CreateProjectTechStackModal = ({
         : [...prevSelected, tech]
     );
 
-    // Update allSelectedTech state based on individual selections
     setAllSelectedTech((prevAllSelected) => {
       if (prevAllSelected.includes(tech)) {
         return prevAllSelected.filter((t) => t !== tech);
@@ -65,7 +64,6 @@ export const CreateProjectTechStackModal = ({
   };
 
   const handleRemoveTech = (tech) => {
-    // Update individual state slices and allSelectedTech
     setSelectedFrontend((prev) => prev.filter((t) => t !== tech));
     setSelectedBackend((prev) => prev.filter((t) => t !== tech));
     setSelectedDatabase((prev) => prev.filter((t) => t !== tech));
@@ -78,13 +76,10 @@ export const CreateProjectTechStackModal = ({
   };
 
   const handleAddTechStack = () => {
-    // Remove duplicates from allSelectedTech
     const uniqueTechs = [...new Set(allSelectedTech)];
 
-    // Add unique tech names to the project
     handleAddTech(uniqueTechs);
 
-    // Reset allSelectedTech to an empty array
     setAllSelectedTech([]);
 
     handleTechStacksModal();
