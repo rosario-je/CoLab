@@ -84,7 +84,7 @@ const getAllJoinRequests = async (user_id) => {
         join_requests.is_accepted = false
       AND 
         projects.owner_id = $1
-        ORDER BY join_requests.id DESC
+      ORDER BY join_requests.created_at DESC
         `,
       [user_id]
     );

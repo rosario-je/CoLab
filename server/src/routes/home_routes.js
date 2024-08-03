@@ -38,7 +38,7 @@ router.get('/:userId/my_projects', async (req, res) => {
 // http://localhost:8080/api/dashboard/my_projects/complete
 router.put('/my_projects/complete', async (req, res) => {
   const { id: user_id } = req.session.user;
-  const { project_id } = req.body;
+  const { project_id } = req.params;
   try {
     const isCurrentUserOwner = await isUserOwner(user_id, project_id);
     if (!isCurrentUserOwner) {

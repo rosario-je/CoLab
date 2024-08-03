@@ -45,12 +45,10 @@ router.get('/:projectId', async (req, res) => {
   const { id: user_id } = req.session.user;
   // console.log("This is the userId:", user_id);
   // console.log("This is the projectId:", projectId);
-
-
-  // const checkUserAccess = await limitAccess(projectId, user_id);
-  // if (!checkUserAccess) {
-  //   return res.status(403).json({ error: "Unauthorized to view this project" });
-  // };
+  const checkUserAccess = await limitAccess(projectId, user_id);
+  if (!checkUserAccess) {
+    return res.status(403).json({ error: "Unauthorized to view this project" });
+  };
   try {
     const project = await getProjectPage(projectId);
     if (!project) {

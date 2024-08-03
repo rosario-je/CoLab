@@ -81,7 +81,6 @@ router.post('/logout', (req, res) => {
 router.get('/current-user', (req, res) => {
   if (req.session.user) {
     res.json(req.session.user);
-    console.log("user logged in")
   } else {
     res.status(401).send('No user logged in');
   }
