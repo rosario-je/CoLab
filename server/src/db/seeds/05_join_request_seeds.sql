@@ -18,7 +18,7 @@ INSERT INTO join_requests (user_id, project_id, created_at) VALUES
 (13, 12, '2024-06-28 17:05:55'), -- Megumi
 
 -- Join Requests for Saiyan Battle Simulator (Owner: Goku, Max: 4) -- TEST PROJECT
-(10, 14, '2024-07-26 15:30:00'),  -- Gojo
+(11, 14, '2024-07-26 15:30:00'),  -- Gojo
 (8, 14, '2024-07-27 12:10:15'),  -- Inu
 (12, 14, '2024-07-27 12:10:15'), -- Tanjiro
 (3, 14, '2024-07-28 14:55:30'); -- Luffy
