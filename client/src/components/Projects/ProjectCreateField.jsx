@@ -17,6 +17,8 @@ export const ProjectCreateField = ({ handleTechStacksModal, techModal }) => {
     tech_names: [],
     newPicture: "",
   });
+  console.log(projectData.tech_names);
+  
 
   const maxChars = 300;
   const navigate = useNavigate();
@@ -33,13 +35,11 @@ export const ProjectCreateField = ({ handleTechStacksModal, techModal }) => {
     }
   };
 
-  const handleAddTech = (techLanguage) => {
-    if (techLanguage.trim() !== "") {
-      setProjectData((prevData) => ({
-        ...prevData,
-        tech_names: [...prevData.tech_names, techLanguage],
-      }));
-    }
+  const handleAddTech = (selectedTechStack) => {
+    setProjectData((prevData) => ({
+      ...prevData,
+      tech_names: [...prevData.tech_names, ...selectedTechStack],
+    }));
   };
 
   const isValidImageUrl = (url) => {
@@ -90,7 +90,6 @@ export const ProjectCreateField = ({ handleTechStacksModal, techModal }) => {
         projectData.trelloLink,
         "https://trello.com"
       );
-
 
       const project = await axios.post("/api/projects/create", {
         ...projectData,
