@@ -16,10 +16,10 @@ import { MyNotifications } from "./pages/MyNotifications";
 axios.defaults.withCredentials = true;
 
 function App() {
+  const navigate = useNavigate();
+
   const [techModal, setTechModal] = useState(false);
   const [currentUser, setCurrentUser] = useState(null);
-
-  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchCurrentUser = async () => {
@@ -33,7 +33,6 @@ function App() {
         );
       }
     };
-
     fetchCurrentUser();
   }, []);
 
