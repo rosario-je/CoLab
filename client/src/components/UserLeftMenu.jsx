@@ -1,9 +1,12 @@
-import React from "react";
+import React, { useContext } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { AppContext } from "./../context/AppContext";
+
 
 export const UserLeftMenu = ({ currentUser }) => {
   const navigate = useNavigate();
+  const { notifications, requests } = useContext(AppContext);
 
   return (
     <div className="flex flex-col fixed top-0 left-0 w-[300px] h-full bg-menu-colors justify-between mt-20 pt-16">
@@ -58,7 +61,13 @@ export const UserLeftMenu = ({ currentUser }) => {
                     navigate(`/${currentUser.id}/myprojects/requests`);
                   }}
                 >
-                  <i className="fa-solid fa-bell group-hover:animate-bounceSlow group-hover:text-icon-purple group-hover:drop-shadow-white-glow mr-0.5"></i>
+                  <div className="icon-container relative">
+                    <i className="fa-solid fa-bell group-hover:animate-bounceSlow group-hover:text-icon-purple group-hover:drop-shadow-white-glow mr-0.5"></i>
+                    {requests.length > 0 && (
+                      <div className="badge bg-green badge-xs absolute -top-1 -right-1">
+                      </div>
+                    )}
+                  </div>
                   <p>Join Requests</p>
                 </a>
               </li>
@@ -70,7 +79,13 @@ export const UserLeftMenu = ({ currentUser }) => {
                     navigate(`/${currentUser.id}/notifications`);
                   }}
                 >
-                  <i className="fa-solid fa-bell group-hover:animate-bounceSlow group-hover:text-icon-purple group-hover:drop-shadow-white-glow mr-0.5"></i>
+                  <div className="icon-container relative">
+                    <i className="fa-solid fa-bell group-hover:animate-bounceSlow group-hover:text-icon-purple group-hover:drop-shadow-white-glow mr-0.5"></i>
+                    {notifications.length > 0 && (
+                      <div className="badge bg-green badge-xs absolute -top-1 -right-1">
+                      </div>
+                    )}
+                  </div>
                   <p>Notifications</p>
                 </a>
               </li>

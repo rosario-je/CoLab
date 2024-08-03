@@ -1,28 +1,13 @@
-import React, { useEffect, useState } from "react";
-import axios from "axios";
 import { JoinRequestListItems } from "./JoinRequestListItems";
+import { AppContext } from "../../context/AppContext";
+import { useContext, useEffect } from "react";
 
 export const JoinRequestList = () => {
-  const [requests, setRequests] = useState([]);
+  const { requests, fetchRequests } = useContext(AppContext);
 
   useEffect(() => {
-    const fetchRequests = async () => {
-      try {
-        const requestList = await axios.get("/api/dashboard/manage_requests");
-        setRequests(requestList.data);
-        console.log("Requests: ", requestList.data);
-      } catch (error) {
-        console.error("Error in getting requests: ", error.message);
-      }
-    };
     fetchRequests();
   }, []);
-
-  const handleRequestAcceptance = (acceptedRequestId) => {
-    setRequests((prevRequests) =>
-      prevRequests.filter((request) => request.id !== acceptedRequestId)
-    );
-  };
 
   return (
     <div className="my-join-requests h-full w-auto flex flex-col items-center mx-72">
@@ -38,7 +23,6 @@ export const JoinRequestList = () => {
               project_name={request.project.name}
               requester_user_id={request.user_id}
               project_id={request.project.id}
-              onDecision={() => handleRequestAcceptance(request.id)}
             />
           );
         })}
