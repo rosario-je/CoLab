@@ -6,9 +6,9 @@
 - <a href="https://i.pinimg.com/originals/07/7b/70/077b707ee484fe1b24ca295fbe8542bf.jpg">Goku Profile Picture</a>
 - <a href="https://i.pinimg.com/originals/dd/ee/f5/ddeef5dd4173a48e8f8d69272aa064ca.jpg">Edward Elric Profile Picture</a>
 - <a href="https://i.pinimg.com/originals/5b/86/46/5b86461ec544822ab533cdce06528540.jpg">Natsu Profile Picture</a>
-- <a href="https://i.pinimg.com/originals/0c/89/95/0c8995dc80792ea76ce884ee7f791b77.png">Light Yagami Profile Picture</a>
+- <a href="https://i.pinimg.com/564x/76/c4/c6/76c4c6c7d5d87a41ed9843583f8a01d1.jpg">Light Yagami Profile Picture</a>
 - <a href="https://i.pinimg.com/originals/c4/18/37/c41837027134824823e3195a193d8913.jpg">InuYasha Profile Picture</a>
-- <a href="https://i.pinimg.com/originals/ef/b7/0d/efb70d2fdacd5cb9a91af93637d7d528.jpg">Mikasa Profile Picture</a>
+- <a href="https://i.pinimg.com/736x/2a/26/fa/2a26fa25a5488da0c045bee2c75802b7.jpg">Mikasa Profile Picture</a>
 - <a href="https://i.pinimg.com/originals/4f/67/f1/4f67f1731b4c4a414b63728cf9851da5.jpg">Zenistu Profile Picture</a>
 - <a href="https://i.pinimg.com/originals/92/f9/49/92f949510afd67fbc38bfcd91fca389e.png">Gojo Profile Picture</a>
 - <a href="https://i.pinimg.com/originals/a7/22/f0/a722f0b3026b8c30422ccbced5122652.jpg">Tanjiro Profile Picture</a>
