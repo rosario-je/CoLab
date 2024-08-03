@@ -6,11 +6,10 @@ import { UserLeftMenu } from "../components/UserLeftMenu";
 import { UserRightMenu } from "../components//UserRightMenuComponents/UserRightMenu";
 import { ProjectCard } from "../components/Projects/ProjectCard";
 
-export const MyProjects = ({ handleCoLabHome, currentUser}) => {
+export const MyProjects = ({ handleCoLabHome, currentUser }) => {
   const [projects, setProjects] = useState([]);
-  const [activeButton, setActiveButton] = useState(null);
   const userId = currentUser.id;
-  
+
   // const handleButtonClick = (button) => {
   //   setActiveButton(button);
   // };
@@ -18,16 +17,17 @@ export const MyProjects = ({ handleCoLabHome, currentUser}) => {
   useEffect(() => {
     const fetchUserProjects = async () => {
       try {
-        const userProjectData = await axios.get(`/api/dashboard/${userId}/my_projects`);
+        const userProjectData = await axios.get(
+          `/api/dashboard/${userId}/my_projects`
+        );
         setProjects(userProjectData.data);
-        // console.log("User Projects: ", userProjectData.data);
       } catch (error) {
         console.error("Error in getting user projects: ", error.message);
       }
     };
     fetchUserProjects();
   }, []);
-  
+
   return (
     <div className="flex flex-col h-screen">
       <Navbar handleCoLabHome={handleCoLabHome} currentUser={currentUser} />
@@ -40,7 +40,7 @@ export const MyProjects = ({ handleCoLabHome, currentUser}) => {
             <ProjectCard
               key={project.project_id}
               page="myprojects"
-              currentUserId = {userId}
+              currentUserId={userId}
               project={project}
             />
           ))}
