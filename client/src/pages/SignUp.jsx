@@ -4,6 +4,7 @@ import axios from "axios";
 
 export const SignUp = () => {
   const navigate = useNavigate();
+  const [error, setError] = useState(null);
   const [formData, setFormData] = useState({
     first_name: "",
     last_name: "",
@@ -30,14 +31,15 @@ export const SignUp = () => {
       console.log("User created successfully:", response.data);
       navigate("/dashboard");
     } catch (error) {
+      setError(error.response.data);
       console.error("Error creating user:", error.response.data);
     }
   };
 
   return (
     <div className="hero bg-base-200 h-screen w-full flex items-center">
+      {error && <UserAuthMessage error={error} />}
       <div className="container mx-auto flex justify-between items-center h-full px-4">
-
         <div className="flex flex-col items-center w-1/2 max-w-md bg-base-100 p-8 rounded-lg shadow-lg">
           <h2 className="text-4xl font-bold mb-4">Sign Up</h2>
           <form className="w-full" onSubmit={handleAccountCreation}>
