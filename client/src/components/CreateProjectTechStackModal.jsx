@@ -11,7 +11,6 @@ export const CreateProjectTechStackModal = ({
   const [selectedDevOps, setSelectedDevOps] = useState([]);
   const [selectedTesting, setSelectedTesting] = useState([]);
 
-  // Combine all selected tech into a single state for easier management
   const [allSelectedTech, setAllSelectedTech] = useState(tech_names);
 
   const frontendOptions = [
