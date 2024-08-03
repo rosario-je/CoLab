@@ -17,7 +17,7 @@ export const ProjectCreateField = ({ handleTechStacksModal, techModal }) => {
     tech_names: [],
     newPicture: "",
   });
-  console.log(projectData.tech_names);
+
   
 
   const maxChars = 300;

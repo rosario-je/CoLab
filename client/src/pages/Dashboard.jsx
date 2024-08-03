@@ -42,7 +42,7 @@ export const Dashboard = ({ handleCoLabHome, currentUser, handleLogout }) => {
     }
   };
 
-  console.log("Projects: ", projects);
+  // console.log("Projects: ", projects);
 
   return (
     <div className="flex flex-col h-screen">
