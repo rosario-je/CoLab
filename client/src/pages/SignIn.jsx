@@ -1,10 +1,12 @@
 import React, { useState } from "react";
 import axios from "axios";
-import { Navigate, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+
+import { UserAuthMessage } from "../components/ErrorHandling/UserAuthMessage";
 
 export const SignIn = () => {
   const navigate = useNavigate();
-
+  const [error, setError] = useState(null);
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -25,12 +27,14 @@ export const SignIn = () => {
       console.log("User logged in successfully:", response.data);
       navigate("/dashboard");
     } catch (error) {
+      setError(error.response.data);
       console.error("Error logging in user:", error.response.data);
     }
   };
 
   return (
-    <div className="hero bg-base-200 min-h-screen flex items-center">
+    <div className="hero bg-base-200 min-h-screen flex items-center flex-col justify-center space-y-16">
+      {error && <UserAuthMessage error={error} />}
       <div className="container mx-auto flex justify-between items-center h-full px-4">
         <div className="w-1/2 flex flex-col items-center text-center p-8">
           <h1 className="text-5xl font-bold">Welcome back to CoLab!</h1>
