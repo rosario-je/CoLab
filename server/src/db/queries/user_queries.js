@@ -187,6 +187,21 @@ const getUserByEmail = async (email) => {
     console.log('Error getting user by email:', error);
   }
 };
+// Get a user by their email
+const validateUserLogin = async (email, password) => {
+  try {
+    const data = await db.query(
+      `SELECT * FROM users
+      WHERE email = $1
+      AND password = $2
+      `,
+      [email, password]
+    );
+    return data.rows[0];
+  } catch (error) {
+    console.log('Error getting user by email:', error);
+  }
+};
 
 // Get a user by their user_id
 const getUserById = async (user_id) => {
@@ -221,17 +236,18 @@ const limitAccess = async (project_id, user_id) => {
 
 
 export {
-  getOwnerById, 
+  getOwnerById,
   getOwnerByProjectId,
-  getProjectParticipants, 
+  getProjectParticipants,
   askToJoinProject,
-  createUser, 
+  createUser,
   getUserByEmail,
   getUserById,
-  getAllJoinRequests, 
+  getAllJoinRequests,
   approveJoinRequest,
-  addUserToProject, 
-  isUserOwner, 
+  addUserToProject,
+  isUserOwner,
   rejectJoinRequest,
-  limitAccess
+  limitAccess,
+  validateUserLogin
 };
