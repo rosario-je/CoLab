@@ -46,7 +46,7 @@ const getChatHistory = async (chat_id) => {
         group_chat_messages msg
         LEFT JOIN users u ON msg.sender_id = u.id
       WHERE msg.chat_room_id = $1
-      ORDER BY msg.created_at ASC, msg.id ASC;
+      ORDER BY msg.created_at DESC, msg.id DESC;
       `,
       [chat_id]
     );
