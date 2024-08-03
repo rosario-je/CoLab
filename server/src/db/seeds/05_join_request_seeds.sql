@@ -13,7 +13,7 @@ INSERT INTO join_requests (user_id, project_id, created_at) VALUES
 (12, 4, '2024-04-15 16:50:30'), -- Tanjiro
 
 -- Join Requests for Saiyan Training Log (Owner: Goku, Max: 4)
-(6, 12, '2024-06-20 13:15:30'), -- Natsu
+(6, 12, '2024-06-20 13:15:30'), -- Jotaro
 (8, 12, '2024-06-25 11:22:45'), -- Inu
 (13, 12, '2024-06-28 17:05:55'), -- Megumi
 

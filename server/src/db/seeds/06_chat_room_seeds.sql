@@ -5,7 +5,7 @@ INSERT INTO chat_rooms (project_id, created_at) VALUES
 (4, '2024-03-23 16:54:12'), -- 'Dragon Ball Training Tracker'
 (5, '2024-04-12 13:27:55'), -- 'One Piece Treasure Market'
 (6, '2024-06-20 11:45:35'), -- 'Fullmetal Alchemist Research Hub'
-(7, '2024-05-20 15:22:10'), -- 'Fairy Tail Guild Manager'
+(7, '2024-05-20 15:22:10'), -- 'Stand User Network'
 (8, '2024-07-05 08:42:30'), -- 'Death Note Analysis Tool'
 (9, '2024-02-25 09:40:10'), -- 'Inuyasha Time Travel Diary'
 (10, '2024-01-30 14:05:45'), -- 'Attack on Titan Defense Simulator'

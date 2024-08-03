@@ -10,7 +10,7 @@ INSERT INTO users (first_name, last_name, username, password, email, profile_pic
 -- user 5
 ('Edward', 'Elric', 'edward', 'password', 'edward@test.com', 'ed_pfp.png'),
 -- user 6
-('Natsu', 'Dragneel', 'natsu', 'password', 'natsu@test.com', 'natsu_pfp.png'),
+('Jotaro', 'Kujo', 'jotaro', 'password', 'jotaro@test.com', 'jotaro_pfp.png'),
 -- user 7
 ('Light', 'Yagami', 'light', 'password', 'light@test.com', 'light_pfp.png'),
 -- user 8
