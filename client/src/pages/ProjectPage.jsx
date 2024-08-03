@@ -9,6 +9,7 @@ import { ProjectPageDetails } from "../components/GroupProjectPage/ProjectPageDe
 import { ProjectRightMenu } from "../components/GroupProjectPage/ProjectRightMenu";
 
 export const ProjectPage = ({ currentUser, handleLogout, handleCoLabHome }) => {
+  const { projectId } = useParams();
   const [project, setProject] = useState({
     name: "",
     cover_photo_path: "",
@@ -21,8 +22,6 @@ export const ProjectPage = ({ currentUser, handleLogout, handleCoLabHome }) => {
     participants: [],
     tech_requirements: [],
   });
-
-  const { projectId } = useParams();
 
   useEffect(() => {
     const fetchProject = async () => {
@@ -38,7 +37,6 @@ export const ProjectPage = ({ currentUser, handleLogout, handleCoLabHome }) => {
     }
   }, [projectId]);
 
-  // console.log(project);
   return (
     <div className="flex flex-col h-screen">
       <Navbar
@@ -54,7 +52,6 @@ export const ProjectPage = ({ currentUser, handleLogout, handleCoLabHome }) => {
         >
           <ProjectPageDetails currentUser={currentUser} project={project} />
           <div className="fixed top-0 left-[300px] right-[300px] z-10">
-
             <div className="w-full bg-white py-2 px-4 shadow-md">
               <input
                 type="text"
