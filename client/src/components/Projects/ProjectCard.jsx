@@ -42,7 +42,7 @@ export const ProjectCard = ({ currentUserId, project }) => {
   };
 
   return (
-    <div className="card bg-base-100 w-full shadow-xl border-solid border-2 border-website-purple/25 text-white my-8">
+    <div className="card bg-navbar-color w-full shadow-xl border-solid border-2 border-website-purple/25 text-text-color my-8">
       <div className="card-body h-96">
         <div className="top-project-card-container flex justify-between items-center mb-5">
           <div className="project-details-1 flex space-x-6">

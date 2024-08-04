@@ -21,13 +21,13 @@ export const Navbar = ({ currenUser }) => {
           }}
         >
           <img
-            src='idea.png'
+            src='/idea.png'
             className="h-7 mb-2 group-hover:animate-unstableBeaker"
           />
           CoLab
         </a>
       </div>
-      <div className="pr-5">
+      <div className="pr-10">
         <div className="btn btn-xs sm:btn-sm md:btn-md lg:btn-lg">
           <button onClick={handleLogout}>Logout </button>
           <i className="fa-solid fa-arrow-right-from-bracket"></i>

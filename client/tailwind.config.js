@@ -5,32 +5,32 @@ export default {
     extend: {
       colors: {
         "text-color": "#F2F3F5",
-        "navbar-color": "#19191F",
-        "menu-colors": "#282B2D",
-        "website-purple": "#422569",
+        "navbar-color": "#1E1F22", // color for the nav bar and project cards
+        "menu-colors": "#2B2D31",
+        "website-purple": "#4144C8",
         "icon-purple": "#8A2BE2",
         "input-colors": "#202028",
         "projects-bar": "#191E24",
         "projects-bar-button": "#21262D",
-        red: "#E73E41",
-        grey: "#333A3F",
+        red: "#E73E41", // delete/reject buttons/hovers and error messages
+        grey: "#3C3F45", // page body background color
         create: "#6a1b9a",
         wand: "#fbc02d",
-        green: "#41A558",
+        green: "#41A558", // accept buttons/hovers and success messages
         "racing-blue": "#5B8EE0",
         "royal-blue": "#4169E1",
         "royal-yellow": "#FFD700",
         "yellow-name": "#FFF9DB",
-        "dark-green": "#007028",
-        "dark-red": "#A41000",
+        "dark-green": "#007028", // alt darker hover for accept buttons
+        "dark-red": "#A41000", // alt darker hover for delete/reject buttons
         "landing-gradient-two": "#8F9BD7",
         "landing-signin-button": "#322AA5",
         "landing-navbar-color": "#19191F",
         "black": "#000000",
         "white": "#ffffff",
         'landing-gradient-one': '#281E9F',
-        'project-left-menu': '#171819',
-        'project-background': '#333A3F',
+        'project-left-menu': '#171819', // side menu background color and search bar
+        'project-background': '#3C3F45', // page body background color
       },
       dropShadow: {
         "white-glow": "0 0 1rem #ffffff",
