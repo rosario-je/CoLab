@@ -12,7 +12,7 @@ export default {
         "input-colors": "#202028",
         "projects-bar": "#191E24",
         "projects-bar-button": "#21262D",
-        red: "#E73E41", // delete/reject buttons/hovers and error messages
+        "reject": "#E73E41", // delete/reject buttons/hovers and error messages
         grey: "#3C3F45", // page body background color
         create: "#6a1b9a",
         wand: "#fbc02d",

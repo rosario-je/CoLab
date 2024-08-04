@@ -230,7 +230,7 @@ export const ProjectCreateField = ({ handleTechStacksModal, techModal }) => {
             </h6>
             {projectData.cover_photo_path && (
               <button
-                className="text-white mt-5 btn hover:bg-red text-lg group mr-5"
+                className="text-white mt-5 btn hover:bg-reject text-lg group mr-5"
                 onClick={handleRemoveCoverPhoto}
               >
                 <i className="fa-solid fa-image group-hover:text-white group-hover:drop-shadow-white-glow"></i>

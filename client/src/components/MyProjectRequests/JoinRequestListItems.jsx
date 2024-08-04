@@ -64,7 +64,7 @@ export const JoinRequestListItems = ({
                 Accept
               </button>
 
-              <button onClick={denyRequest} className="btn bg-red hover:bg-dark-red text-white rounded-full border-none">
+              <button onClick={denyRequest} className="btn bg-reject hover:bg-dark-red text-white rounded-full border-none">
                 Deny
               </button>
             </div>

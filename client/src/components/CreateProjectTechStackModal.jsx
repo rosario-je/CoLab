@@ -91,7 +91,7 @@ export const CreateProjectTechStackModal = ({
       <div className="fixed inset-0 bg-black bg-opacity-50 w-screen h-screen"></div>
       <div className="relative bg-input-colors text-white rounded-lg p-8 shadow-lg w-auto h-auto overflow-y-auto">
         <button
-          className="absolute top-4 right-4 text-2xl hover:animate-spin hover:text-red mt-3 mr-6"
+          className="absolute top-4 right-4 text-2xl hover:animate-spin hover:text-reject mt-3 mr-6"
           onClick={handleTechStacksModal}
         >
           <i className="fa-solid fa-xmark"></i>
@@ -138,7 +138,7 @@ export const CreateProjectTechStackModal = ({
                   key={tech}
                   className={`relative ${
                     isTechSelected(tech)
-                      ? "bg-green hover:bg-red text-white"
+                      ? "bg-green hover:bg-reject text-white"
                       : "btn-ghost"
                   } btn`}
                   onClick={() => handleSelect(setSelected, selected, tech)}
@@ -146,7 +146,7 @@ export const CreateProjectTechStackModal = ({
                   {tech}
                   {isTechSelected(tech) && (
                     <button
-                      className="absolute top-0 right-0 bg-red-500 text-white p-1 rounded-full text-xs"
+                      className="absolute top-0 right-0"
                       onClick={(e) => {
                         e.stopPropagation();
                         handleRemoveTech(tech);
