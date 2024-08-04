@@ -1,4 +1,6 @@
 ### Credits 
+#### Icons: 
+- <a href="https://fontawesome.com/icons">Font Awesome</a>
 #### Profile Pictures:
 - <a href="https://i.pinimg.com/originals/ab/08/9f/ab089f4568627b25427c6896292d8d11.png">Naruto Profile Picture</a> 
 - <a href="https://i.pinimg.com/originals/4d/96/c4/4d96c4eb4f2c2bfa6c6ce1f07b7851b0.jpg">Sakura Profile Picture</a>

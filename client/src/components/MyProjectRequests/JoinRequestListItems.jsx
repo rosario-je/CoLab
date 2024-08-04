@@ -47,7 +47,7 @@ export const JoinRequestListItems = ({
       <div className="card bg-neutral text-neutral-content w-11/12 my-10">
         <div className="card-body items-center text-center flex flex-col justify-center gap-[20px]">
           <h2 className="requested-user self-start text-3xl font-semibold">
-            {requester_username}
+            @{requester_username}
           </h2>
 
           <p className="self-start font-light text-3xl italic">

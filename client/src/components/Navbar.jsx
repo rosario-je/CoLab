@@ -21,7 +21,7 @@ export const Navbar = ({ currenUser }) => {
           }}
         >
           <img
-            src={Vial}
+            src='idea.png'
             className="h-7 mb-2 group-hover:animate-unstableBeaker"
           />
           CoLab
@@ -29,7 +29,8 @@ export const Navbar = ({ currenUser }) => {
       </div>
       <div className="pr-5">
         <div className="btn btn-xs sm:btn-sm md:btn-md lg:btn-lg">
-          <button onClick={handleLogout}>Logout</button>
+          <button onClick={handleLogout}>Logout </button>
+          <i className="fa-solid fa-arrow-right-from-bracket"></i>
         </div>
       </div>
     </div>
