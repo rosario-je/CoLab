@@ -10,7 +10,7 @@ import { OwnerProjectAvatar } from "./OwnerProjectAvatar";
 // WHEN MERGING UP WITH THE CONDITIONAL RENDERING BRANCH, SWAP THIS CODE WITH THE NEW CODE
 // THIS FILE WILL THEN BE SPECIFICALLY FOR THE PROJECT CARD COMPONENT IN THE MYPROJECTS PAGE
 
-export const ProjectCard = ({ currentUserId, project }) => {
+export const MyProjectsCard = ({ currentUserId, project }) => {
   const {
     name,
     description,
@@ -46,7 +46,7 @@ export const ProjectCard = ({ currentUserId, project }) => {
   };
 
   return (
-    <div className="card bg-base-100 w-full shadow-xl border-solid border-2 border-project-border/25 text-white my-8">
+    <div className="card bg-navbar-color w-full shadow-xl border-solid border-2 border-project-border/25 text-text-color my-8">
       <div className="card-body h-96">
         <div className="top-project-card-container flex justify-between items-center mb-5">
           <div className="project-details-1 flex space-x-6">

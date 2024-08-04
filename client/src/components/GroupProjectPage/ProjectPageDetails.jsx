@@ -25,7 +25,7 @@ export const ProjectPageDetails = ({ project }) => {
       <div className="flex flex-row w-full p-9 justify-between border-b-2 border-slate-700 h-auto items-center fixed pr-[650px] z-10 backdrop-blur-xl bg-project-left-menu/30">
         {name && (
           <div className="project-title">
-            <h1 className="text-white font-3xl font-light text-3xl">{name}</h1>
+            <h1 className="text-text-color font-3xl font-light text-3xl">{name}</h1>
           </div>
         )}
         <div className="tech-stack flex flex-row justify-around gap-x-8">

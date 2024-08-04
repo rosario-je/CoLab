@@ -20,7 +20,7 @@ export const NotificationListItems = ({
 
   return (
     <>
-      <div className="card bg-neutral text-white my-10 w-3/4">
+      <div className="card bg-navbar-color text-text-color my-10 w-3/4 border-2 border-project-border/25">
         <button 
           onClick={dismissNotif}
           className="btn btn-circle absolute top-0 right-0 mt-4 mr-4">

@@ -15,7 +15,7 @@ export const Navbar = ({ currenUser }) => {
     <div className="navbar w-screen bg-navbar-color text-text-color fixed top-0 left-0 right-0 z-50">
       <div className="flex-1">
         <a
-          className="btn btn-ghost text-xl group"
+          className="btn btn-ghost text-2xl font-semibold group"
           onClick={() => {
             navigate("/dashboard");
           }}

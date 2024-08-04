@@ -16,7 +16,6 @@ export default {
         "projects-bar-button": "#21262D",
         "reject": "#E73E41", // delete/reject buttons/hovers and error messages
         "reject-light": "#EC6573", // alt darker hover for delete/reject buttons
-        wand: "#fbc02d",
         "confirm": "#41A558", // accept buttons/hovers and success messages
         "confirm-light": "#7EBA8A", // alt darker hover for accept buttons
         "landing-gradient-two": "#8F9BD7",
@@ -31,7 +30,6 @@ export default {
       },
       dropShadow: {
         "white-glow": "0 0 1rem rgba(255, 255, 255, 0.8)",
-        "yellow-glow": "0 0 1rem #FFF9DB",
       },
       keyframes: {
         swing: {

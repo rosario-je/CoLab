@@ -4,7 +4,7 @@ import axios from "axios";
 import { Navbar } from "../components/Navbar";
 import { UserLeftMenu } from "../components/UserLeftMenu";
 import { UserRightMenu } from "../components//UserRightMenuComponents/UserRightMenu";
-import { ProjectCard } from "../components/Projects/ProjectCard";
+import {MyProjectsCard} from "../components/Projects/MyProjectsCard";
 
 export const MyProjects = ({ handleCoLabHome, currentUser }) => {
   const [projects, setProjects] = useState([]);
@@ -37,7 +37,7 @@ export const MyProjects = ({ handleCoLabHome, currentUser }) => {
 
         <div className="flex flex-col w-full bg-project-background overflow-hidden mx-72 px-10">
           {projects.map((project) => (
-            <ProjectCard
+            <MyProjectsCard
               key={project.project_id}
               page="myprojects"
               currentUserId={userId}
