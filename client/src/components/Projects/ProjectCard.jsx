@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
@@ -6,7 +6,7 @@ import { ProjectUserAvatar } from "./ProjectUserAvatar";
 import { ProjectTechStack } from "./ProjectTechStack";
 import { OwnerProjectAvatar } from "./OwnerProjectAvatar";
 
-export const ProjectCard = ({ currentUserId, project }) => {
+export const ProjectCard = ({ currentUserId, project, fetchProjects }) => {
   const {
     name,
     description,
@@ -17,10 +17,12 @@ export const ProjectCard = ({ currentUserId, project }) => {
     participants,
     tech_requirements,
     project_id,
-    is_in_progress,
     max_participants,
     github_repo,
+    is_in_progress,
   } = project;
+
+
   const navigate = useNavigate();
 
   const isOwner = owner_id === currentUserId;
@@ -40,18 +42,16 @@ export const ProjectCard = ({ currentUserId, project }) => {
     }
   };
 
-  const handleCompleteProject = async (e) => {
-    e.preventDefault();
+  const handleCompleteProject = async () => {
     try {
-      const completeProject = await axios.post(
-        `/api/projects/${project_id}/complete`
-      );
-      console.log("Project marked as complete:", completeProject.data);
-      navigate("/my_projects/complete");
-    } catch (error) {
-      console.error("Error completing project:", error);
+      const response = await axios.patch(`/api/dashboard/projects/${project_id}/complete`);
+      console.log("Project marked as complete: ", response.data);
+      fetchProjects();
+    } catch (error) { 
+      console.error("Error completing project:", error.message);
     }
   };
+
   return (
     <div className="card bg-base-100 w-full shadow-xl border-solid border-2 border-website-purple/25 text-white my-8">
       <div className="card-body h-auto">
@@ -67,21 +67,41 @@ export const ProjectCard = ({ currentUserId, project }) => {
               <h2 className="card-title font-bold text-4xl">{name}</h2>
               {isOwner ? (
                 <div className="flex flex-col gap-y-5 my-5 w-full">
-                  <button className="bg-website-purple text-white text-2xl hover:bg-create rounded-full w-[150px] p-1">
-                    Edit
-                  </button>
-                  <button
-                    className="bg-grey text-royal-yellow text-2xl hover:bg-royal-yellow hover:text-grey rounded-full w-[150px] p-1"
-                    onClick={handleCompleteProject}
-                  >
-                    Complete
-                  </button>
+                  {is_in_progress ? (
+                    <>
+                      <button className="bg-website-purple text-white text-2xl hover:bg-create rounded-full w-[150px] p-1 font-semibold">
+                        Edit
+                      </button>
+                      <button
+                        className="bg-grey text-royal-yellow text-2xl hover:bg-royal-yellow hover:text-grey rounded-full w-[150px] p-1 font-semibold"
+                        onClick={handleCompleteProject}
+                      >
+                        Complete
+                      </button>
+                    </>
+                  ) : (
+                    <>
+                      <button className="bg-website-purple text-white text-2xl hover:bg-create rounded-full w-[150px] p-1 font-semibold">
+                        Edit
+                      </button>
+                      <h3 className="font-semibold text-royal-yellow text-2xl ml-2 ">
+                        Completed
+                      </h3>
+                    </>
+                  )}
                 </div>
               ) : (
-                <h3 className="font-semibold mt-5">
-                  <span className="text-icon-purple text-xl">Creator:</span> @
-                  {owner_username}
-                </h3>
+                <>
+                  <h3 className="font-semibold mt-5">
+                    <span className="text-icon-purple text-xl">Creator:</span>@
+                    {owner_username}
+                  </h3>
+                  {!is_in_progress && (
+                    <h3 className="font-bold text-royal-yellow text-lg mt-3">
+                      Completed
+                    </h3>
+                  )}
+                </>
               )}
             </div>
           </div>

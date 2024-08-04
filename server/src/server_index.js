@@ -5,6 +5,7 @@ import session from "express-session";
 import cookieParser from "cookie-parser";
 import cors from "cors";
 import projectsRoutes from "./routes/projects_routes.js";
+import morgan from 'morgan'
 import homeRoutes from "./routes/home_routes.js";
 import userRoutes from "./routes/user_routes.js";
 import db from "./db/connection.js";
@@ -13,6 +14,7 @@ config();
 
 const PORT = process.env.PORT || 8080;
 const app = express();
+app.use(morgan('dev'));
 app.use(cors());
 app.options('*', cors())
 app.use(express.json());
