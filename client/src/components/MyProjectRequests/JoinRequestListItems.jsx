@@ -59,7 +59,7 @@ export const JoinRequestListItems = ({
             <div className="flex justify-center items-center gap-[15px]">
               <button
                 onClick={acceptRequest}
-                className="btn bg-green hover:bg-dark-green text-white rounded-full border-none"
+                className="btn bg-confirm hover:bg-dark-green text-white rounded-full border-none"
               >
                 Accept
               </button>

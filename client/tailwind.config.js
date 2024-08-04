@@ -16,7 +16,7 @@ export default {
         grey: "#3C3F45", // page body background color
         create: "#6a1b9a",
         wand: "#fbc02d",
-        green: "#41A558", // accept buttons/hovers and success messages
+        "confirm": "#41A558", // accept buttons/hovers and success messages
         "racing-blue": "#5B8EE0",
         "royal-blue": "#4169E1",
         "yellow-name": "#FFF9DB",

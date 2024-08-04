@@ -138,7 +138,7 @@ export const CreateProjectTechStackModal = ({
                   key={tech}
                   className={`relative ${
                     isTechSelected(tech)
-                      ? "bg-green hover:bg-reject text-white"
+                      ? "bg-confirm hover:bg-reject text-white"
                       : "btn-ghost"
                   } btn`}
                   onClick={() => handleSelect(setSelected, selected, tech)}
