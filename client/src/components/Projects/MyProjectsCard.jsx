@@ -46,7 +46,7 @@ export const ProjectCard = ({ currentUserId, project }) => {
   };
 
   return (
-    <div className="card bg-base-100 w-full shadow-xl border-solid border-2 border-website-purple/25 text-white my-8">
+    <div className="card bg-base-100 w-full shadow-xl border-solid border-2 border-project-border/25 text-white my-8">
       <div className="card-body h-96">
         <div className="top-project-card-container flex justify-between items-center mb-5">
           <div className="project-details-1 flex space-x-6">
@@ -54,7 +54,7 @@ export const ProjectCard = ({ currentUserId, project }) => {
               src={cover_photo_path || "https://staticg.sportskeeda.com/editor/2023/05/90701-16836967841966-1920.jpg"} //<---online
               //src={`/project_pics/${cover_photo_path}`} // <---not online
               alt="Project Cover"
-              className="project-cover rounded-xl object-cover h-40 w-40 shadow-2xl border-2 "
+              className="project-cover rounded-xl object-cover h-40 w-40 shadow-2xl border-2 border-text-color"
             />
             <div className="flex flex-col justify-center">
               <h2 className="card-title font-bold text-4xl">{name}</h2>
@@ -101,7 +101,7 @@ export const ProjectCard = ({ currentUserId, project }) => {
                 </button>
               ) : (
                 <div className="flex gap-x-2">
-                  <button className="btn bg-royal-blue hover:bg-racing-blue text-white rounded-full">
+                  <button className="btn bg-icon-purple hover:bg-icon-purple-hover text-white rounded-full">
                     <a href={`${github_repo}`} target="_blank">
                       Github Repo
                     </a>
@@ -123,7 +123,7 @@ export const ProjectCard = ({ currentUserId, project }) => {
                   Request to Join
                 </button>
               ) : (
-                <button className="btn bg-royal-blue hover:bg-racing-blue text-white rounded-full">
+                <button className="btn bg-icon-purple hover:bg-icon-purple-hover text-white rounded-full">
                   <a href={`${github_repo}`} target="_blank">
                     Github Repo
                   </a>
@@ -140,7 +140,7 @@ export const ProjectCard = ({ currentUserId, project }) => {
                   Project Capacity: Full
                 </button>
               ) : (
-                <button className="btn bg-royal-blue hover:bg-racing-blue text-white rounded-full">
+                <button className="btn bg-icon-purple hover:bg-icon-purple-hover text-white rounded-full">
                   <a href={`${github_repo}`} target="_blank">
                     Github Repo
                   </a>

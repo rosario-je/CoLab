@@ -10,18 +10,15 @@ export default {
         "website-purple": "#4144C8", // main buttons
         "website-purple-hover": "#717FFC", // hover for main buttons
         "icon-purple": "#7A5BFF", // alt accent purple colors for text and user icon
+        "icon-purple-hover": "#9b7fe9", // hover for alt accent purple colors
         "input-colors": "#202028",
         "projects-bar": "#191E24",
         "projects-bar-button": "#21262D",
         "reject": "#E73E41", // delete/reject buttons/hovers and error messages
-        grey: "#3C3F45", // page body background color
+        "reject-light": "#EC6573", // alt darker hover for delete/reject buttons
         wand: "#fbc02d",
         "confirm": "#41A558", // accept buttons/hovers and success messages
-        "racing-blue": "#5B8EE0",
-        "royal-blue": "#4169E1",
-        "yellow-name": "#FFF9DB",
         "confirm-light": "#7EBA8A", // alt darker hover for accept buttons
-        "reject-light": "#EC6573", // alt darker hover for delete/reject buttons
         "landing-gradient-two": "#8F9BD7",
         "landing-signin-button": "#322AA5",
         "landing-navbar-color": "#19191F",
@@ -30,6 +27,7 @@ export default {
         'landing-gradient-one': '#281E9F',
         'project-left-menu': '#171819', 
         'project-background': '#3C3F45', // page body background color
+        'project-border': '#B5BAC1', // project card border color
       },
       dropShadow: {
         "white-glow": "0 0 1rem rgba(255, 255, 255, 0.8)",

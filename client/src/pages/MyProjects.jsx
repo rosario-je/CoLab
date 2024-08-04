@@ -35,7 +35,7 @@ export const MyProjects = ({ handleCoLabHome, currentUser }) => {
       <div className="flex flex-1 mt-16">
         <UserLeftMenu currentUser={currentUser} />
 
-        <div className="flex flex-col w-full bg-grey overflow-hidden mx-72 px-10">
+        <div className="flex flex-col w-full bg-project-background overflow-hidden mx-72 px-10">
           {projects.map((project) => (
             <ProjectCard
               key={project.project_id}
