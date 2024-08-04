@@ -6,7 +6,7 @@ export const OwnerProjectAvatar = ({ owner, owner_username, owner_pic }) => {
   return (
     <div className="flex flex-col items-center justify-center">
       {isHovered && (
-        <p className="username-item-hover p-2 text-icon-purple">
+        <p className="username-item-hover p-2 text-icon-purple font-medium">
           {owner_username}
         </p>
       )}

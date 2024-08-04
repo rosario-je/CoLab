@@ -34,7 +34,7 @@ export const UserLeftMenu = ({ currentUser }) => {
                   }}
                 >
                   <i className="fa-solid fa-briefcase group-hover:animate-bounceSlow group-hover:text-icon-purple group-hover:drop-shadow-white-glow mr-2"></i>
-                  <p>Projects</p>
+                  <p>My Projects</p>
                 </a>
               </li>
 

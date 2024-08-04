@@ -95,7 +95,7 @@ export const ProjectCard = ({ currentUserId, project }) => {
                   onClick={() => {
                     navigate(`/${currentUserId}/project/${project_id}`);
                   }}
-                  className="btn bg-website-purple hover:bg-create text-white rounded-full"
+                  className="btn bg-website-purple hover:bg-website-purple-hover text-white rounded-full"
                 >
                   View Project
                 </button>
@@ -107,7 +107,7 @@ export const ProjectCard = ({ currentUserId, project }) => {
                     </a>
                   </button>
 
-                  <button className="btn bg-website-purple hover:bg-create text-white rounded-full">
+                  <button className="btn bg-website-purple hover:bg-website-purple-hover text-white rounded-full">
                     View Project
                   </button>
                 </div>
@@ -118,7 +118,7 @@ export const ProjectCard = ({ currentUserId, project }) => {
               {is_in_progress ? (
                 <button
                   onClick={handleJoinRequest}
-                  className="btn bg-website-purple hover:bg-create text-white rounded-full"
+                  className="btn bg-website-purple hover:bg-website-purple-hover text-white rounded-full"
                 >
                   Request to Join
                 </button>
@@ -134,7 +134,7 @@ export const ProjectCard = ({ currentUserId, project }) => {
             <>
               {is_in_progress ? (
                 <button
-                  className="btn bg-website-purple hover:bg-create text-white rounded-full"
+                  className="btn bg-website-purple hover:bg-website-purple-hover text-white rounded-full"
                   disabled
                 >
                   Project Capacity: Full
