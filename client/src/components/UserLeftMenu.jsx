@@ -1,5 +1,4 @@
 import React from "react";
-import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
 export const UserLeftMenu = ({ currentUser }) => {
@@ -105,7 +104,7 @@ export const UserLeftMenu = ({ currentUser }) => {
             <img
               src={`/profile_pics/${currentUser.profile_pic}`}
               alt="profile"
-              className="rounded-full h-24 w-24 border-slate-50 border-4"
+              className="rounded-full h-24 w-24 border-icon-purple border-4"
             />
             <div className="flex flex-col space-y-1">
               <h3 className="font-bold text-xl">@{currentUser.username}</h3>
