@@ -138,7 +138,7 @@ export const CreateProjectTechStackModal = ({
                   key={tech}
                   className={`relative ${
                     isTechSelected(tech)
-                      ? "bg-menu-colors text-white"
+                      ? "bg-green hover:bg-red text-white"
                       : "btn-ghost"
                   } btn`}
                   onClick={() => handleSelect(setSelected, selected, tech)}
@@ -152,7 +152,6 @@ export const CreateProjectTechStackModal = ({
                         handleRemoveTech(tech);
                       }}
                     >
-                      <i className="fa-solid fa-xmark"></i>
                     </button>
                   )}
                 </div>

@@ -1,5 +1,5 @@
 import express from 'express';
-import { createNewProject, getProjectPage, getProjectById, getPendingJoinRequests } from '../db/queries/project_queries.js';
+import { createNewProject, getProjectPage, getProjectById, getPendingJoinRequests, updateCoverPhoto, updateFigmaLink, updateGithubRepo, updateTrelloLink } from '../db/queries/project_queries.js';
 import { getUserById, askToJoinProject, limitAccess } from '../db/queries/user_queries.js';
 import { addTechToProject } from '../db/queries/tech_queries.js';
 import { createGroupChat, getChatHistory, newChatMessage, getProjectChatId, sendJoinNotification } from '../db/queries/chat_queries.js';
@@ -45,10 +45,10 @@ router.get('/:projectId', async (req, res) => {
   const { id: user_id } = req.session.user;
   // console.log("This is the userId:", user_id);
   // console.log("This is the projectId:", projectId);
-  const checkUserAccess = await limitAccess(projectId, user_id);
-  if (!checkUserAccess) {
-    return res.status(403).json({ error: "Unauthorized to view this project" });
-  };
+  // const checkUserAccess = await limitAccess(projectId, user_id);
+  // if (!checkUserAccess) {
+  //   return res.status(403).json({ error: "Unauthorized to view this project" });
+  // };
   try {
     const project = await getProjectPage(projectId);
     if (!project) {
@@ -70,14 +70,14 @@ router.post('/:projectId/chat', async (req, res) => {
   const { id: sender_id } = req.session.user;
   const { message } = req.body;
   const chat_room_id = await getProjectChatId(projectId);
-  const checkUserAccess = await limitAccess(projectId, sender_id);
+  // const checkUserAccess = await limitAccess(projectId, sender_id);
 
   if (!projectId) {
     return res.status(404).send('Project not found');
   }
-  if (!checkUserAccess) {
-    return res.status(403).json({ error: "Unauthorized to access this project and send messages" });
-  };
+  // if (!checkUserAccess) {
+  //   return res.status(403).json({ error: "Unauthorized to access this project and send messages" });
+  // };
   try {
     const newMessage = await newChatMessage(sender_id, chat_room_id, message);
     res.status(201).json({
@@ -132,5 +132,38 @@ router.post('/:projectId/join', async (req, res) => {
     res.status(500).send('Error joining project');
   }
 });
+
+// http://localhost:8080/api/projects/:projectId/github_repo
+// Edit a project github_repo
+router.patch('/:projectId/github_repo', async (req, res) => {
+  const { projectId } = req.params;
+  const { id: user_id } = req.session.user;
+  const { github_repo } = req.body;
+  const project = await getProjectById(projectId);
+  if (!project) {
+    return res.status(404).send('Project not found');
+  }
+  if (user_id !== project.owner_id) {
+    return res.status(403).send('Unauthorized to edit project');
+  }
+  try {
+    const updatedProject = await updateGithubRepo(projectId, github_repo);
+    res.status(200).json({
+      message: 'Project github_repo updated successfully',
+      projectData: updatedProject
+    });
+  } catch (error) {
+    console.error('Error updating project github_repo:', error.message);
+    res.status(500).send('Error updating project github_repo');
+  }
+});
+// http://localhost:8080/api/projects/:projectId/figma_link
+// Edit a figma_link
+// http://localhost:8080/api/projects/:projectId/trello_link
+// Edit a trello_link
+// http://localhost:8080/api/projects/:projectId/cover_photo_path
+// Edit a cover_photo_path
+
+
 
 export default router;

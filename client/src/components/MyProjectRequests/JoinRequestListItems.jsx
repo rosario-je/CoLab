@@ -59,12 +59,12 @@ export const JoinRequestListItems = ({
             <div className="flex justify-center items-center gap-[15px]">
               <button
                 onClick={acceptRequest}
-                className="btn bg-green hover:bg-dark-green text-white"
+                className="btn bg-green hover:bg-dark-green text-white rounded-full border-none"
               >
                 Accept
               </button>
 
-              <button onClick={denyRequest} className="btn bg-red hover:bg-dark-red text-white">
+              <button onClick={denyRequest} className="btn bg-red hover:bg-dark-red text-white rounded-full border-none">
                 Deny
               </button>
             </div>

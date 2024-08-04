@@ -35,8 +35,8 @@ router.get('/:userId/my_projects', async (req, res) => {
 });
 
 // Complete a project you own
-// http://localhost:8080/api/dashboard/my_projects/complete
-router.put('/my_projects/complete', async (req, res) => {
+// http://localhost:8080/api/dashboard/my_projects/:project_id
+router.put('/my_projects/:project_id', async (req, res) => {
   const { id: user_id } = req.session.user;
   const { project_id } = req.params;
   try {
@@ -173,7 +173,7 @@ router.get('/notifications', async (req, res) => {
 });
 
 // Dismiss a read notification
-// http://localhost:8080/api/dashboard/notifications
+// http://localhost:8080/api/dashboard/notifications/:notification_id
 router.delete('/notifications/:notification_id', async (req, res) => {
   const { notification_id } = req.params;
   try {

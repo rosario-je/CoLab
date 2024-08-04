@@ -39,7 +39,7 @@ export const NotificationListItems = ({
         </button>
         <div className="card-body items-center text-center flex flex-col justify-center gap-[20px]">
           <div className="card-actions w-full justify-between self-end">
-            <p className="text-4xl my-12">{message}</p>
+            <p className="font-light text-3xl my-12">{message}</p>
           </div>
         </div>
       </div>
