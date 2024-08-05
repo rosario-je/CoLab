@@ -6,21 +6,22 @@ import { EditProjectTechStackModal } from "../EditProjectTechStackModal";
 export const ProjectEditField = ({
   handleTechStacksModal,
   techModal,
-  projects,
+  project,
 }) => {
-  const [projectEdit, setProjectEdit] = useState(false);
+  const [projectEditing, setProjectEditing] = useState(false);
   const [projectData, setProjectData] = useState({});
 
   const {
-    name, 
-    description ,
+    name,
+    description,
     max_participants,
     cover_photo_path,
     githubRepo,
     figmaLink,
     trelloLink,
-    tech_names,
-  } = projects 
+    newPicture,
+    tech_requirements: tech_names,
+  } = project;
 
   const maxChars = 300;
   const navigate = useNavigate();
@@ -79,7 +80,7 @@ export const ProjectEditField = ({
   const editProject = async (e) => {
     e.preventDefault();
     try {
-      setProjectEdit(true);
+      setProjectEditing(true);
 
       // Validate and prepend base URLs
       const githubRepo = validateLink(
@@ -99,7 +100,7 @@ export const ProjectEditField = ({
         alert(
           "Please enter valid links starting with '/' and ensure they do not contain the base URL."
         );
-        setProjectEdit(false);
+        setProjectEditing(false);
         return;
       }
 
@@ -110,12 +111,14 @@ export const ProjectEditField = ({
         trelloLink,
       });
 
+      consol.log(tech_names);
+
       const {
         projectData: { id: projectId, owner_id: ownerId },
       } = project.data;
 
       setTimeout(() => {
-        setProjectEdit(false);
+        setProjectEditing(false);
         navigate(`/${ownerId}/project/${projectId}`);
       }, 3000);
     } catch (error) {
@@ -125,11 +128,11 @@ export const ProjectEditField = ({
 
   return (
     <>
-      {projectEdit && (
+      {projectEditing && (
         <div className="project-loading-animation fixed z-20 h-screen w-screen bg-slate-800/80 backdrop-blur-md top-10">
           <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-4/5 max-w-screen-md">
             <h2 className="text-center mb-4 font-bold text-4xl">
-              Editing Project...
+            Saving changes...
             </h2>
             <progress className="block mx-auto progress w-full"></progress>
           </div>
@@ -149,7 +152,7 @@ export const ProjectEditField = ({
               name="name"
               placeholder="Title"
               className="input input-bordered bg-input-colors w-96"
-              value={projects.name}
+              value={name}
               onChange={handleInputChange}
               required
             />
@@ -160,8 +163,7 @@ export const ProjectEditField = ({
           <EditProjectTechStackModal
             handleTechStacksModal={handleTechStacksModal}
             handleAddTech={handleAddTech}
-            Edit
-            tech_names={projectData.tech_names}
+            tech_names={tech_names}
             setTechRequirements={(tech_names) =>
               setProjectData((prevData) => ({ ...prevData, tech_names }))
             }
@@ -178,12 +180,12 @@ export const ProjectEditField = ({
             <textarea
               className="textarea textarea-bordered min-h-[150px] min-w-[50px] bg-input-colors resize-none mb-5 self-center w-96"
               placeholder="Description..."
-              value={projectData.description}
+              value={description}
               onChange={handleDescriptionChange}
               name="description"
             ></textarea>
             <h6 className="text-input-value">
-              {maxChars - projects.description.length}
+              {maxChars - description.length}
             </h6>
           </div>
         </div>
@@ -201,7 +203,7 @@ export const ProjectEditField = ({
             <select
               className="select select-bordered w-1/2 bg-input-colors"
               name="max_participants"
-              value={projects.max_participants}
+              value={max_participants}
               onChange={handleInputChange}
             >
               <option value="" disabled>
@@ -229,7 +231,7 @@ export const ProjectEditField = ({
               <i className="fa-solid fa-plus group-hover:animate-spin group-hover:text-white group-hover:drop-shadow-white-glow"></i>
               Add
             </button>
-            <h2>({projects.tech_names.length}) Selected</h2>
+            <h2>({tech_names && tech_names.length}) Selected</h2>
           </div>
         </div>
 
@@ -241,18 +243,18 @@ export const ProjectEditField = ({
               Choose images to showcase the design or what might represent the
               design of the project
             </h6>
-            {projectData.cover_photo_path && (
+            {cover_photo_path && (
               <button
                 className="text-white mt-5 btn hover:bg-red text-lg group mr-5"
                 onClick={handleRemoveCoverPhoto}
               >
                 <i className="fa-solid fa-image group-hover:text-white group-hover:drop-shadow-white-glow"></i>
-                {projectData.cover_photo_path}
+                {cover_photo_path}
               </button>
             )}
           </div>
           <div className="file-input-container w-1/3 flex flex-col justify-center items-end gap-5">
-            {projects.cover_photo_path.length > 0 ? (
+            {cover_photo_path.length > 0 ? (
               <>
                 <input
                   type="url"
@@ -273,7 +275,7 @@ export const ProjectEditField = ({
                   type="url"
                   placeholder="Enter image URL"
                   name="newPicture"
-                  value={projectData.newPicture}
+                  value={newPicture}
                   onChange={handleInputChange}
                   className="input input-bordered bg-input-colors w-full"
                 />
@@ -305,7 +307,7 @@ export const ProjectEditField = ({
                 type="text"
                 placeholder="/<username>/<repo>"
                 name="githubRepo"
-                value={projectData.githubRepo}
+                value={githubRepo}
                 onChange={handleInputChange}
                 className="input input-bordered bg-input-colors w-2/6"
               />
@@ -316,7 +318,7 @@ export const ProjectEditField = ({
                 type="text"
                 placeholder="/Figma Link"
                 name="figmaLink"
-                value={projectData.figmaLink}
+                value={figmaLink}
                 onChange={handleInputChange}
                 className="input input-bordered bg-input-colors w-2/6"
               />
@@ -327,7 +329,7 @@ export const ProjectEditField = ({
                 type="text"
                 placeholder="/Trello link"
                 name="trelloLink"
-                value={projectData.trelloLink}
+                value={trelloLink}
                 onChange={handleInputChange}
                 className="input input-bordered bg-input-colors w-2/6"
               />
@@ -339,9 +341,9 @@ export const ProjectEditField = ({
           <button
             onClick={editProject}
             className="btn btn-primary w-auto h-14 self-end"
-            disabled={projectEdit}
+            disabled={projectEditing}
           >
-            {projectEdit ? "Editing..." : "Edit Project"}
+            {projectEditing ? "Creating..." : "Create Project"}
           </button>
         </div>
       </section>

@@ -1,4 +1,5 @@
-import React, {useState, useEffect} from "react";
+import React, { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
 import axios from "axios";
 import { Navbar } from "../components/Navbar";
 import { UserLeftMenu } from "../components/UserLeftMenu";
@@ -10,10 +11,34 @@ export const EditProject = ({
   techModal,
   currentUser,
 }) => {
-  const [projects, setProjects] = useState([]);
-  // const [allProjects, setAllProjects] = useState([]);
-  const userId = currentUser.id;
+  const [project, setProject] = useState({
+    name: "",
+    description: "",
+    max_participants: 1,
+    cover_photo_path: "",
+    githubRepo: "",
+    figmaLink: "",
+    trelloLink: "",
+    tech_names: [],
+  });
 
+  const userId = currentUser.id;
+  const { projectId } = useParams();
+
+  useEffect(() => {
+    const fetchProject = async () => {
+      try {
+        const response = await axios.get(`/api/projects/${projectId}`);
+        setProject(response.data);  // Correct function name
+        console.log("Project: ", response.data);
+      } catch (error) {
+        console.error("Error getting the project", error.message);
+      }
+    };
+    if (projectId) {
+      fetchProject();
+    }
+  }, [projectId]);
 
   return (
     <div className="flex flex-col h-screen mx-72">
@@ -25,7 +50,7 @@ export const EditProject = ({
             <ProjectEditField
               handleTechStacksModal={handleTechStacksModal}
               techModal={techModal}
-              projects={projects}
+              project={project}  
             />
           </div>
         </div>

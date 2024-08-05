@@ -22,7 +22,6 @@ export const ProjectCard = ({ currentUserId, project, fetchProjects }) => {
     is_in_progress,
   } = project;
 
-
   const navigate = useNavigate();
 
   const isOwner = owner_id === currentUserId;
@@ -44,10 +43,12 @@ export const ProjectCard = ({ currentUserId, project, fetchProjects }) => {
 
   const handleCompleteProject = async () => {
     try {
-      const response = await axios.patch(`/api/dashboard/projects/${project_id}/complete`);
+      const response = await axios.patch(
+        `/api/dashboard/projects/${project_id}/complete`
+      );
       console.log("Project marked as complete: ", response.data);
       fetchProjects();
-    } catch (error) { 
+    } catch (error) {
       console.error("Error completing project:", error.message);
     }
   };
@@ -58,7 +59,10 @@ export const ProjectCard = ({ currentUserId, project, fetchProjects }) => {
         <div className="top-project-card-container flex justify-between items-center mb-5">
           <div className="project-details-1 flex space-x-6">
             <img
-              src={cover_photo_path || "https://staticg.sportskeeda.com/editor/2023/05/90701-16836967841966-1920.jpg"} //<---online
+              src={
+                cover_photo_path ||
+                "https://staticg.sportskeeda.com/editor/2023/05/90701-16836967841966-1920.jpg"
+              } //<---online
               //src={`/project_pics/${cover_photo_path}`} // <---not online
               alt="Project Cover"
               className="project-cover rounded-xl object-cover h-40 w-40 shadow-2xl border-2 "
@@ -69,7 +73,12 @@ export const ProjectCard = ({ currentUserId, project, fetchProjects }) => {
                 <div className="flex flex-col gap-y-5 my-5 w-full">
                   {is_in_progress ? (
                     <>
-                      <button className="bg-website-purple text-white text-2xl hover:bg-create rounded-full w-[150px] p-1 font-semibold">
+                      <button
+                        className="bg-website-purple text-white text-2xl hover:bg-create rounded-full w-[150px] p-1 font-semibold"
+                        onClick={() => {
+                          navigate(`/${currentUserId}/project/${project_id}/edit`);
+                        }}
+                      >
                         Edit
                       </button>
                       <button
@@ -81,7 +90,9 @@ export const ProjectCard = ({ currentUserId, project, fetchProjects }) => {
                     </>
                   ) : (
                     <>
-                      <button className="bg-website-purple text-white text-2xl hover:bg-create rounded-full w-[150px] p-1 font-semibold">
+                      <button className="bg-website-purple text-white text-2xl hover:bg-create rounded-full w-[150px] p-1 font-semibold" onClick={() => {
+                          navigate(`/${currentUserId}/project/${project_id}/edit`);
+                        }}>
                         Edit
                       </button>
                       <h3 className="font-semibold text-royal-yellow text-2xl ml-2 ">
