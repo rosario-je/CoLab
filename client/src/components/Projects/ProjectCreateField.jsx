@@ -210,7 +210,7 @@ export const ProjectCreateField = ({ handleTechStacksModal, techModal }) => {
           </div>
           <div className="tech-stack-select w-auto gap-y-3">
             <button
-              className="btn btn-ghost hover:bg-input-colors text-lg group mr-5 mb-5"
+              className="btn btn-ghost hover:bg-navbar-color text-lg group mr-5 mb-5"
               onClick={handleTechStacksModal}
             >
               <i className="fa-solid fa-plus group-hover:animate-spin group-hover:text-white group-hover:drop-shadow-white-glow"></i>
@@ -265,7 +265,7 @@ export const ProjectCreateField = ({ handleTechStacksModal, techModal }) => {
                   className="input input-bordered bg-navbar-color w-full"
                 />
                 <button
-                  className="btn bg-slate-600 text-white w-1/2"
+                  className="btn text-text-color w-1/2 border-2 border-project-border/25 hover:border-project-border/25"
                   onClick={handleAddCoverPhoto}
                 >
                   Add Picture
@@ -325,7 +325,7 @@ export const ProjectCreateField = ({ handleTechStacksModal, techModal }) => {
         <div className="flex justify-end mt-10">
           <button
             onClick={createProject}
-            className="btn btn-primary w-auto h-14 self-end"
+            className="btn bg-confirm hover:bg-confirm-light text-white text-base rounded-full w-auto h-14 self-end border-none"
             disabled={projectCreating}
           >
             {projectCreating ? "Creating..." : "Create Project"}
