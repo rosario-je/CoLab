@@ -27,7 +27,7 @@ export const Navbar = ({ currenUser }) => {
         </a>
       </div>
       <div className="pr-10 ">
-        <div className="btn btn-xs sm:btn-sm md:btn-md lg:btn-lg border-2 border-project-border/25 hover:border-project-border/25">
+        <div className="btn bg-alt-grey hover:bg-alt-grey-hover btn-xs sm:btn-sm md:btn-md lg:btn-lg border-2 border-project-border/25 hover:border-project-border/25">
           <button onClick={handleLogout}>Logout </button>
           <i className="fa-solid fa-arrow-right-from-bracket"></i>
         </div>

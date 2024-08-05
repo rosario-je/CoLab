@@ -7,7 +7,7 @@ export const ProjectRightMenu = ({ project }) => {
   return (
     <div className="flex flex-col fixed top-0 right-0 w-[300px] h-full bg-menu-colors justify-between mt-0 pt-24 z-10">
       <div className="flex flex-row justify-around">
-        <div className="project-links bg-project-left-menu w-24 h-[1150px] flex flex-col items-center rounded-xl p-4 space-y-56 justify-center">
+        <div className="project-links bg-alt-grey w-24 h-[1150px] flex flex-col items-center rounded-xl p-4 space-y-56 justify-center">
           <div>
             <a href={project.github_repo} target="_blank">
               <i className="fa-brands fa-github text-6xl"></i>
@@ -25,7 +25,7 @@ export const ProjectRightMenu = ({ project }) => {
           </div>
         </div>
 
-        <div className="project-list bg-project-left-menu w-24 h-[1150px] flex flex-col items-center rounded-xl p-4 gap-y-7 justify-around">
+        <div className="project-list bg-alt-grey w-24 h-[1150px] flex flex-col items-center rounded-xl p-4 gap-y-7 justify-around">
           <div className="bg-white w-16 h-16 rounded-2xl" />
           <div className="bg-white w-16 h-16 rounded-2xl" />
           <div className="bg-white w-16 h-16 rounded-2xl" />

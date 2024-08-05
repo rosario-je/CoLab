@@ -265,7 +265,7 @@ export const ProjectCreateField = ({ handleTechStacksModal, techModal }) => {
                   className="input input-bordered bg-navbar-color w-full"
                 />
                 <button
-                  className="btn text-text-color w-1/2 border-2 border-project-border/25 hover:border-project-border/25"
+                  className="btn bg-alt-grey hover:bg-alt-grey-hover text-text-color w-1/2 border-2 border-project-border/25 hover:border-project-border/25"
                   onClick={handleAddCoverPhoto}
                 >
                   Add Picture

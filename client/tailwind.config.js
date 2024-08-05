@@ -4,7 +4,7 @@ export default {
   theme: {
     extend: {
       colors: {
-        "text-color": "#F2F3F5",
+        "text-color": "#F2F3F5", // main text color
         "navbar-color": "#1E1F22", // color for the nav bar and project cards
         "menu-colors": "#2B2D31", // side menu background color and search bar
         "website-purple": "#4144C8", // main buttons
@@ -22,9 +22,10 @@ export default {
         "landing-signin-button": "#322AA5",
         "landing-navbar-color": "#19191F",
         "black": "#000000",
-        "white": "#ffffff",
+        "white": "#ffffff", // text color for buttons
         'landing-gradient-one': '#281E9F',
-        'project-left-menu': '#171819', 
+        'alt-grey': '#171819', // for other grey button and the right hand menus in the main project page
+        'alt-grey-hover': '#1D1E20', // hover for other grey button
         'project-background': '#3C3F45', // page body background color
         'project-border': '#B5BAC1', // project card border color
       },
