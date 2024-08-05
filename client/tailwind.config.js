@@ -20,7 +20,8 @@ export default {
         "confirm-light": "#7EBA8A", // alt darker hover for accept buttons
         "landing-gradient-two": "#8F9BD7",
         "landing-signin-button": "#322AA5",
-        "landing-navbar-color": "#19191F",
+        "landing-blue": "#3E54CA",
+        "landing-blue-dark": "#1B0090",
         "black": "#000000",
         "white": "#ffffff", // text color for buttons
         'landing-gradient-one': '#281E9F',
