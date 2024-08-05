@@ -33,16 +33,16 @@ export const ProjectPageDetails = ({ project, fetchProject }) => {
 
     socket.current.on("receiveMessage", (newMessageData) => {
       console.log("Received message:", newMessageData);
-      setChat((prevChat) => [newMessageData, ...prevChat]);
+      setChat((prevChat) => [...prevChat, newMessageData]);
     });
 
     if (project.chat) {
       setChat(project.chat);
     }
 
-    // return () => {
-    //   socket.current.disconnect();
-    // };
+    return () => {
+      socket.current.disconnect();
+    };
   }, [project_id]);
 
   const handleMessage = async (event) => {
