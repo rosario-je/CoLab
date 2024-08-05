@@ -7,6 +7,7 @@ import { Landing } from "./pages/Landing";
 import { Dashboard } from "./pages/Dashboard";
 import { ProjectPage } from "./pages/ProjectPage";
 import { CreateProject } from "./pages/CreateProject";
+import { EditProject } from "./pages/EditProject";
 import { MyProjects } from "./pages/MyProjects";
 import { SignUp } from "./pages/SignUp";
 import { SignIn } from "./pages/SignIn";
@@ -96,6 +97,21 @@ function App() {
               setCurrentUser={setCurrentUser}
             >
               <CreateProject
+                handleTechStacksModal={handleTechStacksModal}
+                techModal={techModal}
+                currentUser={currentUser}
+              />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/:userId/project/:projectId/edit"
+          element={
+            <ProtectedRoute
+              currentUser={currentUser}
+              setCurrentUser={setCurrentUser}
+            >
+              <EditProject
                 handleTechStacksModal={handleTechStacksModal}
                 techModal={techModal}
                 currentUser={currentUser}
