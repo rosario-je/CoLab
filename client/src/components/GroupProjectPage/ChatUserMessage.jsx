@@ -45,11 +45,11 @@ export const ChatUserMessage = ({ message }) => {
           />
         </div>
       </div>
-      <div className="chat-header font-semibold mb-2">
-        {message.username}
+      <div className="chat-header font-semibold mb-2 text-text-color">
+        @{message.username}
         <time className="text-xs opacity-50 pl-3">{timeDescription}</time>
       </div>
-      <div className="chat-bubble">{message.message}</div>
+      <div className="chat-bubble bg-menu-colors">{message.message}</div>
     </div>
   );
 };

@@ -24,8 +24,8 @@ export default {
         "black": "#000000",
         "white": "#ffffff", // text color for buttons
         'landing-gradient-one': '#281E9F',
-        'alt-grey': '#171819', // for other grey button and the right hand menus in the main project page
-        'alt-grey-hover': '#1D1E20', // hover for other grey button
+        'alt-grey': '#171819', // for other grey button, the right hand menus in the main project page and chat
+        'alt-grey-hover': '#121313', // hover for other grey button
         'project-background': '#3C3F45', // page body background color
         'project-border': '#B5BAC1', // project card border color
       },

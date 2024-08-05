@@ -114,9 +114,9 @@ export const ProjectCreateField = ({ handleTechStacksModal, techModal }) => {
   return (
     <>
       {projectCreating && (
-        <div className="project-loading-animation fixed z-20 h-screen w-screen bg-slate-800/80 backdrop-blur-md top-10">
+        <div className="project-loading-animation fixed z-20 h-screen w-screen bg-alt-grey/60 backdrop-blur-md top-10">
           <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-4/5 max-w-screen-md">
-            <h2 className="text-center mb-4 font-bold text-4xl">
+            <h2 className="text-center mb-4 font-bold text-4xl text-text-color">
               Creating Project...
             </h2>
             <progress className="block mx-auto progress w-full"></progress>
@@ -265,7 +265,7 @@ export const ProjectCreateField = ({ handleTechStacksModal, techModal }) => {
                   className="input input-bordered bg-navbar-color w-full"
                 />
                 <button
-                  className="btn bg-alt-grey hover:bg-alt-grey-hover text-text-color w-1/2 border-2 border-project-border/25 hover:border-project-border/25"
+                  className="btn bg-alt-grey hover:bg-alt-grey-hover text-text-color/80 text-base w-1/2 border-2 border-project-border/35 hover:border-project-border/35"
                   onClick={handleAddCoverPhoto}
                 >
                   Add Picture
@@ -325,7 +325,7 @@ export const ProjectCreateField = ({ handleTechStacksModal, techModal }) => {
         <div className="flex justify-end mt-10">
           <button
             onClick={createProject}
-            className="btn bg-confirm hover:bg-confirm-light text-white text-base rounded-full w-auto h-14 self-end border-none"
+            className="btn bg-website-purple hover:bg-website-purple-hover text-white text-base rounded-full w-auto h-14 self-end border-none"
             disabled={projectCreating}
           >
             {projectCreating ? "Creating..." : "Create Project"}

@@ -89,14 +89,14 @@ export const CreateProjectTechStackModal = ({
   return (
     <div className="fixed inset-0 flex items-center justify-center z-50 w-screen h-screen">
       <div className="fixed inset-0 bg-black bg-opacity-50 w-screen h-screen"></div>
-      <div className="relative bg-input-colors text-white rounded-lg p-8 shadow-lg w-auto h-auto overflow-y-auto">
+      <div className="relative bg-alt-grey text-text-color/80 rounded-lg p-8 shadow-lg w-auto h-auto overflow-y-auto">
         <button
           className="absolute top-4 right-4 text-2xl hover:animate-spin hover:text-reject mt-3 mr-6"
           onClick={handleTechStacksModal}
         >
           <i className="fa-solid fa-xmark"></i>
         </button>
-        <h1 className="text-2xl mb-4">Add Tech Stack</h1>
+        <h1 className="text-2xl mb-4 font-bold">Add Tech Stack</h1>
 
         {[
           {
@@ -136,7 +136,7 @@ export const CreateProjectTechStackModal = ({
               {options.map((tech) => (
                 <div
                   key={tech}
-                  className={`relative ${
+                  className={`relative text-base ${
                     isTechSelected(tech)
                       ? "bg-confirm hover:bg-reject text-white"
                       : "btn-ghost"
@@ -163,7 +163,7 @@ export const CreateProjectTechStackModal = ({
         <div className="add-selected-btn flex justify-end mt-6">
           <button
             onClick={handleAddTechStack}
-            className="btn bg-menu-colors text-white"
+            className="btn bg-menu-colors text-text-color hover:bg-project-border/25 border-2 border-project-border/25 hover:border-project-border/35 text-base"
           >
             Add Selected
           </button>

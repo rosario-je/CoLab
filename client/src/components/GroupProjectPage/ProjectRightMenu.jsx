@@ -7,10 +7,10 @@ export const ProjectRightMenu = ({ project }) => {
   return (
     <div className="flex flex-col fixed top-0 right-0 w-[300px] h-full bg-menu-colors justify-between mt-0 pt-24 z-10">
       <div className="flex flex-row justify-around">
-        <div className="project-links bg-alt-grey w-24 h-[1150px] flex flex-col items-center rounded-xl p-4 space-y-56 justify-center">
+        <div className="project-links bg-alt-grey w-24 h-[1150px] flex flex-col items-center rounded-xl p-4 space-y-10 justify-top">
           <div>
             <a href={project.github_repo} target="_blank">
-              <i className="fa-brands fa-github text-6xl"></i>
+              <i className="fa-brands fa-github text-6xl pt-10"></i>
             </a>
           </div>
           <div>
