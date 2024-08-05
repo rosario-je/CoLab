@@ -2,8 +2,11 @@ import express from 'express';
 import { createNewProject, getProjectPage, getProjectById, getPendingJoinRequests, updateCoverPhoto, updateFigmaLink, updateGithubRepo, updateTrelloLink } from '../db/queries/project_queries.js';
 import { getUserById, askToJoinProject, limitAccess } from '../db/queries/user_queries.js';
 import { addTechToProject } from '../db/queries/tech_queries.js';
-import { createGroupChat, getChatHistory, newChatMessage, getProjectChatId, sendJoinNotification } from '../db/queries/chat_queries.js';
+import { createGroupChat, getChatHistory, newChatMessage, getProjectChatId, sendJoinNotification, getNewChatMessageInfo } from '../db/queries/chat_queries.js';
+import { io } from '../server_index.js';
+
 const router = express.Router();
+
 
 // Creates a new project
 // http://localhost:8080/api/projects/create
@@ -63,8 +66,9 @@ router.get('/:projectId', async (req, res) => {
   }
 });
 
-// Approved user can send a message to a chat
-// http://localhost:8080/api/projects/:id/chat
+
+/*------------------------------------------------------------------------------*/
+// http://localhost:8080/api/projects/:projectId/chat
 router.post('/:projectId/chat', async (req, res) => {
   const { projectId } = req.params;
   const { id: sender_id } = req.session.user;
@@ -75,16 +79,18 @@ router.post('/:projectId/chat', async (req, res) => {
   if (!projectId) {
     return res.status(404).send('Project not found');
   }
-  // if (!checkUserAccess) {
-  //   return res.status(403).json({ error: "Unauthorized to access this project and send messages" });
-  // };
+
   try {
     const newMessage = await newChatMessage(sender_id, chat_room_id, message);
+    const message_id = newMessage.id;
+    const allMessageInfo = await getNewChatMessageInfo(message_id);
+    io.to(projectId).emit("receiveMessage", allMessageInfo); 
+    console.log("This is the new message:", allMessageInfo);
+    
     res.status(201).json({
       message: "Message sent successfully",
       data: {
-        chat_room_id: chat_room_id,
-        newMessage: newMessage
+        newMessage: allMessageInfo
       }
     });
   } catch (error) {
@@ -92,6 +98,40 @@ router.post('/:projectId/chat', async (req, res) => {
     res.status(500).send('Error sending message');
   }
 });
+
+/*------------------------------------------------------------------------------*/
+
+// Approved user can send a message to a chat
+// http://localhost:8080/api/projects/:id/chat
+// router.post('/:projectId/chat', async (req, res) => {
+//   const { projectId } = req.params;
+//   const { id: sender_id } = req.session.user;
+//   const { message } = req.body;
+//   const chat_room_id = await getProjectChatId(projectId);
+//   // const checkUserAccess = await limitAccess(projectId, sender_id);
+
+//   if (!projectId) {
+//     return res.status(404).send('Project not found');
+//   }
+//   // if (!checkUserAccess) {
+//   //   return res.status(403).json({ error: "Unauthorized to access this project and send messages" });
+//   // };
+//   try {
+//     const newMessage = await newChatMessage(sender_id, chat_room_id, message);
+//     console.log("This is the new message:", newMessage);
+    
+//     res.status(201).json({
+//       message: "Message sent successfully",
+//       data: {
+//         chat_room_id: chat_room_id,
+//         newMessage: newMessage.message
+//       }
+//     });
+//   } catch (error) {
+//     console.error('Error sending message:', error.message);
+//     res.status(500).send('Error sending message');
+//   }
+// });
 
 // Creates a new join request for a project
 // http://localhost:8080/api/projects/:projectId/join
