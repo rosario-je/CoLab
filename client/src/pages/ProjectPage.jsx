@@ -1,4 +1,3 @@
-// Dashboard.jsx
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
@@ -21,17 +20,19 @@ export const ProjectPage = ({ currentUser, handleLogout, handleCoLabHome }) => {
     owner_username: "",
     participants: [],
     tech_requirements: [],
+    chat: [],
   });
 
+  const fetchProject = async () => {
+    try {
+      const response = await axios.get(`/api/projects/${projectId}`);
+      setProject(response.data);
+    } catch (error) {
+      console.error("Error getting the project", error.message);
+    }
+  };
+
   useEffect(() => {
-    const fetchProject = async () => {
-      try {
-        const response = await axios.get(`/api/projects/${projectId}`);
-        setProject(response.data);
-      } catch (error) {
-        console.error("Error getting the project", error.message);
-      }
-    };
     if (projectId) {
       fetchProject();
     }
@@ -50,7 +51,11 @@ export const ProjectPage = ({ currentUser, handleLogout, handleCoLabHome }) => {
           className="flex-grow flex flex-col overflow-y-auto"
           style={{ marginLeft: "300px", marginRight: "300px" }}
         >
-          <ProjectPageDetails currentUser={currentUser} project={project} />
+          <ProjectPageDetails
+            currentUser={currentUser}
+            project={project}
+            fetchProject={fetchProject}
+          />
           <div className="fixed top-0 left-[300px] right-[300px] z-10">
             <div className="w-full bg-white py-2 px-4 shadow-md">
               <input
