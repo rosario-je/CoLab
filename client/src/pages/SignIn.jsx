@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
-import { UserErrorMessage } from "../components/ErrorHandling/UserErrorMessage";
+import { UserErrorMessage } from "../components/AlertHandling/UserErrorMessage";
 
 export const SignIn = () => {
   const navigate = useNavigate();

@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { UserErrorMessage } from "../components/AlertHandling/UserErrorMessage";
 import axios from "axios";
 
 export const SignUp = () => {
@@ -38,7 +39,7 @@ export const SignUp = () => {
 
   return (
     <div className="hero bg-base-200 h-screen w-full flex items-center">
-      {error && <UserAuthMessage error={error} />}
+      {error && <UserErrorMessage error={error} />}
       <div className="container mx-auto flex justify-between items-center h-full px-4">
         <div className="flex flex-col items-center w-1/2 max-w-md bg-base-100 p-8 rounded-lg shadow-lg">
           <h2 className="text-4xl font-bold mb-4">Sign Up</h2>
