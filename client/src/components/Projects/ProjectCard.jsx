@@ -72,6 +72,7 @@ export const ProjectCard = ({ currentUserId, project }) => {
                   <ProjectUserAvatar
                     key={participant.participant_id}
                     participant={participant}
+                    borderColorClass="border-navbar-color" 
                   />
                 )
             )}

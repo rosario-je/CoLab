@@ -52,6 +52,7 @@ export const ProjectPageDetails = ({ project }) => {
               <ProjectUserAvatar
                 key={participant.id}
                 participant={participant}
+                borderColorClass={"border-alt-grey/75"}
               />
             ))}
         </div>
@@ -64,7 +65,7 @@ export const ProjectPageDetails = ({ project }) => {
           <input
             type="text"
             placeholder={`Send a message to ${name || "the project"}`}
-            className="input input-bordered w-full bg-alt-grey/90"
+            className="input input-bordered w-full bg-alt-grey/75"
           />
         </div>
       </div>

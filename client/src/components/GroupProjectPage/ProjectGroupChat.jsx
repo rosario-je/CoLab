@@ -12,7 +12,7 @@ export const ProjectGroupChat = ({ chat }) => {
   }, []);
 
   return (
-    <div className="chat-component flex flex-col h-full overflow-hidden bg-alt-grey/80">
+    <div className="chat-component flex flex-col h-full overflow-hidden bg-alt-grey/75">
       <div className="chat-messages flex flex-col-reverse overflow-y-auto h-full p-4">
         {chat &&
           chat.map((message, index) => (
