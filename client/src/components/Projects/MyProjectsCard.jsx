@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
@@ -6,7 +6,11 @@ import { ProjectUserAvatar } from "./ProjectUserAvatar";
 import { ProjectTechStack } from "./ProjectTechStack";
 import { OwnerProjectAvatar } from "./OwnerProjectAvatar";
 
-export const ProjectCard = ({ currentUserId, project, fetchProjects }) => {
+// THIS IS THE ORIGINAL CODE FOR THE PROJECT CARD COMPONENT
+// WHEN MERGING UP WITH THE CONDITIONAL RENDERING BRANCH, SWAP THIS CODE WITH THE NEW CODE
+// THIS FILE WILL THEN BE SPECIFICALLY FOR THE PROJECT CARD COMPONENT IN THE MYPROJECTS PAGE
+
+export const ProjectCard = ({ currentUserId, project }) => {
   const {
     name,
     description,
@@ -17,18 +21,17 @@ export const ProjectCard = ({ currentUserId, project, fetchProjects }) => {
     participants,
     tech_requirements,
     project_id,
+    is_in_progress,
     max_participants,
     github_repo,
-    is_in_progress,
   } = project;
-
-
   const navigate = useNavigate();
 
   const isOwner = owner_id === currentUserId;
   const isParticipant = participants.some(
     (participant) => participant.participant_id === currentUserId
   );
+
 
   const handleJoinRequest = async (e) => {
     e.preventDefault();
@@ -42,19 +45,9 @@ export const ProjectCard = ({ currentUserId, project, fetchProjects }) => {
     }
   };
 
-  const handleCompleteProject = async () => {
-    try {
-      const response = await axios.patch(`/api/dashboard/projects/${project_id}/complete`);
-      console.log("Project marked as complete: ", response.data);
-      fetchProjects();
-    } catch (error) { 
-      console.error("Error completing project:", error.message);
-    }
-  };
-
   return (
     <div className="card bg-base-100 w-full shadow-xl border-solid border-2 border-website-purple/25 text-white my-8">
-      <div className="card-body h-auto">
+      <div className="card-body h-96">
         <div className="top-project-card-container flex justify-between items-center mb-5">
           <div className="project-details-1 flex space-x-6">
             <img
@@ -65,44 +58,10 @@ export const ProjectCard = ({ currentUserId, project, fetchProjects }) => {
             />
             <div className="flex flex-col justify-center">
               <h2 className="card-title font-bold text-4xl">{name}</h2>
-              {isOwner ? (
-                <div className="flex flex-col gap-y-5 my-5 w-full">
-                  {is_in_progress ? (
-                    <>
-                      <button className="bg-website-purple text-white text-2xl hover:bg-create rounded-full w-[150px] p-1 font-semibold">
-                        Edit
-                      </button>
-                      <button
-                        className="bg-grey text-royal-yellow text-2xl hover:bg-royal-yellow hover:text-grey rounded-full w-[150px] p-1 font-semibold"
-                        onClick={handleCompleteProject}
-                      >
-                        Complete
-                      </button>
-                    </>
-                  ) : (
-                    <>
-                      <button className="bg-website-purple text-white text-2xl hover:bg-create rounded-full w-[150px] p-1 font-semibold">
-                        Edit
-                      </button>
-                      <h3 className="font-semibold text-royal-yellow text-2xl ml-2 ">
-                        Completed
-                      </h3>
-                    </>
-                  )}
-                </div>
-              ) : (
-                <>
-                  <h3 className="font-semibold mt-5">
-                    <span className="text-icon-purple text-xl">Creator:</span>@
-                    {owner_username}
-                  </h3>
-                  {!is_in_progress && (
-                    <h3 className="font-bold text-royal-yellow text-lg mt-3">
-                      Completed
-                    </h3>
-                  )}
-                </>
-              )}
+              <h3 className="font-semibold mt-5">
+                <span className="text-icon-purple text-xl">Creator:</span> @
+                {owner_username}
+              </h3>
             </div>
           </div>
           <div className="avatar-group -space-x-6 rtl:space-x-reverse w-2/5 flex justify-end items-end self-end pb-10">

@@ -38,7 +38,7 @@ export const JoinRequestList = () => {
               project_name={request.project.name}
               requester_user_id={request.user_id}
               project_id={request.project.id}
-              onAccept={() => handleRequestAcceptance(request.id)}
+              onDecision={() => handleRequestAcceptance(request.id)}
             />
           );
         })}

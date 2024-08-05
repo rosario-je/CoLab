@@ -6,20 +6,39 @@ export const JoinRequestListItems = ({
   requester_user_id,
   requester_username,
   project_name,
-  onAccept
+  onDecision,
 }) => {
-
   const acceptRequest = async () => {
     try {
-      const response = await axios.post("/api/projects/approve_join_request", {
-        project_id: project_id,
-        requesting_user_id: requester_user_id,
-      });
+      const response = await axios.post(
+        "/api/dashboard/manage_requests/approve_join_request",
+        {
+          project_id: project_id,
+          requesting_user_id: requester_user_id,
+        }
+      );
       console.log("Request accepted: ", response.data);
-      onAccept();
-
+      onDecision();
     } catch (error) {
       console.error("Error accepting request: ", error.message);
+    }
+  };
+
+  const denyRequest = async () => {
+    try {
+      const response = await axios.delete(
+        "/api/dashboard/manage_requests/reject_join_request",
+        {
+          data: {
+            project_id: project_id,
+            requesting_user_id: requester_user_id,
+          },
+        }
+      );
+      console.log("Request denied: ", response.data);
+      onDecision();
+    } catch (error) {
+      console.error("Error denying request: ", error.message);
     }
   };
 
@@ -40,12 +59,12 @@ export const JoinRequestListItems = ({
             <div className="flex justify-center items-center gap-[15px]">
               <button
                 onClick={acceptRequest}
-                className="btn bg-green hover:bg-dark-green text-white"
+                className="btn bg-green hover:bg-dark-green text-white rounded-full border-none"
               >
                 Accept
               </button>
 
-              <button className="btn bg-red hover:bg-dark-red text-white">
+              <button onClick={denyRequest} className="btn bg-red hover:bg-dark-red text-white rounded-full border-none">
                 Deny
               </button>
             </div>

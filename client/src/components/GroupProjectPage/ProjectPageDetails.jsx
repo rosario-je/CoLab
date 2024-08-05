@@ -1,7 +1,8 @@
 import React from "react";
-import { ProjectPageAvatars } from "./ProjectPageAvatars";
+import { ProjectUserAvatar } from "../Projects/ProjectUserAvatar";
 
 import { OwnerProjectAvatar } from "../Projects/OwnerProjectAvatar";
+import { ProjectGroupChat } from "./ProjectGroupChat";
 
 export const ProjectPageDetails = ({ project }) => {
   const {
@@ -10,16 +11,18 @@ export const ProjectPageDetails = ({ project }) => {
     description,
     figma_link,
     github_repo,
+    owner_id,
     owner_email,
     owner_pic,
     owner_username,
     participants,
     tech_requirements,
+    chat,
   } = project;
 
   return (
-    <div className="project-chat-details-container flex grow h-40 flex-col mt-3.5">
-      <div className="flex flex-row w-full p-9 justify-between border-b-2 border-slate-700 h-full items-center">
+    <div className="project-chat-details-container flex flex-col grow mt-3.5">
+      <div className="flex flex-row w-full p-9 justify-between border-b-2 border-slate-700 h-auto items-center fixed pr-[650px] z-10 backdrop-blur-xl bg-project-left-menu/30">
         {name && (
           <div className="project-title">
             <h1 className="text-white font-3xl font-light text-3xl">{name}</h1>
@@ -38,21 +41,32 @@ export const ProjectPageDetails = ({ project }) => {
         </div>
         <div className="project-participants-avatars avatar-group flex flex-row flex-end gap-x-3">
           <OwnerProjectAvatar
+            key={owner_id}
             owner={owner_email}
             owner_username={owner_username}
             owner_pic={owner_pic}
           />
-        </div>
-        {participants && participants.length > 0 && (
-          <div className="project-participants-avatars flex flex-row flex-end gap-x-3">
-            {participants.map((participant) => (
-              <ProjectPageAvatars
+          {participants &&
+            participants.length > 0 &&
+            participants.map((participant) => (
+              <ProjectUserAvatar
                 key={participant.id}
                 participant={participant}
               />
             ))}
-          </div>
-        )}
+        </div>
+      </div>
+      <div className="chat-main-container relative flex-grow mb-16">
+        <ProjectGroupChat chat={chat}/>
+      </div>
+      <div className="fixed bottom-0 left-[300px] right-[300px] z-20">
+        <div className="message-input w-full py-4 px-11 bg-project-background">
+          <input
+            type="text"
+            placeholder={`Send a message to ${name || "the project"}`}
+            className="input input-bordered w-full"
+          />
+        </div>
       </div>
     </div>
   );

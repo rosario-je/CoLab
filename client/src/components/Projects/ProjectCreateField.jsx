@@ -18,6 +18,8 @@ export const ProjectCreateField = ({ handleTechStacksModal, techModal }) => {
     newPicture: "",
   });
 
+  
+
   const maxChars = 300;
   const navigate = useNavigate();
 
@@ -33,13 +35,11 @@ export const ProjectCreateField = ({ handleTechStacksModal, techModal }) => {
     }
   };
 
-  const handleAddTech = (techLanguage) => {
-    if (techLanguage.trim() !== "") {
-      setProjectData((prevData) => ({
-        ...prevData,
-        tech_names: [...prevData.tech_names, techLanguage],
-      }));
-    }
+  const handleAddTech = (selectedTechStack) => {
+    setProjectData((prevData) => ({
+      ...prevData,
+      tech_names: [...prevData.tech_names, ...selectedTechStack],
+    }));
   };
 
   const isValidImageUrl = (url) => {
@@ -90,14 +90,6 @@ export const ProjectCreateField = ({ handleTechStacksModal, techModal }) => {
         projectData.trelloLink,
         "https://trello.com"
       );
-
-      if (!githubRepo || !figmaLink || !trelloLink) {
-        alert(
-          "Please enter valid links starting with '/' and ensure they do not contain the base URL."
-        );
-        setProjectCreating(false);
-        return;
-      }
 
       const project = await axios.post("/api/projects/create", {
         ...projectData,

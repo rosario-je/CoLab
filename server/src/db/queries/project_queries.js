@@ -100,7 +100,9 @@ const getAllProjectsById = async (project_id) => {
         tech_requirements tech ON p.id = tech.project_id
       WHERE p.id = $1
       GROUP BY 
-        p.id, owner.username, owner.profile_pic, owner.email;`,
+        p.id, owner.username, owner.profile_pic, owner.email
+      ORDER BY 
+        p.created_at DESC;`,
       [project_id]
     );
     return data.rows[0]; // Return a single project object
@@ -154,7 +156,7 @@ const getProjectsOwnedByMe = async (user_id) => {
     WHERE p.owner_id = $1
     GROUP BY 
       p.id, owner.username, owner.profile_pic, owner.email
-      ORDER BY 
+    ORDER BY 
         p.created_at DESC;`,
       [user_id]
     );
@@ -231,7 +233,9 @@ const getProjectsIAmInById = async (project_ids) => {
       tech_requirements tech ON p.id = tech.project_id
     WHERE p.id = ANY($1)
     GROUP BY 
-      p.id, owner.username, owner.profile_pic, owner.email;`,
+      p.id, owner.username, owner.profile_pic, owner.email
+    ORDER BY 
+      p.created_at DESC;`,
       [project_ids]
     );
     return data.rows;
@@ -322,7 +326,8 @@ const getPendingJoinRequests = async (project_id, user_id) => {
     const data = await db.query(
       `SELECT * FROM join_requests
       WHERE project_id = $1
-      AND user_id = $2`,
+      AND user_id = $2
+      ORDER BY created_at DESC`,
       [project_id, user_id]
     );
     return data.rows[0];
@@ -361,6 +366,75 @@ const projectCompleted = async (project_id) => {
   }
 };
 
+// Update cover_photo_path
+const updateCoverPhoto = async (project_id, cover_photo_path) => {
+  try {
+    const data = await db.query(
+      `UPDATE projects
+      SET cover_photo_path = $2
+      WHERE id = $1
+      RETURNING *`,
+      [project_id, cover_photo_path]
+    );
+    return data.rows[0];
+  }
+  catch (error) {
+    console.log(error);
+  }
+};
+
+// Update github_repo
+const updateGithubRepo = async (project_id, github_repo) => {
+  try {
+    const data = await db.query(
+      `UPDATE projects
+      SET github_repo = $2
+      WHERE id = $1
+      RETURNING *`,
+      [project_id, github_repo]
+    );
+    return data.rows[0];
+  }
+  catch (error) {
+    console.log(error);
+  }
+};
+
+// Update figma_link
+const updateFigmaLink = async (project_id, figma_link) => {
+  try {
+    const data = await db.query(
+      `UPDATE projects
+      SET figma_link = $2
+      WHERE id = $1
+      RETURNING *`,
+      [project_id, figma_link]
+    );
+    return data.rows[0];
+  }
+  catch (error) {
+    console.log(error);
+  }
+};
+
+// Update trello_link
+const updateTrelloLink = async (project_id, trello_link) => {
+  try {
+    const
+      data = await db.query(
+        `UPDATE projects
+      SET trello_link = $2
+      WHERE id = $1
+      RETURNING *`,
+        [project_id, trello_link]
+      );
+    return data.rows[0];
+  }
+  catch (error) {
+    console.log(error);
+  }
+};
+
 export { 
   getAllProjects, 
   createNewProject, 
@@ -372,5 +446,9 @@ export {
   getPendingJoinRequests, 
   projectFull, 
   getAllProjectsById, 
-  projectCompleted
+  projectCompleted,
+  updateCoverPhoto,
+  updateGithubRepo,
+  updateFigmaLink,
+  updateTrelloLink
 };

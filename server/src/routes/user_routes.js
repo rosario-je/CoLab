@@ -1,5 +1,5 @@
 import express from 'express';
-import { createUser, getUserByEmail } from '../db/queries/user_queries.js';
+import { createUser, getUserByEmail, validateUserLogin } from '../db/queries/user_queries.js';
 
 const router = express.Router();
 
@@ -44,7 +44,7 @@ router.post('/login', async (req, res) => {
     return res.status(400).send('Missing required fields');
   }
   try {
-    const user = await getUserByEmail(email);
+    const user = await validateUserLogin(email, password);
     if (!user) {
       return res.status(404).send('User not found');
     }
@@ -81,7 +81,6 @@ router.post('/logout', (req, res) => {
 router.get('/current-user', (req, res) => {
   if (req.session.user) {
     res.json(req.session.user);
-    console.log("user logged in")
   } else {
     res.status(401).send('No user logged in');
   }

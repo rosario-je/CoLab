@@ -6,7 +6,7 @@ export const UserLeftMenu = ({ currentUser }) => {
   const navigate = useNavigate();
 
   return (
-    <div className="w-72 flex flex-col justify-between text-text-color bg-menu-colors h-screen fixed left-0 z-10 inset-20 pt-16">
+    <div className="flex flex-col fixed top-0 left-0 w-[300px] h-full bg-menu-colors justify-between mt-20 pt-16">
       <div className="top-menu-items p-1">
         <ul className="menu w-full flex-1 flex flex-col justify-between gap-y-24">
           <li className="main-menu-left-menu">
@@ -60,6 +60,18 @@ export const UserLeftMenu = ({ currentUser }) => {
                 >
                   <i className="fa-solid fa-bell group-hover:animate-bounceSlow group-hover:text-icon-purple group-hover:drop-shadow-white-glow mr-0.5"></i>
                   <p>Join Requests</p>
+                </a>
+              </li>
+
+              <li className="group notifications-btn">
+                <a
+                  className="flex items-center cursor-pointer"
+                  onClick={() => {
+                    navigate(`/${currentUser.id}/notifications`);
+                  }}
+                >
+                  <i className="fa-solid fa-bell group-hover:animate-bounceSlow group-hover:text-icon-purple group-hover:drop-shadow-white-glow mr-0.5"></i>
+                  <p>Notifications</p>
                 </a>
               </li>
             </ul>

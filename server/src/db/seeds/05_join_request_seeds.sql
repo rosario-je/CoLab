@@ -1,51 +1,24 @@
-INSERT INTO join_requests (user_id, project_id) VALUES
--- Join Requests for Naruto Missions Tracker (Owner: Sakura, Max: 4)
-(6, 2),  -- Natsu
-(7, 2),  -- Light
-(12, 2), -- Tanjiro
+INSERT INTO join_requests (user_id, project_id, created_at) VALUES
+-- Join Requests for Konoha Village Chat (Owner: Naruto, Max: 4)
+(4, 1, '2024-01-10 10:15:30'),  -- Goku
 
 -- Join Requests for Straw Hat Crew Task Manager (Owner: Luffy, Max: 4)
-(4, 3),  -- Goku
-(8, 3),  -- Inu
-(12, 3), -- Tanjiro
+(4, 3, '2024-07-05 14:25:00'),  -- Goku
+(8, 3, '2024-07-07 09:45:15'),  -- Inu
+(12, 3, '2024-07-10 11:00:30'), -- Tanjiro
 
 -- Join Requests for Dragon Ball Training Tracker (Owner: Goku, Max: 4)
-(9, 4),  -- Mikasa
-(8, 4),  -- Inu
-(12, 4), -- Tanjiro
-
--- Join Requests for Fullmetal Alchemist Research Hub (Owner: Edward, Max: 4)
-(7, 6),  -- Light
-(8, 6),  -- Inu
-(12, 6), -- Tanjiro
-
--- Join Requests for Fairy Tail Guild Manager (Owner: Natsu, Max: 4)
-(4, 7),  -- Goku
-(8, 7),  -- Inu
-(12, 7), -- Tanjiro
-
--- Join Requests for Death Note Analysis Tool (Owner: Light, Max: 4)
-(6, 8),  -- Natsu
-(12, 8), -- Tanjiro
-(13, 8), -- Megumi
-
--- Join Requests for Inuyasha Time Travel Diary (Owner: Inu, Max: 4)
-(6, 9),  -- Natsu
-(12, 9), -- Tanjiro
-(13, 9), -- Megumi
+(9, 4, '2024-03-25 10:20:00'),  -- Mikasa
+(11, 4, '2024-04-01 14:35:45'), -- Gojo
+(12, 4, '2024-04-15 16:50:30'), -- Tanjiro
 
 -- Join Requests for Saiyan Training Log (Owner: Goku, Max: 4)
-(6, 12), -- Natsu
-(8, 12), -- Inu
-(13, 12), -- Megumi
-
--- Join Requests for Thunder Breathing Training Hub (Owner: Zenitsu, Max: 4)
-(6, 13), -- Natsu
-(8, 13), -- Inu
-(12, 13), -- Tanjiro
+(6, 12, '2024-06-20 13:15:30'), -- Jotaro
+(8, 12, '2024-06-25 11:22:45'), -- Inu
+(13, 12, '2024-06-28 17:05:55'), -- Megumi
 
 -- Join Requests for Saiyan Battle Simulator (Owner: Goku, Max: 4) -- TEST PROJECT
-(10, 14),  -- Gojo
-(8, 14),  -- Inu
-(12, 14), -- Tanjiro
-(9, 14); -- Mikasa
+(11, 14, '2024-07-26 15:30:00'),  -- Gojo
+(8, 14, '2024-07-27 12:10:15'),  -- Inu
+(12, 14, '2024-07-27 12:10:15'), -- Tanjiro
+(3, 14, '2024-07-28 14:55:30'); -- Luffy
