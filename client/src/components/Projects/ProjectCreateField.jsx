@@ -136,7 +136,7 @@ export const ProjectCreateField = ({ handleTechStacksModal, techModal }) => {
               type="text"
               name="name"
               placeholder="Title"
-              className="input input-bordered bg-input-colors w-96"
+              className="input input-bordered bg-navbar-color w-96"
               value={projectData.name}
               onChange={handleInputChange}
               required
@@ -163,7 +163,7 @@ export const ProjectCreateField = ({ handleTechStacksModal, techModal }) => {
           </div>
           <div className="flex flex-col">
             <textarea
-              className="textarea textarea-bordered min-h-[150px] min-w-[50px] bg-input-colors resize-none mb-5 self-center w-96"
+              className="textarea textarea-bordered min-h-[150px] min-w-[50px] bg-navbar-color resize-none mb-5 self-center w-96"
               placeholder="Description..."
               value={projectData.description}
               onChange={handleDescriptionChange}
@@ -186,7 +186,7 @@ export const ProjectCreateField = ({ handleTechStacksModal, techModal }) => {
           </div>
           <div className="user-capacity w-1/3 flex flex-col justify-center items-end">
             <select
-              className="select select-bordered w-1/2 bg-input-colors"
+              className="select select-bordered w-1/2 bg-navbar-color"
               name="max_participants"
               value={projectData.max_participants}
               onChange={handleInputChange}
@@ -262,7 +262,7 @@ export const ProjectCreateField = ({ handleTechStacksModal, techModal }) => {
                   name="newPicture"
                   value={projectData.newPicture}
                   onChange={handleInputChange}
-                  className="input input-bordered bg-input-colors w-full"
+                  className="input input-bordered bg-navbar-color w-full"
                 />
                 <button
                   className="btn bg-slate-600 text-white w-1/2"
@@ -294,7 +294,7 @@ export const ProjectCreateField = ({ handleTechStacksModal, techModal }) => {
                 name="githubRepo"
                 value={projectData.githubRepo}
                 onChange={handleInputChange}
-                className="input input-bordered bg-input-colors w-2/6"
+                className="input input-bordered bg-navbar-color w-2/6"
               />
             </div>
             <div className="project-links-container__figma flex justify-between">
@@ -305,7 +305,7 @@ export const ProjectCreateField = ({ handleTechStacksModal, techModal }) => {
                 name="figmaLink"
                 value={projectData.figmaLink}
                 onChange={handleInputChange}
-                className="input input-bordered bg-input-colors w-2/6"
+                className="input input-bordered bg-navbar-color w-2/6"
               />
             </div>
             <div className="project-links-container__trello flex justify-between">
@@ -316,7 +316,7 @@ export const ProjectCreateField = ({ handleTechStacksModal, techModal }) => {
                 name="trelloLink"
                 value={projectData.trelloLink}
                 onChange={handleInputChange}
-                className="input input-bordered bg-input-colors w-2/6"
+                className="input input-bordered bg-navbar-color w-2/6"
               />
             </div>
           </div>

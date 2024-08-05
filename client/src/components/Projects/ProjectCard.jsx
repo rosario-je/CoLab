@@ -50,13 +50,13 @@ export const ProjectCard = ({ currentUserId, project }) => {
               src={cover_photo_path || "https://staticg.sportskeeda.com/editor/2023/05/90701-16836967841966-1920.jpg"} //<---online
               //src={`/project_pics/${cover_photo_path}`} // <---not online
               alt="Project Cover"
-              className="project-cover rounded-xl object-cover h-40 w-40 shadow-2xl border-2 border-text-color "
+              className="project-cover rounded-xl object-cover h-40 w-40 shadow-2xl border-2 border-text-color"
             />
             <div className="flex flex-col justify-center">
               <h2 className="card-title font-bold text-4xl">{name}</h2>
               <h3 className="font-semibold mt-5">
                 <span className="text-icon-purple text-xl">Creator:</span> @
-                {owner_username}
+                  <span className="text-base text-text-color">{owner_username} </span>
               </h3>
             </div>
           </div>
@@ -91,19 +91,19 @@ export const ProjectCard = ({ currentUserId, project }) => {
                   onClick={() => {
                     navigate(`/${currentUserId}/project/${project_id}`);
                   }}
-                  className="btn bg-website-purple hover:bg-website-purple-hover text-text-color rounded-full"
+                  className="btn bg-website-purple hover:bg-website-purple-hover text-white text-base rounded-full"
                 >
                   View Project
                 </button>
               ) : (
                 <div className="flex gap-x-2">
-                  <button className="btn bg-icon-purple hover:bg-icon-purple-hover text-text-color rounded-full">
+                  <button className="btn bg-icon-purple hover:bg-icon-purple-hover text-white text-base rounded-full">
                     <a href={`${github_repo}`} target="_blank">
                       Github Repo
                     </a>
                   </button>
 
-                  <button className="btn bg-website-purple hover:bg-website-purple-hover text-text-color rounded-full">
+                  <button className="btn bg-website-purple hover:bg-website-purple-hover text-white text-base rounded-full">
                     View Project
                   </button>
                 </div>
@@ -114,12 +114,12 @@ export const ProjectCard = ({ currentUserId, project }) => {
               {is_in_progress ? (
                 <button
                   onClick={handleJoinRequest}
-                  className="btn bg-website-purple hover:bg-website-purple-hover text-text-color rounded-full"
+                  className="btn bg-website-purple hover:bg-website-purple-hover text-white text-base rounded-full"
                 >
                   Request to Join
                 </button>
               ) : (
-                <button className="btn bg-icon-purple hover:bg-icon-purple-hover text-text-color rounded-full">
+                <button className="btn bg-icon-purple hover:bg-icon-purple-hover text-white text-base rounded-full">
                   <a href={`${github_repo}`} target="_blank">
                     Github Repo
                   </a>
@@ -130,13 +130,13 @@ export const ProjectCard = ({ currentUserId, project }) => {
             <>
               {is_in_progress ? (
                 <button
-                  className="btn bg-website-purple hover:bg-website-purple-hover text-text-color rounded-full"
+                  className="btn bg-website-purple hover:bg-website-purple-hover text-white text-base rounded-full"
                   disabled
                 >
                   Project Capacity: Full
                 </button>
               ) : (
-                <button className="btn bg-icon-purple hover:bg-icon-purple-hover text-text-color rounded-full">
+                <button className="btn bg-icon-purple hover:bg-icon-purple-hover text-white text-base rounded-full">
                   <a href={`${github_repo}`} target="_blank">
                     Github Repo
                   </a>
