@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
-import { UserAuthMessage } from "../components/ErrorHandling/UserAuthMessage";
+import { UserErrorMessage } from "../components/ErrorHandling/UserErrorMessage";
 
 export const SignIn = () => {
   const navigate = useNavigate();
@@ -34,7 +34,7 @@ export const SignIn = () => {
 
   return (
     <div className="hero bg-base-200 min-h-screen flex items-center flex-col justify-center space-y-16">
-      {error && <UserAuthMessage error={error} />}
+      {error && <UserErrorMessage error={error} />}
       <div className="container mx-auto flex justify-between items-center h-full px-4">
         <div className="w-1/2 flex flex-col items-center text-center p-8">
           <h1 className="text-5xl font-bold">Welcome back to CoLab!</h1>

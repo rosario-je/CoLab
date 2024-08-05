@@ -1,13 +1,14 @@
 import React from 'react'
 
-export const UserAuthMessage = (props) => {
+export const UserErrorMessage = (props) => {
   return (
-    <div role="alert" className="fixed alert alert-warning w-2/6 animate-sideToSide top-20 z-10">
+    <div role="alert" className="fixed alert bg-reject text-white w-2/6 animate-sideToSide top-20 z-10">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             className="h-6 w-6 shrink-0 stroke-current"
             fill="none"
             viewBox="0 0 24 24"
+            stroke="reject"
           >
             <path
               strokeLinecap="round"

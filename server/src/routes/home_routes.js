@@ -45,10 +45,9 @@ router.put('/my_projects/:project_id', async (req, res) => {
       return res.status(403).json({ error: "Unauthorized to complete this project" });
     }
     const completeProject = await projectCompleted(project_id);
-    return res.status(200).json({
-      message: "Project Completed!",
-      data: completeProject
-    });
+    return res.status(200).send("Project Completed!"
+    // data: completeProject
+    );
 
   } catch (error) {
     console.error("Error in getting user projects: ", error.message);
@@ -92,7 +91,7 @@ router.post('/manage_requests/approve_join_request', async (req, res) => {
     const project = await getProjectById(project_id);
     const isCurrentUserOwner = await isUserOwner(user_id, project_id);
     if (!isCurrentUserOwner) {
-      return res.status(403).json({ error: "Unauthorized to complete this action" });
+      return res.status(403).send("Unauthorized to complete this action");
     }
     const joinRequest = await approveJoinRequest(project_id, requesting_user_id);
     if (!joinRequest) {
@@ -122,7 +121,7 @@ router.delete('/manage_requests/reject_join_request', async (req, res) => {
     const project = await getProjectById(project_id);
     const isCurrentUserOwner = await isUserOwner(user_id, project_id);
     if (!isCurrentUserOwner) {
-      return res.status(403).json({ error: "Unauthorized to complete this action" });
+      return res.status(403).send("Unauthorized to complete this action");
     }
     const rejectRequest = await rejectJoinRequest(project_id, requesting_user_id);
     if (!rejectRequest) {
@@ -152,6 +151,9 @@ router.post('/search', async (req, res) => {
     // get array of full project details that have the tech
     const projectPromises = projectsIdArray.map(project_id => getAllProjectsById(project_id));
     const searchResults = await Promise.all(projectPromises);
+    if (searchResults.length === 0 || searchResults[0] === null || searchResults[0] === undefined) {
+      return res.status(404).send(`No projects found containing ${tech_name}`);
+    }
     return res.status(200).json(searchResults);
   } catch (error) {
     console.error("Error in searching by tech: ", error.message);
