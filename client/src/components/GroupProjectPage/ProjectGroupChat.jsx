@@ -4,22 +4,20 @@ import { ChatUserMessage } from "./ChatUserMessage";
 export const ProjectGroupChat = ({ chat }) => {
   const messagesEndRef = useRef(null);
 
-  console.log(chat);
   useEffect(() => {
     if (messagesEndRef.current) {
-      messagesEndRef.current.scrollIntoView({ behavior: "smooth" });
+      messagesEndRef.current.scrollIntoView({ behavior: "smooth", block: "start" });
     }
-  }, []);
+  }, [chat]);
 
   return (
-    <div className="chat-component flex flex-col h-full overflow-hidden bg-base-100">
+    <div className="chat-component flex flex-col-reverse h-full overflow-hidden bg-base-100">
       <div className="chat-messages flex flex-col-reverse overflow-y-auto h-full p-4">
         {chat &&
           chat.map((message, index) => (
             <ChatUserMessage key={index} message={message} />
           ))}
-
-        <div ref={messagesEndRef} /> {/* Scroll to this div */}
+        <div ref={messagesEndRef} />
       </div>
     </div>
   );
