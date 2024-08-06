@@ -1,8 +1,27 @@
-import React from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { ProjectIcon } from "./ProjectIcon";
+import axios from "axios";
 
-export const ProjectRightMenu = ({ project }) => {
-  const navigate = useNavigate();
+export const ProjectRightMenu = ({ project, currentUser }) => {
+  const [rightMenuProjects, setRightMenuProjects] = useState([]);
+
+  useEffect(() => {
+    const fetchRightUserMenu = async () => {
+      try {
+        const response = await axios.get(
+          `/api/dashboard/${currentUser.id}/my_projects`
+        );
+        setRightMenuProjects(response.data);
+      } catch (error) {
+        console.error(
+          "Error getting projects for the right user menu: ",
+          error.message
+        );
+      }
+    };
+    fetchRightUserMenu();
+  }, []);
+  console.log(rightMenuProjects);
 
   return (
     <div className="flex flex-col fixed top-0 right-0 w-[300px] h-full bg-menu-colors justify-between mt-0 pt-24 z-10">
@@ -25,15 +44,12 @@ export const ProjectRightMenu = ({ project }) => {
           </div>
         </div>
 
-        <div className="project-list bg-project-left-menu w-24 h-[1150px] flex flex-col items-center rounded-xl p-4 gap-y-7 justify-around">
-          <div className="bg-white w-16 h-16 rounded-2xl" />
-          <div className="bg-white w-16 h-16 rounded-2xl" />
-          <div className="bg-white w-16 h-16 rounded-2xl" />
-          <div className="bg-white w-16 h-16 rounded-2xl" />
-          <div className="bg-white w-16 h-16 rounded-2xl" />
-          <div className="bg-white w-16 h-16 rounded-2xl" />
-          <div className="bg-white w-16 h-16 rounded-2xl" />
-          <div className="bg-white w-16 h-16 rounded-2xl" />
+        <div className="project-list bg-project-left-menu w-40 h-[1150px] flex flex-col items-center rounded-xl p-4 gap-y-7 justify-around">
+          {rightMenuProjects.map((project) => {
+            return (
+              <ProjectIcon project={project} currentUser={currentUser.id} />
+            );
+          })}
         </div>
       </div>
     </div>
