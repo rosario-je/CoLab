@@ -9,7 +9,6 @@ export const EditProjectTechStackModal = ({
   const [newTech, setNewTech] = useState("");
 
   const handleRemoveTech = (index) => {
-    console.log("PPPPPPPPPPPPPPPPPPPPPPPPPPP", index) 
     const updatedTechRequirements = tech_requirements.filter(
       (_, i) => i !== index
     );

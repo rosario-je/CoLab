@@ -23,19 +23,16 @@ export const ProjectPage = ({ currentUser, handleLogout, handleCoLabHome }) => {
     chat: [],
   });
 
-  const fetchProject = async () => {
-    try {
-      const response = await axios.get(`/api/projects/${projectId}`);
-      setProject(response.data);
-    } catch (error) {
-      console.error("Error getting the project", error.message);
-    }
-  };
-
   useEffect(() => {
-    if (projectId) {
-      fetchProject();
-    }
+    const fetchProject = async () => {
+      try {
+        const response = await axios.get(`/api/projects/${projectId}`);
+        setProject(response.data);
+      } catch (error) {
+        console.error("Error getting the project", error.message);
+      }
+    };
+    fetchProject();
   }, [projectId]);
 
   return (
@@ -54,7 +51,6 @@ export const ProjectPage = ({ currentUser, handleLogout, handleCoLabHome }) => {
           <ProjectPageDetails
             currentUser={currentUser}
             project={project}
-            fetchProject={fetchProject}
           />
           <div className="fixed top-0 left-[300px] right-[300px] z-10">
             <div className="w-full bg-white py-2 px-4 shadow-md">

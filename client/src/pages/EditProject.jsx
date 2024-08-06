@@ -28,8 +28,7 @@ export const EditProject = ({
     const fetchProject = async () => {
       try {
         const response = await axios.get(`/api/projects/${projectId}`);
-        setProject(response.data);  // Correct function name
-        // console.log("Project: ", response.data);
+        setProject(response.data);
       } catch (error) {
         console.error("Error getting the project", error.message);
       }

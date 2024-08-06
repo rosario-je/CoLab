@@ -10,7 +10,6 @@ export const ProjectEditField = ({
 }) => {
   const [projectEditing, setProjectEditing] = useState(false);
   const [projectData, setProjectData] = useState(project);
-  console.log("====================", projectData);
 
   const {
     project_id,
@@ -25,10 +24,6 @@ export const ProjectEditField = ({
     tech_requirements: tech_names,
   } = project;
 
-  console.log(
-    "+++++++++++++++++++++++++++++++++++++++++++++++++++++",
-    projectData.tech_requirements
-  );
   useEffect(() => {
     setProjectData(project);
   }, [project]);
@@ -55,7 +50,6 @@ export const ProjectEditField = ({
         tech_requirements: [...prevData.tech_requirements, techLanguage],
       }));
     }
-    console.log("TECH: ", projectData);
   };
 
   const isValidImageUrl = (url) => {
@@ -89,7 +83,6 @@ export const ProjectEditField = ({
 
   const editProject = async (e) => {
     e.preventDefault();
-    console.log(e.target.elements);
     const {
       name,
       description,
@@ -108,11 +101,9 @@ export const ProjectEditField = ({
       github_repo: github_repo.value,
       figma_link: figma_link.value,
       trello_link: trello_link.value,
-      // newPicture: newPicture.value,
       tech_requirements: projectData.tech_requirements,
     };
 
-    // console.log("BODY PAYLOAD: ", bodyPayload);
     try {
       setProjectEditing(true);
 
@@ -142,13 +133,10 @@ export const ProjectEditField = ({
         return;
       }
 
-      console.log("LINE 145", bodyPayload);
       const updateResponse = await axios.put(
         `/api/projects/${project_id}/edit`,
-        bodyPayload // Correct variable name
+        bodyPayload
       );
-
-      // console.log("AFTER PATCH ROUTE", updateResponse.data);
 
       const { id, owner_id } = updateResponse.data.project;
 

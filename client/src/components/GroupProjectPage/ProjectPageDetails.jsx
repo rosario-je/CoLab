@@ -10,8 +10,6 @@ export const ProjectPageDetails = ({ project, fetchProject }) => {
   const [chat, setChat] = useState(project.chat);
   const socket = useRef(null);
 
-  console.log(chat);
-
   const {
     name,
     owner_id,

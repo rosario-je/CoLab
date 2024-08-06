@@ -21,7 +21,6 @@ export const ProjectRightMenu = ({ project, currentUser }) => {
     };
     fetchRightUserMenu();
   }, []);
-  console.log(rightMenuProjects);
 
   return (
     <div className="flex flex-col fixed top-0 right-0 w-[300px] h-full bg-menu-colors justify-between mt-0 pt-24 z-10">
