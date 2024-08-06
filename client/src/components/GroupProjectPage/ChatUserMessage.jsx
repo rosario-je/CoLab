@@ -44,13 +44,13 @@ export const ChatUserMessage = ({ message }) => {
           />
         </div>
       </div>
-      <div className="flex flex-row chat-header font-semibold pb-2 items-end">
-        <h3 className="flex items-end">{message.username}</h3>
+      <div className="flex flex-row chat-header font-semibold pb-2 items-end text-text-color text-base">
+        <h3 className="flex items-end">@{message.username}</h3>
         <time className="flex text-xs opacity-50 pl-3 items-center">
           <h5>{timeDescription}</h5>
         </time>
       </div>
-      <div className="chat-bubble"><p className="text-2xl">{message.message}</p></div>
+      <div className="chat-bubble bg-menu-colors text-text-color/90"><p className="text-lg bg-menu-colors">{message.message}</p></div>
     </div>
   );
 };

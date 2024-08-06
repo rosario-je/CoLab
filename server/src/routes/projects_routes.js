@@ -1,5 +1,5 @@
 import express from 'express';
-import { createNewProject, getProjectPage, getProjectById, getPendingJoinRequests, updateCoverPhoto, updateFigmaLink, updateGithubRepo, updateTrelloLink } from '../db/queries/project_queries.js';
+import { createNewProject, getProjectPage, getProjectById, getPendingJoinRequests, editProject, updateCoverPhoto, updateFigmaLink, updateGithubRepo, updateTrelloLink } from '../db/queries/project_queries.js';
 import { getUserById, askToJoinProject, limitAccess } from '../db/queries/user_queries.js';
 import { addTechToProject } from '../db/queries/tech_queries.js';
 import { createGroupChat, getChatHistory, newChatMessage, getProjectChatId, sendJoinNotification, getNewChatMessageInfo } from '../db/queries/chat_queries.js';
@@ -173,6 +173,43 @@ router.post('/:projectId/join', async (req, res) => {
   }
 });
 
+// Edits and updates a project
+// http://localhost:8080/api/projects/:projectId/edit
+router.put('/:projectId/edit', async (req, res) => {
+  console.log("You've hit the backend");
+  const { projectId } = req.params;
+  const { id: user_id } = req.session.user;
+  const { name, description, max_participants, cover_photo_path, github_repo, figma_link, trello_link, tech_requirements } = req.body;
+  console.log(`BODY TEST: req.body: ${req.body}`);
+
+  const project = await getProjectById(projectId);
+  if (!project) {
+    return res.status(404).send('Project not found');
+  }
+  if (user_id !== project.owner_id) {
+    return res.status(403).send('Unauthorized to edit project');
+  }
+  try {
+    const updateProject = await editProject(
+      projectId,
+      name,
+      description,
+      max_participants,
+      cover_photo_path,
+      github_repo,
+      figma_link,
+      trello_link,
+      tech_requirements,
+    );
+    
+    res.status(200).json({ message: 'Project updated successfully', project: updateProject });
+  } catch (error) {
+    console.error('Error editing project:', error.message);
+    res.status(500).send('Error editing project');
+  }
+});
+
+
 // http://localhost:8080/api/projects/:projectId/github_repo
 // Edit a project github_repo
 router.patch('/:projectId/github_repo', async (req, res) => {
@@ -245,6 +282,7 @@ router.patch('/:projectId/trello_link', async (req, res) => {
     res.status(500).send('Error updating project trello_link');
   }
 });
+
 // http://localhost:8080/api/projects/:projectId/cover_photo_path
 // Edit a cover_photo_path
 router.patch('/:projectId/cover_photo_path', async (req, res) => {

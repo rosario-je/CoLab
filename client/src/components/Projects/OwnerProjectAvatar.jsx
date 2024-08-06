@@ -6,12 +6,12 @@ export const OwnerProjectAvatar = ({ owner, owner_username, owner_pic }) => {
   return (
     <div className="flex flex-col items-center justify-center">
       {isHovered && (
-        <p className="username-item-hover bg-slate-600 rounded-md p-2 text-royal-yellow">
+        <p className="username-item-hover p-2 text-icon-purple font-medium">
           {owner_username}
         </p>
       )}
       <div
-        className="avatar w-20 border-royal-yellow border-[3px] rounded-full"
+        className="avatar w-20 border-icon-purple border-[3px] rounded-full"
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
       >

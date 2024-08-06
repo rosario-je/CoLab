@@ -67,10 +67,10 @@ export const ProjectPageDetails = ({ project, fetchProject }) => {
 
   return (
     <div className="project-chat-details-container flex flex-col grow mt-3.5">
-      <div className="flex flex-row w-full p-9 justify-between border-b-2 border-slate-700 h-auto items-center fixed pr-[650px] z-10 backdrop-blur-xl bg-project-left-menu/30">
+      <div className="flex flex-row w-full px-9 justify-between border-b-2 border-project-border/25 h-auto items-center fixed pr-[650px] z-10 backdrop-blur-xl bg-project-left-menu/30">
         {name && (
           <div className="project-title">
-            <h1 className="text-white font-3xl font-light text-3xl">{name}</h1>
+            <h1 className="text-text-color font-semibold text-3xl">{name}</h1>
           </div>
         )}
         <div className="tech-stack flex flex-row justify-around gap-x-8">
@@ -78,13 +78,14 @@ export const ProjectPageDetails = ({ project, fetchProject }) => {
             tech_requirements.map((tech, index) => (
               <p
                 key={index}
-                className="rounded-full bg-website-purple px-3.5 py-1"
+                className="rounded-full bg-website-purple text-white text-base px-3.5 py-1"
               >
                 {tech}
               </p>
             ))}
         </div>
-        <div className="project-participants-avatars avatar-group flex flex-row flex-end gap-x-3">
+        <div className="h-[150px] project-participants-avatars avatar-group flex flex-row flex-start gap-x-3">
+          <div className="h-full flex justify-center items-end pb-7">
           <OwnerProjectAvatar
             key={owner_id}
             owner={owner_email}
@@ -97,12 +98,15 @@ export const ProjectPageDetails = ({ project, fetchProject }) => {
               <ProjectUserAvatar
                 key={participant.id}
                 participant={participant}
+                borderColorClass={"border-alt-grey/75"}
               />
             ))}
+
+          </div>
         </div>
       </div>
-      <div className="chat-main-container relative flex-grow mb-16">
-        <ProjectGroupChat chat={chat} />
+      <div className="chat-main-container relative flex-grow mt-32 mb-16">
+        <ProjectGroupChat chat={chat}/>
       </div>
       <div className="fixed bottom-0 left-[300px] right-[300px] z-20">
         <div className="message-input w-full py-4 px-11 bg-project-background">
@@ -112,7 +116,7 @@ export const ProjectPageDetails = ({ project, fetchProject }) => {
             type="text"
             value={message}
             placeholder={`Send a message to ${name || "the project"}`}
-            className="input input-bordered w-full"
+            className="input input-bordered w-full bg-alt-grey/75 text-project-border text-base"
           />
         </div>
       </div>

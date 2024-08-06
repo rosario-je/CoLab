@@ -36,7 +36,6 @@ export const MyProjects = ({ handleCoLabHome, currentUser }) => {
   return (
     <div className="flex flex-col h-screen">
       <Navbar handleCoLabHome={handleCoLabHome} currentUser={currentUser} />
-
       <div className="flex flex-1 mt-16">
         <UserLeftMenu currentUser={currentUser} />
 

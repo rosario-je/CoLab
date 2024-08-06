@@ -1,22 +1,37 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import { EditProjectTechStackModal } from "../EditProjectTechStackModal";
 
-import { CreateProjectTechStackModal } from "../CreateProjectTechStackModal";
+export const ProjectEditField = ({
+  handleTechStacksModal,
+  techModal,
+  project,
+}) => {
+  const [projectEditing, setProjectEditing] = useState(false);
+  const [projectData, setProjectData] = useState(project);
+  console.log("====================", projectData);
 
-export const ProjectCreateField = ({ handleTechStacksModal, techModal }) => {
-  const [projectCreating, setProjectCreating] = useState(false);
-  const [projectData, setProjectData] = useState({
-    name: "",
-    description: "",
-    max_participants: 1,
-    cover_photo_path: "",
-    githubRepo: "",
-    figmaLink: "",
-    trelloLink: "",
-    tech_names: [],
-    newPicture: "",
-  });
+  const {
+    project_id,
+    name,
+    description,
+    max_participants,
+    cover_photo_path,
+    github_repo,
+    figma_link,
+    trello_link,
+    newPicture,
+    tech_requirements: tech_names,
+  } = project;
+
+  console.log(
+    "+++++++++++++++++++++++++++++++++++++++++++++++++++++",
+    projectData.tech_requirements
+  );
+  useEffect(() => {
+    setProjectData(project);
+  }, [project]);
 
   const maxChars = 300;
   const navigate = useNavigate();
@@ -33,11 +48,14 @@ export const ProjectCreateField = ({ handleTechStacksModal, techModal }) => {
     }
   };
 
-  const handleAddTech = (selectedTechStack) => {
-    setProjectData((prevData) => ({
-      ...prevData,
-      tech_names: [...prevData.tech_names, ...selectedTechStack],
-    }));
+  const handleAddTech = (techLanguage) => {
+    if (techLanguage.trim() !== "") {
+      setProjectData((prevData) => ({
+        ...prevData,
+        tech_requirements: [...prevData.tech_requirements, techLanguage],
+      }));
+    }
+    console.log("TECH: ", projectData);
   };
 
   const isValidImageUrl = (url) => {
@@ -64,65 +82,100 @@ export const ProjectCreateField = ({ handleTechStacksModal, techModal }) => {
   };
 
   const validateLink = (link, baseUrl) => {
-    if (link.startsWith("/") && !link.startsWith(baseUrl)) {
-      return `${baseUrl}${link}`;
+    if (link.startsWith(baseUrl)) {
+      return link;
     }
-    return null;
   };
 
-  const createProject = async (e) => {
+  const editProject = async (e) => {
     e.preventDefault();
+    console.log(e.target.elements);
+    const {
+      name,
+      description,
+      max_participants,
+      cover_photo_path,
+      github_repo,
+      figma_link,
+      trello_link,
+    } = e.target.elements;
+
+    const bodyPayload = {
+      name: name.value,
+      description: description.value,
+      max_participants: max_participants.value,
+      cover_photo_path: cover_photo_path.value,
+      github_repo: github_repo.value,
+      figma_link: figma_link.value,
+      trello_link: trello_link.value,
+      // newPicture: newPicture.value,
+      tech_requirements: projectData.tech_requirements,
+    };
+
+    // console.log("BODY PAYLOAD: ", bodyPayload);
     try {
-      setProjectCreating(true);
+      setProjectEditing(true);
 
       // Validate and prepend base URLs
-      const githubRepo = validateLink(
-        projectData.githubRepo,
+      const validatedGithub_repo = validateLink(
+        github_repo.value,
         "https://github.com"
       );
-      const figmaLink = validateLink(
-        projectData.figmaLink,
-        "https://www.figma.com"
+      const validatedFigma_link = validateLink(
+        figma_link.value,
+        "https://figma.com"
       );
-      const trelloLink = validateLink(
-        projectData.trelloLink,
+      const validatedTrello_link = validateLink(
+        trello_link.value,
         "https://trello.com"
       );
 
-      const project = await axios.post("/api/projects/create", {
-        ...projectData,
-        githubRepo,
-        figmaLink,
-        trelloLink,
-      });
+      if (
+        !validatedGithub_repo ||
+        !validatedFigma_link ||
+        !validatedTrello_link
+      ) {
+        alert(
+          "Please enter valid links starting with 'https' and ensure they do not contain the base URL."
+        );
+        setProjectEditing(false);
+        return;
+      }
 
-      const {
-        projectData: { id: projectId, owner_id: ownerId },
-      } = project.data;
+      console.log("LINE 145", bodyPayload);
+      const updateResponse = await axios.put(
+        `/api/projects/${project_id}/edit`,
+        bodyPayload // Correct variable name
+      );
+
+      // console.log("AFTER PATCH ROUTE", updateResponse.data);
+
+      const { id, owner_id } = updateResponse.data.project;
 
       setTimeout(() => {
-        setProjectCreating(false);
-        navigate(`/${ownerId}/project/${projectId}`);
+        setProjectEditing(false);
+        navigate(`/${owner_id}/project/${id}`);
       }, 3000);
     } catch (error) {
-      console.error("Error creating project:", error.response.data);
+      console.error("Error editing project:", error.message, error.stack);
     }
   };
 
   return (
     <>
-      {projectCreating && (
+      {projectEditing && (
         <div className="project-loading-animation fixed z-20 h-screen w-screen bg-alt-grey/60 backdrop-blur-md top-10">
           <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-4/5 max-w-screen-md">
             <h2 className="text-center mb-4 font-bold text-4xl text-text-color">
-              Creating Project...
+              Saving changes...
             </h2>
             <progress className="block mx-auto progress w-full"></progress>
           </div>
         </div>
       )}
 
-      <section className="flex flex-col h-full w-full justify-around">
+      <form className="flex flex-col h-full w-full justify-around" onSubmit={editProject}>
+
         {/* PROJECT TITLE */}
         <div className="project-title flex justify-between py-4 mt-5 mb-10">
           <div className="w-auto">
@@ -143,12 +196,12 @@ export const ProjectCreateField = ({ handleTechStacksModal, techModal }) => {
         </div>
 
         {techModal && (
-          <CreateProjectTechStackModal
+          <EditProjectTechStackModal
             handleTechStacksModal={handleTechStacksModal}
             handleAddTech={handleAddTech}
-            tech_names={projectData.tech_names}
-            setTechRequirements={(tech_names) =>
-              setProjectData((prevData) => ({ ...prevData, tech_names }))
+            tech_requirements={projectData.tech_requirements}
+            setTechRequirements={(tech_requirements) =>
+              setProjectData((prevData) => ({ ...prevData, tech_requirements }))
             }
           />
         )}
@@ -186,12 +239,13 @@ export const ProjectCreateField = ({ handleTechStacksModal, techModal }) => {
             <select
               className="select select-bordered w-1/2 bg-navbar-color"
               name="max_participants"
-              value={projectData.max_participants}
+              value={max_participants}
               onChange={handleInputChange}
             >
               <option value="" disabled>
                 Capacity
               </option>
+
               <option value="1">1</option>
               <option value="2">2</option>
               <option value="3">3</option>
@@ -209,12 +263,18 @@ export const ProjectCreateField = ({ handleTechStacksModal, techModal }) => {
           <div className="tech-stack-select w-auto gap-y-3">
             <button
               className="btn btn-ghost hover:bg-navbar-color text-lg group mr-5 mb-5"
+              type="button"
               onClick={handleTechStacksModal}
             >
               <i className="fa-solid fa-plus group-hover:animate-spin group-hover:text-white group-hover:drop-shadow-white-glow"></i>
               Add
             </button>
-            <h2>({projectData.tech_names.length}) Selected</h2>
+            <h2>
+              (
+              {projectData.tech_requirements &&
+                projectData.tech_requirements.length}
+              ) Selected
+            </h2>
           </div>
         </div>
 
@@ -226,26 +286,30 @@ export const ProjectCreateField = ({ handleTechStacksModal, techModal }) => {
               Choose images to showcase the design or what might represent the
               design of the project
             </h6>
-            {projectData.cover_photo_path && (
+            {cover_photo_path && (
               <button
-                className="text-white mt-5 btn hover:bg-reject text-lg group mr-5"
+                type="button"
+                className="text-text-color/90 mt-5 btn hover:bg-reject hover:border-reject text-lg group mr-5"
                 onClick={handleRemoveCoverPhoto}
               >
                 <i className="fa-solid fa-image group-hover:text-white group-hover:drop-shadow-white-glow"></i>
-                {projectData.cover_photo_path}
+                {cover_photo_path}
               </button>
             )}
           </div>
           <div className="file-input-container w-1/3 flex flex-col justify-center items-end gap-5">
-            {projectData.cover_photo_path.length > 0 ? (
+            {cover_photo_path.length > 0 ? (
               <>
                 <input
                   type="url"
+                  name="cover_photo_path"
+                  value={cover_photo_path}
                   placeholder="Delete picture file first"
                   className="input input-bordered bg-disabled-input w-full"
                   disabled
                 />
                 <button
+                  type="button"
                   className="btn bg-disabled-input text-white w-1/2"
                   disabled
                 >
@@ -257,12 +321,13 @@ export const ProjectCreateField = ({ handleTechStacksModal, techModal }) => {
                 <input
                   type="url"
                   placeholder="Enter image URL"
-                  name="newPicture"
-                  value={projectData.newPicture}
+                  name="cover_photo_path"
+                  value={newPicture}
                   onChange={handleInputChange}
                   className="input input-bordered bg-navbar-color w-full"
                 />
                 <button
+                  type="button"
                   className="btn bg-alt-grey hover:bg-alt-grey-hover text-text-color/80 text-base w-1/2 border-2 border-project-border/35 hover:border-project-border/35"
                   onClick={handleAddCoverPhoto}
                 >
@@ -289,8 +354,8 @@ export const ProjectCreateField = ({ handleTechStacksModal, techModal }) => {
               <input
                 type="text"
                 placeholder="/<username>/<repo>"
-                name="githubRepo"
-                value={projectData.githubRepo}
+                name="github_repo"
+                value={github_repo}
                 onChange={handleInputChange}
                 className="input input-bordered bg-navbar-color w-2/6"
               />
@@ -300,8 +365,8 @@ export const ProjectCreateField = ({ handleTechStacksModal, techModal }) => {
               <input
                 type="text"
                 placeholder="/Figma Link"
-                name="figmaLink"
-                value={projectData.figmaLink}
+                name="figma_link"
+                value={figma_link}
                 onChange={handleInputChange}
                 className="input input-bordered bg-navbar-color w-2/6"
               />
@@ -311,8 +376,8 @@ export const ProjectCreateField = ({ handleTechStacksModal, techModal }) => {
               <input
                 type="text"
                 placeholder="/Trello link"
-                name="trelloLink"
-                value={projectData.trelloLink}
+                name="trello_link"
+                value={trello_link}
                 onChange={handleInputChange}
                 className="input input-bordered bg-navbar-color w-2/6"
               />
@@ -322,14 +387,13 @@ export const ProjectCreateField = ({ handleTechStacksModal, techModal }) => {
 
         <div className="flex justify-end mt-10">
           <button
-            onClick={createProject}
             className="btn bg-website-purple hover:bg-website-purple-hover text-white text-base rounded-full w-auto h-14 self-end border-none"
-            disabled={projectCreating}
+            disabled={projectEditing}
           >
-            {projectCreating ? "Creating..." : "Create Project"}
+            {projectEditing ? "Saving changes..." : "Apply Changes"}
           </button>
         </div>
-      </section>
+      </form>
     </>
   );
 };

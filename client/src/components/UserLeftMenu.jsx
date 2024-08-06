@@ -1,5 +1,4 @@
 import React from "react";
-import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
 export const UserLeftMenu = ({ currentUser }) => {
@@ -35,7 +34,7 @@ export const UserLeftMenu = ({ currentUser }) => {
                   }}
                 >
                   <i className="fa-solid fa-briefcase group-hover:animate-bounceSlow group-hover:text-icon-purple group-hover:drop-shadow-white-glow mr-2"></i>
-                  <p>Projects</p>
+                  <p>My Projects</p>
                 </a>
               </li>
 
@@ -58,7 +57,12 @@ export const UserLeftMenu = ({ currentUser }) => {
                     navigate(`/${currentUser.id}/myprojects/requests`);
                   }}
                 >
-                  <i className="fa-solid fa-bell group-hover:animate-bounceSlow group-hover:text-icon-purple group-hover:drop-shadow-white-glow mr-0.5"></i>
+                  <div className="icon-container relative">
+                    <i className="fa-solid fa-envelope group-hover:animate-bounceSlow group-hover:text-icon-purple group-hover:drop-shadow-white-glow mr-0.5"></i>
+                    {/* {requests.length > 0 && ( */}
+                      <div className="badge bg-confirm badge-xs absolute -top-1 -right-1 border-confirm" />
+                    {/* )} */}
+                  </div>
                   <p>Join Requests</p>
                 </a>
               </li>
@@ -70,7 +74,7 @@ export const UserLeftMenu = ({ currentUser }) => {
                     navigate(`/${currentUser.id}/notifications`);
                   }}
                 >
-                  <i className="fa-solid fa-bell group-hover:animate-bounceSlow group-hover:text-icon-purple group-hover:drop-shadow-white-glow mr-0.5"></i>
+                  <i className="fa-solid fa-comments group-hover:animate-bounceSlow group-hover:text-icon-purple group-hover:drop-shadow-white-glow mr-0.5"></i>
                   <p>Notifications</p>
                 </a>
               </li>
@@ -105,7 +109,7 @@ export const UserLeftMenu = ({ currentUser }) => {
             <img
               src={`/profile_pics/${currentUser.profile_pic}`}
               alt="profile"
-              className="rounded-full h-24 w-24 border-slate-50 border-4"
+              className="rounded-full h-24 w-24 border-icon-purple border-4"
             />
             <div className="flex flex-col space-y-1">
               <h3 className="font-bold text-xl">@{currentUser.username}</h3>

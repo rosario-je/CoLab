@@ -4,37 +4,31 @@ export default {
   theme: {
     extend: {
       colors: {
-        "text-color": "#F2F3F5",
-        "navbar-color": "#19191F",
-        "menu-colors": "#282B2D",
-        "website-purple": "#422569",
-        "icon-purple": "#8A2BE2",
-        "input-colors": "#202028",
-        "projects-bar": "#191E24",
-        "projects-bar-button": "#21262D",
-        red: "#E73E41",
-        grey: "#333A3F",
-        create: "#6a1b9a",
-        wand: "#fbc02d",
-        green: "#41A558",
-        "racing-blue": "#5B8EE0",
-        "royal-blue": "#4169E1",
-        "royal-yellow": "#FFD700",
-        "yellow-name": "#FFF9DB",
-        "dark-green": "#007028",
-        "dark-red": "#A41000",
+        "text-color": "#F2F3F5", // main text color
+        "navbar-color": "#1E1F22", // color for the nav bar and project cards
+        "menu-colors": "#2B2D31", // side menu background color and search bar
+        "website-purple": "#4144C8", // main buttons
+        "website-purple-hover": "#717FFC", // hover for main buttons
+        "icon-purple": "#7A5BFF", // alt accent purple colors for text and user icon
+        "icon-purple-hover": "#9b7fe9", // hover for alt accent purple colors
+        "reject": "#E73E41", // delete/reject buttons/hovers and error messages
+        "reject-light": "#EC6573", // alt darker hover for delete/reject buttons
+        "confirm": "#41A558", // accept buttons/hovers and success messages
+        "confirm-light": "#7EBA8A", // alt darker hover for accept buttons
         "landing-gradient-two": "#8F9BD7",
         "landing-signin-button": "#322AA5",
-        "landing-navbar-color": "#19191F",
+        "landing-blue": "#3E54CA",
+        "landing-blue-dark": "#1B0090",
         "black": "#000000",
-        "white": "#ffffff",
+        "white": "#ffffff", // text color for buttons
         'landing-gradient-one': '#281E9F',
-        'project-left-menu': '#171819',
-        'project-background': '#333A3F',
+        'alt-grey': '#171819', // for other grey button, the right hand menus in the main project page and chat
+        'alt-grey-hover': '#121313', // hover for other grey button
+        'project-background': '#3C3F45', // page body background color
+        'project-border': '#B5BAC1', // project card border color
       },
       dropShadow: {
-        "white-glow": "0 0 1rem #ffffff",
-        "yellow-glow": "0 0 1rem #FFF9DB",
+        "white-glow": "0 0 1rem rgba(255, 255, 255, 0.8)",
       },
       keyframes: {
         swing: {

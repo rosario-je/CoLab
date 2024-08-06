@@ -7,6 +7,7 @@ import cors from "cors";
 import http from "http";
 import { Server } from "socket.io";
 import projectsRoutes from "./routes/projects_routes.js";
+import morgan from 'morgan'
 import homeRoutes from "./routes/home_routes.js";
 import userRoutes from "./routes/user_routes.js";
 import db from "./db/connection.js";
