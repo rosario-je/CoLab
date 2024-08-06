@@ -116,7 +116,7 @@ export const ProjectPageDetails = ({ project, fetchProject }) => {
             type="text"
             value={message}
             placeholder={`Send a message to ${name || "the project"}`}
-            className="input input-bordered w-full bg-alt-grey/75"
+            className="input input-bordered w-full bg-alt-grey/75 text-project-border text-base"
           />
         </div>
       </div>

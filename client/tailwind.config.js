@@ -11,9 +11,6 @@ export default {
         "website-purple-hover": "#717FFC", // hover for main buttons
         "icon-purple": "#7A5BFF", // alt accent purple colors for text and user icon
         "icon-purple-hover": "#9b7fe9", // hover for alt accent purple colors
-        "input-colors": "#202028",
-        "projects-bar": "#191E24",
-        "projects-bar-button": "#21262D",
         "reject": "#E73E41", // delete/reject buttons/hovers and error messages
         "reject-light": "#EC6573", // alt darker hover for delete/reject buttons
         "confirm": "#41A558", // accept buttons/hovers and success messages

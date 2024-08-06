@@ -164,9 +164,9 @@ export const ProjectEditField = ({
   return (
     <>
       {projectEditing && (
-        <div className="project-loading-animation fixed z-20 h-screen w-screen bg-slate-800/80 backdrop-blur-md top-10">
+        <div className="project-loading-animation fixed z-20 h-screen w-screen bg-alt-grey/60 backdrop-blur-md top-10">
           <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-4/5 max-w-screen-md">
-            <h2 className="text-center mb-4 font-bold text-4xl">
+            <h2 className="text-center mb-4 font-bold text-4xl text-text-color">
               Saving changes...
             </h2>
             <progress className="block mx-auto progress w-full"></progress>
@@ -187,7 +187,7 @@ export const ProjectEditField = ({
               type="text"
               name="name"
               placeholder="Title"
-              className="input input-bordered bg-input-colors w-96"
+              className="input input-bordered bg-navbar-color w-96"
               value={projectData.name}
               onChange={handleInputChange}
               required
@@ -214,7 +214,7 @@ export const ProjectEditField = ({
           </div>
           <div className="flex flex-col">
             <textarea
-              className="textarea textarea-bordered min-h-[150px] min-w-[50px] bg-input-colors resize-none mb-5 self-center w-96"
+              className="textarea textarea-bordered min-h-[150px] min-w-[50px] bg-navbar-color resize-none mb-5 self-center w-96"
               placeholder="Description..."
               value={projectData.description}
               onChange={handleDescriptionChange}
@@ -237,7 +237,7 @@ export const ProjectEditField = ({
           </div>
           <div className="user-capacity w-1/3 flex flex-col justify-center items-end">
             <select
-              className="select select-bordered w-1/2 bg-input-colors"
+              className="select select-bordered w-1/2 bg-navbar-color"
               name="max_participants"
               value={max_participants}
               onChange={handleInputChange}
@@ -262,7 +262,7 @@ export const ProjectEditField = ({
           </div>
           <div className="tech-stack-select w-auto gap-y-3">
             <button
-              className="btn btn-ghost hover:bg-input-colors text-lg group mr-5 mb-5"
+              className="btn btn-ghost hover:bg-navbar-color text-lg group mr-5 mb-5"
               type="button"
               onClick={handleTechStacksModal}
             >
@@ -289,7 +289,7 @@ export const ProjectEditField = ({
             {cover_photo_path && (
               <button
                 type="button"
-                className="text-white mt-5 btn hover:bg-red text-lg group mr-5"
+                className="text-white mt-5 btn hover:bg-reject hover:border-reject text-lg group mr-5"
                 onClick={handleRemoveCoverPhoto}
               >
                 <i className="fa-solid fa-image group-hover:text-white group-hover:drop-shadow-white-glow"></i>
@@ -324,11 +324,11 @@ export const ProjectEditField = ({
                   name="cover_photo_path"
                   value={newPicture}
                   onChange={handleInputChange}
-                  className="input input-bordered bg-input-colors w-full"
+                  className="input input-bordered bg-navbar-color w-full"
                 />
                 <button
                   type="button"
-                  className="btn bg-slate-600 text-white w-1/2"
+                  className="btn bg-alt-grey hover:bg-alt-grey-hover text-text-color/80 text-base w-1/2 border-2 border-project-border/35 hover:border-project-border/35"
                   onClick={handleAddCoverPhoto}
                 >
                   Add Picture
@@ -357,7 +357,7 @@ export const ProjectEditField = ({
                 name="github_repo"
                 value={github_repo}
                 onChange={handleInputChange}
-                className="input input-bordered bg-input-colors w-2/6"
+                className="input input-bordered bg-navbar-color w-2/6"
               />
             </div>
             <div className="project-links-container__figma flex justify-between">
@@ -368,7 +368,7 @@ export const ProjectEditField = ({
                 name="figma_link"
                 value={figma_link}
                 onChange={handleInputChange}
-                className="input input-bordered bg-input-colors w-2/6"
+                className="input input-bordered bg-navbar-color w-2/6"
               />
             </div>
             <div className="project-links-container__trello flex justify-between">
@@ -379,7 +379,7 @@ export const ProjectEditField = ({
                 name="trello_link"
                 value={trello_link}
                 onChange={handleInputChange}
-                className="input input-bordered bg-input-colors w-2/6"
+                className="input input-bordered bg-navbar-color w-2/6"
               />
             </div>
           </div>
@@ -387,7 +387,7 @@ export const ProjectEditField = ({
 
         <div className="flex justify-end mt-10">
           <button
-            className="btn btn-primary w-auto h-14 self-end"
+            className="btn bg-website-purple hover:bg-website-purple-hover text-white text-base rounded-full w-auto h-14 self-end border-none"
             disabled={projectEditing}
           >
             {projectEditing ? "Saving changes..." : "Apply Changes"}
