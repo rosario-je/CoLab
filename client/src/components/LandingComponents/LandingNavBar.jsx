@@ -26,7 +26,7 @@ export const LandingNavBar = ({
                 onClick={() => {
                   navigate("/signin");
                 }}
-                className="btn bg-landing-signin-button/80 rounded-full text-base text-white border-2 border-white border-opacity-40 hover:border-white hover:border-opacity-40 hover:bg-landing-gradient-two/70" 
+                className="btn bg-landing-signin-button/90 rounded-full text-base text-white border-2 border-white border-opacity-40 hover:border-white hover:border-opacity-40 hover:bg-landing-gradient-two/70" 
               >
                 <h2>Sign In</h2>
               </div>

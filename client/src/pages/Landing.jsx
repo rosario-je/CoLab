@@ -29,7 +29,7 @@ export const Landing = ({ currentUser, handleLogout }) => {
             onClick={() => {
               navigate("/signin");
             }}
-            className="btn w-80 bg-landing-signin-button/80 rounded-full text-base text-white border-2 border-white border-opacity-40 hover:border-white hover:border-opacity-40 hover:bg-landing-gradient-two/70"
+            className="btn w-80 bg-landing-signin-button/90 rounded-full text-base text-white border-2 border-white border-opacity-40 hover:border-white hover:border-opacity-40 hover:bg-landing-gradient-two/70"
           >
             <h1>Get started</h1>
           </button>
@@ -101,7 +101,7 @@ export const Landing = ({ currentUser, handleLogout }) => {
             onClick={() => {
               navigate("/signin");
             }}
-            className="btn w-80 bg-landing-signin-button/80 rounded-full text-base text-white border-2 border-white border-opacity-40 hover:border-white hover:border-opacity-40 hover:bg-landing-gradient-two/70"
+            className="btn w-80 bg-landing-signin-button/90 rounded-full text-base text-white border-2 border-white border-opacity-40 hover:border-white hover:border-opacity-40 hover:bg-landing-gradient-two/70"
           >
             <h1>Get started</h1>
           </button>

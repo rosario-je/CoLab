@@ -50,14 +50,14 @@ export const EditProjectTechStackModal = ({
             Add
           </button>
         </div>
-        <div className="flex flex-wrap mt-10 gap-5">
+        <div className="flex flex-wrap mt-10 gap-2">
           {tech_requirements.map((tech, index) => (
             <div
               key={index}
-              className="bg-website-purple text-white px-2 py-1 rounded-md cursor-pointer h-1/5 hover:bg-reject"
+              className="bg-confirm text-white px-2 py-3 rounded-md text-base font-semibold cursor-pointer h-1/5 hover:bg-reject"
               onClick={() => handleRemoveTech(index)}
             >
-              {tech}
+              <span className="h-3 p-3 capitalize">{tech}</span>
             </div>
           ))}
         </div>
