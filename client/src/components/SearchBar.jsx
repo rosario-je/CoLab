@@ -21,7 +21,6 @@ export const SearchBar = ({ handleSearch }) => {
           onChange={(e) => setQuery(e.target.value)}
           onKeyPress={onKeyPress}
         />
-        <i className="fa-solid fa-bars mr-10"></i>
       </label>
     </div>
   );
