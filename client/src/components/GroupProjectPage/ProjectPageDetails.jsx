@@ -65,7 +65,7 @@ export const ProjectPageDetails = ({ project, fetchProject }) => {
 
   return (
     <div className="project-container flex flex-col grow mt-3.5">
-      <div className="project-details-container flex flex-row px-6 justify-between border-b-2 border-project-border/25 h-auto items-center  backdrop-blur-xl bg-project-left-menu/30 fixed  top-20 z-10 left-[300px] right-[300px]">
+      <div className="project-details-container flex flex-row px-6 justify-between border-b-2 border-project-border/25 h-auto items-center  backdrop-blur-xl bg-alt-grey/75 fixed  top-20 z-10 left-[300px] right-[300px]">
         <div className="flex flex-col gap-y-6">
           {name && (
             <div className="project-title">
