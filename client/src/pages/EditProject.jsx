@@ -22,7 +22,6 @@ export const EditProject = ({
     tech_names: [],
   });
 
-  const userId = currentUser.id;
   const { projectId } = useParams();
 
   useEffect(() => {
@@ -30,7 +29,7 @@ export const EditProject = ({
       try {
         const response = await axios.get(`/api/projects/${projectId}`);
         setProject(response.data);  // Correct function name
-        console.log("Project: ", response.data);
+        // console.log("Project: ", response.data);
       } catch (error) {
         console.error("Error getting the project", error.message);
       }

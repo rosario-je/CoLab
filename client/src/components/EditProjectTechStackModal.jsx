@@ -3,13 +3,14 @@ import React, { useState } from "react";
 export const EditProjectTechStackModal = ({
   handleTechStacksModal,
   handleAddTech,
-  tech_names,
+  tech_requirements,
   setTechRequirements,
 }) => {
   const [newTech, setNewTech] = useState("");
 
   const handleRemoveTech = (index) => {
-    const updatedTechRequirements = techRequirements.filter(
+    console.log("PPPPPPPPPPPPPPPPPPPPPPPPPPP", index) 
+    const updatedTechRequirements = tech_requirements.filter(
       (_, i) => i !== index
     );
     setTechRequirements(updatedTechRequirements);
@@ -30,6 +31,7 @@ export const EditProjectTechStackModal = ({
           <input
             type="text"
             placeholder="Search Language"
+            name="tech_names"
             value={newTech}
             onChange={(e) => setNewTech(e.target.value)}
             className="input input-bordered w-full max-w-xs ml-10 mt-4"
@@ -49,7 +51,7 @@ export const EditProjectTechStackModal = ({
           </button>
         </div>
         <div className="flex flex-wrap mt-10 gap-5">
-          {tech_names.map((tech, index) => (
+          {tech_requirements.map((tech, index) => (
             <div
               key={index}
               className="bg-website-purple text-white px-2 py-1 rounded-md cursor-pointer h-1/5 hover:bg-red"

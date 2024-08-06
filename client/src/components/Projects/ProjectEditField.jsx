@@ -9,19 +9,29 @@ export const ProjectEditField = ({
   project,
 }) => {
   const [projectEditing, setProjectEditing] = useState(false);
-  const [projectData, setProjectData] = useState({});
+  const [projectData, setProjectData] = useState(project);
+  console.log("====================", projectData);
 
   const {
+    project_id,
     name,
     description,
     max_participants,
     cover_photo_path,
-    githubRepo,
-    figmaLink,
-    trelloLink,
+    github_repo,
+    figma_link,
+    trello_link,
     newPicture,
     tech_requirements: tech_names,
   } = project;
+
+  console.log(
+    "+++++++++++++++++++++++++++++++++++++++++++++++++++++",
+    projectData.tech_requirements
+  );
+  useEffect(() => {
+    setProjectData(project);
+  }, [project]);
 
   const maxChars = 300;
   const navigate = useNavigate();
@@ -42,9 +52,10 @@ export const ProjectEditField = ({
     if (techLanguage.trim() !== "") {
       setProjectData((prevData) => ({
         ...prevData,
-        tech_names: [...prevData.tech_names, techLanguage],
+        tech_requirements: [...prevData.tech_requirements, techLanguage],
       }));
     }
+    console.log("TECH: ", projectData);
   };
 
   const isValidImageUrl = (url) => {
@@ -71,58 +82,82 @@ export const ProjectEditField = ({
   };
 
   const validateLink = (link, baseUrl) => {
-    if (link.startsWith("/") && !link.startsWith(baseUrl)) {
-      return `${baseUrl}${link}`;
+    if (link.startsWith(baseUrl)) {
+      return link;
     }
-    return null;
   };
 
   const editProject = async (e) => {
     e.preventDefault();
+    console.log(e.target.elements);
+    const {
+      name,
+      description,
+      max_participants,
+      cover_photo_path,
+      github_repo,
+      figma_link,
+      trello_link,
+    } = e.target.elements;
+
+    const bodyPayload = {
+      name: name.value,
+      description: description.value,
+      max_participants: max_participants.value,
+      cover_photo_path: cover_photo_path.value,
+      github_repo: github_repo.value,
+      figma_link: figma_link.value,
+      trello_link: trello_link.value,
+      // newPicture: newPicture.value,
+      tech_requirements: projectData.tech_requirements,
+    };
+
+    // console.log("BODY PAYLOAD: ", bodyPayload);
     try {
       setProjectEditing(true);
 
       // Validate and prepend base URLs
-      const githubRepo = validateLink(
-        projectData.githubRepo,
+      const validatedGithub_repo = validateLink(
+        github_repo.value,
         "https://github.com"
       );
-      const figmaLink = validateLink(
-        projectData.figmaLink,
-        "https://www.figma.com"
+      const validatedFigma_link = validateLink(
+        figma_link.value,
+        "https://figma.com"
       );
-      const trelloLink = validateLink(
-        projectData.trelloLink,
+      const validatedTrello_link = validateLink(
+        trello_link.value,
         "https://trello.com"
       );
 
-      if (!githubRepo || !figmaLink || !trelloLink) {
+      if (
+        !validatedGithub_repo ||
+        !validatedFigma_link ||
+        !validatedTrello_link
+      ) {
         alert(
-          "Please enter valid links starting with '/' and ensure they do not contain the base URL."
+          "Please enter valid links starting with 'https' and ensure they do not contain the base URL."
         );
         setProjectEditing(false);
         return;
       }
 
-      const project = await axios.post("/api/projects/create", {
-        ...projectData,
-        githubRepo,
-        figmaLink,
-        trelloLink,
-      });
+      console.log("LINE 145", bodyPayload);
+      const updateResponse = await axios.put(
+        `/api/projects/${project_id}/edit`,
+        bodyPayload // Correct variable name
+      );
 
-      consol.log(tech_names);
+      // console.log("AFTER PATCH ROUTE", updateResponse.data);
 
-      const {
-        projectData: { id: projectId, owner_id: ownerId },
-      } = project.data;
+      const { id, owner_id } = updateResponse.data.project;
 
       setTimeout(() => {
         setProjectEditing(false);
-        navigate(`/${ownerId}/project/${projectId}`);
+        navigate(`/${owner_id}/project/${id}`);
       }, 3000);
     } catch (error) {
-      console.error("Error editing project:", error.response.data);
+      console.error("Error editing project:", error.message, error.stack);
     }
   };
 
@@ -132,14 +167,15 @@ export const ProjectEditField = ({
         <div className="project-loading-animation fixed z-20 h-screen w-screen bg-slate-800/80 backdrop-blur-md top-10">
           <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-4/5 max-w-screen-md">
             <h2 className="text-center mb-4 font-bold text-4xl">
-            Saving changes...
+              Saving changes...
             </h2>
             <progress className="block mx-auto progress w-full"></progress>
           </div>
         </div>
       )}
 
-      <section className="flex flex-col h-full w-full justify-around">
+      <form className="flex flex-col h-full w-full justify-around" onSubmit={editProject}>
+
         {/* PROJECT TITLE */}
         <div className="project-title flex justify-between py-4 mt-5 mb-10">
           <div className="w-auto">
@@ -152,7 +188,7 @@ export const ProjectEditField = ({
               name="name"
               placeholder="Title"
               className="input input-bordered bg-input-colors w-96"
-              value={name}
+              value={projectData.name}
               onChange={handleInputChange}
               required
             />
@@ -163,9 +199,9 @@ export const ProjectEditField = ({
           <EditProjectTechStackModal
             handleTechStacksModal={handleTechStacksModal}
             handleAddTech={handleAddTech}
-            tech_names={tech_names}
-            setTechRequirements={(tech_names) =>
-              setProjectData((prevData) => ({ ...prevData, tech_names }))
+            tech_requirements={projectData.tech_requirements}
+            setTechRequirements={(tech_requirements) =>
+              setProjectData((prevData) => ({ ...prevData, tech_requirements }))
             }
           />
         )}
@@ -180,12 +216,12 @@ export const ProjectEditField = ({
             <textarea
               className="textarea textarea-bordered min-h-[150px] min-w-[50px] bg-input-colors resize-none mb-5 self-center w-96"
               placeholder="Description..."
-              value={description}
+              value={projectData.description}
               onChange={handleDescriptionChange}
               name="description"
             ></textarea>
             <h6 className="text-input-value">
-              {maxChars - description.length}
+              {maxChars - projectData.description.length}
             </h6>
           </div>
         </div>
@@ -209,6 +245,7 @@ export const ProjectEditField = ({
               <option value="" disabled>
                 Capacity
               </option>
+
               <option value="1">1</option>
               <option value="2">2</option>
               <option value="3">3</option>
@@ -226,12 +263,18 @@ export const ProjectEditField = ({
           <div className="tech-stack-select w-auto gap-y-3">
             <button
               className="btn btn-ghost hover:bg-input-colors text-lg group mr-5 mb-5"
+              type="button"
               onClick={handleTechStacksModal}
             >
               <i className="fa-solid fa-plus group-hover:animate-spin group-hover:text-white group-hover:drop-shadow-white-glow"></i>
               Add
             </button>
-            <h2>({tech_names && tech_names.length}) Selected</h2>
+            <h2>
+              (
+              {projectData.tech_requirements &&
+                projectData.tech_requirements.length}
+              ) Selected
+            </h2>
           </div>
         </div>
 
@@ -245,6 +288,7 @@ export const ProjectEditField = ({
             </h6>
             {cover_photo_path && (
               <button
+                type="button"
                 className="text-white mt-5 btn hover:bg-red text-lg group mr-5"
                 onClick={handleRemoveCoverPhoto}
               >
@@ -258,11 +302,14 @@ export const ProjectEditField = ({
               <>
                 <input
                   type="url"
+                  name="cover_photo_path"
+                  value={cover_photo_path}
                   placeholder="Delete picture file first"
                   className="input input-bordered bg-disabled-input w-full"
                   disabled
                 />
                 <button
+                  type="button"
                   className="btn bg-disabled-input text-white w-1/2"
                   disabled
                 >
@@ -274,12 +321,13 @@ export const ProjectEditField = ({
                 <input
                   type="url"
                   placeholder="Enter image URL"
-                  name="newPicture"
+                  name="cover_photo_path"
                   value={newPicture}
                   onChange={handleInputChange}
                   className="input input-bordered bg-input-colors w-full"
                 />
                 <button
+                  type="button"
                   className="btn bg-slate-600 text-white w-1/2"
                   onClick={handleAddCoverPhoto}
                 >
@@ -306,8 +354,8 @@ export const ProjectEditField = ({
               <input
                 type="text"
                 placeholder="/<username>/<repo>"
-                name="githubRepo"
-                value={githubRepo}
+                name="github_repo"
+                value={github_repo}
                 onChange={handleInputChange}
                 className="input input-bordered bg-input-colors w-2/6"
               />
@@ -317,8 +365,8 @@ export const ProjectEditField = ({
               <input
                 type="text"
                 placeholder="/Figma Link"
-                name="figmaLink"
-                value={figmaLink}
+                name="figma_link"
+                value={figma_link}
                 onChange={handleInputChange}
                 className="input input-bordered bg-input-colors w-2/6"
               />
@@ -328,8 +376,8 @@ export const ProjectEditField = ({
               <input
                 type="text"
                 placeholder="/Trello link"
-                name="trelloLink"
-                value={trelloLink}
+                name="trello_link"
+                value={trello_link}
                 onChange={handleInputChange}
                 className="input input-bordered bg-input-colors w-2/6"
               />
@@ -339,14 +387,13 @@ export const ProjectEditField = ({
 
         <div className="flex justify-end mt-10">
           <button
-            onClick={editProject}
             className="btn btn-primary w-auto h-14 self-end"
             disabled={projectEditing}
           >
-            {projectEditing ? "Creating..." : "Create Project"}
+            {projectEditing ? "Saving changes..." : "Apply Changes"}
           </button>
         </div>
-      </section>
+      </form>
     </>
   );
 };

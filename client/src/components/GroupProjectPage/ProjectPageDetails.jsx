@@ -20,6 +20,8 @@ export const ProjectPageDetails = ({ project }) => {
     chat,
   } = project;
 
+  console.log(tech_requirements);
+
   return (
     <div className="project-chat-details-container flex flex-col grow mt-3.5">
       <div className="flex flex-row w-full p-9 justify-between border-b-2 border-slate-700 h-auto items-center fixed pr-[650px] z-10 backdrop-blur-xl bg-project-left-menu/30">
@@ -39,7 +41,8 @@ export const ProjectPageDetails = ({ project }) => {
               </p>
             ))}
         </div>
-        <div className="project-participants-avatars avatar-group flex flex-row flex-end gap-x-3">
+        <div className="h-[150px] project-participants-avatars avatar-group flex flex-row flex-end gap-x-3">
+          <div className="h-full flex justify-center items-end pb-7">
           <OwnerProjectAvatar
             key={owner_id}
             owner={owner_email}
@@ -54,6 +57,8 @@ export const ProjectPageDetails = ({ project }) => {
                 participant={participant}
               />
             ))}
+
+          </div>
         </div>
       </div>
       <div className="chat-main-container relative flex-grow mb-16">

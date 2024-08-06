@@ -1,4 +1,4 @@
-import db from '../connection.js';
+import db from "../connection.js";
 
 // This gets all the projects for the main dashboard
 // COALESCE is used to return an empty array if there are no participants
@@ -241,24 +241,41 @@ const getProjectsIAmInById = async (project_ids) => {
     return data.rows;
   } catch (error) {
     console.log(error);
-  };
+  }
 };
 
 // This creates a new project
-const createNewProject = async (name, description, user_id, max_participants, cover_photo_path, github_repo, figma_link, trello_link) => {
+const createNewProject = async (
+  name,
+  description,
+  user_id,
+  max_participants,
+  cover_photo_path,
+  github_repo,
+  figma_link,
+  trello_link
+) => {
   try {
     const data = await db.query(
       `INSERT INTO projects (name, description, owner_id, max_participants, cover_photo_path, github_repo, figma_link, trello_link)
       VALUES ($1, $2, $3, $4, $5, $6, $7, $8)
       RETURNING *`,
-      [name, description, user_id, max_participants, cover_photo_path, github_repo, figma_link, trello_link]
+      [
+        name,
+        description,
+        user_id,
+        max_participants,
+        cover_photo_path,
+        github_repo,
+        figma_link,
+        trello_link,
+      ]
     );
     return data.rows[0];
   } catch (error) {
     console.log(error);
   }
 };
-
 
 // This gets all the data for a single project, minus the chat history
 const getProjectPage = async (project_id) => {
@@ -268,6 +285,7 @@ const getProjectPage = async (project_id) => {
         p.id AS project_id,
         p.name,
         p.description,
+        p.max_participants,
         p.owner_id,
         owner.username AS owner_username,
         owner.profile_pic AS owner_pic,
@@ -296,7 +314,7 @@ const getProjectPage = async (project_id) => {
         LEFT JOIN users participant ON par.participant_id = participant.id
       WHERE p.id = $1
       GROUP BY
-        p.id, p.name, p.description, p.owner_id, owner.username, owner.profile_pic, owner.email, p.cover_photo_path, p.github_repo, p.figma_link, p.trello_link, c.id;
+        p.id, p.name, p.description, p.max_participants, p.owner_id, owner.username, owner.profile_pic, owner.email, p.cover_photo_path, p.github_repo, p.figma_link, p.trello_link, c.id;
       `,
       [project_id]
     );
@@ -366,6 +384,64 @@ const projectCompleted = async (project_id) => {
   }
 };
 
+// Edit a project
+const editProject = async (
+  project_id,
+  name,
+  description,
+  max_participants,
+  cover_photo_path,
+  github_repo,
+  figma_link,
+  trello_link,
+  tech_requirements,
+) => {
+  try {
+    await techReqHandler(project_id, tech_requirements);
+    const data = await db.query(
+      `UPDATE projects
+      SET name = $2, description = $3, max_participants = $4, cover_photo_path = $5, github_repo = $6, figma_link = $7, trello_link = $8
+      WHERE id = $1
+      RETURNING *`,
+      [
+        project_id,
+        name,
+        description,
+        max_participants,
+        cover_photo_path,
+        github_repo,
+        figma_link,
+        trello_link,
+      ]
+    );
+    return data.rows[0];
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+// deletes all tech requirements in the array for a project and then adds the new one back in with the ones that were previously there
+const techReqHandler = async (project_id, tech_requirements) => {
+  try {
+    await db.query(
+      `DELETE FROM tech_requirements WHERE project_id = $1`,
+      [project_id]
+    );
+
+    for (const tech_name of tech_requirements) {
+      await db.query(
+        `INSERT INTO tech_requirements (project_id, tech_name)
+        VALUES ($1, $2)
+        RETURNING *`,
+        [project_id, tech_name]
+      );
+    }
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+
 // Update cover_photo_path
 const updateCoverPhoto = async (project_id, cover_photo_path) => {
   try {
@@ -377,8 +453,7 @@ const updateCoverPhoto = async (project_id, cover_photo_path) => {
       [project_id, cover_photo_path]
     );
     return data.rows[0];
-  }
-  catch (error) {
+  } catch (error) {
     console.log(error);
   }
 };
@@ -394,8 +469,7 @@ const updateGithubRepo = async (project_id, github_repo) => {
       [project_id, github_repo]
     );
     return data.rows[0];
-  }
-  catch (error) {
+  } catch (error) {
     console.log(error);
   }
 };
@@ -411,8 +485,7 @@ const updateFigmaLink = async (project_id, figma_link) => {
       [project_id, figma_link]
     );
     return data.rows[0];
-  }
-  catch (error) {
+  } catch (error) {
     console.log(error);
   }
 };
@@ -420,35 +493,34 @@ const updateFigmaLink = async (project_id, figma_link) => {
 // Update trello_link
 const updateTrelloLink = async (project_id, trello_link) => {
   try {
-    const
-      data = await db.query(
-        `UPDATE projects
+    const data = await db.query(
+      `UPDATE projects
       SET trello_link = $2
       WHERE id = $1
       RETURNING *`,
-        [project_id, trello_link]
-      );
+      [project_id, trello_link]
+    );
     return data.rows[0];
-  }
-  catch (error) {
+  } catch (error) {
     console.log(error);
   }
 };
 
-export { 
-  getAllProjects, 
-  createNewProject, 
-  getProjectPage, 
-  getProjectsIdsIAmIn, 
-  getProjectsIAmInById, 
-  getProjectsOwnedByMe, 
-  getProjectById, 
-  getPendingJoinRequests, 
-  projectFull, 
-  getAllProjectsById, 
+export {
+  getAllProjects,
+  createNewProject,
+  getProjectPage,
+  getProjectsIdsIAmIn,
+  getProjectsIAmInById,
+  getProjectsOwnedByMe,
+  getProjectById,
+  getPendingJoinRequests,
+  projectFull,
+  getAllProjectsById,
   projectCompleted,
+  editProject,
   updateCoverPhoto,
   updateGithubRepo,
   updateFigmaLink,
-  updateTrelloLink
+  updateTrelloLink,
 };
