@@ -1,12 +1,23 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 
-export const UserMenuProject = (props) => {
+export const UserMenuProject = ({ project, currentUser }) => {
+  const navigate = useNavigate();
+    
   return (
-    <li className="group">
+    <li
+      onClick={() => navigate(`/${currentUser}/project/${project.project_id}`)}
+      className="group"
+    >
       <a className="flex items-center">
-        <i className="fa-regular fa-square text-2xl group-hover:animate-sideToSide group-hover:text-icon-purple group-hover:drop-shadow-white-glow mr-2"></i>
-        {props.projectName}
+        <img
+          className="rounded-full w-14 h-14"
+          src={project.cover_photo_path}
+          alt={project.name}
+        />
+        <h2 className="text-lg">{project.name}</h2>
       </a>
     </li>
   );
 };
+
