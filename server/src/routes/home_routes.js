@@ -3,6 +3,7 @@ import { getAllProjects, getProjectsOwnedByMe, getProjectsIAmInById, getProjects
 import { getTechByName } from '../db/queries/tech_queries.js';
 import { getAllJoinRequests, isUserOwner, approveJoinRequest, addUserToProject, rejectJoinRequest } from '../db/queries/user_queries.js';
 import { getNotifications, dismissNotification, sendProjectNotification } from '../db/queries/chat_queries.js';
+import { io } from '../server_index.js';
 
 const router = express.Router();
 
@@ -102,6 +103,13 @@ router.post('/manage_requests/approve_join_request', async (req, res) => {
     const addToProject = await addUserToProject(project_id, requesting_user_id);
     const message = `Your request to join project ${project.name} has been approved!`;
     const sendmsg = await sendProjectNotification(user_id, requesting_user_id, message);
+    io.to(requesting_user_id).emit("receiveNotification", {
+      message,
+      project_id,
+      requesting_user_id,
+    });
+    console.log('Accept request:', sendmsg);
+
 
     res.status(201).json({
       message: sendmsg,
@@ -131,6 +139,14 @@ router.delete('/manage_requests/reject_join_request', async (req, res) => {
     }
     const message = `Your request to join project ${project.name} has been rejected.`;
     const sendmsg = await sendProjectNotification(user_id, requesting_user_id, message);
+    
+    io.to(requesting_user_id).emit("receiveNotification", {
+      message,
+      project_id,
+      requesting_user_id,
+    });
+    console.log("rejectRequest:", sendmsg);
+
     res.status(201).json({
       message: sendmsg,
       data: rejectRequest
