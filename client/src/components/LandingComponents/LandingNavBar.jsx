@@ -31,9 +31,10 @@ export const LandingNavBar = ({
                 <h2>Sign In</h2>
               </div>
             ) : (
-                <div className="btn btn-xs sm:btn-sm md:btn-md lg:btn-lg">
-                  <button onClick={handleLogout}>Logout</button>
-                </div>
+              <div className="btn bg-landing-signin-button/90 rounded-full text-base text-white border-2 border-white border-opacity-40 hover:border-white hover:border-opacity-40 hover:bg-landing-gradient-two/70">
+                <button onClick={handleLogout}>Logout </button>
+                <i className="fa-solid fa-arrow-right-from-bracket"></i>
+              </div>
             )}
           </div>
         </div>

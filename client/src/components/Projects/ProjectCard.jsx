@@ -92,11 +92,11 @@ export const ProjectCard = ({ currentUserId, project, fetchProjects, page }) => 
                     </>
                   ) : (
                     <>
-                      <button className="bg-icon-purple text-white text-base hover:bg-icon-purple-hover rounded-full w-[150px] p-1 font-semibold" onClick={() => {
+                      {/* <button className="bg-icon-purple text-white text-base hover:bg-icon-purple-hover rounded-full w-[150px] p-1 font-semibold" onClick={() => {
                           navigate(`/${currentUserId}/project/${project_id}/edit`);
                         }}>
                         Edit
-                      </button>
+                      </button> */}
                       <h3 className="font-semibold text-confirm text-lg ml-2 ">
                         Completed
                       </h3>
