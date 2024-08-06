@@ -35,26 +35,27 @@ router.get('/:userId/my_projects', async (req, res) => {
 });
 
 // Complete a project you own
-// http://localhost:8080/api/dashboard/my_projects/:project_id
-router.put('/my_projects/:project_id', async (req, res) => {
+// http://localhost:8080/api/projects/:project_id/complete
+router.patch('/projects/:project_id/complete', async (req, res) => {
   const { id: user_id } = req.session.user;
-  const { project_id } = req.params;
+  const { project_id } = req.params; // Extract project_id from req.params
   try {
     const isCurrentUserOwner = await isUserOwner(user_id, project_id);
     if (!isCurrentUserOwner) {
       return res.status(403).json({ error: "Unauthorized to complete this project" });
     }
     const completeProject = await projectCompleted(project_id);
+    console.log(projectCompleted)
     return res.status(200).json({
       message: "Project Completed!",
       data: completeProject
     });
-
   } catch (error) {
-    console.error("Error in getting user projects: ", error.message);
+    console.error("Error in completing project: ", error.message);
     res.status(500).json({ error: "Internal server error" });
   }
 });
+
 
 // View all join requests for projects you own
 // http://localhost:8080/api/dashboard/manage_requests

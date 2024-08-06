@@ -12,17 +12,18 @@ export const Dashboard = ({ handleCoLabHome, currentUser, handleLogout }) => {
   const [allProjects, setAllProjects] = useState([]);
   const userId = currentUser.id;
 
+  const fetchProjects = async () => {
+    try {
+      const projectData = await axios.get("/api/dashboard/projects");
+      setProjects(projectData.data);
+      setAllProjects(projectData.data);
+      //console.log("Projects: ", projectData.data);
+    } catch (error) {
+      console.error("Error in getting projects: ", error.message);
+    }
+  };
+
   useEffect(() => {
-    const fetchProjects = async () => {
-      try {
-        const projectData = await axios.get("/api/dashboard/projects");
-        setProjects(projectData.data);
-        setAllProjects(projectData.data);
-        //console.log("Projects: ", projectData.data);
-      } catch (error) {
-        console.error("Error in getting projects: ", error.message);
-      }
-    };
     fetchProjects();
   }, []);
 
@@ -60,6 +61,7 @@ export const Dashboard = ({ handleCoLabHome, currentUser, handleLogout }) => {
                 page="dashboard"
                 currentUserId={userId}
                 project={project}
+                fetchProjects={fetchProjects}
               />
             ))}
           </div>

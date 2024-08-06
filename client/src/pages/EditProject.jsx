@@ -1,0 +1,60 @@
+import React, { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
+import axios from "axios";
+import { Navbar } from "../components/Navbar";
+import { UserLeftMenu } from "../components/UserLeftMenu";
+import { UserRightMenu } from "../components/UserRightMenuComponents/UserRightMenu";
+import { ProjectEditField } from "../components/Projects/ProjectEditField";
+
+export const EditProject = ({
+  handleTechStacksModal,
+  techModal,
+  currentUser,
+}) => {
+  const [project, setProject] = useState({
+    name: "",
+    description: "",
+    max_participants: 1,
+    cover_photo_path: "",
+    githubRepo: "",
+    figmaLink: "",
+    trelloLink: "",
+    tech_names: [],
+  });
+
+  const { projectId } = useParams();
+
+  useEffect(() => {
+    const fetchProject = async () => {
+      try {
+        const response = await axios.get(`/api/projects/${projectId}`);
+        setProject(response.data);  // Correct function name
+        // console.log("Project: ", response.data);
+      } catch (error) {
+        console.error("Error getting the project", error.message);
+      }
+    };
+    if (projectId) {
+      fetchProject();
+    }
+  }, [projectId]);
+
+  return (
+    <div className="flex flex-col h-screen mx-72">
+      <Navbar currentUser={currentUser} />
+      <div className="flex flex-1 mt-16">
+        <UserLeftMenu currentUser={currentUser} />
+        <div className="flex flex-col w-full h-full bg-project-background overflow-hidden">
+          <div className="flex-grow flex justify-center h-full mx-10 my-5">
+            <ProjectEditField
+              handleTechStacksModal={handleTechStacksModal}
+              techModal={techModal}
+              project={project}  
+            />
+          </div>
+        </div>
+        <UserRightMenu />
+      </div>
+    </div>
+  );
+};

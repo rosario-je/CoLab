@@ -58,7 +58,7 @@ export const UserLeftMenu = ({ currentUser }) => {
                   }}
                 >
                   <div className="icon-container relative">
-                    <i className="fa-solid fa-bell group-hover:animate-bounceSlow group-hover:text-icon-purple group-hover:drop-shadow-white-glow mr-0.5"></i>
+                    <i className="fa-solid fa-envelope group-hover:animate-bounceSlow group-hover:text-icon-purple group-hover:drop-shadow-white-glow mr-0.5"></i>
                     {/* {requests.length > 0 && ( */}
                       <div className="badge bg-confirm badge-xs absolute -top-1 -right-1 border-confirm" />
                     {/* )} */}
