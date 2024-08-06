@@ -56,7 +56,7 @@ export const ProjectCard = ({ currentUserId, project, fetchProjects, page }) => 
   };
 
   return (
-    <div className="card bg-navbar-color w-full shadow-xl border-solid border-2 border-project-border/25 text-text-color my-8">
+    <div className="card bg-navbar-color w-full shadow-xl border-solid border-2 border-project-border/25 text-text-color/90 my-8">
       <div className="card-body h-auto">
         <div className="top-project-card-container flex justify-between items-center mb-5">
           <div className="project-details-1 flex space-x-6">
@@ -76,7 +76,7 @@ export const ProjectCard = ({ currentUserId, project, fetchProjects, page }) => 
                   {is_in_progress ? (
                     <>
                       <button
-                        className="bg-website-purple text-white text-2xl hover:bg-create rounded-full w-[150px] p-1 font-semibold"
+                        className="bg-website-purple text-white text-base hover:bg-website-purple-hover rounded-full w-[150px] p-1 font-semibold"
                         onClick={() => {
                           navigate(`/${currentUserId}/project/${project_id}/edit`);
                         }}
@@ -84,7 +84,7 @@ export const ProjectCard = ({ currentUserId, project, fetchProjects, page }) => 
                         Edit
                       </button>
                       <button
-                        className="bg-grey text-royal-yellow text-2xl hover:bg-royal-yellow hover:text-grey rounded-full w-[150px] p-1 font-semibold"
+                        className="bg-website-purple text-white text-base hover:bg-website-purple-hover rounded-full w-[150px] p-1 font-semibold"
                         onClick={handleCompleteProject}
                       >
                         Complete
@@ -92,12 +92,12 @@ export const ProjectCard = ({ currentUserId, project, fetchProjects, page }) => 
                     </>
                   ) : (
                     <>
-                      <button className="bg-website-purple text-white text-2xl hover:bg-create rounded-full w-[150px] p-1 font-semibold" onClick={() => {
+                      <button className="bg-website-purple text-white text-base hover:bg-website-purple-hover rounded-full w-[150px] p-1 font-semibold" onClick={() => {
                           navigate(`/${currentUserId}/project/${project_id}/edit`);
                         }}>
                         Edit
                       </button>
-                      <h3 className="font-semibold text-royal-yellow text-2xl ml-2 ">
+                      <h3 className="font-semibold text-confirm text-lg ml-2 ">
                         Completed
                       </h3>
                     </>
@@ -106,11 +106,11 @@ export const ProjectCard = ({ currentUserId, project, fetchProjects, page }) => 
               ) : (
                 <>
                   <h3 className="font-semibold mt-5">
-                    <span className="text-icon-purple text-xl">Creator:</span>@
-                      <span className="text-base text-text-color">{owner_username} </span>
+                    <span className="text-icon-purple text-xl">Creator: </span>@
+                      <span className="text-base text-text-color/90">{owner_username} </span>
                   </h3>
                   {!is_in_progress && (
-                    <h3 className="font-bold text-royal-yellow text-lg mt-3">
+                    <h3 className="font-semibold text-confirm text-lg mt-3">
                       Completed
                     </h3>
                   )}

@@ -44,7 +44,7 @@ export const JoinRequestListItems = ({
 
   return (
     <>
-      <div className="card bg-navbar-color text-text-color w-11/12 my-10 border-2 border-project-border/25">
+      <div className="card bg-navbar-color text-text-color/90 w-11/12 my-10 border-2 border-project-border/25">
         <div className="card-body items-center text-center flex flex-col justify-center gap-[20px]">
           <h2 className="requested-user self-start text-2xl font-semibold">
             @{requester_username}
