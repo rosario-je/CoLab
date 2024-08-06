@@ -11,7 +11,7 @@ export const ProjectIcon = ({ project, currentUser }) => {
       data-tip={project.name}
     >
       <img
-        className="rounded-2xl w-24 h-24 object-cover hover:border-2"
+        className="rounded-2xl w-24 h-24 object-cover border-4 border-website-purple hover:border-website-purple-hover"
         src={project.cover_photo_path}
         alt={project.name}
       />
