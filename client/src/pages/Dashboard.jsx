@@ -7,7 +7,10 @@ import { UserRightMenu } from "../components/UserRightMenuComponents/UserRightMe
 import { SearchBar } from "../components/SearchBar";
 import { ProjectCard } from "../components/Projects/ProjectCard";
 
+import { Skeletons } from "../components/LoadingComponents/Skeletons";
+
 export const Dashboard = ({ handleCoLabHome, currentUser, handleLogout }) => {
+  const [fetchingProjects, setFetchingProjects] = useState(true);
   const [projects, setProjects] = useState([]);
   const [allProjects, setAllProjects] = useState([]);
   const userId = currentUser.id;
@@ -18,6 +21,9 @@ export const Dashboard = ({ handleCoLabHome, currentUser, handleLogout }) => {
         const projectData = await axios.get("/api/dashboard/projects");
         setProjects(projectData.data);
         setAllProjects(projectData.data);
+        setTimeout(() => {
+          setFetchingProjects(false)
+        }, 400)
         //console.log("Projects: ", projectData.data);
       } catch (error) {
         console.error("Error in getting projects: ", error.message);
@@ -52,14 +58,18 @@ export const Dashboard = ({ handleCoLabHome, currentUser, handleLogout }) => {
             <SearchBar handleSearch={handleSearch} />
           </div>
           <div className="flex flex-col grow justify-center overflow-y-auto mx-72 mt-16 px-10 h-max">
-            {projects.map((project) => (
-              <ProjectCard
-                key={project.project_id}
-                page="dashboard"
-                currentUserId={userId}
-                project={project}
-              />
-            ))}
+            {fetchingProjects ? (
+              <Skeletons />
+            ) : (
+              projects.map((project) => (
+                <ProjectCard
+                  key={project.project_id}
+                  page="dashboard"
+                  currentUserId={userId}
+                  project={project}
+                />
+              ))
+            )}
           </div>
         </div>
         <UserRightMenu currentUser={currentUser} />
