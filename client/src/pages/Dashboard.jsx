@@ -51,13 +51,13 @@ export const Dashboard = ({ handleCoLabHome, currentUser, handleLogout }) => {
   return (
     <div className="flex flex-col h-screen">
       <Navbar handleCoLabHome={handleCoLabHome} currentUser={currentUser} />
-      <div className="flex mt-16">
+      <div className="flex flex-1 mt-16">
         <UserLeftMenu currentUser={currentUser} />
         <div className="flex flex-col w-full bg-project-background overflow-hidden pt-4">
           <div className="z-10 bg-black">
             <SearchBar handleSearch={handleSearch} />
           </div>
-          <div className="flex flex-col grow justify-center overflow-y-auto mx-72 mt-16 px-10 h-max">
+          <div className="flex flex-col grow justify-center overflow-y-auto mx-72 mt-16 px-10 h-max bg-project-background">
             {fetchingProjects ? (
               <Skeletons />
             ) : (

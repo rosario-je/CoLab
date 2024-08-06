@@ -64,7 +64,7 @@ export const ProjectPageDetails = ({ project, fetchProject }) => {
   };
 
   return (
-    <div className="project-container flex flex-col grow mt-3.5">
+    <div className="project-container flex flex-col grow mt-3.5 bg-alt-grey/75">
       <div className="project-details-container flex flex-row px-6 justify-between border-b-2 border-project-border/25 h-auto items-center  backdrop-blur-xl bg-alt-grey/75 fixed  top-20 z-10 left-[300px] right-[300px]">
         <div className="flex flex-col gap-y-6">
           {name && (
@@ -104,7 +104,7 @@ export const ProjectPageDetails = ({ project, fetchProject }) => {
           </div>
         </div>
       </div>
-      <div className="chat-main-container relative flex-grow mt-[155px] mb-20 bg-alt-grey/75">
+      <div className="chat-main-container relative flex flex-col flex-grow mt-[155px] mb-20 bg-alt-grey h-full justify-end">
         <ProjectGroupChat chat={chat} />
       </div>
       <div className="fixed bottom-0 left-[300px] right-[300px] z-20">
