@@ -69,7 +69,7 @@ export const ProjectPageDetails = ({ project, fetchProject }) => {
         <div className="flex flex-col gap-y-6">
           {name && (
             <div className="project-title">
-              <h1 className="text-text-color font-semibold text-4xl">{name}</h1>
+              <h1 className="text-text-color/90 font-semibold text-4xl">{name}</h1>
             </div>
           )}
           <div className="tech-stack flex flex-row justify-start gap-x-6">
@@ -104,7 +104,7 @@ export const ProjectPageDetails = ({ project, fetchProject }) => {
           </div>
         </div>
       </div>
-      <div className="chat-main-container relative flex flex-col flex-grow mt-[155px] mb-20 bg-alt-grey h-full justify-end">
+      <div className="chat-main-container relative flex flex-col flex-grow mt-[155px] mb-20 bg-alt-grey/75 h-full justify-end">
         <ProjectGroupChat chat={chat} />
       </div>
       <div className="fixed bottom-0 left-[300px] right-[300px] z-20">
