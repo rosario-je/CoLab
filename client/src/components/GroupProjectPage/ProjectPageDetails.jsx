@@ -105,7 +105,7 @@ export const ProjectPageDetails = ({ project, fetchProject }) => {
         </div>
       </div>
       <div className="chat-main-container relative flex-grow mt-32 mb-16">
-        <ProjectGroupChat chat={chat} />
+        <ProjectGroupChat chat={chat}/>
       </div>
       <div className="fixed bottom-0 left-[300px] right-[300px] z-20">
         <div className="message-input w-full py-4 px-11 bg-project-background">
