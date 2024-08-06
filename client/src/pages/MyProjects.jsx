@@ -5,8 +5,10 @@ import { Navbar } from "../components/Navbar";
 import { UserLeftMenu } from "../components/UserLeftMenu";
 import { UserRightMenu } from "../components//UserRightMenuComponents/UserRightMenu";
 import { ProjectCard } from "../components/Projects/ProjectCard";
+import { Skeletons } from "../components/LoadingComponents/Skeletons";
 
 export const MyProjects = ({ handleCoLabHome, currentUser }) => {
+  const [fetchingProjects, setFetchingProjects] = useState(true);
   const [projects, setProjects] = useState([]);
   const userId = currentUser.id;
 
@@ -21,6 +23,9 @@ export const MyProjects = ({ handleCoLabHome, currentUser }) => {
           `/api/dashboard/${userId}/my_projects`
         );
         setProjects(userProjectData.data);
+        setTimeout(() => {
+          setFetchingProjects(false);
+        }, 400);
       } catch (error) {
         console.error("Error in getting user projects: ", error.message);
       }
@@ -35,15 +40,22 @@ export const MyProjects = ({ handleCoLabHome, currentUser }) => {
       <div className="flex flex-1 mt-16">
         <UserLeftMenu currentUser={currentUser} />
 
-        <div className="flex flex-col w-full bg-grey overflow-hidden mx-72 px-10">
-          {projects.map((project) => (
-            <ProjectCard
-              key={project.project_id}
-              page="myprojects"
-              currentUserId={userId}
-              project={project}
-            />
-          ))}
+        <div className="flex flex-col w-full bg-grey overflow-hidden mx-72 px-10 mt-20">
+          <div className="flex bg-menu-colors fixed left-[300px] right-[300px] z-10 top-20 h-[65px] justify-start items-center">
+            <h1 className="text-white text-2xl">My Projects</h1>
+          </div>
+          {fetchingProjects ? (
+            <Skeletons />
+          ) : (
+            projects.map((project) => (
+              <ProjectCard
+                key={project.project_id}
+                page="myprojects"
+                currentUserId={userId}
+                project={project}
+              />
+            ))
+          )}
         </div>
         <UserRightMenu currentUser={currentUser} />
       </div>
