@@ -74,7 +74,7 @@ export const UserLeftMenu = ({ currentUser }) => {
                     navigate(`/${currentUser.id}/notifications`);
                   }}
                 >
-                  <i className="fa-solid fa-comments group-hover:animate-bounceSlow group-hover:text-icon-purple group-hover:drop-shadow-white-glow mr-0.5"></i>
+                  <i className="fa-solid fa-bell group-hover:animate-bounceSlow group-hover:text-icon-purple group-hover:drop-shadow-white-glow mr-0.5"></i>
                   <p>Notifications</p>
                 </a>
               </li>
