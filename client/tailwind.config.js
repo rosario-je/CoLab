@@ -57,12 +57,12 @@ export default {
           "100%": { transform: "translateX(0)" },
         },
         unstableBeaker: {
-          "0%": { transform: "rotate(0deg) translateX(0)" },
-          "25%": { transform: "rotate(25deg) translateX(-7px)" },
-          "50%": { transform: "rotate(0deg) translateX(0)" },
-          "75%": { transform: "rotate(-25deg) translateX(7px)" },
-          "100%": { transform: "rotate(0deg) translateX(0)" },
-        },
+          "0%": { transform: "rotate(0deg)", transformOrigin: "top" },
+          "25%": { transform: "rotate(-25deg)", transformOrigin: "top" },
+          "50%": { transform: "rotate(0deg)", transformOrigin: "top" },
+          "75%": { transform: "rotate(25deg)", transformOrigin: "top" },
+          "100%": { transform: "rotate(0deg)", transformOrigin: "top" },
+        },        
         spin: {
           "0%": { transform: "rotate(0deg)" },
           "100%": { transform: "rotate(360deg)" },

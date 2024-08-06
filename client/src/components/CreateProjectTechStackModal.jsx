@@ -13,22 +13,37 @@ export const CreateProjectTechStackModal = ({
 
   const [allSelectedTech, setAllSelectedTech] = useState(tech_names);
 
+  useEffect(() => {
+    console.log("Live array of selected technologies:", allSelectedTech);
+  }, [allSelectedTech]);
+
   const frontendOptions = [
     "React",
     "Angular",
     "Vue.js",
     "Next.js",
     "jQuery",
+    "HTML5",
+    "CSS3",
+    "SASS",
+    "JavaScript",
+    "TypeScript",
     "Bootstrap",
     "TailwindCSS",
   ];
+  
   const backendOptions = [
     "Node.js",
     "Django",
     "Flask",
     "Ruby on Rails",
     "Express.js",
+    "Laravel",
+    "PHP",
+    "Java",
+    "Spring Boot",
   ];
+  
   const databaseOptions = [
     "PostgreSQL",
     "MySQL",
@@ -37,6 +52,7 @@ export const CreateProjectTechStackModal = ({
     "Microsoft SQL Server",
     "Firebase",
   ];
+  
   const devOpsOptions = [
     "Docker",
     "Kubernetes",
@@ -44,7 +60,9 @@ export const CreateProjectTechStackModal = ({
     "Azure",
     "Google Cloud",
   ];
+  
   const testingOptions = ["Jest", "Mocha", "Jasmine", "Cypress", "Chai"];
+  
 
   const handleSelect = (setSelectedFunc, selectedTech, tech) => {
     setSelectedFunc((prevSelected) =>
@@ -68,19 +86,21 @@ export const CreateProjectTechStackModal = ({
     setSelectedDatabase((prev) => prev.filter((t) => t !== tech));
     setSelectedDevOps((prev) => prev.filter((t) => t !== tech));
     setSelectedTesting((prev) => prev.filter((t) => t !== tech));
-
+  
     setAllSelectedTech((prevAllSelected) =>
       prevAllSelected.filter((t) => t !== tech)
     );
+  
+    // Update parent component
+    handleAddTech((prevAllSelected) => prevAllSelected.filter((t) => t !== tech));
   };
+  
 
   const handleAddTechStack = () => {
+    // Ensure unique technologies
     const uniqueTechs = [...new Set(allSelectedTech)];
-
     handleAddTech(uniqueTechs);
-
     setAllSelectedTech([]);
-
     handleTechStacksModal();
   };
 
@@ -163,8 +183,9 @@ export const CreateProjectTechStackModal = ({
         <div className="add-selected-btn flex justify-end mt-6">
           <button
             onClick={handleAddTechStack}
-            className="btn bg-menu-colors text-text-color hover:bg-project-border/25 border-2 border-project-border/25 hover:border-project-border/35 text-base"
+            className="btn bg-menu-colors text-text-color hover:bg-project-border/25 border-2 border-project-border/25 hover:border-project-border/35 text-base group"
           >
+            <i className="fa-solid fa-code group-hover:text-confirm"></i>
             Add Selected
           </button>
         </div>

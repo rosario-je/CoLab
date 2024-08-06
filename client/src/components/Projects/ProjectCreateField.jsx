@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
@@ -34,12 +34,18 @@ export const ProjectCreateField = ({ handleTechStacksModal, techModal }) => {
   };
 
   const handleAddTech = (selectedTechStack) => {
-    setProjectData((prevData) => ({
-      ...prevData,
-      tech_names: [...prevData.tech_names, ...selectedTechStack],
-    }));
+    setProjectData((prevData) => {
+      // Merge the new tech stack with the existing tech stack
+      const updatedTechNames = selectedTechStack;
+      console.log("Updated tech stack:", updatedTechNames); 
+      return {
+        ...prevData,
+        tech_names: updatedTechNames,
+      };
+    });
   };
 
+  
   const isValidImageUrl = (url) => {
     return /\.(jpg|jpeg|png)$/i.test(url);
   };
@@ -123,6 +129,7 @@ export const ProjectCreateField = ({ handleTechStacksModal, techModal }) => {
       )}
 
       <section className="flex flex-col h-full w-full justify-around">
+
         {/* PROJECT TITLE */}
         <div className="project-title flex justify-between py-4 mt-5 mb-10">
           <div className="w-auto">

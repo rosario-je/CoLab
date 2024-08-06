@@ -21,7 +21,7 @@ export const Navbar = ({ currenUser }) => {
         >
           <img
             src='/idea.png'
-            className="h-7 mb-2 group-hover:animate-unstableBeaker"
+            className="h-7 mb-2 group-hover:animate-unstableBeaker group-hover:drop-shadow-yellow-glow mr-2"
           />
           CoLab
         </a>
