@@ -1,31 +1,7 @@
-import React, { useEffect, useState } from "react";
-import axios from "axios";
+import React from "react";
 import { NotificationListItems } from "./NotificationsListItems";
 
-export const NotificationsList = () => {
-  const [notifications, setNotifications] = useState([]);
-
-  useEffect(() => {
-    const fetchNotifications = async () => {
-      try {
-        const notifList = await axios.get("/api/dashboard/notifications");
-        setNotifications(notifList.data);
-        console.log("Notifications: ", notifList.data);
-      } catch (error) {
-        console.error("Error in getting notifications: ", error.message);
-      }
-    };
-    fetchNotifications();
-  }, []);
-
-  const handleDismiss = (dismissedNotificationId) => {
-    setNotifications((prevNotifications) =>
-      prevNotifications.filter(
-        (notification) => notification.id !== dismissedNotificationId
-      )
-    );
-  };
-
+export const NotificationsList = ({ currentUser, notifications, handleDismiss }) => {
   return (
     <div className="my-notifications h-full w-auto flex flex-col items-center">
       <div className="flex bg-menu-colors fixed left-[300px] right-[300px] z-10 top-20 h-[65px] justify-start items-center">
