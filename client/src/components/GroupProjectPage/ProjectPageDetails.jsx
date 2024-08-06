@@ -96,7 +96,7 @@ export const ProjectPageDetails = ({ project, fetchProject }) => {
               participants.length > 0 &&
               participants.map((participant) => (
                 <ProjectUserAvatar
-                  key={participant.id}
+                  key={participant.participant_id}
                   participant={participant}
                   borderColorClass={"border-alt-grey/75"}
                 />
