@@ -6,7 +6,7 @@ import { ProjectUserAvatar } from "./ProjectUserAvatar";
 import { ProjectTechStack } from "./ProjectTechStack";
 import { OwnerProjectAvatar } from "./OwnerProjectAvatar";
 
-export const ProjectCard = ({ currentUserId, project, fetchProjects }) => {
+export const ProjectCard = ({ currentUserId, project, fetchProjects, page }) => {
   const {
     name,
     description,
@@ -21,6 +21,8 @@ export const ProjectCard = ({ currentUserId, project, fetchProjects }) => {
     github_repo,
     is_in_progress,
   } = project;
+
+
 
   const navigate = useNavigate();
 
@@ -69,7 +71,7 @@ export const ProjectCard = ({ currentUserId, project, fetchProjects }) => {
             />
             <div className="flex flex-col justify-center">
               <h2 className="card-title font-bold text-4xl">{name}</h2>
-              {isOwner ? (
+              {page === "myprojects"  && isOwner ? (
                 <div className="flex flex-col gap-y-5 my-5 w-full">
                   {is_in_progress ? (
                     <>
