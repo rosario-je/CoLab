@@ -18,8 +18,6 @@ export const ProjectCreateField = ({ handleTechStacksModal, techModal }) => {
     newPicture: "",
   });
 
-  
-
   const maxChars = 300;
   const navigate = useNavigate();
 
