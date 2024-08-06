@@ -44,7 +44,7 @@ export const ProjectRightMenu = ({ project, currentUser }) => {
           </div>
         </div>
 
-        <div className="project-list bg-project-left-menu w-40 h-[1150px] flex flex-col items-center rounded-xl p-4 gap-y-7 justify-around">
+        <div className="project-list bg-project-left-menu bg-alt-grey w-40 h-[1150px] flex flex-col items-center rounded-xl p-4 gap-y-7 justify-around">
           {rightMenuProjects.map((project) => {
             return (
               <ProjectIcon project={project} currentUser={currentUser.id} />
