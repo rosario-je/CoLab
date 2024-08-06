@@ -1,7 +1,7 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 
-export const UserLeftMenu = ({ currentUser }) => {
+export const UserLeftMenu = ({ currentUser, notifications }) => {
   const navigate = useNavigate();
 
   return (
@@ -60,7 +60,7 @@ export const UserLeftMenu = ({ currentUser }) => {
                   <div className="icon-container relative">
                     <i className="fa-solid fa-envelope group-hover:animate-bounceSlow group-hover:text-icon-purple group-hover:drop-shadow-white-glow mr-0.5"></i>
                     {/* {requests.length > 0 && ( */}
-                      <div className="badge bg-confirm badge-xs absolute -top-1 -right-1 border-confirm" />
+                    <div className="badge bg-confirm badge-xs absolute -top-1 -right-1 border-confirm" />
                     {/* )} */}
                   </div>
                   <p>Join Requests</p>
@@ -74,7 +74,12 @@ export const UserLeftMenu = ({ currentUser }) => {
                     navigate(`/${currentUser.id}/notifications`);
                   }}
                 >
-                  <i className="fa-solid fa-comments group-hover:animate-bounceSlow group-hover:text-icon-purple group-hover:drop-shadow-white-glow mr-0.5"></i>
+                  <div className="icon-container relative">
+                    <i className="fa-solid fa-comments group-hover:animate-bounceSlow group-hover:text-icon-purple group-hover:drop-shadow-white-glow mr-0.5"></i>
+                    {notifications && notifications.length > 0 && (
+                      <div className="badge bg-confirm badge-xs absolute -top-1 -right-1 border-confirm" />
+                    )}
+                  </div>
                   <p>Notifications</p>
                 </a>
               </li>
