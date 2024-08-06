@@ -6,7 +6,7 @@ export const UserLeftMenu = ({ currentUser }) => {
   const navigate = useNavigate();
 
   return (
-    <div className="flex flex-col fixed top-0 left-0 w-[300px] h-full bg-menu-colors justify-between mt-20 pt-16">
+    <div className="flex flex-col fixed top-0 left-0 w-[300px] h-full bg-menu-colors justify-between mt-5 pt-16">
       <div className="top-menu-items p-1">
         <ul className="menu w-full flex-1 flex flex-col justify-between gap-y-24">
           <li className="main-menu-left-menu">
