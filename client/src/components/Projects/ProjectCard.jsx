@@ -1,12 +1,19 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef } from "react";
 import axios from "axios";
+import io from "socket.io-client";
 import { useNavigate } from "react-router-dom";
 
 import { ProjectUserAvatar } from "./ProjectUserAvatar";
 import { ProjectTechStack } from "./ProjectTechStack";
 import { OwnerProjectAvatar } from "./OwnerProjectAvatar";
 
-export const ProjectCard = ({ currentUserId, project, fetchProjects, page }) => {
+export const ProjectCard = ({
+  currentUserId,
+  project,
+  fetchProjects,
+  page,
+}) => {
+  const socket = useRef(null);
   const {
     name,
     description,
@@ -22,7 +29,21 @@ export const ProjectCard = ({ currentUserId, project, fetchProjects, page }) => 
     is_in_progress,
   } = project;
 
+  useEffect(() => {
+    socket.current = io("http://localhost:8080");
 
+    socket.current.on("connect", () => {
+      console.log("Connected to server");
+    });
+
+    socket.current.on("receiveNotification", (notificationData) => {
+      console.log("Received a new notification!: ", notificationData);
+    });
+
+    return () => {
+      socket.current.disconnect();
+    };
+  }, []);
 
   const navigate = useNavigate();
 
@@ -37,6 +58,10 @@ export const ProjectCard = ({ currentUserId, project, fetchProjects, page }) => 
       const requestToJoin = await axios.post(
         `/api/projects/${project_id}/join`
       );
+      socket.current.emit("sendNotification", {
+        user_id: owner_id,
+        notification: `${currentUserId} has requested to join project: ${name}`,
+      });
       console.log("Request to join:", requestToJoin.data);
     } catch (error) {
       console.error("Error joining project:", error.message);
@@ -71,14 +96,16 @@ export const ProjectCard = ({ currentUserId, project, fetchProjects, page }) => 
             />
             <div className="flex flex-col justify-center">
               <h2 className="card-title font-bold text-4xl">{name}</h2>
-              {page === "myprojects"  && isOwner ? (
+              {page === "myprojects" && isOwner ? (
                 <div className="flex flex-col gap-y-5 my-5 w-full">
                   {is_in_progress ? (
                     <>
                       <button
                         className="bg-icon-purple text-white text-base hover:bg-icon-purple-hover rounded-full w-[150px] p-1 font-semibold"
                         onClick={() => {
-                          navigate(`/${currentUserId}/project/${project_id}/edit`);
+                          navigate(
+                            `/${currentUserId}/project/${project_id}/edit`
+                          );
                         }}
                       >
                         Edit
@@ -92,11 +119,6 @@ export const ProjectCard = ({ currentUserId, project, fetchProjects, page }) => 
                     </>
                   ) : (
                     <>
-                      {/* <button className="bg-icon-purple text-white text-base hover:bg-icon-purple-hover rounded-full w-[150px] p-1 font-semibold" onClick={() => {
-                          navigate(`/${currentUserId}/project/${project_id}/edit`);
-                        }}>
-                        Edit
-                      </button> */}
                       <h3 className="font-semibold text-confirm text-lg ml-2 ">
                         Completed
                       </h3>
@@ -107,7 +129,9 @@ export const ProjectCard = ({ currentUserId, project, fetchProjects, page }) => 
                 <>
                   <h3 className="font-semibold mt-5">
                     <span className="text-icon-purple text-xl">Creator: </span>@
-                      <span className="text-base text-text-color/90">{owner_username} </span>
+                    <span className="text-base text-text-color/90">
+                      {owner_username}{" "}
+                    </span>
                   </h3>
                   {!is_in_progress && (
                     <h3 className="font-semibold text-confirm text-lg mt-3">
@@ -130,7 +154,7 @@ export const ProjectCard = ({ currentUserId, project, fetchProjects, page }) => 
                   <ProjectUserAvatar
                     key={participant.participant_id}
                     participant={participant}
-                    borderColorClass="border-navbar-color" 
+                    borderColorClass="border-navbar-color"
                   />
                 )
             )}
