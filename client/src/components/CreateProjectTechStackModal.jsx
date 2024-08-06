@@ -96,7 +96,7 @@ export const CreateProjectTechStackModal = ({
         >
           <i className="fa-solid fa-xmark"></i>
         </button>
-        <h1 className="text-2xl mb-4 font-bold">Add Tech Stack</h1>
+        <h1 className="text-2xl mb-4 font-bold">Add Languages</h1>
 
         {[
           {

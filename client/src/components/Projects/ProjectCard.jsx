@@ -76,7 +76,7 @@ export const ProjectCard = ({ currentUserId, project, fetchProjects, page }) => 
                   {is_in_progress ? (
                     <>
                       <button
-                        className="bg-website-purple text-white text-base hover:bg-website-purple-hover rounded-full w-[150px] p-1 font-semibold"
+                        className="bg-icon-purple text-white text-base hover:bg-icon-purple-hover rounded-full w-[150px] p-1 font-semibold"
                         onClick={() => {
                           navigate(`/${currentUserId}/project/${project_id}/edit`);
                         }}
@@ -84,7 +84,7 @@ export const ProjectCard = ({ currentUserId, project, fetchProjects, page }) => 
                         Edit
                       </button>
                       <button
-                        className="bg-website-purple text-white text-base hover:bg-website-purple-hover rounded-full w-[150px] p-1 font-semibold"
+                        className="bg-icon-purple text-white text-base hover:bg-icon-purple-hover rounded-full w-[150px] p-1 font-semibold"
                         onClick={handleCompleteProject}
                       >
                         Complete
@@ -92,7 +92,7 @@ export const ProjectCard = ({ currentUserId, project, fetchProjects, page }) => 
                     </>
                   ) : (
                     <>
-                      <button className="bg-website-purple text-white text-base hover:bg-website-purple-hover rounded-full w-[150px] p-1 font-semibold" onClick={() => {
+                      <button className="bg-icon-purple text-white text-base hover:bg-icon-purple-hover rounded-full w-[150px] p-1 font-semibold" onClick={() => {
                           navigate(`/${currentUserId}/project/${project_id}/edit`);
                         }}>
                         Edit
