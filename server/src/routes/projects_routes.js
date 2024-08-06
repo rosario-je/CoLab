@@ -101,38 +101,6 @@ router.post('/:projectId/chat', async (req, res) => {
 
 /*------------------------------------------------------------------------------*/
 
-// Approved user can send a message to a chat
-// http://localhost:8080/api/projects/:id/chat
-// router.post('/:projectId/chat', async (req, res) => {
-//   const { projectId } = req.params;
-//   const { id: sender_id } = req.session.user;
-//   const { message } = req.body;
-//   const chat_room_id = await getProjectChatId(projectId);
-//   // const checkUserAccess = await limitAccess(projectId, sender_id);
-
-//   if (!projectId) {
-//     return res.status(404).send('Project not found');
-//   }
-//   // if (!checkUserAccess) {
-//   //   return res.status(403).json({ error: "Unauthorized to access this project and send messages" });
-//   // };
-//   try {
-//     const newMessage = await newChatMessage(sender_id, chat_room_id, message);
-//     console.log("This is the new message:", newMessage);
-    
-//     res.status(201).json({
-//       message: "Message sent successfully",
-//       data: {
-//         chat_room_id: chat_room_id,
-//         newMessage: newMessage.message
-//       }
-//     });
-//   } catch (error) {
-//     console.error('Error sending message:', error.message);
-//     res.status(500).send('Error sending message');
-//   }
-// });
-
 // Creates a new join request for a project
 // http://localhost:8080/api/projects/:projectId/join
 router.post('/:projectId/join', async (req, res) => {
@@ -160,6 +128,9 @@ router.post('/:projectId/join', async (req, res) => {
     }
     const message = `You have requested to join the project: ${project.name}`;
     const sendmsg = await sendJoinNotification(user_id, message);
+    io.to(project.owner_id).emit("receiveNotification", {
+      message: `User ${user_id} requested to join project ${project.name}`
+    });
     res.status(200).json({
       message: "Message sent successfully",
       data: {
