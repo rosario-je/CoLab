@@ -57,7 +57,7 @@ export const Dashboard = ({ handleCoLabHome, currentUser, handleLogout }) => {
           <div className="z-10 bg-black">
             <SearchBar handleSearch={handleSearch} />
           </div>
-          <div className="flex flex-col grow justify-center overflow-y-auto mx-72 mt-16 px-10 h-max">
+          <div className="flex flex-col grow justify-center overflow-y-auto mx-72 mt-16 px-10 h-max bg-project-background">
             {fetchingProjects ? (
               <Skeletons />
             ) : (
