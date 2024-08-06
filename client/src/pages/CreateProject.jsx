@@ -26,7 +26,7 @@ export const CreateProject = ({
             />
           </div>
         </div>
-        <UserRightMenu />
+        <UserRightMenu currentUser={currentUser}/>
       </div>
     </div>
   );
