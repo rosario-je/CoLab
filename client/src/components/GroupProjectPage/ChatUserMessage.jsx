@@ -20,23 +20,22 @@ export const ChatUserMessage = ({ message }) => {
     return `${month}/${day}/${year}`;
   };
 
-
   let timeDescription;
-  if (
-    messageDate.toDateString() === now.toDateString()
-  ) {
+  if (messageDate.toDateString() === now.toDateString()) {
     timeDescription = `Today at ${formatTime(messageDate)}`;
   } else if (
     messageDate.toDateString() ===
-    new Date(now.setDate(now.getDate() - 1)).toDateString() 
+    new Date(now.setDate(now.getDate() - 1)).toDateString()
   ) {
     timeDescription = `Yesterday at ${formatTime(messageDate)}`;
   } else {
-    timeDescription = `${formatDate(messageDate)} at ${formatTime(messageDate)}`;
+    timeDescription = `${formatDate(messageDate)} at ${formatTime(
+      messageDate
+    )}`;
   }
 
   return (
-    <div className="chat chat-start py-4 pl-10">
+    <div className="chat chat-start px-4">
       <div className="chat-image avatar">
         <div className="w-10 rounded-full">
           <img
@@ -45,11 +44,13 @@ export const ChatUserMessage = ({ message }) => {
           />
         </div>
       </div>
-      <div className="chat-header font-semibold mb-2">
-        {message.username}
-        <time className="text-xs opacity-50 pl-3">{timeDescription}</time>
+      <div className="flex flex-row chat-header font-semibold pb-2 items-end">
+        <h3 className="flex items-end">{message.username}</h3>
+        <time className="flex text-xs opacity-50 pl-3 items-center">
+          <h5>{timeDescription}</h5>
+        </time>
       </div>
-      <div className="chat-bubble">{message.message}</div>
+      <div className="chat-bubble"><p className="text-2xl">{message.message}</p></div>
     </div>
   );
 };

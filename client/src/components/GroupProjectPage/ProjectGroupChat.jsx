@@ -2,25 +2,21 @@ import React, { useRef, useEffect } from "react";
 import { ChatUserMessage } from "./ChatUserMessage";
 
 export const ProjectGroupChat = ({ chat }) => {
-  const messagesEndRef = useRef(null);
+  const chatEndRef = useRef(null);
 
-  console.log(chat);
   useEffect(() => {
-    if (messagesEndRef.current) {
-      messagesEndRef.current.scrollIntoView({ behavior: "smooth" });
+    if (chatEndRef.current) {
+      chatEndRef.current.scrollIntoView({ behavior: "smooth" });
     }
-  }, []);
+  }, [chat]);
 
   return (
-    <div className="chat-component flex flex-col h-full overflow-hidden bg-base-100">
-      <div className="chat-messages flex flex-col-reverse overflow-y-auto h-full p-4">
-        {chat &&
-          chat.map((message, index) => (
-            <ChatUserMessage key={index} message={message} />
-          ))}
-
-        <div ref={messagesEndRef} /> {/* Scroll to this div */}
-      </div>
+    <div className="chat-messages flex flex-col overflow-y-auto h-full mt-40 pb-20 gap-y-5 justify-end">
+      {chat &&
+        chat.map((message, index) => (
+          <ChatUserMessage key={index} message={message} />
+        ))}
+      <div ref={chatEndRef} />
     </div>
   );
 };
