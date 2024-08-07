@@ -84,9 +84,9 @@ router.post('/:projectId/chat', async (req, res) => {
     const newMessage = await newChatMessage(sender_id, chat_room_id, message);
     const message_id = newMessage.id;
     const allMessageInfo = await getNewChatMessageInfo(message_id);
-    io.to(projectId).emit("receiveMessage", allMessageInfo); 
+    io.to(projectId).emit("receiveMessage", allMessageInfo);
     console.log("This is the new message:", allMessageInfo);
-    
+
     res.status(201).json({
       message: "Message sent successfully",
       data: {
@@ -106,9 +106,9 @@ router.post('/:projectId/chat', async (req, res) => {
 router.post('/:projectId/join', async (req, res) => {
   const { projectId } = req.params;
   const { id: user_id, username: userName } = req.session.user;
-  
-  const project = await getProjectById(projectId);
+
   try {
+    const project = await getProjectById(projectId);
     const user = await getUserById(user_id);
     if (!user) {
       return res.status(404).send('User not found');
@@ -129,13 +129,20 @@ router.post('/:projectId/join', async (req, res) => {
     }
     const message = `You have requested to join the project: ${project.name}`;
     const sendmsg = await sendJoinNotification(user_id, message);
+    // const { project_name } = project;
+    // const { username } = user;
+    // const { created_at, id, is_accepted, project_id, joinRequestId: user_id, } = joinRequest;
+    // const socketRequest = {
+    //   project_name,
+    //   username,
+    //   created_at,
+    //   id,
+    //   is_accepted,
+    //   project_id,
+    //   joinRequestId
+    // }
 
-    io.to(project.owner_id).emit("receiveRequest", {
-      project_id: projectId,
-      requester_user_id: user_id,
-      requester_username: userName,
-      project_name: project.name,
-    });
+    io.to(project.owner_id).emit("receiveRequest", joinRequest);
 
     res.status(200).json({
       message: "Message sent successfully",
@@ -178,7 +185,7 @@ router.put('/:projectId/edit', async (req, res) => {
       trello_link,
       tech_requirements,
     );
-    
+
     res.status(200).json({ message: 'Project updated successfully', project: updateProject });
   } catch (error) {
     console.error('Error editing project:', error.message);
