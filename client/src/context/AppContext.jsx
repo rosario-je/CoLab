@@ -1,6 +1,7 @@
 import React, { createContext, useEffect, useState, useRef } from "react";
 import axios from "axios";
 import { io } from "socket.io-client";
+import { useSocketManager } from "../manage_sockets";
 
 const AppContext = createContext();
 
@@ -9,18 +10,20 @@ const ContextProvider = (props) => {
   const [currentUser, setCurrentUser] = useState(null);
   const [techModal, setTechModal] = useState(false);
   const [requests, setRequests] = useState([]);
+  const { emit, listen, isConnected } = useSocketManager(currentUser);
   const socket = useRef(null);
 
   /*------------------- Context block for currentUser--------------*/
   useEffect(() => {
     const fetchCurrentUser = async () => {
       try {
-        if (currentUser){
-        const response = await axios.get("/api/current-user");
-        setCurrentUser(response.data);
-        if (socket.current) {
-          socket.current.emit("joinRoom", { userId: response.data.id });
-        }}
+        if (currentUser) {
+          const response = await axios.get("/api/current-user");
+          setCurrentUser(response.data);
+          if (socket.current) {
+            socket.current.emit("joinRoom", { userId: response.data.id });
+          }
+        }
       } catch (error) {
         console.error(
           "No user logged in:",
@@ -64,7 +67,7 @@ const ContextProvider = (props) => {
       console.log("Received a new notification!: ", notificationData);
       setNotifications((prevNotifications) => [
         notificationData,
-        ...prevNotifications
+        ...prevNotifications,
       ]);
     });
     socket.current.on("receiveRequest", (requestData) => {
@@ -77,7 +80,6 @@ const ContextProvider = (props) => {
         if (currentUser) {
           const notifList = await axios.get("/api/dashboard/notifications");
           setNotifications(notifList.data);
-          // console.log("Notifications: ", notifList.data);
         }
       } catch (error) {
         console.error("Error in getting notifications: ", error.message);
@@ -88,7 +90,6 @@ const ContextProvider = (props) => {
         if (currentUser) {
           const requestList = await axios.get("/api/dashboard/manage_requests");
           setRequests(requestList.data);
-          console.log("Requests: ", requestList.data);
         }
       } catch (error) {
         console.error("Error in getting requests: ", error.message);
@@ -131,7 +132,7 @@ const ContextProvider = (props) => {
       prevRequests.filter((request) => request.id !== requestId)
     );
   };
-  
+
   const acceptRequest = async (project_id, requester_user_id) => {
     try {
       const response = await axios.post(
@@ -147,7 +148,7 @@ const ContextProvider = (props) => {
       console.error("Error accepting request: ", error.message);
     }
   };
-  
+
   const denyRequest = async (project_id, requester_user_id) => {
     try {
       const response = await axios.delete(
@@ -165,7 +166,6 @@ const ContextProvider = (props) => {
       console.error("Error denying request: ", error.message);
     }
   };
-  
 
   const providerValue = {
     notifications,
