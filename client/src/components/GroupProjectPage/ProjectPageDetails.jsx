@@ -5,7 +5,7 @@ import { ProjectUserAvatar } from "../Projects/ProjectUserAvatar";
 import { OwnerProjectAvatar } from "../Projects/OwnerProjectAvatar";
 import { ProjectGroupChat } from "./ProjectGroupChat";
 
-export const ProjectPageDetails = ({ project, fetchProject }) => {
+export const ProjectPageDetails = ({ project }) => {
   const [message, setMessage] = useState("");
   const [chat, setChat] = useState(project.chat);
   const socket = useRef(null);
@@ -69,7 +69,9 @@ export const ProjectPageDetails = ({ project, fetchProject }) => {
         <div className="flex flex-col gap-y-6">
           {name && (
             <div className="project-title">
-              <h1 className="text-text-color/90 font-semibold text-4xl">{name}</h1>
+              <h1 className="text-text-color/90 font-semibold text-4xl">
+                {name}
+              </h1>
             </div>
           )}
           <div className="tech-stack flex flex-row justify-start gap-x-6">
