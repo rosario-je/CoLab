@@ -1,13 +1,11 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { EditProjectTechStackModal } from "../EditProjectTechStackModal";
+import { AppContext } from "../../context/AppContext";
 
-export const ProjectEditField = ({
-  handleTechStacksModal,
-  techModal,
-  project,
-}) => {
+export const ProjectEditField = ({ project }) => {
+  const { handleTechStacksModal, techModal } = useContext(AppContext);
   const [projectEditing, setProjectEditing] = useState(false);
   const [projectData, setProjectData] = useState(project);
 
@@ -162,8 +160,10 @@ export const ProjectEditField = ({
         </div>
       )}
 
-      <form className="flex flex-col h-full w-full justify-around" onSubmit={editProject}>
-
+      <form
+        className="flex flex-col h-full w-full justify-around"
+        onSubmit={editProject}
+      >
         {/* PROJECT TITLE */}
         <div className="project-title flex justify-between py-4 mt-5 mb-10">
           <div className="w-auto">
