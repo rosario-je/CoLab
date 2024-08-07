@@ -1,10 +1,13 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { ProjectIcon } from "./ProjectIcon";
 import axios from "axios";
+import { AppContext } from "../../context/AppContext";
 
-export const ProjectRightMenu = ({ project, currentUser }) => {
+export const ProjectRightMenu = ({ project }) => {
+  const { currentUser } = useContext(AppContext);
   const [rightMenuProjects, setRightMenuProjects] = useState([]);
 
+  /*------------------- Fetch projects --------------*/
   useEffect(() => {
     const fetchRightUserMenu = async () => {
       try {
@@ -41,14 +44,15 @@ export const ProjectRightMenu = ({ project, currentUser }) => {
               <i className="fa-brands fa-figma text-6xl mr-2"></i>
             </a>
           </div>
-        </div>    
+        </div>
         <div className="project-list bg-project-left-menu bg-alt-grey w-40 h-[1150px] flex flex-col items-center rounded-xl p-4 gap-y-7 justify-around">
           {rightMenuProjects.map((project) => {
             return (
-              <ProjectIcon 
-              key={project.project_id}
-              project={project} 
-              currentUser={currentUser.id} />
+              <ProjectIcon
+                key={project.project_id}
+                project={project}
+                currentUser={currentUser.id}
+              />
             );
           })}
         </div>
