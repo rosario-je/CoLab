@@ -105,7 +105,8 @@ router.post('/:projectId/chat', async (req, res) => {
 // http://localhost:8080/api/projects/:projectId/join
 router.post('/:projectId/join', async (req, res) => {
   const { projectId } = req.params;
-  const { id: user_id } = req.session.user;
+  const { id: user_id, username: userName } = req.session.user;
+  
   const project = await getProjectById(projectId);
   try {
     const user = await getUserById(user_id);
@@ -128,9 +129,14 @@ router.post('/:projectId/join', async (req, res) => {
     }
     const message = `You have requested to join the project: ${project.name}`;
     const sendmsg = await sendJoinNotification(user_id, message);
-    io.to(project.owner_id).emit("receiveNotification", {
-      message: `User ${user_id} requested to join project ${project.name}`
+
+    io.to(project.owner_id).emit("receiveRequest", {
+      project_id: projectId,
+      requester_user_id: user_id,
+      requester_username: userName,
+      project_name: project.name,
     });
+
     res.status(200).json({
       message: "Message sent successfully",
       data: {
