@@ -1,6 +1,6 @@
 import express from 'express';
 import { createNewProject, getProjectPage, getProjectById, getPendingJoinRequests, editProject, updateCoverPhoto, updateFigmaLink, updateGithubRepo, updateTrelloLink } from '../db/queries/project_queries.js';
-import { getUserById, askToJoinProject, limitAccess } from '../db/queries/user_queries.js';
+import { getUserById, askToJoinProject, limitAccess, getMoreJoinInfo } from '../db/queries/user_queries.js';
 import { addTechToProject } from '../db/queries/tech_queries.js';
 import { createGroupChat, getChatHistory, newChatMessage, getProjectChatId, sendJoinNotification, getNewChatMessageInfo } from '../db/queries/chat_queries.js';
 import { io } from '../server_index.js';
@@ -105,7 +105,7 @@ router.post('/:projectId/chat', async (req, res) => {
 // http://localhost:8080/api/projects/:projectId/join
 router.post('/:projectId/join', async (req, res) => {
   const { projectId } = req.params;
-  const { id: user_id, username: userName } = req.session.user;
+  const { id: user_id } = req.session.user;
 
   try {
     const project = await getProjectById(projectId);
@@ -124,31 +124,21 @@ router.post('/:projectId/join', async (req, res) => {
       return res.status(400).send('Join request already exists');
     }
     const joinRequest = await askToJoinProject(projectId, user_id);
+    const allJoinInfo = await getMoreJoinInfo(joinRequest.id);
+    console.log("This is the join request:", allJoinInfo);
     if (!joinRequest) {
       return res.status(500).send('Error joining project');
     }
     const message = `You have requested to join the project: ${project.name}`;
     const sendmsg = await sendJoinNotification(user_id, message);
-    // const { project_name } = project;
-    // const { username } = user;
-    // const { created_at, id, is_accepted, project_id, joinRequestId: user_id, } = joinRequest;
-    // const socketRequest = {
-    //   project_name,
-    //   username,
-    //   created_at,
-    //   id,
-    //   is_accepted,
-    //   project_id,
-    //   joinRequestId
-    // }
 
-    io.to(project.owner_id).emit("receiveRequest", joinRequest);
+    io.to(project.owner_id).emit("receiveRequest", allJoinInfo);
 
     res.status(200).json({
       message: "Message sent successfully",
       data: {
         message: sendmsg,
-        joinRequest: joinRequest
+        joinRequest: allJoinInfo
       }
     });
   } catch (error) {

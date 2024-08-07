@@ -15,11 +15,12 @@ const ContextProvider = (props) => {
   useEffect(() => {
     const fetchCurrentUser = async () => {
       try {
+        if (currentUser){
         const response = await axios.get("/api/current-user");
         setCurrentUser(response.data);
         if (socket.current) {
           socket.current.emit("joinRoom", { userId: response.data.id });
-        }
+        }}
       } catch (error) {
         console.error(
           "No user logged in:",
@@ -59,16 +60,16 @@ const ContextProvider = (props) => {
       }
     });
 
-    socket.current.on("receiveNotification", (newNotificationData) => {
-      console.log("Received a new notification!: ", newNotificationData);
+    socket.current.on("receiveNotification", (notificationData) => {
+      console.log("Received a new notification!: ", notificationData);
       setNotifications((prevNotifications) => [
-        ...prevNotifications,
-        newNotificationData,
+        notificationData,
+        ...prevNotifications
       ]);
     });
-    socket.current.on("receiveRequest", (notificationData) => {
-      console.log("Received a new join request: ", notificationData);
-      setRequests((prevRequests) => [...prevRequests, notificationData]);
+    socket.current.on("receiveRequest", (requestData) => {
+      console.log("Received a new join request: ", requestData);
+      setRequests((prevRequests) => [requestData, ...prevRequests]);
     });
 
     const fetchNotifications = async () => {
@@ -178,6 +179,7 @@ const ContextProvider = (props) => {
     setTechModal,
     handleTechStacksModal,
     requests,
+    setRequests,
     acceptRequest,
     denyRequest,
   };

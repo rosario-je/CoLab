@@ -60,6 +60,23 @@ const askToJoinProject = async (project_id, user_id) => {
   }
 };
 
+const getMoreJoinInfo = async (join_requests_id) => {
+  try {
+    const data = await db.query(
+      `SELECT join_requests.*, projects.name AS project_name, users.username AS requester_username
+      FROM join_requests
+      JOIN projects ON join_requests.project_id = projects.id
+      JOIN users ON join_requests.user_id = users.id
+      WHERE join_requests.id = $1`,
+      [join_requests_id]
+    );
+    return data.rows[0];
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+
 // Get all join requests a user has for their projects
 const getAllJoinRequests = async (user_id) => {
   try {
@@ -249,5 +266,6 @@ export {
   isUserOwner,
   rejectJoinRequest,
   limitAccess,
-  validateUserLogin
+  validateUserLogin, 
+  getMoreJoinInfo
 };

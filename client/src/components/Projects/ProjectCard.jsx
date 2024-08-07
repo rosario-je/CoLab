@@ -13,7 +13,7 @@ export const ProjectCard = ({
   project,
   fetchProjects,
   page,
-  currenUserName,
+  currentUserName,
 }) => {
   const {
     name,
@@ -32,7 +32,7 @@ export const ProjectCard = ({
 
   const socket = useRef(null);
   const { listen, emit, isConnected } = useSocketManager();
-  const { setNotifications } =
+  const { setNotifications, setRequests } =
     useContext(AppContext);
 
   useEffect(() => {
