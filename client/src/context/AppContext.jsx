@@ -146,7 +146,7 @@ const ContextProvider = (props) => {
       console.error("Error accepting request: ", error.message);
     }
   };
-
+  
   const denyRequest = async (project_id, requester_user_id) => {
     try {
       const response = await axios.delete(
@@ -164,6 +164,7 @@ const ContextProvider = (props) => {
       console.error("Error denying request: ", error.message);
     }
   };
+  
 
   const providerValue = {
     notifications,
