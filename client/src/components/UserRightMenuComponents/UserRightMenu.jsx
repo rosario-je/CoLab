@@ -1,8 +1,11 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { UserMenuProject } from "./UserMenuProject";
 import axios from "axios";
 
-export const UserRightMenu = ({ currentUser }) => {
+import { AppContext } from "../../context/AppContext";
+
+export const UserRightMenu = () => {
+  const { currentUser } = useContext(AppContext);
   const [rightMenuProjects, setRightMenuProjects] = useState([]);
 
   useEffect(() => {
