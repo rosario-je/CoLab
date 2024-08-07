@@ -1,7 +1,11 @@
 import React from "react";
-import { NotificationListItems } from "./NotificationsListItems";
+import { useContext } from "react";
+import { AppContext } from "../../context/AppContext";
+import { NotificationListItems } from "./NotificationsListItems.jsx";
 
-export const NotificationsList = ({ currentUser, notifications, handleDismiss }) => {
+export const NotificationsList = () => {
+  const { notifications } = useContext(AppContext);
+
   return (
     <div className="my-notifications h-full w-auto flex flex-col items-center">
       <div className="flex bg-menu-colors fixed left-[300px] right-[300px] z-10 top-20 h-[65px] justify-start items-center">
@@ -14,7 +18,6 @@ export const NotificationsList = ({ currentUser, notifications, handleDismiss })
               key={notification.id}
               notification_id={notification.id}
               message={notification.message}
-              onDesicion={() => handleDismiss(notification.id)}
             />
           );
         })}

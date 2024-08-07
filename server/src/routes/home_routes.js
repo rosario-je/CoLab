@@ -179,8 +179,8 @@ router.post('/search', async (req, res) => {
 // Get notifications about project join requests
 // http://localhost:8080/api/dashboard/notifications
 router.get('/notifications', async (req, res) => {
-  const { id: user_id } = req.session.user;
   try {
+    const { id: user_id } = req.session.user;
     const notifications = await getNotifications(user_id);
     return res.status(200).json(notifications);
   } catch (error) {

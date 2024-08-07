@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useContext } from "react";
 import axios from "axios";
 import io from "socket.io-client";
 import { useNavigate } from "react-router-dom";
@@ -6,6 +6,8 @@ import { useNavigate } from "react-router-dom";
 import { ProjectUserAvatar } from "./ProjectUserAvatar";
 import { ProjectTechStack } from "./ProjectTechStack";
 import { OwnerProjectAvatar } from "./OwnerProjectAvatar";
+import { useSocketManager } from "../../manage_sockets";
+import { AppContext } from "../../context/AppContext";
 
 export const ProjectCard = ({
   currentUserId,
@@ -13,7 +15,6 @@ export const ProjectCard = ({
   fetchProjects,
   page,
 }) => {
-  const socket = useRef(null);
   const {
     name,
     description,
@@ -29,20 +30,24 @@ export const ProjectCard = ({
     is_in_progress,
   } = project;
 
+  const { listen, emit, isConnected } = useSocketManager();
+  const {setNotifications} = useContext(AppContext);
+
   useEffect(() => {
-    socket.current = io("http://localhost:8080");
+  //   socket.current = io("http://localhost:8080");
 
-    socket.current.on("connect", () => {
-      console.log("Connected to server");
-    });
-
-    socket.current.on("receiveNotification", (notificationData) => {
+  //   socket.current.on("connect", () => {
+  //     console.log("Connected to server");
+  //   });
+    if (isConnected){
+    listen("receiveNotification", (notificationData) => {
       console.log("Received a new notification!: ", notificationData);
     });
+  }
 
-    return () => {
-      socket.current.disconnect();
-    };
+  //   return () => {
+  //     socket.current.disconnect();
+  //   };
   }, []);
 
   const navigate = useNavigate();
@@ -58,10 +63,16 @@ export const ProjectCard = ({
       const requestToJoin = await axios.post(
         `/api/projects/${project_id}/join`
       );
-      socket.current.emit("sendNotification", {
+      setNotifications((prevNotifications) => [
+        requestToJoin.data.data.message,
+        ...prevNotifications
+      ]);
+      if (isConnected) {
+      emit("sendNotification", {
         user_id: owner_id,
         notification: `${currentUserId} has requested to join project: ${name}`,
       });
+      }
       console.log("Request to join:", requestToJoin.data);
     } catch (error) {
       console.error("Error joining project:", error.message);

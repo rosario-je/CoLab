@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { Routes, Route, useNavigate } from "react-router-dom";
 import axios from "axios";
 
@@ -13,20 +13,25 @@ import { SignUp } from "./pages/SignUp";
 import { SignIn } from "./pages/SignIn";
 import { MyProjectRequests } from "./pages/MyProjectRequests";
 import { MyNotifications } from "./pages/MyNotifications";
+import { useSocketManager } from "./manage_sockets.js";
+import { AppContext } from "./context/AppContext";
 
 axios.defaults.withCredentials = true;
 
 function App() {
   const navigate = useNavigate();
-
   const [techModal, setTechModal] = useState(false);
-  const [currentUser, setCurrentUser] = useState(null);
+  const { listen, emit, isConnected } = useSocketManager();
+  const { currentUser, setCurrentUser } = useContext(AppContext);
 
   useEffect(() => {
     const fetchCurrentUser = async () => {
       try {
         const response = await axios.get("/api/current-user");
         setCurrentUser(response.data);
+        if (isConnected) {
+          emit("joinRoom", {userId: response.data})
+        };
       } catch (error) {
         console.error(
           "No user logged in:",
