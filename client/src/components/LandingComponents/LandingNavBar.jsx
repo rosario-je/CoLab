@@ -1,12 +1,13 @@
-import React from "react";
+import React, { useContext } from "react";
 import vial from "../../images/vial.png";
 import { useNavigate } from "react-router-dom";
+import { AppContext } from "../../context/AppContext";
 
-export const LandingNavBar = ({
-  currentUser,
-  handleLogout,
-}) => {
+export const LandingNavBar = () => {
+  const { currentUser, handleLogout } = useContext(AppContext);
   const navigate = useNavigate();
+
+  
   return (
     <div className="fixed top-0 left-0 right-0 z-50">
       <div className="navbar bg-landing-blue-dark/80 backdrop-blur-xl">
@@ -26,7 +27,7 @@ export const LandingNavBar = ({
                 onClick={() => {
                   navigate("/signin");
                 }}
-                className="btn bg-landing-signin-button/90 rounded-full text-base text-white border-2 border-white border-opacity-40 hover:border-white hover:border-opacity-40 hover:bg-landing-gradient-two/70" 
+                className="btn bg-landing-signin-button/90 rounded-full text-base text-white border-2 border-white border-opacity-40 hover:border-white hover:border-opacity-40 hover:bg-landing-gradient-two/70"
               >
                 <h2>Sign In</h2>
               </div>
