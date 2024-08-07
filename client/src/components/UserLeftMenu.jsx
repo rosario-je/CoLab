@@ -2,9 +2,9 @@ import React, {useContext} from "react";
 import { useNavigate } from "react-router-dom";
 import { AppContext } from "../context/AppContext";
 
-export const UserLeftMenu = ({ currentUser }) => {
+export const UserLeftMenu = () => {
   const navigate = useNavigate();
-  const { notifications, newNotification, markNotificationsRead } = useContext(AppContext);
+  const { notifications, currentUser, requests } = useContext(AppContext);
 
   return (
     <div className="flex flex-col fixed top-0 left-0 w-[300px] h-full bg-menu-colors justify-between mt-5 pt-16">
@@ -61,9 +61,9 @@ export const UserLeftMenu = ({ currentUser }) => {
                 >
                   <div className="icon-container relative">
                     <i className="fa-solid fa-envelope group-hover:animate-bounceSlow group-hover:text-icon-purple group-hover:drop-shadow-white-glow mr-0.5"></i>
-                    {/* {requests.length > 0 && ( */}
-                    {/* <div className="badge bg-confirm badge-xs absolute -top-1 -right-1 border-confirm" /> */}
-                    {/* )} */}
+                    {requests && requests.length > 0 && (
+                      <div className="badge bg-confirm badge-xs absolute -top-1 -right-1 border-confirm" />
+                    )}
                   </div>
                   <p>Join Requests</p>
                 </a>
