@@ -1,6 +1,5 @@
 import React, { useEffect, useRef, useContext } from "react";
 import axios from "axios";
-import io from "socket.io-client";
 import { useNavigate } from "react-router-dom";
 
 import { ProjectUserAvatar } from "./ProjectUserAvatar";
@@ -14,6 +13,7 @@ export const ProjectCard = ({
   project,
   fetchProjects,
   page,
+  currenUserName,
 }) => {
   const {
     name,
@@ -30,24 +30,17 @@ export const ProjectCard = ({
     is_in_progress,
   } = project;
 
+  const socket = useRef(null);
   const { listen, emit, isConnected } = useSocketManager();
-  const {setNotifications} = useContext(AppContext);
+  const { setNotifications } =
+    useContext(AppContext);
 
   useEffect(() => {
-  //   socket.current = io("http://localhost:8080");
-
-  //   socket.current.on("connect", () => {
-  //     console.log("Connected to server");
-  //   });
-    if (isConnected){
-    listen("receiveNotification", (notificationData) => {
-      console.log("Received a new notification!: ", notificationData);
-    });
-  }
-
-  //   return () => {
-  //     socket.current.disconnect();
-  //   };
+    if (isConnected) {
+      listen("receiveNotification", (notificationData) => {
+        console.log("Received a new notification!: ", notificationData);
+      });
+    }
   }, []);
 
   const navigate = useNavigate();
@@ -65,15 +58,8 @@ export const ProjectCard = ({
       );
       setNotifications((prevNotifications) => [
         requestToJoin.data.data.message,
-        ...prevNotifications
+        ...prevNotifications,
       ]);
-      if (isConnected) {
-      emit("sendNotification", {
-        user_id: owner_id,
-        notification: `${currentUserId} has requested to join project: ${name}`,
-      });
-      }
-      console.log("Request to join:", requestToJoin.data);
     } catch (error) {
       console.error("Error joining project:", error.message);
     }
