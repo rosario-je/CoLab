@@ -1,10 +1,12 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import { AppContext } from "../../context/AppContext";
 
 import { CreateProjectTechStackModal } from "../CreateProjectTechStackModal";
 
-export const ProjectCreateField = ({ handleTechStacksModal, techModal }) => {
+export const ProjectCreateField = () => {
+  const { handleTechStacksModal, techModal } = useContext(AppContext);
   const [projectCreating, setProjectCreating] = useState(false);
   const [projectData, setProjectData] = useState({
     name: "",
