@@ -4,8 +4,6 @@ import { JoinRequestListItems } from "./JoinRequestListItems";
 
 export const JoinRequestList = () => {
   const { requests } = useContext(AppContext);
-  console.log("Current requests: ", requests); // Check requests in console
-
   return (
     <div className="my-join-requests h-full w-auto flex flex-col items-center mx-72">
       <div className="flex bg-menu-colors fixed left-[300px] right-[300px] z-10 top-20 h-[65px] justify-start items-center">
