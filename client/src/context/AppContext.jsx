@@ -1,28 +1,50 @@
-import React, { createContext, useEffect, useState } from "react";
+import React, { createContext, useEffect, useState, useRef } from "react";
 import axios from "axios";
+import { io } from "socket.io-client";
 const AppContext = createContext();
 
+
 const ContextProvider = (props) => {
-  // Context block for notifications
+  /*------------------- Context block for notifications--------------*/
 
   const [notifications, setNotifications] = useState([]);
   const [currentUser, setCurrentUser] = useState(null);
+  const socket = useRef(null);
 
   useEffect(() => {
+    socket.current = io("http://localhost:8080");
+
+    socket.current.on("connect", () => {
+      console.log("Connected to server");
+
+      socket.current.emit("joinRoom", { userId: currentUser.id });
+    });
+    socket.current.on("receiveNotification", (newNotificationData) => {
+      console.log("Received a new notification!: ", newNotificationData);
+      setNotifications((prevNotifications) => [
+        ...prevNotifications,
+        newNotificationData,
+      ]);
+    });
     const fetchNotifications = async () => {
       try {
-        if(currentUser){
-        const notifList = await axios.get("/api/dashboard/notifications");
-        setNotifications(notifList.data);
-        console.log("Notifications: ", notifList.data);
+        if (currentUser) {
+          const notifList = await axios.get("/api/dashboard/notifications");
+          setNotifications(notifList.data);
+          console.log("Notifications: ", notifList.data);
         }
       } catch (error) {
         console.error("Error in getting notifications: ", error.message);
       }
     };
     fetchNotifications();
-    },[currentUser]);
-  
+
+    return () => {
+      if (socket.current) {
+        socket.current.disconnect();
+      }
+    };
+  }, [currentUser]);
 
   const handleDismiss = (dismissedNotificationId) => {
     setNotifications((prevNotifications) =>
@@ -108,7 +130,7 @@ const ContextProvider = (props) => {
     setCurrentUser,
     setNotifications,
     handleDismiss,
-    dismissNotif
+    dismissNotif,
   };
 
   return (
