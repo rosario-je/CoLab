@@ -3,19 +3,18 @@ import { UserRightMenu } from "../components/UserRightMenuComponents/UserRightMe
 import { Navbar } from "../components/Navbar";
 import { NotificationsList } from "../components/Notifications/NotificationsList";
 
-export const MyNotifications = ({ currentUser }) => {
-
+export const MyNotifications = () => {
   return (
     <div className="flex flex-col h-screen">
-      <Navbar currentUser={currentUser} />
+      <Navbar />
       <div className="flex flex-1 mt-16">
-        <UserLeftMenu currentUser={currentUser}/>
+        <UserLeftMenu />
         <div className="flex flex-col w-full h-full bg-project-background overflow-hidden pt-4">
           <div className="h-full mx-[300px]">
-            <NotificationsList currentUser={currentUser}/>
+            <NotificationsList />
           </div>
         </div>
-        <UserRightMenu currentUser={currentUser} />
+        <UserRightMenu />
       </div>
     </div>
   );
