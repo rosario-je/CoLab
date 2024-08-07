@@ -91,7 +91,7 @@ export const CreateProjectTechStackModal = ({
       prevAllSelected.filter((t) => t !== tech)
     );
   
-    // Update parent component
+    // Update parent component CreateProjectField.jsx
     handleAddTech((prevAllSelected) => prevAllSelected.filter((t) => t !== tech));
   };
   
