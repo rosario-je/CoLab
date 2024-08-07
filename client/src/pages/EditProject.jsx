@@ -6,11 +6,7 @@ import { UserLeftMenu } from "../components/UserLeftMenu";
 import { UserRightMenu } from "../components/UserRightMenuComponents/UserRightMenu";
 import { ProjectEditField } from "../components/Projects/ProjectEditField";
 
-export const EditProject = ({
-  handleTechStacksModal,
-  techModal,
-  currentUser,
-}) => {
+export const EditProject = () => {
   const [project, setProject] = useState({
     name: "",
     description: "",
@@ -40,16 +36,12 @@ export const EditProject = ({
 
   return (
     <div className="flex flex-col h-screen mx-72">
-      <Navbar currentUser={currentUser} />
+      <Navbar />
       <div className="flex flex-1 mt-16">
-        <UserLeftMenu currentUser={currentUser} />
+        <UserLeftMenu />
         <div className="flex flex-col w-full h-full bg-project-background overflow-hidden">
           <div className="flex-grow flex justify-center h-full mx-10 my-5">
-            <ProjectEditField
-              handleTechStacksModal={handleTechStacksModal}
-              techModal={techModal}
-              project={project}  
-            />
+            <ProjectEditField project={project} />
           </div>
         </div>
         <UserRightMenu />
