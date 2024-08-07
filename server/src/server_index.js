@@ -70,6 +70,12 @@ io.on("connection", (socket) => {
     console.log(`Notification sent to user ${user_id}: ${notification}`);
   });
 
+  socket.on("sendRequest", (requestData) => {
+    const { user_id, request } = requestData;
+    io.to(user_id).emit("receiveRequest", request);
+    console.log(`Request sent to user ${user_id}: ${request}`);
+  });
+
   socket.on("disconnect", () => {
     console.log("A user disconnected");
   });
