@@ -47,7 +47,7 @@ export const ProjectCreateField = ({ handleTechStacksModal, techModal }) => {
 
   
   const isValidImageUrl = (url) => {
-    return /\.(jpg|jpeg|png)$/i.test(url);
+    return /\.(jpg|jpeg|png|gif)$/i.test(url);
   };
 
   const handleAddCoverPhoto = () => {

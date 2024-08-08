@@ -25,10 +25,10 @@ export const ProjectEditField = ({
     tech_requirements: tech_names,
   } = project;
 
-  console.log(
-    "+++++++++++++++++++++++++++++++++++++++++++++++++++++",
-    projectData.tech_requirements
-  );
+  // console.log(
+  //   "+++++++++++++++++++++++++++++++++++++++++++++++++++++",
+  //   projectData.tech_requirements
+  // );
   useEffect(() => {
     setProjectData(project);
   }, [project]);
@@ -55,11 +55,11 @@ export const ProjectEditField = ({
         tech_requirements: [...prevData.tech_requirements, techLanguage],
       }));
     }
-    console.log("TECH: ", projectData);
+    // console.log("TECH: ", projectData);
   };
 
   const isValidImageUrl = (url) => {
-    return /\.(jpg|jpeg|png)$/i.test(url);
+    return /\.(jpg|jpeg|png|gif)$/i.test(url);
   };
 
   const handleAddCoverPhoto = () => {
@@ -98,17 +98,17 @@ export const ProjectEditField = ({
       github_repo,
       figma_link,
       trello_link,
-    } = e.target.elements;
+    } = projectData;
 
     const bodyPayload = {
-      name: name.value,
-      description: description.value,
-      max_participants: max_participants.value,
-      cover_photo_path: cover_photo_path.value,
-      github_repo: github_repo.value,
-      figma_link: figma_link.value,
-      trello_link: trello_link.value,
-      // newPicture: newPicture.value,
+      name: name,
+      description: description,
+      max_participants: max_participants,
+      cover_photo_path: cover_photo_path,
+      github_repo: github_repo,
+      figma_link: figma_link,
+      trello_link: trello_link,
+      // newPicture: newPicture,
       tech_requirements: projectData.tech_requirements,
     };
 
@@ -118,15 +118,15 @@ export const ProjectEditField = ({
 
       // Validate and prepend base URLs
       const validatedGithub_repo = validateLink(
-        github_repo.value,
+        github_repo,
         "https://github.com"
       );
       const validatedFigma_link = validateLink(
-        figma_link.value,
+        figma_link,
         "https://figma.com"
       );
       const validatedTrello_link = validateLink(
-        trello_link.value,
+        trello_link,
         "https://trello.com"
       );
 
@@ -143,6 +143,7 @@ export const ProjectEditField = ({
       }
 
       console.log("LINE 145", bodyPayload);
+
       const updateResponse = await axios.put(
         `/api/projects/${project_id}/edit`,
         bodyPayload // Correct variable name
@@ -174,8 +175,10 @@ export const ProjectEditField = ({
         </div>
       )}
 
-      <form className="flex flex-col h-full w-full justify-around" onSubmit={editProject}>
-
+      <form
+        className="flex flex-col h-full w-full justify-around"
+        onSubmit={editProject}
+      >
         {/* PROJECT TITLE */}
         <div className="project-title flex justify-between py-4 mt-5 mb-10">
           <div className="w-auto">
@@ -286,26 +289,26 @@ export const ProjectEditField = ({
               Choose images to showcase the design or what might represent the
               design of the project
             </h6>
-            {cover_photo_path && (
+            {projectData.cover_photo_path && (
               <button
                 type="button"
                 className="text-text-color/90 mt-5 btn hover:bg-reject hover:border-reject text-lg group mr-5"
                 onClick={handleRemoveCoverPhoto}
               >
                 <i className="fa-solid fa-image group-hover:text-white group-hover:drop-shadow-white-glow"></i>
-                {cover_photo_path}
+                {projectData.cover_photo_path}
               </button>
             )}
           </div>
           <div className="file-input-container w-1/3 flex flex-col justify-center items-end gap-5">
-            {cover_photo_path.length > 0 ? (
+            {projectData.cover_photo_path ? (
               <>
                 <input
                   type="url"
-                  name="cover_photo_path"
-                  value={cover_photo_path}
+                  name="newPicture"
+                  value={projectData.cover_photo_path}
                   placeholder="Delete picture file first"
-                  className="input input-bordered bg-disabled-input w-full"
+                  className="input input-bordered bg-navbar-color w-full"
                   disabled
                 />
                 <button
@@ -321,8 +324,8 @@ export const ProjectEditField = ({
                 <input
                   type="url"
                   placeholder="Enter image URL"
-                  name="cover_photo_path"
-                  value={newPicture}
+                  name="newPicture"
+                  value={projectData.newPicture} // Ensure this is mapped to the right state
                   onChange={handleInputChange}
                   className="input input-bordered bg-navbar-color w-full"
                 />
