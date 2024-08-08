@@ -11,7 +11,7 @@ import { AppContext } from "../../context/AppContext";
 export const ProjectCard = ({
   currentUserId,
   project,
-  fetchProjects,
+  fetchUserProjects,
   page,
   currentUserName,
 }) => {
@@ -32,8 +32,7 @@ export const ProjectCard = ({
 
   const socket = useRef(null);
   const { listen, emit, isConnected } = useSocketManager();
-  const { setNotifications, setRequests } =
-    useContext(AppContext);
+  const { setNotifications, setRequests } = useContext(AppContext);
 
   useEffect(() => {
     if (isConnected) {
@@ -71,7 +70,7 @@ export const ProjectCard = ({
         `/api/dashboard/projects/${project_id}/complete`
       );
       console.log("Project marked as complete: ", response.data);
-      fetchProjects();
+      fetchUserProjects();
     } catch (error) {
       console.error("Error completing project:", error.message);
     }
@@ -183,7 +182,12 @@ export const ProjectCard = ({
                     </a>
                   </button>
 
-                  <button className="btn bg-website-purple hover:bg-website-purple-hover text-white text-base rounded-full">
+                  <button
+                    onClick={() =>
+                      navigate(`/${currentUserId}/project/${project_id}`)
+                    }
+                    className="btn bg-website-purple hover:bg-website-purple-hover text-white text-base rounded-full"
+                  >
                     View Project
                   </button>
                 </div>
