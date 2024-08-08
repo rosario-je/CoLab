@@ -1,11 +1,11 @@
 import React, { useContext } from "react";
-import vial from "../../images/vial.png";
 import { useNavigate } from "react-router-dom";
 import { AppContext } from "../../context/AppContext";
 
 export const LandingNavBar = () => {
   const { currentUser, handleLogout } = useContext(AppContext);
   const navigate = useNavigate();
+  
 
   
   return (

@@ -1,5 +1,5 @@
 import React from "react";
-import { Routes, Route, useNavigate } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import axios from "axios";
 
 import ProtectedRoute from "./components/Auth/ProtectedRoute";
@@ -13,17 +13,10 @@ import { SignUp } from "./pages/SignUp";
 import { SignIn } from "./pages/SignIn";
 import { MyProjectRequests } from "./pages/MyProjectRequests";
 import { MyNotifications } from "./pages/MyNotifications";
-import { useSocketManager } from "./manage_sockets.js";
 
 axios.defaults.withCredentials = true;
 
 function App() {
-  const navigate = useNavigate();
-  const { listen, emit, isConnected } = useSocketManager();
-
-  // const handleTechStacksModal = () => {
-  //   setTechModal(!techModal);
-  // };
 
   return (
     <div className="App">
