@@ -100,11 +100,9 @@ router.post('/manage_requests/approve_join_request', async (req, res) => {
     const addToProject = await addUserToProject(project_id, requesting_user_id);
     const message = `Your request to join project ${project.name} has been approved!`;
     const sendmsg = await sendProjectNotification(user_id, requesting_user_id, message);
-    io.to(requesting_user_id).emit("receiveNotification", {
-      message,
-      project_id,
-      requesting_user_id,
-    });
+    io.to(requesting_user_id).emit("receiveNotification", sendmsg);
+    console.log('Accept request:', sendmsg);
+
 
     res.status(201).json({
       message: sendmsg,
@@ -129,18 +127,16 @@ router.delete('/manage_requests/reject_join_request', async (req, res) => {
       return res.status(403).json({ error: "Unauthorized to complete this action" });
     }
     const rejectRequest = await rejectJoinRequest(project_id, requesting_user_id);
+
     if (!rejectRequest) {
       return res.status(500).send('Error deleting join request');
     }
     const message = `Your request to join project ${project.name} has been rejected.`;
     const sendmsg = await sendProjectNotification(user_id, requesting_user_id, message);
-    
-    io.to(requesting_user_id).emit("receiveNotification", {
-      message,
-      project_id,
-      requesting_user_id,
-    });
-    console.log("rejectRequest:", sendmsg);
+    console.log('sendmsg:', sendmsg);
+
+
+    io.to(requesting_user_id).emit("receiveNotification", sendmsg);
 
     res.status(201).json({
       message: sendmsg,

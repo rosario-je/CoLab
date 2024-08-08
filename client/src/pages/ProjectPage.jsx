@@ -9,37 +9,35 @@ import { ProjectRightMenu } from "../components/GroupProjectPage/ProjectRightMen
 
 export const ProjectPage = ({ handleCoLabHome }) => {
   const { projectId } = useParams();
-  const [project, setProject] = useState({
-    name: "",
-    cover_photo_path: "",
-    description: "",
-    figma_link: "",
-    github_repo: "",
-    owner_email: "",
-    owner_pic: "",
-    owner_username: "",
-    participants: [],
-    tech_requirements: [],
-    chat: [],
-  });
+  const [project, setProject] = useState({});
 
+  const handleCompleteProject = async () => {
+    try {
+      const response = await axios.patch(
+        `/api/dashboard/projects/${project_id}/complete`
+      );
+      console.log("Project marked as complete: ", response.data);
+      fetchUserProjects();
+    } catch (error) {
+      console.error("Error completing project:", error.message);
+    }
+  };
+
+  const fetchProject = async () => {
+    try {
+      const response = await axios.get(`/api/projects/${projectId}`);
+      setProject(response.data);
+    } catch (error) {
+      console.error("Error getting the project", error.message);
+    }
+  };
   useEffect(() => {
-    const fetchProject = async () => {
-      try {
-        const response = await axios.get(`/api/projects/${projectId}`);
-        setProject(response.data);
-      } catch (error) {
-        console.error("Error getting the project", error.message);
-      }
-    };
     fetchProject();
   }, [projectId]);
 
   return (
     <div className="flex flex-col h-screen">
-      <Navbar
-        handleCoLabHome={handleCoLabHome}
-      />
+      <Navbar handleCoLabHome={handleCoLabHome} />
       <div className="flex flex-1 mt-16">
         <UserLeftMenu />
         <div
@@ -57,7 +55,7 @@ export const ProjectPage = ({ handleCoLabHome }) => {
             </div>
           </div>
         </div>
-        <ProjectRightMenu project={project} />
+        <ProjectRightMenu project={project} owner={project.owner_id} handleCompleteProject={handleCompleteProject}/>
       </div>
     </div>
   );
