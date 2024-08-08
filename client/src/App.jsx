@@ -21,37 +21,6 @@ function App() {
   const navigate = useNavigate();
   const { listen, emit, isConnected } = useSocketManager();
 
-  // useEffect(() => {
-  //   const fetchCurrentUser = async () => {
-  //     try {
-  //       const response = await axios.get("/api/current-user");
-  //       setCurrentUser(response.data);
-  //       if (isConnected) {
-  //         emit("joinRoom", {userId: response.data})
-  //       };
-  //     } catch (error) {
-  //       console.error(
-  //         "No user logged in:",
-  //         error.response?.data || error.message
-  //       );
-  //     }
-  //   };
-  //   fetchCurrentUser();
-  // }, []);
-
-  // const handleLogout = async () => {
-  //   try {
-  //     await axios.post("/api/logout");
-  //     setCurrentUser(null);
-  //     navigate("/signin");
-  //   } catch (error) {
-  //     console.error(
-  //       "Error logging out:",
-  //       error.response?.data || error.message
-  //     );
-  //   }
-  // };
-
   const handleTechStacksModal = () => {
     setTechModal(!techModal);
   };
