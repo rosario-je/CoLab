@@ -1,16 +1,13 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { EditProjectTechStackModal } from "../EditProjectTechStackModal";
+import { AppContext } from "../../context/AppContext";
 
-export const ProjectEditField = ({
-  handleTechStacksModal,
-  techModal,
-  project,
-}) => {
+export const ProjectEditField = ({ project }) => {
+  const { handleTechStacksModal, techModal } = useContext(AppContext);
   const [projectEditing, setProjectEditing] = useState(false);
   const [projectData, setProjectData] = useState(project);
-  console.log("====================", projectData);
 
   const {
     project_id,
@@ -25,10 +22,6 @@ export const ProjectEditField = ({
     tech_requirements: tech_names,
   } = project;
 
-  // console.log(
-  //   "+++++++++++++++++++++++++++++++++++++++++++++++++++++",
-  //   projectData.tech_requirements
-  // );
   useEffect(() => {
     setProjectData(project);
   }, [project]);
@@ -55,7 +48,6 @@ export const ProjectEditField = ({
         tech_requirements: [...prevData.tech_requirements, techLanguage],
       }));
     }
-    // console.log("TECH: ", projectData);
   };
 
   const isValidImageUrl = (url) => {
@@ -89,7 +81,6 @@ export const ProjectEditField = ({
 
   const editProject = async (e) => {
     e.preventDefault();
-    console.log(e.target.elements);
     const {
       name,
       description,
@@ -112,7 +103,6 @@ export const ProjectEditField = ({
       tech_requirements: projectData.tech_requirements,
     };
 
-    // console.log("BODY PAYLOAD: ", bodyPayload);
     try {
       setProjectEditing(true);
 
@@ -142,14 +132,10 @@ export const ProjectEditField = ({
         return;
       }
 
-      console.log("LINE 145", bodyPayload);
-
       const updateResponse = await axios.put(
         `/api/projects/${project_id}/edit`,
-        bodyPayload // Correct variable name
+        bodyPayload
       );
-
-      // console.log("AFTER PATCH ROUTE", updateResponse.data);
 
       const { id, owner_id } = updateResponse.data.project;
 

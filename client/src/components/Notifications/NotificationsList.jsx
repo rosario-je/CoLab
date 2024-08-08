@@ -1,30 +1,12 @@
-import React, { useEffect, useState } from "react";
-import axios from "axios";
-import { NotificationListItems } from "./NotificationsListItems";
+import React from "react";
+import { useContext } from "react";
+import { AppContext } from "../../context/AppContext";
+import { NotificationListItems } from "./NotificationsListItems.jsx";
 
 export const NotificationsList = () => {
-  const [notifications, setNotifications] = useState([]);
-
-  useEffect(() => {
-    const fetchNotifications = async () => {
-      try {
-        const notifList = await axios.get("/api/dashboard/notifications");
-        setNotifications(notifList.data);
-        console.log("Notifications: ", notifList.data);
-      } catch (error) {
-        console.error("Error in getting notifications: ", error.message);
-      }
-    };
-    fetchNotifications();
-  }, []);
-
-  const handleDismiss = (dismissedNotificationId) => {
-    setNotifications((prevNotifications) =>
-      prevNotifications.filter(
-        (notification) => notification.id !== dismissedNotificationId
-      )
-    );
-  };
+  const { notifications } = useContext(AppContext);
+  // console.log("Notifications: ", notifications);
+  
 
   return (
     <div className="my-notifications h-full w-auto flex flex-col items-center">
@@ -38,7 +20,6 @@ export const NotificationsList = () => {
               key={notification.id}
               notification_id={notification.id}
               message={notification.message}
-              onDesicion={() => handleDismiss(notification.id)}
             />
           );
         })}

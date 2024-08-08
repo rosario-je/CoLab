@@ -1,6 +1,7 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import axios from "axios";
 
+import { AppContext } from "../context/AppContext";
 import { Navbar } from "../components/Navbar";
 import { UserLeftMenu } from "../components/UserLeftMenu";
 import { UserRightMenu } from "../components/UserRightMenuComponents/UserRightMenu";
@@ -9,12 +10,16 @@ import { ProjectCard } from "../components/Projects/ProjectCard";
 
 import { Skeletons } from "../components/LoadingComponents/Skeletons";
 
-export const Dashboard = ({ handleCoLabHome, currentUser, handleLogout }) => {
+export const Dashboard = ({ handleCoLabHome }) => {
+  const { currentUser } = useContext(AppContext);
+
   const [fetchingProjects, setFetchingProjects] = useState(true);
   const [projects, setProjects] = useState([]);
   const [allProjects, setAllProjects] = useState([]);
   const userId = currentUser.id;
+  const userName = currentUser.username
 
+  /*------------------- Fetch projects --------------*/
   useEffect(() => {
     const fetchProjects = async () => {
       try {
@@ -22,8 +27,8 @@ export const Dashboard = ({ handleCoLabHome, currentUser, handleLogout }) => {
         setProjects(projectData.data);
         setAllProjects(projectData.data);
         setTimeout(() => {
-          setFetchingProjects(false)
-        }, 400)
+          setFetchingProjects(false);
+        }, 400);
         //console.log("Projects: ", projectData.data);
       } catch (error) {
         console.error("Error in getting projects: ", error.message);
@@ -32,6 +37,7 @@ export const Dashboard = ({ handleCoLabHome, currentUser, handleLogout }) => {
     fetchProjects();
   }, []);
 
+  /*------------------- Search functionality --------------*/
   const handleSearch = async (query) => {
     if (query.trim()) {
       try {
@@ -50,14 +56,14 @@ export const Dashboard = ({ handleCoLabHome, currentUser, handleLogout }) => {
 
   return (
     <div className="flex flex-col h-screen">
-      <Navbar handleCoLabHome={handleCoLabHome} currentUser={currentUser} />
-      <div className="flex mt-16">
-        <UserLeftMenu currentUser={currentUser} />
+      <Navbar handleCoLabHome={handleCoLabHome} />
+      <div className="flex flex-1 mt-16">
+        <UserLeftMenu />
         <div className="flex flex-col w-full bg-project-background overflow-hidden pt-4">
           <div className="z-10 bg-black">
             <SearchBar handleSearch={handleSearch} />
           </div>
-          <div className="flex flex-col grow justify-center overflow-y-auto mx-72 mt-16 px-10 h-max">
+          <div className="flex flex-col grow justify-center overflow-y-auto mx-72 mt-16 px-10 h-max bg-project-background">
             {fetchingProjects ? (
               <Skeletons />
             ) : (
@@ -66,13 +72,14 @@ export const Dashboard = ({ handleCoLabHome, currentUser, handleLogout }) => {
                   key={project.project_id}
                   page="dashboard"
                   currentUserId={userId}
+                  currentUserName={userName}
                   project={project}
                 />
               ))
             )}
           </div>
         </div>
-        <UserRightMenu currentUser={currentUser} />
+        <UserRightMenu />
       </div>
     </div>
   );

@@ -1,8 +1,10 @@
-import React from "react";
+import React, {useContext} from "react";
 import { useNavigate } from "react-router-dom";
+import { AppContext } from "../context/AppContext";
 
-export const UserLeftMenu = ({ currentUser }) => {
+export const UserLeftMenu = () => {
   const navigate = useNavigate();
+  const { notifications, currentUser, requests } = useContext(AppContext);
 
   return (
     <div className="flex flex-col fixed top-0 left-0 w-[300px] h-full bg-menu-colors justify-between mt-5 pt-16">
@@ -59,9 +61,9 @@ export const UserLeftMenu = ({ currentUser }) => {
                 >
                   <div className="icon-container relative">
                     <i className="fa-solid fa-envelope group-hover:animate-bounceSlow group-hover:text-icon-purple group-hover:drop-shadow-white-glow mr-0.5"></i>
-                    {/* {requests.length > 0 && ( */}
+                    {requests && requests.length > 0 && (
                       <div className="badge bg-confirm badge-xs absolute -top-1 -right-1 border-confirm" />
-                    {/* )} */}
+                    )}
                   </div>
                   <p>Join Requests</p>
                 </a>
@@ -71,10 +73,15 @@ export const UserLeftMenu = ({ currentUser }) => {
                 <a
                   className="flex items-center cursor-pointer"
                   onClick={() => {
-                    navigate(`/${currentUser.id}/notifications`);
+                    navigate(`/${currentUser.id}/notifications`)
                   }}
                 >
-                  <i className="fa-solid fa-bell group-hover:animate-bounceSlow group-hover:text-icon-purple group-hover:drop-shadow-white-glow mr-0.5"></i>
+                  <div className="icon-container relative">
+                    <i className="fa-solid fa-comments group-hover:animate-bounceSlow group-hover:text-icon-purple group-hover:drop-shadow-white-glow mr-0.5"></i>
+                    {notifications && notifications.length > 0 && (
+                      <div className="badge bg-confirm badge-xs absolute -top-1 -right-1 border-confirm" />
+                    )}
+                  </div>
                   <p>Notifications</p>
                 </a>
               </li>

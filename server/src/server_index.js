@@ -58,6 +58,23 @@ io.on("connection", (socket) => {
     const { projectId, message } = messageData;
     io.to(projectId).emit("receiveMessage", message);
   });
+  
+  socket.on("joinRoom", ({ userId }) => {
+    socket.join(userId);
+    console.log(`User ${userId} joined room ${userId}`);
+  });
+
+  socket.on("sendNotification", (notificationData) => {
+    const { user_id, notification } = notificationData;
+    io.to(user_id).emit("receiveNotification", notification);
+    console.log(`Notification sent to user ${user_id}: ${notification}`);
+  });
+
+  socket.on("sendRequest", (requestData) => {
+    const { user_id, request } = requestData;
+    io.to(user_id).emit("receiveRequest", request);
+    console.log(`Request sent to user ${user_id}: ${request}`);
+  });
 
   socket.on("disconnect", () => {
     console.log("A user disconnected");

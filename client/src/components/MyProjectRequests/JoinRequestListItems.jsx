@@ -1,45 +1,20 @@
-import React from "react";
-import axios from "axios";
+import React, { useContext } from "react";
+import { AppContext } from "../../context/AppContext";
 
 export const JoinRequestListItems = ({
-  project_id,
-  requester_user_id,
   requester_username,
   project_name,
-  onDecision,
+  requester_user_id,
+  project_id,
 }) => {
-  const acceptRequest = async () => {
-    try {
-      const response = await axios.post(
-        "/api/dashboard/manage_requests/approve_join_request",
-        {
-          project_id: project_id,
-          requesting_user_id: requester_user_id,
-        }
-      );
-      console.log("Request accepted: ", response.data);
-      onDecision();
-    } catch (error) {
-      console.error("Error accepting request: ", error.message);
-    }
+  const { acceptRequest, denyRequest } = useContext(AppContext);
+
+  const handleAcceptRequest =  () => {
+    acceptRequest(project_id, requester_user_id);
   };
 
-  const denyRequest = async () => {
-    try {
-      const response = await axios.delete(
-        "/api/dashboard/manage_requests/reject_join_request",
-        {
-          data: {
-            project_id: project_id,
-            requesting_user_id: requester_user_id,
-          },
-        }
-      );
-      console.log("Request denied: ", response.data);
-      onDecision();
-    } catch (error) {
-      console.error("Error denying request: ", error.message);
-    }
+  const handleDenyRequest = () => {
+    denyRequest(project_id, requester_user_id);
   };
 
   return (
@@ -58,13 +33,16 @@ export const JoinRequestListItems = ({
             <h2 className="text-3xl font-bold">{project_name}</h2>
             <div className="flex justify-center items-center gap-[15px]">
               <button
-                onClick={acceptRequest}
+                onClick={handleAcceptRequest}
                 className="btn bg-confirm hover:bg-confirm-light text-white rounded-full border-none text-base"
               >
                 Accept
               </button>
 
-              <button onClick={denyRequest} className="btn bg-reject hover:bg-reject-light text-white rounded-full text-base">
+              <button
+                onClick={handleDenyRequest}
+                className="btn bg-reject hover:bg-reject-light text-white rounded-full text-base"
+              >
                 Deny
               </button>
             </div>

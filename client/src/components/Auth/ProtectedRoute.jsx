@@ -1,8 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import { AppContext } from '../../context/AppContext';
 
-const ProtectedRoute = ({ children, currentUser, setCurrentUser }) => {
+const ProtectedRoute = ({ children}) => {
+  const { currentUser, setCurrentUser } = useContext(AppContext);
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
 

@@ -5,12 +5,10 @@ import { ProjectUserAvatar } from "../Projects/ProjectUserAvatar";
 import { OwnerProjectAvatar } from "../Projects/OwnerProjectAvatar";
 import { ProjectGroupChat } from "./ProjectGroupChat";
 
-export const ProjectPageDetails = ({ project, fetchProject }) => {
+export const ProjectPageDetails = ({ project }) => {
   const [message, setMessage] = useState("");
   const [chat, setChat] = useState(project.chat);
   const socket = useRef(null);
-
-  console.log(chat);
 
   const {
     name,
@@ -66,12 +64,14 @@ export const ProjectPageDetails = ({ project, fetchProject }) => {
   };
 
   return (
-    <div className="project-container flex flex-col grow mt-3.5">
-      <div className="project-details-container flex flex-row px-6 justify-between border-b-2 border-project-border/25 h-auto items-center  backdrop-blur-xl bg-project-left-menu/30 fixed  top-20 z-10 left-[300px] right-[300px]">
+    <div className="project-container flex flex-col grow mt-3.5 bg-alt-grey/75">
+      <div className="project-details-container flex flex-row px-6 justify-between border-b-2 border-project-border/25 h-auto items-center  backdrop-blur-xl bg-alt-grey/75 fixed  top-20 z-10 left-[300px] right-[300px]">
         <div className="flex flex-col gap-y-6">
           {name && (
             <div className="project-title">
-              <h1 className="text-text-color font-semibold text-4xl">{name}</h1>
+              <h1 className="text-text-color/90 font-semibold text-4xl">
+                {name}
+              </h1>
             </div>
           )}
           <div className="tech-stack flex flex-row justify-start gap-x-6">
@@ -98,7 +98,7 @@ export const ProjectPageDetails = ({ project, fetchProject }) => {
               participants.length > 0 &&
               participants.map((participant) => (
                 <ProjectUserAvatar
-                  key={participant.id}
+                  key={participant.participant_id}
                   participant={participant}
                   borderColorClass={"border-alt-grey/75"}
                 />
@@ -106,7 +106,7 @@ export const ProjectPageDetails = ({ project, fetchProject }) => {
           </div>
         </div>
       </div>
-      <div className="chat-main-container relative flex-grow mt-[155px] mb-20 bg-alt-grey/75">
+      <div className="chat-main-container relative flex flex-col flex-grow mt-[155px] mb-20 bg-alt-grey/75 h-full justify-end">
         <ProjectGroupChat chat={chat} />
       </div>
       <div className="fixed bottom-0 left-[300px] right-[300px] z-20">

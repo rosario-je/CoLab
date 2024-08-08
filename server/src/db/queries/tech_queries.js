@@ -1,5 +1,6 @@
 import db from '../connection.js';
 
+// Add a tech requirement to a project
 const addTechToProject = async (project_id, tech_name) => {
   try {
     const data = await db.query(
@@ -14,6 +15,9 @@ const addTechToProject = async (project_id, tech_name) => {
   }
 };
 
+// Query for search bar 
+// ILIKE is case insensitive
+// % is a wildcard character
 const getTechByName = async (tech_name) => {
   try {
     const data = await db.query(

@@ -1,14 +1,14 @@
-import React from "react";
+import React, { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
-export const Navbar = ({ currenUser }) => {
+import { AppContext } from "../context/AppContext";
+
+export const Navbar = () => {
+  const { currentUser, handleLogout } = useContext(AppContext);
   const navigate = useNavigate();
-  const handleLogout = async () => {
-    await axios.post("/api/logout").then(() => {
-      navigate("/signin");
-    });
-  };
+
+ 
 
   return (
     <div className="navbar w-screen bg-navbar-color text-text-color fixed top-0 left-0 right-0 z-50">
@@ -20,8 +20,8 @@ export const Navbar = ({ currenUser }) => {
           }}
         >
           <img
-            src='/idea.png'
-            className="h-7 mb-2 group-hover:animate-unstableBeaker group-hover:drop-shadow-yellow-glow mr-2"
+            src="/idea.png"
+            className="h-7 mb-2 group-hover:animate-unstableBeaker"
           />
           CoLab
         </a>

@@ -1,8 +1,11 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { UserMenuProject } from "./UserMenuProject";
 import axios from "axios";
 
-export const UserRightMenu = ({ currentUser }) => {
+import { AppContext } from "../../context/AppContext";
+
+export const UserRightMenu = () => {
+  const { currentUser } = useContext(AppContext);
   const [rightMenuProjects, setRightMenuProjects] = useState([]);
 
   useEffect(() => {
@@ -21,7 +24,7 @@ export const UserRightMenu = ({ currentUser }) => {
     };
     fetchRightUserMenu();
   }, []);
-  
+
   return (
     <div className="flex flex-col fixed top-0 right-0 w-[300px] h-full bg-menu-colors justify-between mt-5 pt-16">
       <ul className="menu">
@@ -29,7 +32,13 @@ export const UserRightMenu = ({ currentUser }) => {
           <h2 className="menu-title text-text-color text-lg pb-5">Projects</h2>
           <ul className="side-projects text-xl font-light pt-5 space-y-5">
             {rightMenuProjects.map((project) => {
-              return <UserMenuProject project={project} currentUser={currentUser.id}/>;
+              return (
+                <UserMenuProject
+                  key={project.project_id}
+                  project={project}
+                  currentUser={currentUser.id}
+                />
+              );
             })}
           </ul>
         </li>

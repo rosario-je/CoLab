@@ -1,28 +1,22 @@
-import React from "react";
 import axios from "axios";
+import { useContext } from "react";
+import { AppContext } from "../../context/AppContext";
 
 export const NotificationListItems = ({
   notification_id,
-  message,
-  onDesicion
+  message
 }) => {
 
-  const dismissNotif = async () => {
-    try {
-      const response = await axios.delete(`/api/dashboard/notifications/${notification_id}`);
-      console.log("Notification deleted: ", response.data);
-      onDesicion();
+const { dismissNotif } = useContext(AppContext);
 
-    } catch (error) {
-      console.error("Error dismissing notification", error.message);
-    }
-  };
-
+const handleDismissClick = () => {
+  dismissNotif(notification_id); 
+};
   return (
     <>
       <div className="card bg-navbar-color text-text-color/90 my-10 w-3/4 border-2 border-project-border/25">
         <button 
-          onClick={dismissNotif}
+          onClick={handleDismissClick}
           className="btn btn-circle absolute top-0 right-0 mt-4 mr-4 border-2 border-project-border/25 hover:border-project-border/25">
           <svg
             xmlns="http://www.w3.org/2000/svg"
