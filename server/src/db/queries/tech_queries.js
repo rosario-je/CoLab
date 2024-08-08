@@ -39,4 +39,7 @@ const getTechByName = async (tech_name) => {
 };
 
 
-export { addTechToProject, getTechByName };
+export { 
+  addTechToProject, 
+  getTechByName 
+};

@@ -21,9 +21,9 @@ function App() {
   const navigate = useNavigate();
   const { listen, emit, isConnected } = useSocketManager();
 
-  const handleTechStacksModal = () => {
-    setTechModal(!techModal);
-  };
+  // const handleTechStacksModal = () => {
+  //   setTechModal(!techModal);
+  // };
 
   return (
     <div className="App">

@@ -47,10 +47,7 @@ router.patch('/projects/:project_id/complete', async (req, res) => {
     }
     const completeProject = await projectCompleted(project_id);
     console.log(projectCompleted)
-    return res.status(200).json({
-      message: "Project Completed!",
-      data: completeProject
-    });
+    return res.status(200).send("Project Completed");
   } catch (error) {
     console.error("Error in completing project: ", error.message);
     res.status(500).json({ error: "Internal server error" });
@@ -108,8 +105,6 @@ router.post('/manage_requests/approve_join_request', async (req, res) => {
       project_id,
       requesting_user_id,
     });
-    console.log('Accept request:', sendmsg);
-
 
     res.status(201).json({
       message: sendmsg,
@@ -169,6 +164,7 @@ router.post('/search', async (req, res) => {
     // get array of full project details that have the tech
     const projectPromises = projectsIdArray.map(project_id => getAllProjectsById(project_id));
     const searchResults = await Promise.all(projectPromises);
+    searchResults.sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
     return res.status(200).json(searchResults);
   } catch (error) {
     console.error("Error in searching by tech: ", error.message);
@@ -176,7 +172,7 @@ router.post('/search', async (req, res) => {
   }
 });
 
-// Get notifications about project join requests
+// Get notifications
 // http://localhost:8080/api/dashboard/notifications
 router.get('/notifications', async (req, res) => {
   try {
