@@ -20,7 +20,7 @@ export const ProjectCreateField = () => {
     newPicture: "",
   });
 
-  const maxChars = 300;
+  const maxChars = 500;
   const navigate = useNavigate();
 
   const handleInputChange = (e) => {
