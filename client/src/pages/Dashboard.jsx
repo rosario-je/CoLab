@@ -18,6 +18,7 @@ export const Dashboard = ({ handleCoLabHome }) => {
   const [allProjects, setAllProjects] = useState([]);
   const userId = currentUser.id;
   const userName = currentUser.username
+  
 
   /*------------------- Fetch projects --------------*/
   useEffect(() => {
