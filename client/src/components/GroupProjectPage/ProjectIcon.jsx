@@ -12,7 +12,7 @@ export const ProjectIcon = ({ project, currentUser }) => {
     >
       <img
         className="rounded-2xl w-24 h-24 object-cover border-4 border-text-color/90"
-        src={project.cover_photo_path}
+        src={project.cover_photo_path || "https://staticg.sportskeeda.com/editor/2023/05/90701-16836967841966-1920.jpg"}
         alt={project.name}
       />
     </div>

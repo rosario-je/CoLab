@@ -158,7 +158,7 @@ export const ProjectCard = ({
         </div>
         <p className="font-light text-xl pt-5 mb-5 italic">{description}</p>
         <div className="flex card-actions w-full justify-between items-center">
-          <div className="w-[60%]">
+          <div className="w-[60%] space-y-5">
             {tech_requirements.map((tech, index) => (
               <ProjectTechStack key={index} tech={tech} />
             ))}

@@ -14,10 +14,10 @@ export const ProjectPage = ({ handleCoLabHome }) => {
   const handleCompleteProject = async () => {
     try {
       const response = await axios.patch(
-        `/api/dashboard/projects/${project_id}/complete`
+        `/api/dashboard/projects/${project.project_id}/complete`
       );
       console.log("Project marked as complete: ", response.data);
-      fetchUserProjects();
+      fetchProject();
     } catch (error) {
       console.error("Error completing project:", error.message);
     }
@@ -55,7 +55,11 @@ export const ProjectPage = ({ handleCoLabHome }) => {
             </div>
           </div>
         </div>
-        <ProjectRightMenu project={project} owner={project.owner_id} handleCompleteProject={handleCompleteProject}/>
+        <ProjectRightMenu
+          project={project}
+          owner={project.owner_id}
+          handleCompleteProject={handleCompleteProject}
+        />
       </div>
     </div>
   );

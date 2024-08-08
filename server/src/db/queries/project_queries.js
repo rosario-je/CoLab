@@ -287,6 +287,7 @@ const getProjectPage = async (project_id) => {
         p.description,
         p.max_participants,
         p.owner_id,
+        p.is_in_progress,
         owner.username AS owner_username,
         owner.profile_pic AS owner_pic,
         owner.email AS owner_email,
