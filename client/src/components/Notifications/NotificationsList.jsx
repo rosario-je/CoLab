@@ -1,12 +1,10 @@
-import React from "react";
-import { useContext } from "react";
+import React, { useContext } from "react"; // Fixed import statement
 import { AppContext } from "../../context/AppContext";
 import { NotificationListItems } from "./NotificationsListItems.jsx";
 
 export const NotificationsList = () => {
   const { notifications } = useContext(AppContext);
   // console.log("Notifications: ", notifications);
-  
 
   return (
     <div className="my-notifications h-full w-auto flex flex-col items-center">
@@ -14,15 +12,17 @@ export const NotificationsList = () => {
         <h1 className="text-white text-2xl">My Notifications</h1>
       </div>
       <div className="flex flex-col w-full mt-16 items-center">
-        {notifications.map((notification) => {
-          return (
+        {notifications.length > 0 ? (
+          notifications.map((notification) => (
             <NotificationListItems
               key={notification.id}
               notification_id={notification.id}
               message={notification.message}
             />
-          );
-        })}
+          )) // Added closing parenthesis here
+        ) : (
+          <p>No notifications available</p>
+        )}
       </div>
     </div>
   );
