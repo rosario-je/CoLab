@@ -7,26 +7,36 @@ import { AppContext } from "../../context/AppContext";
 export const ProjectEditField = ({ project }) => {
   const { handleTechStacksModal, techModal } = useContext(AppContext);
   const [projectEditing, setProjectEditing] = useState(false);
-  const [projectData, setProjectData] = useState(project);
+  const [projectData, setProjectData] = useState({
+    name: project?.name || "",
+    description: project?.description || "",
+    max_participants: project?.max_participants || "",
+    github_repo: project?.github_repo || "",
+    figma_link: project?.figma_link || "",
+    trello_link: project?.trello_link || "",
+    cover_photo_path: project?.cover_photo_path || "",
+    newPicture: project?.newPicture || "",
+    tech_requirements: project?.tech_requirements || [],
+  });
 
-  const {
-    project_id,
-    name,
-    description,
-    max_participants,
-    cover_photo_path,
-    github_repo,
-    figma_link,
-    trello_link,
-    newPicture,
-    tech_requirements: tech_names,
-  } = project;
+  const { project_id, max_participants, github_repo, figma_link, trello_link } =
+    project;
 
   useEffect(() => {
-    setProjectData(project);
+    setProjectData({
+      name: project?.name || "",
+      description: project?.description || "",
+      max_participants: project?.max_participants || "",
+      github_repo: project?.github_repo || "",
+      figma_link: project?.figma_link || "",
+      trello_link: project?.trello_link || "",
+      cover_photo_path: project?.cover_photo_path || "",
+      newPicture: project?.newPicture || "",
+      tech_requirements: project?.tech_requirements || [],
+    });
   }, [project]);
 
-  const maxChars = 300;
+  const maxChars = 500;
   const navigate = useNavigate();
 
   const handleInputChange = (e) => {
@@ -111,26 +121,11 @@ export const ProjectEditField = ({ project }) => {
         github_repo,
         "https://github.com"
       );
-      const validatedFigma_link = validateLink(
-        figma_link,
-        "https://figma.com"
-      );
+      const validatedFigma_link = validateLink(figma_link, "https://figma.com");
       const validatedTrello_link = validateLink(
         trello_link,
         "https://trello.com"
       );
-
-      if (
-        !validatedGithub_repo ||
-        !validatedFigma_link ||
-        !validatedTrello_link
-      ) {
-        alert(
-          "Please enter valid links starting with 'https' and ensure they do not contain the base URL."
-        );
-        setProjectEditing(false);
-        return;
-      }
 
       const updateResponse = await axios.put(
         `/api/projects/${project_id}/edit`,
@@ -344,7 +339,7 @@ export const ProjectEditField = ({ project }) => {
                 type="text"
                 placeholder="/<username>/<repo>"
                 name="github_repo"
-                value={github_repo}
+                value={projectData.github_repo}
                 onChange={handleInputChange}
                 className="input input-bordered bg-navbar-color w-2/6"
               />
@@ -355,7 +350,7 @@ export const ProjectEditField = ({ project }) => {
                 type="text"
                 placeholder="/Figma Link"
                 name="figma_link"
-                value={figma_link}
+                value={projectData.figma_link}
                 onChange={handleInputChange}
                 className="input input-bordered bg-navbar-color w-2/6"
               />
@@ -366,7 +361,7 @@ export const ProjectEditField = ({ project }) => {
                 type="text"
                 placeholder="/Trello link"
                 name="trello_link"
-                value={trello_link}
+                value={projectData.trello_link}
                 onChange={handleInputChange}
                 className="input input-bordered bg-navbar-color w-2/6"
               />
