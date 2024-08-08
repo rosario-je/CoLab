@@ -18,20 +18,20 @@ export const MyProjects = ({ handleCoLabHome }) => {
   //   setActiveButton(button);
   // };
 
+  const fetchUserProjects = async () => {
+    try {
+      const userProjectData = await axios.get(
+        `/api/dashboard/${userId}/my_projects`
+      );
+      setProjects(userProjectData.data);
+      setTimeout(() => {
+        setFetchingProjects(false);
+      }, 400);
+    } catch (error) {
+      console.error("Error in getting user projects: ", error.message);
+    }
+  };
   useEffect(() => {
-    const fetchUserProjects = async () => {
-      try {
-        const userProjectData = await axios.get(
-          `/api/dashboard/${userId}/my_projects`
-        );
-        setProjects(userProjectData.data);
-        setTimeout(() => {
-          setFetchingProjects(false);
-        }, 400);
-      } catch (error) {
-        console.error("Error in getting user projects: ", error.message);
-      }
-    };
     fetchUserProjects();
   }, []);
 
@@ -53,6 +53,7 @@ export const MyProjects = ({ handleCoLabHome }) => {
                 page="myprojects"
                 currentUserId={userId}
                 project={project}
+                fetchUserProjects={fetchUserProjects}
               />
             ))
           )}
