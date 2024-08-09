@@ -7,13 +7,13 @@ import { ProjectTechStack } from "./ProjectTechStack";
 import { OwnerProjectAvatar } from "./OwnerProjectAvatar";
 import { useSocketManager } from "../../manage_sockets";
 import { AppContext } from "../../context/AppContext";
+import { UserErrorMessage } from "../AlertHandling/UserErrorMessage";
 
 export const ProjectCard = ({
   currentUserId,
   project,
   fetchUserProjects,
-  page,
-  currentUserName,
+  page
 }) => {
   const {
     name,
@@ -31,8 +31,8 @@ export const ProjectCard = ({
   } = project;
 
   const socket = useRef(null);
-  const { listen, emit, isConnected } = useSocketManager();
-  const { setNotifications, setRequests } = useContext(AppContext);
+  const { listen, isConnected } = useSocketManager();
+  const { setNotifications, error, setAppError, clearAppError } = useContext(AppContext);
 
   useEffect(() => {
     if (isConnected) {
@@ -60,7 +60,11 @@ export const ProjectCard = ({
         ...prevNotifications,
       ]);
     } catch (error) {
+      setAppError(error.response.data);
       console.error("Error joining project:", error.message);
+      setTimeout(() => {
+        clearAppError();
+      }, 2000);
     }
   };
 

@@ -35,6 +35,29 @@ router.get('/:userId/my_projects', async (req, res) => {
   }
 });
 
+// Search for projects by tech name
+// http://localhost:8080/api/dashboard/search
+router.post('/search', async (req, res) => {
+  const { tech_name } = req.body;
+  try {
+    // get array of project ids that have the tech
+    const techResults = await getTechByName(tech_name);
+    // get array of projects that have the tech
+    const projectsIdArray = techResults.map(result => result.project_id);
+    // get array of full project details that have the tech
+    const projectPromises = projectsIdArray.map(project_id => getAllProjectsById(project_id));
+    const searchResults = await Promise.all(projectPromises);
+    searchResults.sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
+    if (searchResults.length === 0) {
+      return res.status(404).send('No projects found');
+    }
+    return res.status(200).json(searchResults);
+  } catch (error) {
+    console.error("Error in searching by tech: ", error.message);
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+
 // Complete a project you own
 // http://localhost:8080/api/projects/:project_id/complete
 router.patch('/projects/:project_id/complete', async (req, res) => {
@@ -145,26 +168,6 @@ router.delete('/manage_requests/reject_join_request', async (req, res) => {
   } catch (error) {
     console.error('Error approving join request:', error.message);
     res.status(500).send('Error approving join request');
-  }
-});
-
-// Search for projects by tech name
-// http://localhost:8080/api/dashboard/search
-router.post('/search', async (req, res) => {
-  const { tech_name } = req.body;
-  try {
-    // get array of project ids that have the tech
-    const techResults = await getTechByName(tech_name);
-    // get array of projects that have the tech
-    const projectsIdArray = techResults.map(result => result.project_id);
-    // get array of full project details that have the tech
-    const projectPromises = projectsIdArray.map(project_id => getAllProjectsById(project_id));
-    const searchResults = await Promise.all(projectPromises);
-    searchResults.sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
-    return res.status(200).json(searchResults);
-  } catch (error) {
-    console.error("Error in searching by tech: ", error.message);
-    res.status(500).json({ error: "Internal server error" });
   }
 });
 
