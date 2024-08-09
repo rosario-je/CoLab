@@ -1,6 +1,8 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useContext } from "react";
 import axios from "axios";
 import io from "socket.io-client";
+
+import { AppContext } from "../../context/AppContext";
 import { ProjectUserAvatar } from "../Projects/ProjectUserAvatar";
 import { OwnerProjectAvatar } from "../Projects/OwnerProjectAvatar";
 import { ProjectGroupChat } from "./ProjectGroupChat";
@@ -8,7 +10,11 @@ import { ProjectGroupChat } from "./ProjectGroupChat";
 export const ProjectPageDetails = ({ project }) => {
   const [message, setMessage] = useState("");
   const [chat, setChat] = useState(project.chat);
+  const [typingUsers, setTypingUsers] = useState([]);
+  const { currentUser } = useContext(AppContext);
+
   const socket = useRef(null);
+  const typingTimeout = useRef(null);
 
   const {
     name,
@@ -34,6 +40,21 @@ export const ProjectPageDetails = ({ project }) => {
       setChat((prevChat) => [...prevChat, newMessageData]);
     });
 
+    socket.current.on("userTyping", ({ userId }) => {
+      setTypingUsers((prevTypingUsers) => {
+        if (!prevTypingUsers.includes(userId)) {
+          return [...prevTypingUsers, userId];
+        }
+        return prevTypingUsers;
+      });
+    });
+
+    socket.current.on("userStopTyping", ({ userId }) => {
+      setTypingUsers((prevTypingUsers) => {
+        return prevTypingUsers.filter((id) => id !== userId);
+      });
+    });
+
     if (project.chat) {
       setChat(project.chat);
     }
@@ -57,10 +78,30 @@ export const ProjectPageDetails = ({ project }) => {
         });
 
         setMessage("");
+        clearTimeout(typingTimeout.current);
+        socket.current.emit("stopTyping", { projectId: project_id, userId: currentUser.id });
       } catch (error) {
         console.error("Error sending the message", error.message);
       }
     }
+  };
+
+  const handleTyping = () => {
+    if (typingTimeout.current) {
+      clearTimeout(typingTimeout.current);
+    }
+
+    socket.current.emit("typing", {
+      projectId: project_id,
+      userId: currentUser.username,
+    });
+
+    typingTimeout.current = setTimeout(() => {
+      socket.current.emit("stopTyping", {
+        projectId: project_id,
+        userId: currentUser.username,
+      });
+    }, 2000);
   };
 
   return (
@@ -108,11 +149,20 @@ export const ProjectPageDetails = ({ project }) => {
       </div>
       <div className="chat-main-container relative flex flex-col flex-grow mt-[155px] mb-20 bg-alt-grey/75 h-full justify-end">
         <ProjectGroupChat chat={chat} />
+        {typingUsers.length > 0 && (
+          <div className="typing-indicator pl-12 pb-3.5 font-semibold text-xl">
+            {typingUsers.join(", ")} {typingUsers.length > 1 ? "are" : "is"}{" "}
+            typing...
+          </div>
+        )}
       </div>
       <div className="fixed bottom-0 left-[300px] right-[300px] z-20">
         <div className="message-input w-full py-4 px-11 bg-project-background">
           <input
-            onChange={(e) => setMessage(e.target.value)}
+            onChange={(e) => {
+              setMessage(e.target.value);
+              handleTyping();
+            }}
             onKeyDown={handleMessage}
             type="text"
             value={message}
