@@ -12,14 +12,14 @@ import { UserErrorMessage } from "../components/AlertHandling/UserErrorMessage";
 import { Skeletons } from "../components/LoadingComponents/Skeletons";
 
 export const Dashboard = ({ handleCoLabHome }) => {
-  const { currentUser, error, setAppError, clearAppError } = useContext(AppContext);
+  const { currentUser, error, setAppError, clearAppError } =
+    useContext(AppContext);
 
   const [fetchingProjects, setFetchingProjects] = useState(true);
   const [projects, setProjects] = useState([]);
   const [allProjects, setAllProjects] = useState([]);
   const userId = currentUser.id;
-  const userName = currentUser.username
-  
+  const userName = currentUser.username;
 
   /*------------------- Fetch projects --------------*/
   useEffect(() => {
@@ -53,7 +53,7 @@ export const Dashboard = ({ handleCoLabHome }) => {
         console.error("Error fetching search results:", error);
         setTimeout(() => {
           clearAppError();
-        }, 2000); 
+        }, 2000);
       }
     } else {
       setProjects(allProjects);
@@ -68,7 +68,11 @@ export const Dashboard = ({ handleCoLabHome }) => {
         <div className="flex flex-col w-full bg-project-background overflow-hidden pt-4">
           <div className="z-10 bg-black">
             <SearchBar handleSearch={handleSearch} />
-            {error && <UserErrorMessage error={error} />}
+            {error && (
+              <div className="error-container fixed z-10 left-1/3">
+                <UserErrorMessage error={error} />
+              </div>
+            )}
           </div>
           <div className="flex flex-col grow justify-center overflow-y-auto mx-72 mt-16 px-10 h-max bg-project-background">
             {fetchingProjects ? (
