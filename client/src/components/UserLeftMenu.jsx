@@ -119,7 +119,7 @@ export const UserLeftMenu = () => {
               className="rounded-full h-24 w-24 border-icon-purple border-4"
             />
             <div className="flex flex-col space-y-1">
-              <h3 className="font-bold text-xl">@{currentUser.username}</h3>
+              <h3 className="font-bold text-xl text-text-color">@{currentUser.username}</h3>
               <h4 className="font-extralight text-sm italic">
                 {currentUser.email}
               </h4>
