@@ -58,10 +58,18 @@ io.on("connection", (socket) => {
     const { projectId, message } = messageData;
     io.to(projectId).emit("receiveMessage", message);
   });
-  
+
   socket.on("joinRoom", ({ userId }) => {
     socket.join(userId);
     console.log(`User ${userId} joined room ${userId}`);
+  });
+
+  socket.on("typing", ({ projectId, userId }) => {
+    socket.to(projectId).emit("userTyping", { userId });
+  });
+
+  socket.on("stopTyping", ({ projectId, userId }) => {
+    socket.to(projectId).emit("userStopTyping", { userId });
   });
 
   socket.on("sendNotification", (notificationData) => {
