@@ -6,7 +6,7 @@ INSERT INTO users (first_name, last_name, username, password, email, profile_pic
 -- user 3
 ('Luffy', 'Monkey', 'luffy', 'password', 'luffy@test.com', 'luffy_pfp.png'),
 -- user 4
-('Goku', 'Son', 'goku', 'password', 'goku@test.com', 'goku_pfp.png'),
+('Goku', 'Son', 'goku', '123', 'goku@test.com', 'goku_pfp.png'),
 -- user 5
 ('Edward', 'Elric', 'edward', 'password', 'edward@test.com', 'ed_pfp.png'),
 -- user 6
@@ -20,7 +20,7 @@ INSERT INTO users (first_name, last_name, username, password, email, profile_pic
 -- user 10
 ('Zenitsu', 'Agatsuma', 'zenitsu', 'password', 'zenitsu@test.com', 'zenitsu_pfp.png'),
 -- user 11
-('Gojo', 'Satoru', 'gojo', 'password', 'gojo@test.com', 'gojo_pfp.png'),
+('Gojo', 'Satoru', 'gojo', '123', 'gojo@test.com', 'gojo_pfp.png'),
 -- user 12
 ('Tanjiro', 'Kamado', 'tanjiro', 'password', 'tanjiro@test.com', 'tanjiro_pfp.png'),
 -- user 13

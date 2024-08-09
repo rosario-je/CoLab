@@ -272,7 +272,7 @@ export const ProjectCreateField = () => {
                   className="input input-bordered bg-navbar-color w-full"
                 />
                 <button
-                  className="btn bg-alt-grey hover:bg-alt-grey-hover text-text-color/80 text-base w-1/2 border-2 border-project-border/35 hover:border-project-border/35"
+                  className="btn bg-alt-grey hover:bg-alt-grey-hover text-text-color/90 text-base w-1/2 border-2 border-project-border/35 hover:border-project-border/35"
                   onClick={handleAddCoverPhoto}
                 >
                   Add Picture

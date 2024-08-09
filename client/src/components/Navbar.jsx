@@ -27,7 +27,7 @@ export const Navbar = () => {
       </div>
       <div className="pr-10 ">
       <button onClick={handleLogout}>
-        <div className="btn bg-alt-grey hover:bg-alt-grey-hover btn-xs sm:btn-sm md:btn-md lg:btn-lg border-2 border-project-border/25 hover:border-project-border/25">
+        <div className="btn bg-alt-grey hover:bg-alt-grey-hover btn-xs sm:btn-sm md:btn-md lg:btn-lg border-2 border-project-border/25 hover:border-project-border/25 text-text-color/90">
           Logout
           <i className="fa-solid fa-arrow-right-from-bracket"></i>
         </div>
