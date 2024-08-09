@@ -1,12 +1,13 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { AppContext } from "../context/AppContext";
 
 import { UserErrorMessage } from "../components/AlertHandling/UserErrorMessage";
 
 export const SignIn = () => {
   const navigate = useNavigate();
-  const [error, setError] = useState(null);
+  const {error, setAppError, clearAppError} = useContext(AppContext);
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -27,8 +28,13 @@ export const SignIn = () => {
       console.log("User logged in successfully:", response.data);
       navigate("/dashboard");
     } catch (error) {
-      setError(error.response.data);
+      setAppError(error.response.data);
       console.error("Error logging in user:", error.response.data);
+      
+      // Clear the error after 3 seconds
+      setTimeout(() => {
+        clearAppError();
+      }, 2000); 
     }
   };
 

@@ -78,7 +78,6 @@ router.post('/:projectId/chat', async (req, res) => {
     const message_id = newMessage.id;
     const allMessageInfo = await getNewChatMessageInfo(message_id);
     io.to(projectId).emit("receiveMessage", allMessageInfo);
-    console.log("This is the new message:", allMessageInfo);
 
     res.status(201).json({
       message: "Message sent successfully",
@@ -124,7 +123,7 @@ router.post('/:projectId/join', async (req, res) => {
     }
     const message = `You have requested to join the project: ${project.name}`;
     const sendmsg = await sendJoinNotification(user_id, message);
-
+    console.log("Emitting receiveRequest with data:", allJoinInfo);
     io.to(project.owner_id).emit("receiveRequest", allJoinInfo);
 
     res.status(200).json({

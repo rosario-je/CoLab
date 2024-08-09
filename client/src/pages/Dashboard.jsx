@@ -7,11 +7,12 @@ import { UserLeftMenu } from "../components/UserLeftMenu";
 import { UserRightMenu } from "../components/UserRightMenuComponents/UserRightMenu";
 import { SearchBar } from "../components/SearchBar";
 import { ProjectCard } from "../components/Projects/ProjectCard";
+import { UserErrorMessage } from "../components/AlertHandling/UserErrorMessage";
 
 import { Skeletons } from "../components/LoadingComponents/Skeletons";
 
 export const Dashboard = ({ handleCoLabHome }) => {
-  const { currentUser } = useContext(AppContext);
+  const { currentUser, error, setAppError, clearAppError } = useContext(AppContext);
 
   const [fetchingProjects, setFetchingProjects] = useState(true);
   const [projects, setProjects] = useState([]);
@@ -48,7 +49,11 @@ export const Dashboard = ({ handleCoLabHome }) => {
         const searchResults = response.data;
         setProjects(searchResults);
       } catch (error) {
+        setAppError(error.response.data);
         console.error("Error fetching search results:", error);
+        setTimeout(() => {
+          clearAppError();
+        }, 2000); 
       }
     } else {
       setProjects(allProjects);
@@ -63,6 +68,7 @@ export const Dashboard = ({ handleCoLabHome }) => {
         <div className="flex flex-col w-full bg-project-background overflow-hidden pt-4">
           <div className="z-10 bg-black">
             <SearchBar handleSearch={handleSearch} />
+            {error && <UserErrorMessage error={error} />}
           </div>
           <div className="flex flex-col grow justify-center overflow-y-auto mx-72 mt-16 px-10 h-max bg-project-background">
             {fetchingProjects ? (

@@ -1,7 +1,6 @@
 import React, { createContext, useEffect, useState, useRef } from "react";
 import axios from "axios";
 import { io } from "socket.io-client";
-import { useSocketManager } from "../manage_sockets";
 
 const AppContext = createContext();
 
@@ -10,8 +9,19 @@ const ContextProvider = (props) => {
   const [currentUser, setCurrentUser] = useState(null);
   const [techModal, setTechModal] = useState(false);
   const [requests, setRequests] = useState([]);
-  const { emit, listen, isConnected } = useSocketManager(currentUser);
   const socket = useRef(null);
+
+  /*------------------- Context block for Error Handling--------------*/
+  const [error, setError] = useState(null);
+
+  // Function to set the error
+  const setAppError = (error) => {
+    setError(error);
+  };
+  // Function to clear the error
+  const clearAppError = () => {
+    setError(null);
+  };
 
   /*------------------- Context block for currentUser--------------*/
   useEffect(() => {
@@ -170,18 +180,21 @@ const ContextProvider = (props) => {
   const providerValue = {
     notifications,
     currentUser,
+    techModal,
+    requests,
+    error,
     setCurrentUser,
     setNotifications,
     handleDismiss,
     dismissNotif,
     handleLogout,
-    techModal,
     setTechModal,
     handleTechStacksModal,
-    requests,
     setRequests,
     acceptRequest,
     denyRequest,
+    setAppError,
+    clearAppError
   };
 
   return (
