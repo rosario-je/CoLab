@@ -12,7 +12,7 @@ const ContextProvider = (props) => {
   const socket = useRef(null);
 
   /*------------------- Context block for Error Handling--------------*/
-  const [error, setError] = useState(null);
+  const [error, setError] = useState(false);
 
   // Function to set the error
   const setAppError = (error) => {
