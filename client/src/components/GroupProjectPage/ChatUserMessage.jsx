@@ -45,7 +45,7 @@ export const ChatUserMessage = ({ message }) => {
         </div>
       </div>
       <div className="flex flex-row chat-header font-semibold pb-2 items-end text-text-color text-base">
-        <h3 className="flex items-end">@{message.username}</h3>
+        <h3 className="flex items-end">{message.username}</h3>
         <time className="flex text-xs opacity-50 pl-3 items-center">
           <h5>{timeDescription}</h5>
         </time>

@@ -170,7 +170,7 @@ export const ProjectCreateField = () => {
           </div>
           <div className="flex flex-col">
             <textarea
-              className="textarea textarea-bordered min-h-[150px] min-w-[50px] bg-navbar-color resize-none mb-5 self-center w-96"
+              className="textarea textarea-bordered text-base min-h-[150px] min-w-[50px] bg-navbar-color resize-none mb-5 self-center w-96"
               placeholder="Description..."
               value={projectData.description}
               onChange={handleDescriptionChange}
