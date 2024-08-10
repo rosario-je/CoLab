@@ -38,15 +38,15 @@ export const SignUp = () => {
   };
 
   return (
-    <div className="hero bg-base-200 h-screen w-full flex items-center">
+    <div className="hero bg-gradient-to-bl from-landing-gradient-one to-landing-gradient-two h-screen w-full flex items-center">
       {error && <UserErrorMessage error={error} />}
       <div className="container mx-auto flex justify-between items-center h-full px-4">
-        <div className="flex flex-col items-center w-1/2 max-w-md bg-base-100 p-8 rounded-lg shadow-lg">
-          <h2 className="text-4xl font-bold mb-4">Sign Up</h2>
+        <div className="flex flex-col items-center w-1/2 max-w-md bg-project-background p-8 rounded-lg shadow-lg">
+          <h2 className="text-4xl font-bold mb-4 ">Sign Up</h2>
           <form className="w-full" onSubmit={handleAccountCreation}>
             <div className="form-control mb-4">
               <label className="label">
-                <span className="label-text">First Name</span>
+                <span className="label-text text-white">First Name</span>
               </label>
               <input
                 type="text"
@@ -54,13 +54,13 @@ export const SignUp = () => {
                 value={formData.first_name}
                 onChange={handleChange}
                 placeholder="Type your first name here"
-                className="input input-bordered w-full"
+                className="input input-bordered w-full bg-menu-colors"
                 required
               />
             </div>
             <div className="form-control mb-4">
               <label className="label">
-                <span className="label-text">Last Name</span>
+                <span className="label-text text-white">Last Name</span>
               </label>
               <input
                 type="text"
@@ -68,13 +68,13 @@ export const SignUp = () => {
                 value={formData.last_name}
                 onChange={handleChange}
                 placeholder="Type your last name here"
-                className="input input-bordered w-full"
+                className="input input-bordered w-full bg-menu-colors"
                 required
               />
             </div>
             <div className="form-control mb-4">
               <label className="label">
-                <span className="label-text">Username</span>
+                <span className="label-text text-white">Username</span>
               </label>
               <input
                 type="text"
@@ -82,13 +82,13 @@ export const SignUp = () => {
                 value={formData.username}
                 onChange={handleChange}
                 placeholder="username"
-                className="input input-bordered w-full"
+                className="input input-bordered w-full bg-menu-colors"
                 required
               />
             </div>
             <div className="form-control mb-4">
               <label className="label">
-                <span className="label-text">Email</span>
+                <span className="label-text text-white">Email</span>
               </label>
               <input
                 type="email"
@@ -96,13 +96,13 @@ export const SignUp = () => {
                 value={formData.email}
                 onChange={handleChange}
                 placeholder="email"
-                className="input input-bordered w-full"
+                className="input input-bordered w-full bg-menu-colors"
                 required
               />
             </div>
             <div className="form-control mb-4">
               <label className="label">
-                <span className="label-text">Password</span>
+                <span className="label-text text-white">Password</span>
               </label>
               <input
                 type="password"
@@ -110,7 +110,7 @@ export const SignUp = () => {
                 value={formData.password}
                 onChange={handleChange}
                 placeholder="password"
-                className="input input-bordered w-full"
+                className="input input-bordered w-full bg-menu-colors"
                 required
               />
             </div>
@@ -131,8 +131,8 @@ export const SignUp = () => {
         </div>
 
         <div className="w-1/2 flex flex-col items-center text-center p-8">
-          <h1 className="text-5xl font-bold">Create a CoLab Account</h1>
-          <p className="py-6 text-2xl font-light ">
+          <h1 className="text-5xl font-bold text-white">Create a CoLab Account</h1>
+          <p className="py-6 text-2xl font-light text-white">
             Join our community and start exploring exciting projects. Create an
             account to connect, collaborate, and contribute!
           </p>
