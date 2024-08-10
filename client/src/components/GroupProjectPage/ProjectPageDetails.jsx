@@ -79,7 +79,12 @@ export const ProjectPageDetails = ({ project }) => {
 
         setMessage("");
         clearTimeout(typingTimeout.current);
-        socket.current.emit("stopTyping", { projectId: project_id, userId: currentUser.id });
+        typingTimeout.current = setTimeout(() => {
+          socket.current.emit("stopTyping", {
+            projectId: project_id,
+            userId: currentUser.username,
+          });
+        }, 2000);
       } catch (error) {
         console.error("Error sending the message", error.message);
       }
