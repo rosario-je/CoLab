@@ -150,7 +150,7 @@ export const ProjectPageDetails = ({ project }) => {
       <div className="chat-main-container relative flex flex-col flex-grow mt-[155px] mb-20 bg-alt-grey/75 h-full justify-end">
         <ProjectGroupChat chat={chat} />
         {typingUsers.length > 0 && (
-          <div className="typing-indicator pl-12 pb-3.5 font-semibold text-xl">
+          <div className="typing-indicator pl-12 pb-3.5 font-semibold text-base text-project-border">
             {typingUsers.join(", ")} {typingUsers.length > 1 ? "are" : "is"}{" "}
             typing...
           </div>
