@@ -1,9 +1,9 @@
-import React, { useEffect, useState, useContext } from 'react';
-import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
-import { AppContext } from '../../context/AppContext';
+import React, { useEffect, useState, useContext } from "react";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
+import { AppContext } from "../../context/AppContext";
 
-const ProtectedRoute = ({ children}) => {
+const ProtectedRoute = ({ children, page }) => {
   const { currentUser, setCurrentUser } = useContext(AppContext);
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
@@ -11,14 +11,18 @@ const ProtectedRoute = ({ children}) => {
   useEffect(() => {
     const checkAuth = async () => {
       try {
-        const response = await axios.get('/api/current-user', { withCredentials: true });
+        const response = await axios.get("/api/current-user", {
+          withCredentials: true,
+        });
         if (response.status === 200) {
           setCurrentUser(response.data);
-        } else {
-          navigate('/signin');
+        } else if (page !== "landing") {
+          navigate("/signin");
         }
       } catch (error) {
-        navigate('/signin');
+        if (page !== "landing") {
+          navigate("/signin");
+        }
       } finally {
         setLoading(false);
       }
@@ -29,10 +33,14 @@ const ProtectedRoute = ({ children}) => {
     } else {
       setLoading(false);
     }
-  }, [navigate, currentUser, setCurrentUser]);
+  }, [navigate, currentUser, setCurrentUser, page]);
 
   if (loading) {
     return <div>Loading...</div>;
+  }
+
+  if (page === "landing" && !currentUser) {
+    return children;
   }
 
   return currentUser ? children : null;
