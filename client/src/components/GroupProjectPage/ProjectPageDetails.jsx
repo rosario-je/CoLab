@@ -25,7 +25,10 @@ export const ProjectPageDetails = ({ project }) => {
     participants,
     tech_requirements,
     project_id,
+    cover_photo_path,
   } = project;
+
+  console.log("project", project);
 
   useEffect(() => {
     socket.current = io("http://localhost:8080");
@@ -112,24 +115,34 @@ export const ProjectPageDetails = ({ project }) => {
   return (
     <div className="project-container flex flex-col grow mt-3.5 bg-alt-grey/75">
       <div className="project-details-container flex flex-row px-6 justify-between border-b-2 border-project-border/25 h-auto items-center  backdrop-blur-xl bg-alt-grey/75 fixed  top-20 z-10 left-[300px] right-[300px]">
-        <div className="flex flex-col gap-y-6">
-          {name && (
-            <div className="project-title">
-              <h1 className="text-text-color/90 font-semibold text-4xl">
-                {name}
-              </h1>
-            </div>
+        <div className="project-details flex flex-row space-x-10 py-4">
+          {cover_photo_path && (
+            <img
+              src={cover_photo_path}
+              alt="project cover"
+              className="rounded-lg w-40 border-2 border-project-border"
+            />
           )}
-          <div className="tech-stack flex flex-row justify-start gap-x-6">
-            {tech_requirements &&
-              tech_requirements.map((tech, index) => (
-                <p
-                  key={index}
-                  className="rounded-full bg-website-purple text-white text-sm px-3.5 py-1"
-                >
-                  {tech}
-                </p>
-              ))}
+
+          <div className="flex flex-col gap-y-6 justify-center">
+            {name && (
+              <div className="project-title">
+                <h1 className="text-text-color/90 font-semibold text-4xl">
+                  {name}
+                </h1>
+              </div>
+            )}
+            <div className="tech-stack flex flex-row justify-start gap-x-6">
+              {tech_requirements &&
+                tech_requirements.map((tech, index) => (
+                  <p
+                    key={index}
+                    className="rounded-full bg-website-purple text-white text-sm px-3.5 py-1"
+                  >
+                    {tech}
+                  </p>
+                ))}
+            </div>
           </div>
         </div>
         <div className="h-[150px] project-participants-avatars avatar-group flex flex-row flex-start gap-x-3">
