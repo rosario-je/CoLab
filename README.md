@@ -4,6 +4,7 @@
 **Colab** is a collaborative platform that allows developers to create, join, and manage programming projects. Users can discover projects, collaborate with team members, and effectively manage project details. The app features user authentication, real-time chat, and a project dependant links for GitHub, Trello, and Figma to streamline the project management process.
 
 </center>
+![Home Page](https://github.com/rosario-je/CoLab/blob/main/development/client/public/landing_images/CoLab_Feed_page.jpg)
 
 ## Features
 
