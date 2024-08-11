@@ -102,7 +102,7 @@ export const SignUp = () => {
             </div>
             <div className="form-control mb-4">
               <label className="label">
-                <span className="label-text text-white">Password</span>
+                <span className="label-text text-white text-base">Password</span>
               </label>
               <input
                 type="password"
@@ -115,7 +115,7 @@ export const SignUp = () => {
               />
             </div>
             <div className="form-control mt-6">
-              <button type="submit" className="btn bg-website-purple hover:bg-website-purple-hover w-full rounded-full border-none text-base text-white">
+              <button type="submit" className="btn bg-website-purple hover:bg-website-purple-hover w-full rounded-full text-base text-white border-2 border-project-border/25 hover:border-project-border/25">
                 Create an account
               </button>
             </div>

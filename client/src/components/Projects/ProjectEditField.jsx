@@ -371,7 +371,7 @@ export const ProjectEditField = ({ project }) => {
 
         <div className="flex justify-end mt-10">
           <button
-            className="btn bg-website-purple hover:bg-website-purple-hover text-white text-base rounded-full w-auto h-14 self-end border-none"
+            className="btn bg-website-purple hover:bg-website-purple-hover text-white text-base rounded-full w-auto h-14 self-end border-2 border-project-border/25 hover:border-project-border/25"
             disabled={projectEditing}
           >
             {projectEditing ? "Saving changes..." : "Apply Changes"}

@@ -332,7 +332,7 @@ export const ProjectCreateField = () => {
         <div className="flex justify-end mt-10">
           <button
             onClick={createProject}
-            className="btn bg-website-purple hover:bg-website-purple-hover text-white text-base rounded-full w-auto h-14 self-end border-none"
+            className="btn bg-website-purple hover:bg-website-purple-hover text-white text-base rounded-full w-auto h-14 self-end border-2 border-project-border/25 hover:border-project-border/25"
             disabled={projectCreating}
           >
             {projectCreating ? "Creating..." : "Create Project"}
