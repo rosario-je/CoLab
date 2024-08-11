@@ -39,29 +39,29 @@ export const SignIn = () => {
   };
 
   return (
-    <div className="hero bg-base-200 min-h-screen flex items-center flex-col justify-center space-y-16">
+    <div className="hero bg-gradient-to-bl from-landing-gradient-one to-landing-gradient-two min-h-screen flex items-center flex-col justify-center space-y-16">
       {error && <UserErrorMessage error={error} />}
       <div className="container mx-auto flex justify-between items-center h-full px-4">
-        <div className="w-1/2 flex flex-col items-center text-center p-8">
-          <h1 className="text-5xl font-bold">Welcome back to CoLab!</h1>
-          <p className="py-6 text-2xl font-light">
+        <div className="w-1/2 flex flex-col items-center text-center p-8 ">
+          <h1 className="text-5xl font-bold text-white">Welcome back to CoLab!</h1>
+          <p className="py-6 text-2xl font-light text-white">
             Login to your account to start collaborating!
           </p>
         </div>
 
         <div className="w-1/2 flex flex-col items-center">
-          <div className="card bg-base-100 w-full max-w-md p-8 rounded-lg shadow-lg flex flex-col items-center">
+          <div className="card bg-project-background w-full max-w-md p-8 rounded-lg shadow-lg flex flex-col items-center">
             <h2 className="text-4xl font-bold mb-4">Sign In</h2>
             <form className="w-full" onSubmit={handleAccountLogin}>
               <div className="form-control mb-4">
                 <label className="label">
-                  <span className="label-text">Email</span>
+                  <span className="label-text text-white">Email</span>
                 </label>
                 <input
                   type="email"
                   name="email"
                   placeholder="email"
-                  className="input input-bordered w-full"
+                  className="input input-bordered w-full bg-menu-colors"
                   required
                   value={formData.email}
                   onChange={handleChange}
@@ -69,13 +69,13 @@ export const SignIn = () => {
               </div>
               <div className="form-control mb-4">
                 <label className="label">
-                  <span className="label-text">Password</span>
+                  <span className="label-text text-white">Password</span>
                 </label>
                 <input
                   type="password"
                   name="password"
                   placeholder="password"
-                  className="input input-bordered w-full"
+                  className="input input-bordered w-full bg-menu-colors"
                   required
                   value={formData.password}
                   onChange={handleChange}

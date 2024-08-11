@@ -48,7 +48,6 @@ const ContextProvider = (props) => {
     try {
       await axios.post("/api/logout");
       setCurrentUser(null);
-      navigate("/signin");
     } catch (error) {
       console.error(
         "Error logging out:",

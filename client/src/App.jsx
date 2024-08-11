@@ -17,11 +17,17 @@ import { MyNotifications } from "./pages/MyNotifications";
 axios.defaults.withCredentials = true;
 
 function App() {
-
   return (
     <div className="App">
       <Routes>
-        <Route path="/" element={<Landing />} />
+        <Route
+          path="/"
+          element={
+            <ProtectedRoute page="landing">
+              <Landing />
+            </ProtectedRoute>
+          }
+        />
         <Route path="/signin" element={<SignIn />} />
         <Route path="/signup" element={<SignUp />} />
 
