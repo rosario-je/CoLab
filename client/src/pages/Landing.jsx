@@ -65,8 +65,8 @@ export const Landing = () => {
 
           <img
             className="card bg-base-300 rounded-box grid  w-2/5 place-items-center border-2 border-landing-gradient-two"
-            src="landing_images/feed.jpg"
-            alt=""
+            src="landing_images/CoLab_Feed_page.jpg"
+            alt="feed page"
           />
         </div>
       </section>
@@ -104,8 +104,8 @@ export const Landing = () => {
 
           <img
             className="card bg-base-300 rounded-box grid  w-2/5 place-items-center border-2 border-landing-gradient-two"
-            src="landing_images/groupchat.jpg"
-            alt=""
+            src="landing_images/CoLab_Project_page.jpg"
+            alt="project page"
           />
         </div>
       </section>
