@@ -12,7 +12,7 @@ export const LandingNavBar = () => {
     <div className="fixed top-0 left-0 right-0 z-50">
       <div className="navbar bg-landing-blue-dark/80 backdrop-blur-xl">
         <div className="flex-1">
-          <a className="btn btn-ghost text-xl text-white group">
+          <a className="btn btn-ghost text-2xl text-text-color group">
             <img
               src="/idea.png"
               className="h-7 mb-2 group-hover:animate-unstableBeaker"

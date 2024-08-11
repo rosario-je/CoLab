@@ -51,7 +51,7 @@ export const SignIn = () => {
 
         <div className="w-1/2 flex flex-col items-center">
           <div className="card bg-project-background w-full max-w-md p-8 rounded-lg shadow-lg flex flex-col items-center">
-            <h2 className="text-4xl font-bold mb-4">Sign In</h2>
+            <h2 className="text-4xl font-bold mb-4 text-text-color">Sign In</h2>
             <form className="w-full" onSubmit={handleAccountLogin}>
               <div className="form-control mb-4">
                 <label className="label">
@@ -61,7 +61,7 @@ export const SignIn = () => {
                   type="email"
                   name="email"
                   placeholder="email"
-                  className="input input-bordered w-full bg-menu-colors"
+                  className="input input-bordered w-full bg-navbar-color"
                   required
                   value={formData.email}
                   onChange={handleChange}
@@ -75,14 +75,14 @@ export const SignIn = () => {
                   type="password"
                   name="password"
                   placeholder="password"
-                  className="input input-bordered w-full bg-menu-colors"
+                  className="input input-bordered w-full bg-navbar-color"
                   required
                   value={formData.password}
                   onChange={handleChange}
                 />
               </div>
               <div className="form-control mt-6">
-                <button type="submit" className="btn btn-primary w-full">
+                <button type="submit" className="btn bg-website-purple hover:bg-website-purple-hover w-full rounded-full border-none text-base text-white">
                   Login
                 </button>
               </div>
@@ -90,7 +90,7 @@ export const SignIn = () => {
             <div className="signup-btn mt-4">
               <button
                 onClick={() => navigate("/signup")}
-                className="btn btn-link"
+                className="btn btn-link text-website-purple-hover"
               >
                 Don't have an account?
               </button>

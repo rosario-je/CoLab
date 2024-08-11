@@ -52,7 +52,7 @@ export const Landing = () => {
 
       <section className="snap-start min-h-screen landing-section1 p-0 flex flex-col justify-center">
         <div className="flex w-full flex-col lg:flex-row justify-around">
-          <div className="card bg-landing-blue rounded-box flex flex-col  w-2/5 place-items-center p-10 justify-around items-start border-2 border-blue-700">
+          <div className="card bg-landing-blue rounded-box flex flex-col  w-2/5 place-items-center p-10 justify-around items-start border-2 border-white border-opacity-40">
             <h1 className="card-title font-black text-6xl text-white w-full">
               BROWSE PROJECTS!
             </h1>
@@ -64,7 +64,7 @@ export const Landing = () => {
           </div>
 
           <img
-            className="card bg-base-300 rounded-box grid  w-2/5 place-items-center border-2 border-blue-700"
+            className="card bg-base-300 rounded-box grid  w-2/5 place-items-center border-2 border-landing-gradient-two"
             src="landing_images/feed.jpg"
             alt=""
           />
@@ -74,11 +74,11 @@ export const Landing = () => {
       <section className="snap-start min-h-screen landing-section1 p-0 flex flex-col justify-center">
         <div className="flex w-full flex-col lg:flex-row justify-around">
           <img
-            className="card bg-base-300 rounded-box grid  w-2/5 place-items-center border-2 border-blue-700"
+            className="card bg-base-300 rounded-box grid  w-2/5 place-items-center border-2 border-landing-gradient-two"
             src="landing_images/requests.jpg"
             alt=""
           />
-          <div className="card bg-landing-blue rounded-box flex flex-col  w-2/5 place-items-center p-10 justify-around items-start border-2 border-blue-700">
+          <div className="card bg-landing-blue rounded-box flex flex-col  w-2/5 place-items-center p-10 justify-around items-start border-2 border-white border-opacity-40">
             <h1 className="card-title font-black text-6xl text-white w-full">
               REQUEST TO JOIN PROJECTS
             </h1>
@@ -92,7 +92,7 @@ export const Landing = () => {
 
       <section className="snap-start min-h-screen landing-section1 p-0 flex flex-col justify-center">
         <div className="flex w-full flex-col lg:flex-row justify-around">
-          <div className="card bg-landing-blue rounded-box flex flex-col  w-2/5 place-items-center p-10 justify-around items-start border-2 border-blue-700">
+          <div className="card bg-landing-blue rounded-box flex flex-col  w-2/5 place-items-center p-10 justify-around items-start border-2 border-white border-opacity-40">
             <h1 className="card-title font-black text-6xl text-white w-full">
               COLLABORATE & CREATE!
             </h1>
@@ -103,7 +103,7 @@ export const Landing = () => {
           </div>
 
           <img
-            className="card bg-base-300 rounded-box grid  w-2/5 place-items-center border-2 border-blue-700"
+            className="card bg-base-300 rounded-box grid  w-2/5 place-items-center border-2 border-landing-gradient-two"
             src="landing_images/groupchat.jpg"
             alt=""
           />
@@ -112,7 +112,7 @@ export const Landing = () => {
 
       <footer className="snap-start min-h-screen landing-section4-card flex  flex-col items-center space-y-20 justify-end">
         <div className="flex flex-col justify-center items-center pb-44">
-          <h1 className="text-6xl font-bold text-slate-50 tracking-wide self-center pb-14 text-center w-10/12">
+          <h1 className="text-6xl font-bold text-white tracking-wide self-center pb-14 text-center w-10/12">
             Join the community and start collaborating today!
           </h1>
 

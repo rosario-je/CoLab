@@ -42,7 +42,7 @@ export const SignUp = () => {
       {error && <UserErrorMessage error={error} />}
       <div className="container mx-auto flex justify-between items-center h-full px-4">
         <div className="flex flex-col items-center w-1/2 max-w-md bg-project-background p-8 rounded-lg shadow-lg">
-          <h2 className="text-4xl font-bold mb-4 ">Sign Up</h2>
+          <h2 className="text-4xl font-bold mb-4 text-text-color ">Sign Up</h2>
           <form className="w-full" onSubmit={handleAccountCreation}>
             <div className="form-control mb-4">
               <label className="label">
@@ -54,7 +54,7 @@ export const SignUp = () => {
                 value={formData.first_name}
                 onChange={handleChange}
                 placeholder="Type your first name here"
-                className="input input-bordered w-full bg-menu-colors"
+                className="input input-bordered w-full bg-navbar-color"
                 required
               />
             </div>
@@ -68,7 +68,7 @@ export const SignUp = () => {
                 value={formData.last_name}
                 onChange={handleChange}
                 placeholder="Type your last name here"
-                className="input input-bordered w-full bg-menu-colors"
+                className="input input-bordered w-full bg-navbar-color"
                 required
               />
             </div>
@@ -82,7 +82,7 @@ export const SignUp = () => {
                 value={formData.username}
                 onChange={handleChange}
                 placeholder="username"
-                className="input input-bordered w-full bg-menu-colors"
+                className="input input-bordered w-full bg-navbar-color"
                 required
               />
             </div>
@@ -96,7 +96,7 @@ export const SignUp = () => {
                 value={formData.email}
                 onChange={handleChange}
                 placeholder="email"
-                className="input input-bordered w-full bg-menu-colors"
+                className="input input-bordered w-full bg-navbar-color"
                 required
               />
             </div>
@@ -110,12 +110,12 @@ export const SignUp = () => {
                 value={formData.password}
                 onChange={handleChange}
                 placeholder="password"
-                className="input input-bordered w-full bg-menu-colors"
+                className="input input-bordered w-full bg-navbar-color"
                 required
               />
             </div>
             <div className="form-control mt-6">
-              <button type="submit" className="btn btn-primary w-full">
+              <button type="submit" className="btn bg-website-purple hover:bg-website-purple-hover w-full rounded-full border-none text-base text-white">
                 Create an account
               </button>
             </div>
@@ -123,7 +123,7 @@ export const SignUp = () => {
           <div className="mt-4 justify-center">
             <button
               onClick={() => navigate("/signin")}
-              className="btn btn-link"
+              className="btn btn-link text-website-purple-hover"
             >
               Already have an account?
             </button>
