@@ -4,7 +4,7 @@ export const UserSuccessMessage = (props) => {
   return (
     <div
       role="alert"
-      className="fixed alert bg-confirm text-white w-2/6 animate-sideToSide top-20 z-10"
+      className="fixed alert bg-confirm border-confirm text-white w-2/6 animate-sideToSide top-20 z-10"
     >
       <svg
         xmlns="http://www.w3.org/2000/svg"
