@@ -94,6 +94,12 @@ npm run dev
 - Request to join projects and communicate with team members through live chat.
 - Manage your projects and collaborate with others effectively.
 
+## Screenshots
+![Home Page](https://github.com/rosario-je/CoLab/blob/main/development/client/public/landing_images/CoLab_Feed_page.jpg)
+![Project Page](https://github.com/rosario-je/CoLab/blob/main/development/client/public/landing_images/CoLab_Project_page.jpg)
+![My Projects](https://github.com/rosario-je/CoLab/blob/main/development/client/public/landing_images/myprojects.jpg)
+![My Requests](https://github.com/rosario-je/CoLab/blob/main/development/client/public/landing_images/requests.jpg)
+
 ## Authors:
 This project could not have been possible without the hard work and dedication of the following individuals:
 - [Jose Eduardo Payamps](https://github.com/rosario-je)
