@@ -1,3 +1,122 @@
+# Colab App
+
+Colab is a collaborative platform that allows developers to create, join, and manage programming projects. Users can discover projects, collaborate with team members, and effectively manage project details. The app features user authentication, real-time chat, and a streamlined project management experience.
+
+## Features
+
+- **User Authentication**: Secure sign-up, login, and logout functionalities.
+- **Project Creation**: Users can create project posts with a title, description, and set a user limit (up to 5 members). Provide links to the project's GitHub repo, Trello board, and Figma designs.
+- **Project Discovery**: Browse and search through a feed of projects.
+- **Join Projects**: Request to join projects, with the project owner having the ability to accept or reject applications.
+- **Live Chat**: Real-time chat for members of the same project to collaborate effectively.
+- **Link Integration**: Add project-related links for GitHub, Trello, and Figma during project creation.
+
+## Tech Stack
+
+- **Frontend**: React (Vite), TailwindCSS, DaisyUI
+- **Backend**: Express, PostgreSQL
+- **Authentication**: Session-based or JWT-based (depending on the implementation)
+- **Real-time Communication**: Socket.IO
+- **Hosting**: TBD
+
+## Installation
+
+### Prerequisites
+
+- Node.js
+- PostgreSQL
+
+### Backend Setup
+1. Clone the repository:
+
+```bash
+git clone https://github.com/rosario-je/colab-app.git
+cd colab-app
+```
+
+Install server dependencies:
+
+```bash
+cd server
+npm install
+```
+
+Set up environment variables in a .env file:
+
+```env
+PORT=5000
+DATABASE_URL=your_postgresql_database_url
+SESSION_SECRET=your_secret_key
+```
+
+Set up the database:
+
+```bash
+npm run migrate
+npm run seed
+```
+
+Start the backend server:
+
+```bash
+npm start
+```
+
+Frontend Setup
+
+Install client dependencies:
+
+```bash
+cd client
+npm install
+```
+
+Set up environment variables in a .env file:
+
+```env
+VITE_API_URL=http://localhost:5000
+```
+
+Start the frontend development server:
+
+```bash
+npm run dev
+```
+
+Usage
+
+- Register or log in to your account.
+- Create a new project, providing links to the GitHub repo, Trello board, and Figma designs.
+- Browse and search through the project feed.
+- Request to join projects and communicate with team members through live chat.
+- Manage your projects and collaborate with others effectively.
+
+Contributing
+
+Contributions are welcome! Please follow these steps to contribute:
+
+1. Fork the repository.
+2. Create a new branch:
+
+```bash
+git checkout -b feature-name
+```
+
+3. Make your changes and commit them:
+
+```bash
+git commit -m "Add feature name"
+```
+
+4. Push to the branch:
+
+```bash
+git push origin feature-name
+```
+
+5. Open a pull request.
+
+
 ### Credits 
 #### Icons: 
 - <a href="https://fontawesome.com/icons">Font Awesome</a>
