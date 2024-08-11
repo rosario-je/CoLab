@@ -1,12 +1,15 @@
 # Colab App
+<center>
 
-Colab is a collaborative platform that allows developers to create, join, and manage programming projects. Users can discover projects, collaborate with team members, and effectively manage project details. The app features user authentication, real-time chat, and a streamlined project management experience.
+**Colab** is a collaborative platform that allows developers to create, join, and manage programming projects. Users can discover projects, collaborate with team members, and effectively manage project details. The app features user authentication, real-time chat, and a project dependant links for GitHub, Trello, and Figma to streamline the project management process.
+
+</center>
 
 ## Features
 
-- **User Authentication**: Secure sign-up, login, and logout functionalities.
 - **Project Creation**: Users can create project posts with a title, description, and set a user limit (up to 5 members). Provide links to the project's GitHub repo, Trello board, and Figma designs.
 - **Project Discovery**: Browse and search through a feed of projects.
+- **Project Search by technology**: Search for projects with a specific technology!
 - **Join Projects**: Request to join projects, with the project owner having the ability to accept or reject applications.
 - **Live Chat**: Real-time chat for members of the same project to collaborate effectively.
 - **Link Integration**: Add project-related links for GitHub, Trello, and Figma during project creation.
@@ -15,7 +18,7 @@ Colab is a collaborative platform that allows developers to create, join, and ma
 
 - **Frontend**: React (Vite), TailwindCSS, DaisyUI
 - **Backend**: Express, PostgreSQL
-- **Authentication**: Session-based or JWT-based (depending on the implementation)
+- **Authentication**: Session-based authentication through backend API
 - **Real-time Communication**: Socket.IO
 - **Hosting**: TBD
 
@@ -83,7 +86,7 @@ Start the frontend development server:
 npm run dev
 ```
 
-Usage
+### Usage
 
 - Register or log in to your account.
 - Create a new project, providing links to the GitHub repo, Trello board, and Figma designs.
@@ -91,33 +94,14 @@ Usage
 - Request to join projects and communicate with team members through live chat.
 - Manage your projects and collaborate with others effectively.
 
-Contributing
-
-Contributions are welcome! Please follow these steps to contribute:
-
-1. Fork the repository.
-2. Create a new branch:
-
-```bash
-git checkout -b feature-name
-```
-
-3. Make your changes and commit them:
-
-```bash
-git commit -m "Add feature name"
-```
-
-4. Push to the branch:
-
-```bash
-git push origin feature-name
-```
-
-5. Open a pull request.
+## Authors:
+This project could not have been possible without the hard work and dedication of the following individuals:
+- [Jose Eduardo Payamps](https://github.com/rosario-je)
+- [Rebecca Smith](https://github.com/beccasbizarreadventure)
+- [Thomas Azran](https://github.com/Xanadude2112)
 
 
-### Credits 
+## Credits 
 #### Icons: 
 - <a href="https://fontawesome.com/icons">Font Awesome</a>
 - <a href="https://www.freepik.com/icon/idea_7610845">Site Icon</a>
