@@ -17,13 +17,13 @@ export const Landing = () => {
     <div className="bg-gradient-to-bl from-landing-gradient-one to-landing-gradient-two snap-y snap-mandatory overflow-y-scroll h-screen scroll-smooth">
       <LandingNavBar />
 
-      <section className="snap-start min-h-screen landing-section1 p-48">
-        <div className="grid w-3/5 gap-y-8 pb-20">
-          <h1 className="text-6xl font-black text-slate-50 tracking-wide">
+      <section className="flex flex-col snap-start min-h-screen landing-section1 p-48 justify-center">
+        <div className="flex flex-col gap-y-8 pb-20 items-center">
+          <h1 className="text-6xl font-black text-slate-50 tracking-wide flex text-center">
             FIND OR CREATE YOUR NEXT BIG PROJECT WITH A GROUP OF YOUR CHOICE!
           </h1>
-          <p className="text-3xl text-slate-50 font-light w-9/12">
-            CoLab is your new place to find your next development project and
+          <p className="text-3xl text-slate-50 font-light w-9/12 text-center">
+            <strong>CoLab</strong> is your new place to find your next development project and
             collaborate with a community with similar interests!
           </p>
         </div>
