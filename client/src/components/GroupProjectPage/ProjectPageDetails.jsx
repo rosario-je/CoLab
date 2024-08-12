@@ -116,13 +116,14 @@ export const ProjectPageDetails = ({ project }) => {
     <div className="project-container flex flex-col grow mt-3.5 bg-alt-grey/75">
       <div className="project-details-container flex flex-row px-6 justify-between border-b-2 border-project-border/25 h-auto items-center  backdrop-blur-xl bg-alt-grey/75 fixed  top-20 z-10 left-[300px] right-[300px]">
         <div className="project-details flex flex-row space-x-10 py-4">
-          {cover_photo_path && (
-            <img
-              src={cover_photo_path}
-              alt="project cover"
-              className="rounded-lg w-40 border-2 border-project-border"
-            />
-          )}
+          <img
+            src={
+              cover_photo_path ||
+              "https://staticg.sportskeeda.com/editor/2023/05/90701-16836967841966-1920.jpg"
+            }
+            alt="project cover"
+            className="rounded-lg w-40 border-2 border-project-border"
+          />
 
           <div className="flex flex-col gap-y-6 justify-center">
             {name && (
