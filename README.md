@@ -1,4 +1,4 @@
-# Colab App
+# Colab 
 <center>
 
 **Colab** is a collaborative platform that allows developers to create, join, and manage programming projects. Users can discover projects, collaborate with team members, and effectively manage project details. The app features user authentication, real-time chat, and a project dependant links for GitHub, Trello, and Figma to streamline the project management process.
