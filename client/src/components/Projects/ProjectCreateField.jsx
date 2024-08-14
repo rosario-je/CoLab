@@ -13,12 +13,12 @@ export const ProjectCreateField = () => {
     description: "",
     max_participants: 1,
     cover_photo_path: "",
-    githubRepo: "",
-    figmaLink: "",
-    trelloLink: "",
+    github_repo: "",
+    figma_link: "",
+    trello_link: "",
     tech_names: [],
     newPicture: "",
-  });
+  });  
 
   const maxChars = 500;
   const navigate = useNavigate();
@@ -83,25 +83,25 @@ export const ProjectCreateField = () => {
     try {
       setProjectCreating(true);
 
-      // Validate and prepend base URLs
-      const githubRepo = validateLink(
-        projectData.githubRepo,
-        "https://github.com"
-      );
-      const figmaLink = validateLink(
-        projectData.figmaLink,
-        "https://www.figma.com"
-      );
-      const trelloLink = validateLink(
-        projectData.trelloLink,
-        "https://trello.com"
-      );
+      // // Validate and prepend base URLs
+      // const github_repo = validateLink(
+      //   projectData.github_repo,
+      //   "https://github.com"
+      // );
+      // const figma_link = validateLink(
+      //   projectData.figma_link,
+      //   "https://www.figma.com"
+      // );
+      // const trello_link = validateLink(
+      //   projectData.trello_link,
+      //   "https://trello.com"
+      // );
 
       const project = await axios.post("/api/projects/create", {
         ...projectData,
-        githubRepo,
-        figmaLink,
-        trelloLink,
+        // github_repo,
+        // figma_link,
+        // trello_link,
       });
 
       const {
@@ -298,8 +298,8 @@ export const ProjectCreateField = () => {
               <input
                 type="text"
                 placeholder="/<username>/<repo>"
-                name="githubRepo"
-                value={projectData.githubRepo}
+                name="github_repo"
+                value={projectData.github_repo}
                 onChange={handleInputChange}
                 className="input input-bordered bg-navbar-color w-2/6"
               />
@@ -309,8 +309,8 @@ export const ProjectCreateField = () => {
               <input
                 type="text"
                 placeholder="/Figma Link"
-                name="figmaLink"
-                value={projectData.figmaLink}
+                name="figma_link"
+                value={projectData.figma_link}
                 onChange={handleInputChange}
                 className="input input-bordered bg-navbar-color w-2/6"
               />
@@ -320,8 +320,8 @@ export const ProjectCreateField = () => {
               <input
                 type="text"
                 placeholder="/Trello link"
-                name="trelloLink"
-                value={projectData.trelloLink}
+                name="trello_link"
+                value={projectData.trello_link}
                 onChange={handleInputChange}
                 className="input input-bordered bg-navbar-color w-2/6"
               />
