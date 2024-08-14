@@ -28,7 +28,9 @@ router.get('/:userId/my_projects', async (req, res) => {
     const myJoinedProjectsIdArray = await getProjectsIdsIAmIn(user_id);
     const projectsIdArray = myJoinedProjectsIdArray.map(project => project.project_id);
     const myJoinedProjects = await getProjectsIAmInById(projectsIdArray);
-    return res.status(200).json(myOwnedProjects.concat(myJoinedProjects));
+    const allProjects = myOwnedProjects.concat(myJoinedProjects);
+    allProjects.sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
+    return res.status(200).json(allProjects);
   } catch (error) {
     console.error("Error in getting user projects: ", error.message);
     res.status(500).json({ error: "Internal server error" });
