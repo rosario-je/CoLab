@@ -298,7 +298,7 @@ export const ProjectCreateField = () => {
               <h3>Github Repository</h3>
               <input
                 type="text"
-                placeholder="/<username>/<repo>"
+                placeholder="Github Repository Link"
                 name="github_repo"
                 value={projectData.github_repo}
                 onChange={handleInputChange}
@@ -309,7 +309,7 @@ export const ProjectCreateField = () => {
               <h3>Figma Link</h3>
               <input
                 type="text"
-                placeholder="/Figma Link"
+                placeholder="Figma Link"
                 name="figma_link"
                 value={projectData.figma_link}
                 onChange={handleInputChange}
@@ -320,7 +320,7 @@ export const ProjectCreateField = () => {
               <h3>Trello Board</h3>
               <input
                 type="text"
-                placeholder="/Trello link"
+                placeholder="Trello link"
                 name="trello_link"
                 value={projectData.trello_link}
                 onChange={handleInputChange}
