@@ -240,8 +240,9 @@ export const ProjectCreateField = () => {
                 className="text-white mt-5 btn hover:bg-reject text-lg group mr-5 h-auto w-auto"
                 onClick={handleRemoveCoverPhoto}
               >
-                <i className="fa-solid fa-image group-hover:text-white group-hover:drop-shadow-white-glow"></i>
-                {projectData.cover_photo_path}
+                {/* <i className="fa-solid fa-image group-hover:text-white group-hover:drop-shadow-white-glow"></i>
+                {projectData.cover_photo_path} */}
+                <img className="h-32 p-2.5" src={projectData.cover_photo_path} alt="" />
               </button>
             )}
           </div>
