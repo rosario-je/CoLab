@@ -147,7 +147,7 @@ export const ProjectPageDetails = ({ project }) => {
           </div>
         </div>
         <div className="h-[150px] project-participants-avatars avatar-group flex flex-row flex-start gap-x-3">
-          <div className="h-full flex justify-center items-end pb-7">
+          <div className="h-full flex justify-center items-end pb-9">
             <OwnerProjectAvatar
               key={owner_id}
               owner={owner_email}
