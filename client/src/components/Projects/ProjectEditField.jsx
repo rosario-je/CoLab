@@ -273,7 +273,7 @@ export const ProjectEditField = ({ project }) => {
             {projectData.cover_photo_path && (
               <button
                 type="button"
-                className="text-text-color/90 mt-5 btn hover:bg-reject hover:border-reject text-lg group mr-5 h-auto w-auto"
+                className="text-text-color/90 mt-5 btn bg-navbar-color hover:bg-reject hover:border-reject text-lg group mr-5 h-auto w-auto"
                 onClick={handleRemoveCoverPhoto}
               >
                 {/* <i className="fa-solid fa-image group-hover:text-white group-hover:drop-shadow-white-glow"></i>
