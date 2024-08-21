@@ -39,7 +39,7 @@ app.use(
 );
 
 app.get("/", (req, res) => {
-  res.send("Welcome to CoLab!");
+  res.send("Welcome to CoLab!, this backend is deployed on reder!");
 });
 
 app.use("/api/projects", projectsRoutes);
