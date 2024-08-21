@@ -24,7 +24,10 @@ const io = new Server(server, {
   }
 });
 
-app.use(cors());
+app.use(cors({
+  origin: "https://co-lab-livid.vercel.app",
+  methods: ["GET", "POST"]
+}));
 app.options('*', cors());
 app.use(express.json());
 app.use(cookieParser());
