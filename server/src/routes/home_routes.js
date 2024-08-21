@@ -3,7 +3,7 @@ import { getAllProjects, getProjectsOwnedByMe, getProjectsIAmInById, getProjects
 import { getTechByName } from '../db/queries/tech_queries.js';
 import { getAllJoinRequests, isUserOwner, approveJoinRequest, addUserToProject, rejectJoinRequest } from '../db/queries/user_queries.js';
 import { getNotifications, dismissNotification, sendProjectNotification } from '../db/queries/chat_queries.js';
-import { io } from '../server_index.js';
+import { io } from '../index.js';
 
 const router = express.Router();
 

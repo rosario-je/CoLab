@@ -3,7 +3,7 @@ import { createNewProject, getProjectPage, getProjectById, getPendingJoinRequest
 import { getUserById, askToJoinProject, getMoreJoinInfo } from '../db/queries/user_queries.js';
 import { addTechToProject } from '../db/queries/tech_queries.js';
 import { createGroupChat, getChatHistory, newChatMessage, getProjectChatId, sendJoinNotification, getNewChatMessageInfo } from '../db/queries/chat_queries.js';
-import { io } from '../server_index.js';
+import { io } from '../index.js';
 
 const router = express.Router();
 
