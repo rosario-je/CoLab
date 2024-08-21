@@ -2,16 +2,17 @@
   "name": "server",
   "version": "1.0.0",
   "description": "",
-  "main": "server_index.js",
+  "main": "index.js",
   "type": "module",
   "scripts": {
-    "server": "nodemon --watch src --exec node src/server_index.js",
+    "server": "nodemon --watch src --exec node src/index.js",
     "db:reset": "node src/bin/reset_db.js"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@supabase/supabase-js": "^2.45.1",
     "axios": "^1.7.2",
     "chalk": "^5.3.0",
     "cookie-parser": "^1.4.6",
