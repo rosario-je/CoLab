@@ -19,7 +19,7 @@ const app = express();
 const server = http.createServer(app);
 const io = new Server(server, {
   cors: {
-    origin: "https://co-lab-livid.vercel.app/",
+    origin: "https://co-lab-livid.vercel.app",
     methods: ["GET", "POST"]
   }
 });
