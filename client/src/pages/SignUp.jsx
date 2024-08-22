@@ -28,7 +28,7 @@ export const SignUp = () => {
     e.preventDefault();
 
     try {
-      const response = await axios.post("/api/register", formData);
+      const response = await axios.post("/api/register", formData, {withCredentials: true});
       console.log("User created successfully:", response.data);
       navigate("/dashboard");
     } catch (error) {
