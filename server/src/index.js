@@ -1,7 +1,6 @@
 import "dotenv/config.js";
 import express from "express";
 import { config } from "dotenv";
-import session from "express-session";
 import cookieParser from "cookie-parser";
 import cors from "cors";
 import http from "http";
@@ -10,33 +9,28 @@ import projectsRoutes from "./routes/projects_routes.js";
 import morgan from 'morgan'
 import homeRoutes from "./routes/home_routes.js";
 import userRoutes from "./routes/user_routes.js";
-import db from "./db/connection.js";
 
 config();
 
-const PORT = process.env.PORT || 8080;
 const app = express();
 const server = http.createServer(app);
 const io = new Server(server, {
   cors: {
-    origin: "http://localhost:5173",
+    origin: "https://co-lab-livid.vercel.app/",
     methods: ["GET", "POST"]
   }
 });
 
 app.use(cors());
-app.options('*', cors());
 app.use(express.json());
 app.use(cookieParser());
 
-app.use(
-  session({
-    secret: process.env.SESSION_SECRET,
-    resave: false,
-    saveUninitialized: false,
-    cookie: { secure: process.env.NODE_ENV === "production" },
-  })
-);
+
+app.use(cookieSession({
+  name: 'session',
+  keys: [process.env.COOKIE_KEY_1, process.env.COOKIE_KEY_2],
+  maxAge: 24 * 60 * 60 * 1000
+}))
 
 app.get("/", (req, res) => {
   res.send("Welcome to CoLab!, this backend is deployed on reder!");

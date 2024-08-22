@@ -31,7 +31,7 @@ export const ProjectPageDetails = ({ project }) => {
   console.log("project", project);
 
   useEffect(() => {
-    socket.current = io("http://localhost:8080");
+    socket.current = io("https://colab-server-y33a.onrender.com");
 
     socket.current.on("connect", () => {
       console.log("Connected to server");
