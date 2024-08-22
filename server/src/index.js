@@ -37,11 +37,12 @@ app.use(cookieParser());
 app.use(cookieSession({
   secret: process.env.SESSION_SECRET,
   resave: false,
-  saveUninitialized: true,
+  saveUninitialized: false,
   cookie: {
     maxAge: 24 * 60 * 60 * 1000,  
     secure: true,                  
-    httpOnly: true                 
+    httpOnly: true,
+    sameSite: 'None'                
   }
 }))
 
