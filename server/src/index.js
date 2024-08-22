@@ -25,24 +25,27 @@ const io = new Server(server, {
   }
 });
 
+const sessionOptions = {
+  secret: process.env.SESSION_SECRET,
+  resave: false,
+  saveUninitialized: true,
+  cookie:{
+      expires: Date.now() + 7 * 24 * 60 * 60 * 1000,
+      maxAge: 7 * 24 * 60 * 60 * 1000,
+  },
+};
+
 app.use(cors({
   origin: "https://co-lab-livid.vercel.app",
   methods: ["GET", "POST"],
   credentials: true
 }));
-app.set('trust proxy', 1);
+
 app.options('*', cors());
 app.use(express.json());
 app.use(cookieParser());
 
-app.use(
-  session({
-    secret: process.env.SESSION_SECRET,
-    resave: false,
-    saveUninitialized: false,
-    cookie: { secure: process.env.NODE_ENV === "production" },
-  })
-);
+app.use(session(sessionOptions));
 
 app.get("/", (req, res) => {
   res.send("Welcome to CoLab!, this backend is deployed on reder!");
