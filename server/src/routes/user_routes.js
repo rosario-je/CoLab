@@ -55,7 +55,6 @@ router.post('/login', async (req, res) => {
       firstName: user.first_name,
       lastName: user.last_name,
       username: user.username,
-      username: user.username,
       profile_pic: user.profile_pic
     };
 

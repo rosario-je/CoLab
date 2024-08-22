@@ -30,10 +30,12 @@ const sessionOptions = {
   resave: false,
   saveUninitialized: true,
   cookie: {
+    name: 'connect.sid',
     expires: Date.now() + 7 * 24 * 60 * 60 * 1000,
     maxAge: 7 * 24 * 60 * 60 * 1000,
     sameSite: 'None',  
-    secure: true,  
+    secure: true,
+    domain: '.co-lab-livid.vercel.app',
   },
 };
 
@@ -42,6 +44,10 @@ app.use(cors({
   methods: ["GET", "POST"],
   credentials: true
 }));
+app.use((req, res, next) => {
+  console.log('Cookies:', req.cookies);
+  next();
+});
 
 app.options('*', cors());
 app.use(express.json());
