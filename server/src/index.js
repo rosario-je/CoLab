@@ -12,7 +12,7 @@ import userRoutes from "./routes/user_routes.js";
 import cookieSession from "cookie-session";
 
 config();
-const PORT = 8080;
+
 const app = express();
 const server = http.createServer(app);
 const io = new Server(server, {
@@ -87,7 +87,7 @@ io.on("connection", (socket) => {
 
 export { io };
 
-server.listen(PORT, () => {
+server.listen(process.env.PORT, () => {
   console.log(process.env.DATABASE_URL);
   console.log("Server is running on port", PORT);
 });
