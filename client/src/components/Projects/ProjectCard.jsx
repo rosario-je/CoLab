@@ -53,7 +53,7 @@ export const ProjectCard = ({
     e.preventDefault();
     try {
       const requestToJoin = await axios.post(
-        `/api/projects/${project_id}/join`
+        `/api/projects/${project_id}/join`, {withCredentials: true}
       );
       setNotifications((prevNotifications) => [
         requestToJoin.data.data.message,
@@ -71,7 +71,7 @@ export const ProjectCard = ({
   const handleCompleteProject = async () => {
     try {
       const response = await axios.patch(
-        `/api/dashboard/projects/${project_id}/complete`
+        `/api/dashboard/projects/${project_id}/complete`, {withCredentials: true}
       );
       console.log("Project marked as complete: ", response.data);
       fetchUserProjects();

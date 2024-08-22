@@ -14,7 +14,7 @@ export const ProjectRightMenu = ({ project, owner, handleCompleteProject }) => {
     const fetchRightUserMenu = async () => {
       try {
         const response = await axios.get(
-          `/api/dashboard/${currentUser.id}/my_projects`
+          `/api/dashboard/${currentUser.id}/my_projects`, {withCredentials: true}
         );
         setRightMenuProjects(response.data);
       } catch (error) {
