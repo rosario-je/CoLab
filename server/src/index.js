@@ -18,11 +18,17 @@ const server = http.createServer(app);
 const io = new Server(server, {
   cors: {
     origin: "https://co-lab-mu.vercel.app",
-    methods: ["GET", "POST"]
+    methods: ["GET", "POST"],
+    credentials: true
   }
 });
 
-app.use(cors());
+const corsOptions = {
+  origin: 'https://co-lab-mu.vercel.app',
+  credentials: true, 
+};
+
+app.use(cors(corsOptions));
 app.use(express.json());
 app.use(cookieParser());
 
