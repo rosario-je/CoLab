@@ -58,6 +58,8 @@ router.post('/login', async (req, res) => {
       profile_pic: user.profile_pic
     };
 
+    console.log(req.session.user);
+
     res.status(200).json({ message: 'Logged in successfully',
     user_id: req.session.user.id });
 
@@ -79,6 +81,7 @@ router.post('/logout', (req, res) => {
 
 router.get('/current-user', (req, res) => {
   if (req.session.user) {
+    console.log(req.session.user);
     res.json(req.session.user);
   } else {
     res.status(401).send('No user logged in');
