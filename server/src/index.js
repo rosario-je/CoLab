@@ -35,14 +35,12 @@ app.use(cookieParser());
 
 
 app.use(cookieSession({
-  secret: process.env.SESSION_SECRET,
-  resave: false,
-  saveUninitialized: true,
-  cookie: {
-    maxAge: 24 * 60 * 60 * 1000,  
-    secure: true,                  
-    httpOnly: true                 
-  }
+  name: 'session',
+  keys: [process.env.COOKIE_KEY_1, process.env.COOKIE_KEY_2],
+  maxAge: 24 * 60 * 60 * 1000,
+  secure: process.env.NODE_ENV,
+  sameSite: 'Lax', 
+  httpOnly: true, 
 }))
 
 app.get("/", (req, res) => {
