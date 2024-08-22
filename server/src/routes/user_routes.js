@@ -68,6 +68,15 @@ router.post('/login', async (req, res) => {
   }
 });
 
+router.get('/current-user', (req, res) => {
+  console.log('Session Data:', req.session);
+  if (req.session) {
+    console.log(req.session.user);
+    res.json(req.session.user);
+  } else {
+    res.status(401).send('No user logged in');
+  }
+});
 // Logout a user and destroy the session
 router.post('/logout', (req, res) => {
   // req.session.destroy(err => {
@@ -80,14 +89,5 @@ router.post('/logout', (req, res) => {
   res.status(200).send('Logged out successfully');
 });
 
-router.get('/current-user', (req, res) => {
-  console.log('Session Data:', req.session);
-  if (req.session) {
-    console.log(req.session.user);
-    res.json(req.session.user);
-  } else {
-    res.status(401).send('No user logged in');
-  }
-});
 
 export default router;
