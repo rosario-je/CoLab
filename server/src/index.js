@@ -89,5 +89,5 @@ export { io };
 
 server.listen(process.env.PORT, () => {
   console.log(process.env.DATABASE_URL);
-  console.log("Server is running on port", PORT);
+  console.log("Server is running on port", process.env.PORT);
 });
