@@ -21,12 +21,14 @@ const io = new Server(server, {
   cors: {
     origin: "https://co-lab-livid.vercel.app",
     methods: ["GET", "POST"]
+    credentials: true
   }
 });
 
 app.use(cors({
   origin: "https://co-lab-livid.vercel.app",
-  methods: ["GET", "POST"]
+  methods: ["GET", "POST"],
+  credentials: true
 }));
 app.options('*', cors());
 app.use(express.json());
