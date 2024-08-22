@@ -9,6 +9,7 @@ import projectsRoutes from "./routes/projects_routes.js";
 import morgan from 'morgan'
 import homeRoutes from "./routes/home_routes.js";
 import userRoutes from "./routes/user_routes.js";
+import cookieSession from "cookie-session";
 
 config();
 
