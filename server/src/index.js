@@ -33,7 +33,7 @@ const sessionOptions = {
     name: 'connect.sid',
     expires: Date.now() + 7 * 24 * 60 * 60 * 1000,
     maxAge: 7 * 24 * 60 * 60 * 1000,
-    sameSite: 'None',  
+    sameSite: 'None',
     secure: true,
     domain: '.co-lab-livid.vercel.app',
   },
@@ -56,6 +56,17 @@ app.use(cookieParser());
 app.use(session(sessionOptions));
 
 app.get("/", (req, res) => {
+  // read cookies
+  console.log(req.cookies)
+
+  let options = {
+    maxAge: 1000 * 60 * 15, // would expire after 15 minutes
+    httpOnly: true, // The cookie only accessible by the web server
+    signed: true // Indicates if the cookie should be signed
+  }
+
+  // Set cookie
+  res.cookie('cookieName', 'cookieValue', options)
   res.send("Welcome to CoLab!, this backend is deployed on reder!");
 });
 
