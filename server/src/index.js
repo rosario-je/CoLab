@@ -12,7 +12,7 @@ import userRoutes from "./routes/user_routes.js";
 import cookieSession from "cookie-session";
 
 config();
-
+const PORT = 8080;
 const app = express();
 const server = http.createServer(app);
 const io = new Server(server, {
