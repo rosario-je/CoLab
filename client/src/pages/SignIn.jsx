@@ -20,11 +20,11 @@ export const SignIn = () => {
       [name]: value,
     });
   };
-const backendUrl = "https://colab-yx6w.onrender.com";
+
   const handleAccountLogin = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post(`${backendUrl}/api/login`, formData);
+      const response = await axios.post('/api/login', formData);
       console.log("User logged in successfully:", response.data);
       navigate("/dashboard");
     } catch (error) {

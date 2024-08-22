@@ -63,7 +63,7 @@ const ContextProvider = (props) => {
 
   /*------------------- Context block for notifications--------------*/
   useEffect(() => {
-    socket.current = io("https://colab-yx6w.onrender.com");
+    socket.current = io("https://colab-server-gs6a.onrender.com");
 
     socket.current.on("connect", () => {
       console.log("Connected to server");
