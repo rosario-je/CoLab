@@ -19,13 +19,17 @@ const app = express();
 const server = http.createServer(app);
 const io = new Server(server, {
   cors: {
-    origin: "http://localhost:5173",
-    methods: ["GET", "POST"]
+    origin: "https://co-lab-mu.vercel.app",
+    methods: ["GET", "POST"],
+    credentials: true,
   }
 });
 
-app.use(cors());
-app.options('*', cors());
+app.use(cors({
+  origin: "https://co-lab-mu.vercel.app",
+  methods: ["GET", "POST"],
+  credentials: true
+}));
 app.use(express.json());
 app.use(cookieParser());
 
@@ -34,7 +38,11 @@ app.use(
     secret: process.env.SESSION_SECRET,
     resave: false,
     saveUninitialized: false,
-    cookie: { secure: process.env.NODE_ENV === "production" },
+    cookie: { 
+      secure: process.env.NODE_ENV === "production", 
+      httpOnly: true,
+      sameSite: process.env.NODE_ENV === "production" ? 'None' : 'Lax',
+    },
   })
 );
 

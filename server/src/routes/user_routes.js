@@ -79,6 +79,7 @@ router.post('/logout', (req, res) => {
 });
 
 router.get('/current-user', (req, res) => {
+  console.log("current user", req.session.user);
   if (req.session.user) {
     res.json(req.session.user);
   } else {
