@@ -36,6 +36,7 @@ app.use(cookieParser());
 
 app.use(cookieSession({
   secret: process.env.SESSION_SECRET,
+  keys: [process.env.SESSION_KEY1, process.env.SESSION_KEY2],
   resave: false,
   saveUninitialized: false,
   cookie: {
