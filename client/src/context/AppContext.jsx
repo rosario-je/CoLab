@@ -28,7 +28,9 @@ const ContextProvider = (props) => {
     const fetchCurrentUser = async () => {
       try {
         if (currentUser) {
-          const response = await axios.get("/api/current-user");
+          const response = await axios.get("/api/current-user", {
+            withCredentials: true,
+          });
           setCurrentUser(response.data);
           if (socket.current) {
             socket.current.emit("joinRoom", { userId: response.data.id });
@@ -39,6 +41,7 @@ const ContextProvider = (props) => {
           "No user logged in:",
           error.response?.data || error.message
         );
+        setCurrentUser(null);
       }
     };
     fetchCurrentUser();
@@ -63,7 +66,7 @@ const ContextProvider = (props) => {
 
   /*------------------- Context block for notifications--------------*/
   useEffect(() => {
-    socket.current = io("https://colab-server-gs6a.onrender.com");
+    socket.current = io("https://colab-server-y33a.onrender.com");
 
     socket.current.on("connect", () => {
       console.log("Connected to server");
@@ -193,7 +196,7 @@ const ContextProvider = (props) => {
     acceptRequest,
     denyRequest,
     setAppError,
-    clearAppError
+    clearAppError,
   };
 
   return (

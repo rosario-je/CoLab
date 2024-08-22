@@ -57,11 +57,10 @@ router.post('/login', async (req, res) => {
       username: user.username,
       profile_pic: user.profile_pic
     };
-
-    console.log(req.session.user);
-
+    console.log('Session Data:', req.session);
     res.status(200).json({ message: 'Logged in successfully',
     user_id: req.session.user.id });
+
 
   } catch (error) {
     console.error('Error logging in:', error.message);
@@ -71,15 +70,18 @@ router.post('/login', async (req, res) => {
 
 // Logout a user and destroy the session
 router.post('/logout', (req, res) => {
-  req.session.destroy(err => {
-    if (err) {
-      return res.status(500).send('Error logging out');
-    }
-    res.status(200).send('Logged out successfully');
-  });
+  // req.session.destroy(err => {
+  //   if (err) {
+  //     return res.status(500).send('Error logging out');
+  //   }
+  //   res.status(200).send('Logged out successfully');
+  // });
+  req.session = null;
+  res.status(200).send('Logged out successfully');
 });
 
 router.get('/current-user', (req, res) => {
+  console.log('Session Data:', req.session);
   if (req.session.user) {
     console.log(req.session.user);
     res.json(req.session.user);

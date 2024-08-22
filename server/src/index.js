@@ -1,7 +1,6 @@
 import "dotenv/config.js";
 import express from "express";
 import { config } from "dotenv";
-import session from "express-session";
 import cookieParser from "cookie-parser";
 import cors from "cors";
 import http from "http";
@@ -10,50 +9,42 @@ import projectsRoutes from "./routes/projects_routes.js";
 import morgan from 'morgan'
 import homeRoutes from "./routes/home_routes.js";
 import userRoutes from "./routes/user_routes.js";
-import db from "./db/connection.js";
+import cookieSession from "cookie-session";
 
 config();
 
-const PORT = process.env.PORT || 8080;
 const app = express();
 const server = http.createServer(app);
 const io = new Server(server, {
   cors: {
-    origin: "https://co-lab-livid.vercel.app",
+    origin: "https://co-lab-mu.vercel.app",
     methods: ["GET", "POST"],
     credentials: true
   }
 });
 
-const sessionOptions = {
-  secret: process.env.SESSION_SECRET,
-  resave: false,
-  saveUninitialized: true,
-  cookie: {
-    name: 'connect.sid',
-    expires: Date.now() + 7 * 24 * 60 * 60 * 1000,
-    maxAge: 7 * 24 * 60 * 60 * 1000,
-    sameSite: 'None',
-    secure: true,
-    domain: '.co-lab-livid.vercel.app',
-  },
+const corsOptions = {
+  origin: 'https://co-lab-mu.vercel.app',
+  methods: ["GET", "POST"],
+  credentials: true, 
 };
 
-app.use(cors({
-  origin: "https://co-lab-livid.vercel.app",
-  methods: ["GET", "POST"],
-  credentials: true
-}));
-app.use((req, res, next) => {
-  console.log('Cookies:', req.cookies);
-  next();
-});
-
-app.options('*', cors());
+app.use(cors(corsOptions));
 app.use(express.json());
 app.use(cookieParser());
 
-app.use(session(sessionOptions));
+
+app.use(cookieSession({
+  secret: process.env.SESSION_SECRET,
+  resave: false,
+  saveUninitialized: false,
+  cookie: {
+    maxAge: 24 * 60 * 60 * 1000,  
+    secure: true,                  
+    httpOnly: true,
+    sameSite: 'None'                
+  }
+}))
 
 app.get("/", (req, res) => {
   // read cookies
@@ -120,7 +111,7 @@ io.on("connection", (socket) => {
 
 export { io };
 
-server.listen(PORT, () => {
+server.listen(process.env.PORT, () => {
   console.log(process.env.DATABASE_URL);
-  console.log("Server is running on port", PORT);
+  console.log("Server is running on port", process.env.PORT);
 });

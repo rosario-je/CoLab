@@ -5,8 +5,9 @@ import "./index.css";
 import { BrowserRouter } from "react-router-dom";
 import { ContextProvider } from "./context/AppContext";
 import axios from "axios";
+axios.defaults.withCredentials = true;
+axios.defaults.baseURL = 'https://colab-server-y33a.onrender.com';
 
-axios.defaults.baseURL = "https://colab-server-gs6a.onrender.com";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>

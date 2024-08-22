@@ -3,7 +3,7 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
-  "proxy": "https://colab-server-gs6a.onrender.com",
+  "proxy": "https://colab-server-y33a.onrender.com",
   "scripts": {
     "dev": "vite",
     "build": "vite build",

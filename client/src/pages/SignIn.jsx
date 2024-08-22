@@ -24,7 +24,7 @@ export const SignIn = () => {
   const handleAccountLogin = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post('/api/login', formData, {withCredentials: true});
+      const response = await axios.post("/api/login", formData, {withCredentials: true});
       console.log("User logged in successfully:", response.data);
       navigate("/dashboard");
     } catch (error) {

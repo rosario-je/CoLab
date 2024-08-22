@@ -25,7 +25,7 @@ export const Dashboard = ({ handleCoLabHome }) => {
   useEffect(() => {
     const fetchProjects = async () => {
       try {
-        const projectData = await axios.get("/api/dashboard/projects");
+        const projectData = await axios.get("/api/dashboard/projects", {withCredentials: true});
         setProjects(projectData.data);
         setAllProjects(projectData.data);
         setTimeout(() => {
