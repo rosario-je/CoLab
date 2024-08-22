@@ -25,6 +25,7 @@ const io = new Server(server, {
 
 const corsOptions = {
   origin: 'https://co-lab-mu.vercel.app',
+  methods: ["GET", "POST"],
   credentials: true, 
 };
 
@@ -34,9 +35,14 @@ app.use(cookieParser());
 
 
 app.use(cookieSession({
-  name: 'session',
-  keys: [process.env.COOKIE_KEY_1, process.env.COOKIE_KEY_2],
-  maxAge: 24 * 60 * 60 * 1000
+  secret: process.env.SESSION_SECRET,
+  resave: false,
+  saveUninitialized: true,
+  cookie: {
+    maxAge: 24 * 60 * 60 * 1000,  
+    secure: true,                  
+    httpOnly: true                 
+  }
 }))
 
 app.get("/", (req, res) => {

@@ -28,7 +28,7 @@ const ContextProvider = (props) => {
     const fetchCurrentUser = async () => {
       try {
         if (currentUser) {
-          const response = await axios.get("/api/current-user");
+          const response = await axios.get("/api/current-user", {withCredentials: true});
           setCurrentUser(response.data);
           if (socket.current) {
             socket.current.emit("joinRoom", { userId: response.data.id });
