@@ -19,14 +19,14 @@ const app = express();
 const server = http.createServer(app);
 const io = new Server(server, {
   cors: {
-    origin: "https://colab-yx6w.onrender.com",
+    origin: "https://co-lab-livid.vercel.app",
     methods: ["GET", "POST"],
     credentials: true
   }
 });
 
 app.use(cors({
-  origin: "https://colab-yx6w.onrender.com",
+  origin: "https://co-lab-livid.vercel.app",
   methods: ["GET", "POST"],
   credentials: true
 }));
