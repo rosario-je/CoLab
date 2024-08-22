@@ -30,6 +30,7 @@ app.use(cors({
   methods: ["GET", "POST"],
   credentials: true
 }));
+app.set('trust proxy', 1);
 app.options('*', cors());
 app.use(express.json());
 app.use(cookieParser());
