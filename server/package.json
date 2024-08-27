@@ -2,10 +2,10 @@
   "name": "server",
   "version": "1.0.0",
   "description": "",
-  "main": "server_index.js",
+  "main": "index.js",
   "type": "module",
   "scripts": {
-    "server": "nodemon --watch src --exec node src/server_index.js",
+    "server": "nodemon --watch src --exec node src/index.js",
     "db:reset": "node src/bin/reset_db.js"
   },
   "keywords": [],

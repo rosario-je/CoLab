@@ -12,7 +12,7 @@ config();
 // };
 
 const dbParams = {
-  connectionString: process.env.VITE_SUPABASE_URL,
+  connectionString: process.env.SUPABASE_URI,
   ssl: {
     rejectUnauthorized: false,
     require: true,
