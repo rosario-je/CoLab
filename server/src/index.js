@@ -54,10 +54,10 @@ io.on("connection", (socket) => {
     console.log(`User joined project: ${projectId}`);
   });
 
-  socket.on("sendMessage", (messageData) => {
-    const { projectId, message } = messageData;
-    io.to(projectId).emit("receiveMessage", message);
-  });
+  // socket.on("sendMessage", (messageData) => {
+  //   const { projectId, message } = messageData;
+  //   io.to(projectId).emit("receiveMessage", message);
+  // });
 
   socket.on("joinRoom", ({ userId }) => {
     socket.join(userId);
