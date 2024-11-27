@@ -77,7 +77,7 @@ router.post('/:projectId/chat', async (req, res) => {
     const newMessage = await newChatMessage(sender_id, chat_room_id, message);
     const message_id = newMessage.id;
     const allMessageInfo = await getNewChatMessageInfo(message_id);
-    io.to(projectId).emit("receiveMessage", allMessageInfo);
+    //io.to(projectId).emit("receiveMessage", allMessageInfo);
 
     res.status(201).json({
       message: "Message sent successfully",
