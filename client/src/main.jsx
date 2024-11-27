@@ -7,7 +7,7 @@ import { ContextProvider } from "./context/AppContext";
 import axios from "axios";
 
 axios.defaults.withCredentials = true;
-axios.defaults.baseURL = 'https://colab-server-y33a.onrender.com';
+axios.defaults.baseURL = 'http://localhost:8080/';
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
