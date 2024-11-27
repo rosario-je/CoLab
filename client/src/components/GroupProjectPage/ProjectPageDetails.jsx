@@ -28,18 +28,16 @@ export const ProjectPageDetails = ({ project }) => {
     cover_photo_path,
   } = project;
 
-  console.log("project", project);
-
   useEffect(() => {
     socket.current = io("http://localhost:8080/");
 
     socket.current.on("connect", () => {
-      console.log("Connected to server");
+      //console.log("Connected to server");
       socket.current.emit("joinProject", project_id);
     });
 
     socket.current.on("receiveMessage", (newMessageData) => {
-      console.log("Received message:", newMessageData);
+      //console.log("Received message:", newMessageData);
       setChat((prevChat) => [...prevChat, newMessageData]);
     });
 

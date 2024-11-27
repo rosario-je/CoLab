@@ -66,21 +66,21 @@ const ContextProvider = (props) => {
     socket.current = io("http://localhost:8080/");
 
     socket.current.on("connect", () => {
-      console.log("Connected to server");
+      //console.log("Connected to server");
       if (currentUser) {
         socket.current.emit("joinRoom", { userId: currentUser.id });
       }
     });
 
     socket.current.on("receiveNotification", (notificationData) => {
-      console.log("Received a new notification!: ", notificationData);
+      //console.log("Received a new notification!: ", notificationData);
       setNotifications((prevNotifications) => [
         notificationData,
         ...prevNotifications,
       ]);
     });
     socket.current.on("receiveRequest", (requestData) => {
-      console.log("Received a new join request: ", requestData);
+      //console.log("Received a new join request: ", requestData);
       setRequests((prevRequests) => [requestData, ...prevRequests]);
     });
 
@@ -127,7 +127,7 @@ const ContextProvider = (props) => {
       const response = await axios.delete(
         `/api/dashboard/notifications/${notification_id}`
       );
-      console.log("Notification deleted: ", response.data);
+      //console.log("Notification deleted: ", response.data);
       handleDismiss(notification_id); // Update state to reflect deletion
     } catch (error) {
       console.error("Error dismissing notification", error.message);
@@ -169,7 +169,7 @@ const ContextProvider = (props) => {
           },
         }
       );
-      console.log("Request denied: ", response.data.data);
+      //console.log("Request denied: ", response.data.data);
       handleRequest(response.data.data.id);
     } catch (error) {
       console.error("Error denying request: ", error.message);

@@ -14,7 +14,7 @@ export const CreateProjectTechStackModal = ({
   const [allSelectedTech, setAllSelectedTech] = useState(tech_names);
 
   useEffect(() => {
-    console.log("Live array of selected technologies:", allSelectedTech);
+    // console.log("Live array of selected technologies:", allSelectedTech);
   }, [allSelectedTech]);
 
   const frontendOptions = [

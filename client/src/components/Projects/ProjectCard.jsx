@@ -37,7 +37,7 @@ export const ProjectCard = ({
   useEffect(() => {
     if (isConnected) {
       listen("receiveNotification", (notificationData) => {
-        console.log("Received a new notification!: ", notificationData);
+        //console.log("Received a new notification!: ", notificationData);
       });
     }
   }, []);
@@ -73,7 +73,7 @@ export const ProjectCard = ({
       const response = await axios.patch(
         `/api/dashboard/projects/${project_id}/complete`
       );
-      console.log("Project marked as complete: ", response.data);
+      //console.log("Project marked as complete: ", response.data);
       fetchUserProjects();
     } catch (error) {
       console.error("Error completing project:", error.message);

@@ -16,7 +16,7 @@ export const ProjectPage = ({ handleCoLabHome }) => {
       const response = await axios.patch(
         `/api/dashboard/projects/${project.project_id}/complete`
       );
-      console.log("Project marked as complete: ", response.data);
+      //console.log("Project marked as complete: ", response.data);
       fetchProject();
     } catch (error) {
       console.error("Error completing project:", error.message);

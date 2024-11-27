@@ -38,7 +38,6 @@ export const Dashboard = ({ handleCoLabHome }) => {
     };
     fetchProjects();
   }, []);
-  console.log(projects)
 
   /*------------------- Search functionality --------------*/
   const handleSearch = async (query) => {
