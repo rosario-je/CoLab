@@ -11,7 +11,7 @@ export const ProjectPageDetails = ({ project }) => {
   const [message, setMessage] = useState("");
   const [chat, setChat] = useState(project.chat);
   const [typingUsers, setTypingUsers] = useState([]);
-  const { currentUser } = useContext(AppContext);
+  const { currentUser, config } = useContext(AppContext);
 
   const socket = useRef(null);
   const typingTimeout = useRef(null);
@@ -68,9 +68,13 @@ export const ProjectPageDetails = ({ project }) => {
   const handleMessage = async (event) => {
     if (event.key === "Enter" && message.trim() !== "") {
       try {
-        const response = await axios.post(`/api/projects/${project_id}/chat`, {
-          message,
-        });
+        const response = await axios.post(
+          `/api/projects/${project_id}/chat`,
+          {
+            message,
+          },
+          config
+        );
         const { newMessage } = response.data.data;
 
         socket.current.emit("sendMessage", {
