@@ -1,12 +1,17 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
+import { AppContext } from "../context/AppContext";
+
+//Components
 import { Navbar } from "../components/Navbar";
 import { UserLeftMenu } from "../components/UserLeftMenu";
 import { UserRightMenu } from "../components/UserRightMenuComponents/UserRightMenu";
 import { ProjectEditField } from "../components/Projects/ProjectEditField";
 
 export const EditProject = () => {
+  const { token } = useContext(AppContext);
   const [project, setProject] = useState({
     name: "",
     description: "",
@@ -17,8 +22,15 @@ export const EditProject = () => {
     trelloLink: "",
     tech_names: [],
   });
+  const navigate = useNavigate();
 
   const { projectId } = useParams();
+
+  useEffect(() => {
+    if (!localStorage.getItem("token")) {
+      navigate("/");
+    }
+  }, [token]);
 
   useEffect(() => {
     const fetchProject = async () => {

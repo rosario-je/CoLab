@@ -12,7 +12,7 @@ config();
 // };
 
 const dbParams = {
-  connectionString: process.env.SUPABASE_URI,
+  connectionString: process.env.SUPABASE_URL,
   ssl: {
     rejectUnauthorized: false,
     require: true,

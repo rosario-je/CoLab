@@ -11,7 +11,7 @@ export const ProjectPageDetails = ({ project }) => {
   const [message, setMessage] = useState("");
   const [chat, setChat] = useState(project.chat);
   const [typingUsers, setTypingUsers] = useState([]);
-  const { currentUser } = useContext(AppContext);
+  const { currentUser, config } = useContext(AppContext);
 
   const socket = useRef(null);
   const typingTimeout = useRef(null);
@@ -28,18 +28,16 @@ export const ProjectPageDetails = ({ project }) => {
     cover_photo_path,
   } = project;
 
-  console.log("project", project);
-
   useEffect(() => {
-    socket.current = io("http://localhost:8080");
+    socket.current = io("http://localhost:8080/");
 
     socket.current.on("connect", () => {
-      console.log("Connected to server");
+      //console.log("Connected to server");
       socket.current.emit("joinProject", project_id);
     });
 
     socket.current.on("receiveMessage", (newMessageData) => {
-      console.log("Received message:", newMessageData);
+      //console.log("Received message:", newMessageData);
       setChat((prevChat) => [...prevChat, newMessageData]);
     });
 
@@ -70,9 +68,13 @@ export const ProjectPageDetails = ({ project }) => {
   const handleMessage = async (event) => {
     if (event.key === "Enter" && message.trim() !== "") {
       try {
-        const response = await axios.post(`/api/projects/${project_id}/chat`, {
-          message,
-        });
+        const response = await axios.post(
+          `/api/projects/${project_id}/chat`,
+          {
+            message,
+          },
+          config
+        );
         const { newMessage } = response.data.data;
 
         socket.current.emit("sendMessage", {

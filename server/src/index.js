@@ -7,7 +7,6 @@ import cors from "cors";
 import http from "http";
 import { Server } from "socket.io";
 import projectsRoutes from "./routes/projects_routes.js";
-import morgan from 'morgan'
 import homeRoutes from "./routes/home_routes.js";
 import userRoutes from "./routes/user_routes.js";
 import db from "./db/connection.js";
@@ -20,21 +19,29 @@ const server = http.createServer(app);
 const io = new Server(server, {
   cors: {
     origin: "http://localhost:5173",
-    methods: ["GET", "POST"]
+    methods: ["GET", "POST", "PUT", "DELETE", "PATCH"],
+    credentials: true,
   }
 });
 
-app.use(cors());
-app.options('*', cors());
+app.use(cors({
+  origin: "http://localhost:5173",
+  methods: ["GET", "POST", "PUT", "DELETE", "PATCH"],
+  credentials: true
+}));
 app.use(express.json());
 app.use(cookieParser());
 
 app.use(
   session({
-    secret: process.env.SESSION_SECRET,
+    secret: process.env.JWT_SECRET,
     resave: false,
     saveUninitialized: false,
-    cookie: { secure: process.env.NODE_ENV === "production" },
+    cookie: { 
+      secure: process.env.NODE_ENV === "production", 
+      httpOnly: true,
+      sameSite: process.env.NODE_ENV === "production" ? 'None' : 'Lax',
+    },
   })
 );
 

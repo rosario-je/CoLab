@@ -1,43 +1,72 @@
 import express from 'express';
+import jwt from 'jsonwebtoken'
+import { config } from "dotenv";
+
+//DB Queries
 import { createUser, getUserByEmail, validateUserLogin } from '../db/queries/user_queries.js';
 
+config();
 const router = express.Router();
 
-router.get('/register', (req, res) => {
-  res.send('Create a new user');
-});
 
-// Create a new user
+// New user route
 router.post('/register', async (req, res) => {
   const { first_name, last_name, email, password, username, profile_pic } = req.body;
 
   if (!first_name || !last_name || !email || !password || !username) {
     return res.status(400).send('Missing required fields');
   }
-  const user = { first_name, last_name, email, password, username, profile_pic };
+
   try {
     const existingUser = await getUserByEmail(email);
     if (existingUser) {
       return res.status(409).send('User already exists');
     }
-    const newUser = await createUser(user);
+
+    // Create new user in the database
+    const newUser = await createUser({ first_name, last_name, email, password, username, profile_pic });
+
     if (!newUser) {
       return res.status(500).send('Error creating user');
     }
-    req.session.user = {
+
+    // Retrieve the newly created user's ID
+    console.log(newUser);
+    
+    // const userId = createdUser.id;
+
+    // Generate the JWT token using the newly retrieved ID
+    const token = jwt.sign(
+      {
+        id: newUser.id,
+        email: newUser.email,
+        firstName: newUser.first_name,
+        lastName: newUser.last_name,
+        username: newUser.username,
+        profile_pic: newUser.profile_pic
+      },
+      process.env.JWT_SECRET
+    );
+
+    res.status(200).json({
+      message: 'User registered successfully',
+      token: token,
       id: newUser.id,
       email: newUser.email,
-      username: newUser.username
-    }
-    res.status(201).json(newUser);
+      firstName: newUser.first_name,
+      lastName: newUser.last_name,
+      username: newUser.username,
+      profile_pic: newUser.profile_pic
+    });
   } catch (error) {
     console.error('Error creating user:', error.message);
     res.status(500).send('Error creating user');
   }
 });
 
-// Login a user and create a session
-// Pass up user info to frontend
+
+
+// User login route
 router.post('/login', async (req, res) => {
   const { email, password } = req.body;
   if (!email || !password) {
@@ -49,18 +78,26 @@ router.post('/login', async (req, res) => {
       return res.status(404).send('User not found');
     }
 
-    req.session.user = {
+    const token = jwt.sign({
       id: user.id,
       email: user.email,
       firstName: user.first_name,
       lastName: user.last_name,
       username: user.username,
+      profile_pic: user.profile_pic
+    }, process.env.JWT_SECRET);
+
+    res.status(200).json({
+      message: 'Logged in successfully',
+      token: token,
+      id: user.id,
+      email: user.email,
+      firstName: user.first_name,
+      lastName: user.last_name,
       username: user.username,
       profile_pic: user.profile_pic
-    };
 
-    res.status(200).json({ message: 'Logged in successfully',
-    user_id: req.session.user.id });
+    });
 
   } catch (error) {
     console.error('Error logging in:', error.message);
@@ -70,20 +107,11 @@ router.post('/login', async (req, res) => {
 
 // Logout a user and destroy the session
 router.post('/logout', (req, res) => {
-  req.session.destroy(err => {
-    if (err) {
-      return res.status(500).send('Error logging out');
-    }
-    res.status(200).send('Logged out successfully');
+  res.status(200).json({
+    message: 'Logged out successfully',
+    token: null
   });
 });
 
-router.get('/current-user', (req, res) => {
-  if (req.session.user) {
-    res.json(req.session.user);
-  } else {
-    res.status(401).send('No user logged in');
-  }
-});
 
 export default router;

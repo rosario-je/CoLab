@@ -4,7 +4,6 @@ import { NotificationListItems } from "./NotificationsListItems.jsx";
 
 export const NotificationsList = () => {
   const { notifications } = useContext(AppContext);
-  // console.log("Notifications: ", notifications);
 
   return (
     <div className="my-notifications h-full w-auto flex flex-col items-center">

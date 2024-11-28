@@ -6,13 +6,42 @@ const AppContext = createContext();
 
 const ContextProvider = (props) => {
   const [notifications, setNotifications] = useState([]);
-  const [currentUser, setCurrentUser] = useState(null);
   const [techModal, setTechModal] = useState(false);
   const [requests, setRequests] = useState([]);
+  const [error, setError] = useState(false);
+  const [token, setToken] = useState(null);
   const socket = useRef(null);
 
+  const getUserData = (keys) =>
+    keys.reduce((acc, key) => {
+      acc[key] = localStorage.getItem(key);
+      return acc;
+    }, {});
+
+  const { id, email, firstName, lastName, username, profile_pic } = getUserData(
+    ["id", "email", "firstName", "lastName", "username", "profile_pic"]
+  );
+
+  const config = {
+    headers: { Authorization: `Bearer ${token}` },
+  };
+
+  const currentUser = {
+    id,
+    email,
+    firstName,
+    lastName,
+    username,
+    profile_pic,
+  };
+
+  // Function to set the token
+  useEffect(() => {
+    const storedToken = localStorage.getItem("token");
+    setToken(storedToken);
+  }, []);
+
   /*------------------- Context block for Error Handling--------------*/
-  const [error, setError] = useState(false);
 
   // Function to set the error
   const setAppError = (error) => {
@@ -23,31 +52,13 @@ const ContextProvider = (props) => {
     setError(null);
   };
 
-  /*------------------- Context block for currentUser--------------*/
-  useEffect(() => {
-    const fetchCurrentUser = async () => {
-      try {
-        if (currentUser) {
-          const response = await axios.get("/api/current-user");
-          setCurrentUser(response.data);
-          if (socket.current) {
-            socket.current.emit("joinRoom", { userId: response.data.id });
-          }
-        }
-      } catch (error) {
-        console.error(
-          "No user logged in:",
-          error.response?.data || error.message
-        );
-      }
-    };
-    fetchCurrentUser();
-  }, []);
+  /*------------------- Context block for User Authentication--------------*/
 
   const handleLogout = async () => {
     try {
       await axios.post("/api/logout");
-      setCurrentUser(null);
+      setToken(null);
+      localStorage.clear();
     } catch (error) {
       console.error(
         "Error logging out:",
@@ -63,31 +74,37 @@ const ContextProvider = (props) => {
 
   /*------------------- Context block for notifications--------------*/
   useEffect(() => {
-    socket.current = io("http://localhost:8080");
+    socket.current = io("http://localhost:8080/");
 
     socket.current.on("connect", () => {
-      console.log("Connected to server");
-      if (currentUser) {
-        socket.current.emit("joinRoom", { userId: currentUser.id });
+      //console.log("Connected to server");
+      if (token) {
+        socket.current.emit("joinRoom", { userId: id });
       }
     });
 
     socket.current.on("receiveNotification", (notificationData) => {
-      console.log("Received a new notification!: ", notificationData);
+      //console.log("Received a new notification!: ", notificationData);
       setNotifications((prevNotifications) => [
         notificationData,
         ...prevNotifications,
       ]);
     });
     socket.current.on("receiveRequest", (requestData) => {
-      console.log("Received a new join request: ", requestData);
+      //console.log("Received a new join request: ", requestData);
       setRequests((prevRequests) => [requestData, ...prevRequests]);
     });
 
     const fetchNotifications = async () => {
       try {
-        if (currentUser) {
-          const notifList = await axios.get("/api/dashboard/notifications");
+        const config = {
+          headers: { Authorization: `Bearer ${token}` },
+        };
+        if (token) {
+          const notifList = await axios.get(
+            "/api/dashboard/notifications",
+            config
+          );
           setNotifications(notifList.data);
         }
       } catch (error) {
@@ -96,8 +113,14 @@ const ContextProvider = (props) => {
     };
     const fetchRequests = async () => {
       try {
-        if (currentUser) {
-          const requestList = await axios.get("/api/dashboard/manage_requests");
+        const config = {
+          headers: { Authorization: `Bearer ${token}` },
+        };
+        if (token) {
+          const requestList = await axios.get(
+            "/api/dashboard/manage_requests",
+            config
+          );
           setRequests(requestList.data);
         }
       } catch (error) {
@@ -112,7 +135,7 @@ const ContextProvider = (props) => {
         socket.current.disconnect();
       }
     };
-  }, [currentUser]);
+  }, [token]);
 
   const handleDismiss = (dismissedNotificationId) => {
     setNotifications((prevNotifications) =>
@@ -127,7 +150,7 @@ const ContextProvider = (props) => {
       const response = await axios.delete(
         `/api/dashboard/notifications/${notification_id}`
       );
-      console.log("Notification deleted: ", response.data);
+      //console.log("Notification deleted: ", response.data);
       handleDismiss(notification_id); // Update state to reflect deletion
     } catch (error) {
       console.error("Error dismissing notification", error.message);
@@ -151,7 +174,7 @@ const ContextProvider = (props) => {
           requesting_user_id: requester_user_id,
         }
       );
-      console.log("Request accepted: ", response.data.joinRequest.id);
+      // console.log("Request accepted: ", response.data.joinRequest.id);
       handleRequest(response.data.joinRequest.id);
     } catch (error) {
       console.error("Error accepting request: ", error.message);
@@ -169,7 +192,7 @@ const ContextProvider = (props) => {
           },
         }
       );
-      console.log("Request denied: ", response.data.data);
+      //console.log("Request denied: ", response.data.data);
       handleRequest(response.data.data.id);
     } catch (error) {
       console.error("Error denying request: ", error.message);
@@ -178,11 +201,9 @@ const ContextProvider = (props) => {
 
   const providerValue = {
     notifications,
-    currentUser,
     techModal,
     requests,
     error,
-    setCurrentUser,
     setNotifications,
     handleDismiss,
     dismissNotif,
@@ -193,7 +214,11 @@ const ContextProvider = (props) => {
     acceptRequest,
     denyRequest,
     setAppError,
-    clearAppError
+    clearAppError,
+    token,
+    setToken,
+    currentUser,
+    config,
   };
 
   return (

@@ -39,7 +39,7 @@ export const ProjectCreateField = () => {
     setProjectData((prevData) => {
       // Merge the new tech stack with the existing tech stack
       const updatedTechNames = selectedTechStack;
-      console.log("Updated tech stack:", updatedTechNames); 
+      // console.log("Updated tech stack:", updatedTechNames); 
       return {
         ...prevData,
         tech_names: updatedTechNames,
@@ -83,26 +83,29 @@ export const ProjectCreateField = () => {
     try {
       setProjectCreating(true);
 
-      // // Validate and prepend base URLs
-      // const github_repo = validateLink(
-      //   projectData.github_repo,
-      //   "https://github.com"
-      // );
-      // const figma_link = validateLink(
-      //   projectData.figma_link,
-      //   "https://www.figma.com"
-      // );
-      // const trello_link = validateLink(
-      //   projectData.trello_link,
-      //   "https://trello.com"
-      // );
-
+      // Validate and prepend base URLs
+      const githubRepo = validateLink(
+        projectData.githubRepo,
+        "https://github.com"
+      );
+      const figmaLink = validateLink(
+        projectData.figmaLink,
+        "https://www.figma.com"
+      );
+      const trelloLink = validateLink(
+        projectData.trelloLink,
+        "https://trello.com"
+      );
+      const token = localStorage.getItem("token");
+      const config = {
+        headers: { Authorization: `Bearer ${token}` },
+      };
       const project = await axios.post("/api/projects/create", {
         ...projectData,
-        // github_repo,
-        // figma_link,
-        // trello_link,
-      });
+        githubRepo,
+        figmaLink,
+        trelloLink,
+      }, config);
 
       const {
         projectData: { id: projectId, owner_id: ownerId },

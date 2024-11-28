@@ -1,9 +1,14 @@
 import express from 'express';
+
+//DB Queries
 import { getAllProjects, getProjectsOwnedByMe, getProjectsIAmInById, getProjectsIdsIAmIn, getProjectById, projectFull, getAllProjectsById, projectCompleted } from '../db/queries/project_queries.js';
 import { getTechByName } from '../db/queries/tech_queries.js';
 import { getAllJoinRequests, isUserOwner, approveJoinRequest, addUserToProject, rejectJoinRequest } from '../db/queries/user_queries.js';
 import { getNotifications, dismissNotification, sendProjectNotification } from '../db/queries/chat_queries.js';
+
 import { io } from '../index.js';
+
+import authenticateToken from '../../utils/authMiddleware.js'
 
 const router = express.Router();
 
@@ -21,8 +26,9 @@ router.get('/projects', async (req, res) => {
 
 // View all projects you own and are a part of
 // http://localhost:8080/api/dashboard/:userId/my_projects
-router.get('/:userId/my_projects', async (req, res) => {
-  const { id: user_id } = req.session.user;
+router.get('/:userId/my_projects', authenticateToken, async (req, res) => {
+  const user_id = req.user.id
+  console.log('this is the user id: ', user_id)
   try {
     const myOwnedProjects = await getProjectsOwnedByMe(user_id);
     const myJoinedProjectsIdArray = await getProjectsIdsIAmIn(user_id);
@@ -62,8 +68,8 @@ router.post('/search', async (req, res) => {
 
 // Complete a project you own
 // http://localhost:8080/api/projects/:project_id/complete
-router.patch('/projects/:project_id/complete', async (req, res) => {
-  const { id: user_id } = req.session.user;
+router.patch('/projects/:project_id/complete', authenticateToken, async (req, res) => {
+  const user_id = req.user.id
   const { project_id } = req.params; // Extract project_id from req.params
   try {
     const isCurrentUserOwner = await isUserOwner(user_id, project_id);
@@ -82,8 +88,8 @@ router.patch('/projects/:project_id/complete', async (req, res) => {
 
 // View all join requests for projects you own
 // http://localhost:8080/api/dashboard/manage_requests
-router.get('/manage_requests', async (req, res) => {
-  const { id: user_id } = req.session.user;
+router.get('/manage_requests', authenticateToken, async (req, res) => {
+  const user_id = req.user.id
   try {
     const joinRequests = await getAllJoinRequests(user_id);
 
@@ -109,9 +115,9 @@ router.get('/manage_requests', async (req, res) => {
 
 // Approves a join request and adds the user to the project
 // http://localhost:8080/api/dashboard/manage_requests/approve_join_request
-router.post('/manage_requests/approve_join_request', async (req, res) => {
+router.post('/manage_requests/approve_join_request', authenticateToken, async (req, res) => {
   const { project_id, requesting_user_id } = req.body;
-  const { id: user_id } = req.session.user;
+  const user_id = req.user.id
   try {
     const project = await getProjectById(project_id);
     const isCurrentUserOwner = await isUserOwner(user_id, project_id);
@@ -142,9 +148,9 @@ router.post('/manage_requests/approve_join_request', async (req, res) => {
 
 // Rejects a join request and adds the user to the project
 // http://localhost:8080/api/dashboard/manage_requests/reject_join_request
-router.delete('/manage_requests/reject_join_request', async (req, res) => {
+router.delete('/manage_requests/reject_join_request', authenticateToken, async (req, res) => {
   const { project_id, requesting_user_id } = req.body;
-  const { id: user_id } = req.session.user;
+  const user_id = req.user.id
   try {
     const project = await getProjectById(project_id);
     const isCurrentUserOwner = await isUserOwner(user_id, project_id);
@@ -175,9 +181,9 @@ router.delete('/manage_requests/reject_join_request', async (req, res) => {
 
 // Get notifications
 // http://localhost:8080/api/dashboard/notifications
-router.get('/notifications', async (req, res) => {
+router.get('/notifications', authenticateToken, async (req, res) => {
   try {
-    const { id: user_id } = req.session.user;
+    const user_id = req.user.id
     const notifications = await getNotifications(user_id);
     return res.status(200).json(notifications);
   } catch (error) {

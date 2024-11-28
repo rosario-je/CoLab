@@ -13,8 +13,15 @@ export const ProjectRightMenu = ({ project, owner, handleCompleteProject }) => {
   useEffect(() => {
     const fetchRightUserMenu = async () => {
       try {
+        const token = localStorage.getItem("token");
+        const config = {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        };
         const response = await axios.get(
-          `/api/dashboard/${currentUser.id}/my_projects`
+          `/api/dashboard/${currentUser.id}/my_projects`,
+          config
         );
         setRightMenuProjects(response.data);
       } catch (error) {

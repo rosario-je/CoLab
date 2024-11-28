@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { AppContext } from "../../context/AppContext";
 
 export const LandingNavBar = () => {
-  const { currentUser, handleLogout } = useContext(AppContext);
+  const { token, handleLogout } = useContext(AppContext);
   const navigate = useNavigate();
   
 
@@ -22,7 +22,7 @@ export const LandingNavBar = () => {
         </div>
         <div className="flex-none">
           <div className="signin-button pr-5">
-            {!currentUser ? (
+            {token == null ? (
               <div
                 onClick={() => {
                   navigate("/signin");

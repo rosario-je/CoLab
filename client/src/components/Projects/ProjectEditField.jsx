@@ -126,10 +126,16 @@ export const ProjectEditField = ({ project }) => {
         trello_link,
         "https://trello.com"
       );
-
+      const token = localStorage.getItem("token");
+      const config = {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      };
       const updateResponse = await axios.put(
         `/api/projects/${project_id}/edit`,
-        bodyPayload
+        bodyPayload,
+        config
       );
 
       const { id, owner_id } = updateResponse.data.project;

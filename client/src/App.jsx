@@ -2,7 +2,7 @@ import React from "react";
 import { Routes, Route } from "react-router-dom";
 import axios from "axios";
 
-import ProtectedRoute from "./components/Auth/ProtectedRoute";
+// import ProtectedRoute from "./components/Auth/ProtectedRoute";
 import { Landing } from "./pages/Landing";
 import { Dashboard } from "./pages/Dashboard";
 import { ProjectPage } from "./pages/ProjectPage";
@@ -15,79 +15,34 @@ import { MyProjectRequests } from "./pages/MyProjectRequests";
 import { MyNotifications } from "./pages/MyNotifications";
 
 axios.defaults.withCredentials = true;
+const token = localStorage.getItem("token");
+axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
 
 function App() {
   return (
     <div className="App">
       <Routes>
-        <Route
-          path="/"
-          element={
-            <ProtectedRoute page="landing">
-              <Landing />
-            </ProtectedRoute>
-          }
-        />
+        <Route path="/" element={<Landing />} />
         <Route path="/signin" element={<SignIn />} />
         <Route path="/signup" element={<SignUp />} />
 
-        <Route
-          path="/dashboard"
-          element={
-            <ProtectedRoute>
-              <Dashboard />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="/:userId/project/:projectId"
-          element={
-            <ProtectedRoute>
-              <ProjectPage />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="/:userId/project/create"
-          element={
-            <ProtectedRoute>
-              <CreateProject />
-            </ProtectedRoute>
-          }
-        />
+        <Route path="/dashboard" element={<Dashboard />} />
+
+        {/* Project sections */}
+        <Route path={"/:userId/myprojects"} element={<MyProjects />} />
+        <Route path="/:userId/project/create" element={<CreateProject />} />
+        <Route path="/:userId/project/:projectId" element={<ProjectPage />} />
         <Route
           path="/:userId/project/:projectId/edit"
-          element={
-            <ProtectedRoute>
-              <EditProject />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path={"/:userId/myprojects"}
-          element={
-            <ProtectedRoute>
-              <MyProjects />
-            </ProtectedRoute>
-          }
+          element={<EditProject />}
         />
 
+        {/* notifications and requests */}
         <Route
           path="/:userId/myprojects/requests"
-          element={
-            <ProtectedRoute>
-              <MyProjectRequests />
-            </ProtectedRoute>
-          }
+          element={<MyProjectRequests />}
         />
-        <Route
-          path="/:userId/notifications"
-          element={
-            <ProtectedRoute>
-              <MyNotifications />
-            </ProtectedRoute>
-          }
-        />
+        <Route path="/:userId/notifications" element={<MyNotifications />} />
       </Routes>
     </div>
   );

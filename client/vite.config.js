@@ -3,10 +3,13 @@ import react from '@vitejs/plugin-react'
 
 
 export default defineConfig({ 
-  server: {
-    proxy: {
-      "/api": "http://localhost:8080",
-    }  
-  } ,
+  // server: {
+  //   proxy: {
+  //     "/api": "https://colab-server-y33a.onrender.com",
+  //   }  
+  // } ,
+  build: {
+    outDir: 'dist' 
+  },
   plugins: [react()],
 })

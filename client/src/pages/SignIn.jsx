@@ -7,7 +7,8 @@ import { UserErrorMessage } from "../components/AlertHandling/UserErrorMessage";
 
 export const SignIn = () => {
   const navigate = useNavigate();
-  const {error, setAppError, clearAppError} = useContext(AppContext);
+  const { error, setAppError, clearAppError, setToken } =
+    useContext(AppContext);
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -25,16 +26,29 @@ export const SignIn = () => {
     e.preventDefault();
     try {
       const response = await axios.post("/api/login", formData);
-      console.log("User logged in successfully:", response.data);
+      setToken(response.data.token);
+
+      const { token, id, email, firstName, lastName, username, profile_pic } = response.data;
+      localStorage.setItem("token", token);
+      localStorage.setItem("id", id);
+      localStorage.setItem("email", email);
+      localStorage.setItem("firstName", firstName);
+      localStorage.setItem("lastName", lastName);
+      localStorage.setItem("username", username);
+      localStorage.setItem("profile_pic", profile_pic);
+      
+      // console.log("User logged in successfully:", response.data);
       navigate("/dashboard");
     } catch (error) {
+      setToken(null);
+      localStorage.removeItem("token");
       setAppError(error.response.data);
       console.error("Error logging in user:", error.response.data);
-      
+
       // Clear the error after 3 seconds
       setTimeout(() => {
         clearAppError();
-      }, 2000); 
+      }, 2000);
     }
   };
 
@@ -43,7 +57,9 @@ export const SignIn = () => {
       {error && <UserErrorMessage error={error} />}
       <div className="container mx-auto flex justify-between items-center h-full px-4">
         <div className="w-1/2 flex flex-col items-center text-center p-8 ">
-          <h1 className="text-5xl font-bold text-white">Welcome back to CoLab!</h1>
+          <h1 className="text-5xl font-bold text-white">
+            Welcome back to CoLab!
+          </h1>
           <p className="py-6 text-2xl font-light text-white">
             Login to your account to start collaborating!
           </p>
@@ -82,7 +98,10 @@ export const SignIn = () => {
                 />
               </div>
               <div className="form-control mt-6">
-                <button type="submit" className="btn bg-website-purple hover:bg-website-purple-hover w-full rounded-full text-base text-white border-2 border-project-border/25 hover:border-project-border/25">
+                <button
+                  type="submit"
+                  className="btn bg-website-purple hover:bg-website-purple-hover w-full rounded-full text-base text-white border-2 border-project-border/25 hover:border-project-border/25"
+                >
                   Login
                 </button>
               </div>
