@@ -13,12 +13,12 @@ export const ProjectCreateField = () => {
     description: "",
     max_participants: 1,
     cover_photo_path: "",
-    github_repo: "",
-    figma_link: "",
-    trello_link: "",
+    githubRepo: "",
+    figmaLink: "",
+    trelloLink: "",
     tech_names: [],
     newPicture: "",
-  });  
+  });
 
   const maxChars = 500;
   const navigate = useNavigate();
@@ -39,7 +39,7 @@ export const ProjectCreateField = () => {
     setProjectData((prevData) => {
       // Merge the new tech stack with the existing tech stack
       const updatedTechNames = selectedTechStack;
-      // console.log("Updated tech stack:", updatedTechNames); 
+      // console.log("Updated tech stack:", updatedTechNames);
       return {
         ...prevData,
         tech_names: updatedTechNames,
@@ -47,7 +47,6 @@ export const ProjectCreateField = () => {
     });
   };
 
-  
   const isValidImageUrl = (url) => {
     return /\.(jpg|jpeg|png|gif)$/i.test(url);
   };
@@ -100,12 +99,16 @@ export const ProjectCreateField = () => {
       const config = {
         headers: { Authorization: `Bearer ${token}` },
       };
-      const project = await axios.post("/api/projects/create", {
-        ...projectData,
-        githubRepo,
-        figmaLink,
-        trelloLink,
-      }, config);
+      const project = await axios.post(
+        "/api/projects/create",
+        {
+          ...projectData,
+          githubRepo,
+          figmaLink,
+          trelloLink,
+        },
+        config
+      );
 
       const {
         projectData: { id: projectId, owner_id: ownerId },
@@ -134,7 +137,6 @@ export const ProjectCreateField = () => {
       )}
 
       <section className="flex flex-col h-full w-full justify-around">
-
         {/* PROJECT TITLE */}
         <div className="project-title flex justify-between py-4 mt-5 mb-10">
           <div className="w-auto">
@@ -240,12 +242,11 @@ export const ProjectCreateField = () => {
             </h6>
             {projectData.cover_photo_path && (
               <button
-                className="text-text-color/90 bg-navbar-color mt-5 btn hover:bg-reject hover:border-reject text-lg group mr-5 h-auto w-auto"
+                className="text-white mt-5 btn hover:bg-reject text-lg group mr-5"
                 onClick={handleRemoveCoverPhoto}
               >
-                {/* <i className="fa-solid fa-image group-hover:text-white group-hover:drop-shadow-white-glow"></i>
-                {projectData.cover_photo_path} */}
-                <img className="h-32 p-2.5" src={projectData.cover_photo_path} alt="" />
+                <i className="fa-solid fa-image group-hover:text-white group-hover:drop-shadow-white-glow"></i>
+                {projectData.cover_photo_path}
               </button>
             )}
           </div>
@@ -301,9 +302,9 @@ export const ProjectCreateField = () => {
               <h3>Github Repository</h3>
               <input
                 type="text"
-                placeholder="Github Repository Link"
-                name="github_repo"
-                value={projectData.github_repo}
+                placeholder="/<username>/<repo>"
+                name="githubRepo"
+                value={projectData.githubRepo}
                 onChange={handleInputChange}
                 className="input input-bordered bg-navbar-color w-2/6"
               />
@@ -312,9 +313,9 @@ export const ProjectCreateField = () => {
               <h3>Figma Link</h3>
               <input
                 type="text"
-                placeholder="Figma Link"
-                name="figma_link"
-                value={projectData.figma_link}
+                placeholder="/Figma Link"
+                name="figmaLink"
+                value={projectData.figmaLink}
                 onChange={handleInputChange}
                 className="input input-bordered bg-navbar-color w-2/6"
               />
@@ -323,9 +324,9 @@ export const ProjectCreateField = () => {
               <h3>Trello Board</h3>
               <input
                 type="text"
-                placeholder="Trello link"
-                name="trello_link"
-                value={projectData.trello_link}
+                placeholder="/Trello link"
+                name="trelloLink"
+                value={projectData.trelloLink}
                 onChange={handleInputChange}
                 className="input input-bordered bg-navbar-color w-2/6"
               />
