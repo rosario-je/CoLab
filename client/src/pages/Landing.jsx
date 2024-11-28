@@ -6,12 +6,8 @@ import { useNavigate } from "react-router-dom";
 import { AppContext } from "../context/AppContext";
 
 export const Landing = () => {
-  const { currentUser, handleLogout } = useContext(AppContext);
+  const { token, handleLogout } = useContext(AppContext);
   const navigate = useNavigate();
-
-  const handleDashboardRoute = () => {
-    navigate("/dashboard");
-  };
 
   return (
     <div className="bg-gradient-to-bl from-landing-gradient-one to-landing-gradient-two snap-y snap-mandatory overflow-y-scroll h-screen scroll-smooth">
@@ -23,12 +19,13 @@ export const Landing = () => {
             FIND OR CREATE YOUR NEXT BIG PROJECT WITH A GROUP OF YOUR CHOICE!
           </h1>
           <p className="text-3xl text-slate-50 font-light w-9/12 text-center">
-            <strong>CoLab</strong> is your new place to find your next development project and
-            collaborate with a community with similar interests!
+            <strong>CoLab</strong> is your new place to find your next
+            development project and collaborate with a community with similar
+            interests!
           </p>
         </div>
         <div className="flex justify-center">
-          {currentUser ? (
+          {token !== null ? (
             <button
               onClick={() => {
                 navigate("/dashboard");
