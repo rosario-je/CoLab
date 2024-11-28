@@ -2,6 +2,9 @@ import React, { useEffect, useState, useContext } from "react";
 import axios from "axios";
 
 import { AppContext } from "../context/AppContext";
+import { useNavigate } from "react-router-dom";
+
+//Components
 import { Navbar } from "../components/Navbar";
 import { UserLeftMenu } from "../components/UserLeftMenu";
 import { UserRightMenu } from "../components//UserRightMenuComponents/UserRightMenu";
@@ -9,19 +12,25 @@ import { ProjectCard } from "../components/Projects/ProjectCard";
 import { Skeletons } from "../components/LoadingComponents/Skeletons";
 
 export const MyProjects = ({ handleCoLabHome }) => {
-  const { currentUser } = useContext(AppContext);
+  const { currentUser, token } = useContext(AppContext);
+  const navigate = useNavigate();
   const [fetchingProjects, setFetchingProjects] = useState(true);
   const [projects, setProjects] = useState([]);
   const userId = currentUser.id;
-
-  // const handleButtonClick = (button) => {
-  //   setActiveButton(button);
-  // };
+  useEffect(() => {
+    if (!localStorage.getItem("token")) {
+      navigate("/");
+    }
+  }, [token]);
 
   const fetchUserProjects = async () => {
     try {
+      const config = {
+        headers: { Authorization: `Bearer ${token}` },
+      };
       const userProjectData = await axios.get(
-        `/api/dashboard/${userId}/my_projects`
+        `/api/dashboard/${userId}/my_projects`,
+        config
       );
       setProjects(userProjectData.data);
       setTimeout(() => {
