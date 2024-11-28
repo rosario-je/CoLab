@@ -1,6 +1,9 @@
 import React, { useState, useEffect, useContext } from "react";
 import axios from "axios";
 
+import { useNavigate } from "react-router-dom";
+
+//Components
 import { AppContext } from "../context/AppContext";
 import { Navbar } from "../components/Navbar";
 import { UserLeftMenu } from "../components/UserLeftMenu";
@@ -8,34 +11,43 @@ import { UserRightMenu } from "../components/UserRightMenuComponents/UserRightMe
 import { SearchBar } from "../components/SearchBar";
 import { ProjectCard } from "../components/Projects/ProjectCard";
 import { UserErrorMessage } from "../components/AlertHandling/UserErrorMessage";
-
 import { Skeletons } from "../components/LoadingComponents/Skeletons";
 
 export const Dashboard = ({ handleCoLabHome }) => {
-  const { currentUser, error, setAppError, clearAppError } =
-    useContext(AppContext);
+  const { error, setAppError, clearAppError, token } = useContext(AppContext);
+  const navigate = useNavigate();
 
   const [fetchingProjects, setFetchingProjects] = useState(true);
   const [projects, setProjects] = useState([]);
   const [allProjects, setAllProjects] = useState([]);
-  const userId = currentUser.id;
-  const userName = currentUser.username;
+  const userId = localStorage.getItem("id");
+  const userName = localStorage.getItem("username");
+
+  useEffect(() => {
+    if (!localStorage.getItem("token")) {
+      navigate("/");
+    }
+  }, [token]);
 
   /*------------------- Fetch projects --------------*/
   useEffect(() => {
     const fetchProjects = async () => {
       try {
-        const projectData = await axios.get("/api/dashboard/projects");
+        const token = localStorage.getItem("token");
+        const config = {
+          headers: { Authorization: `Bearer ${token}` },
+        };
+        const projectData = await axios.get("/api/dashboard/projects", config);
         setProjects(projectData.data);
         setAllProjects(projectData.data);
         setTimeout(() => {
           setFetchingProjects(false);
         }, 400);
-        //console.log("Projects: ", projectData.data);
       } catch (error) {
         console.error("Error in getting projects: ", error.message);
       }
     };
+
     fetchProjects();
   }, []);
 
