@@ -1,4 +1,7 @@
-import React from "react";
+import React, { useContext, useEffect } from "react";
+
+import { AppContext } from "../context/AppContext";
+import { useNavigate } from "react-router-dom";
 
 import { Navbar } from "../components/Navbar";
 import { UserLeftMenu } from "../components/UserLeftMenu";
@@ -6,6 +9,13 @@ import { UserRightMenu } from "../components/UserRightMenuComponents/UserRightMe
 import { ProjectCreateField } from "../components/Projects/ProjectCreateField";
 
 export const CreateProject = () => {
+  const { token } = useContext(AppContext);
+  const navigate = useNavigate();
+  useEffect(() => {
+    if (!localStorage.getItem("token")) {
+      navigate("/");
+    }
+  }, [token]);
   return (
     <div className="flex flex-col h-screen mx-72">
       <Navbar />
