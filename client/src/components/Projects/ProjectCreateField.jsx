@@ -39,7 +39,7 @@ export const ProjectCreateField = () => {
     setProjectData((prevData) => {
       // Merge the new tech stack with the existing tech stack
       const updatedTechNames = selectedTechStack;
-      console.log("Updated tech stack:", updatedTechNames); 
+      // console.log("Updated tech stack:", updatedTechNames); 
       return {
         ...prevData,
         tech_names: updatedTechNames,
@@ -96,13 +96,16 @@ export const ProjectCreateField = () => {
         projectData.trelloLink,
         "https://trello.com"
       );
-
+      const token = localStorage.getItem("token");
+      const config = {
+        headers: { Authorization: `Bearer ${token}` },
+      };
       const project = await axios.post("/api/projects/create", {
         ...projectData,
         githubRepo,
         figmaLink,
         trelloLink,
-      });
+      }, config);
 
       const {
         projectData: { id: projectId, owner_id: ownerId },
