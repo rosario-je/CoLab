@@ -7,11 +7,13 @@ import { io } from '../index.js';
 
 const router = express.Router();
 
+import authenticateToken from '../../utils/authMiddleware.js'
 
 // Creates a new project
 // http://localhost:8080/api/projects/create
-router.post('/create', async (req, res) => {
-  const { id: user_id } = req.session.user;
+router.post('/create', authenticateToken, async (req, res) => {
+  const { id: user_id } = req.user;
+  console.log('create projecte test: ', req.user)
   const { name, description, max_participants, cover_photo_path, github_repo, figma_link, trello_link, tech_names } = req.body;
 
   // Mandatory fields: name, description, user_id, max_participants, tech_names
@@ -44,7 +46,6 @@ router.post('/create', async (req, res) => {
 // http://localhost:8080/api/projects/:projectId
 router.get('/:projectId', async (req, res) => {
   const { projectId } = req.params;
-  const { id: user_id } = req.session.user;
 
   try {
     const project = await getProjectPage(projectId);
@@ -63,15 +64,14 @@ router.get('/:projectId', async (req, res) => {
 
 /*------------------------------------------------------------------------------*/
 // http://localhost:8080/api/projects/:projectId/chat
-router.post('/:projectId/chat', async (req, res) => {
+router.post('/:projectId/chat', authenticateToken, async (req, res) => {
   const { projectId } = req.params;
-  const { id: sender_id } = req.session.user;
+  const sender_id = req.user.id;
   const { message } = req.body;
 
   if (!projectId) {
     return res.status(404).send('Project not found');
   }
-
   try {
     const chat_room_id = await getProjectChatId(projectId);
     const newMessage = await newChatMessage(sender_id, chat_room_id, message);
@@ -86,7 +86,7 @@ router.post('/:projectId/chat', async (req, res) => {
       }
     });
   } catch (error) {
-    console.error('Error sending message:', error.message);
+    console.error('This is the Error sending message:', error.message);
     res.status(500).send('Error sending message');
   }
 });
@@ -95,12 +95,14 @@ router.post('/:projectId/chat', async (req, res) => {
 
 // Creates a new join request for a project
 // http://localhost:8080/api/projects/:projectId/join
-router.post('/:projectId/join', async (req, res) => {
+router.post('/:projectId/join', authenticateToken, async (req, res) => {
   const { projectId } = req.params;
-  const { id: user_id } = req.session.user;
+  const user_id = req.user.id;
 
   try {
     const project = await getProjectById(projectId);
+    console.log(user_id);
+
     const user = await getUserById(user_id);
     if (!user) {
       return res.status(404).send('User not found');
@@ -141,19 +143,19 @@ router.post('/:projectId/join', async (req, res) => {
 
 // Edits and updates a project
 // http://localhost:8080/api/projects/:projectId/edit
-router.put('/:projectId/edit', async (req, res) => {
+router.put('/:projectId/edit', authenticateToken, async (req, res) => {
   const { projectId } = req.params;
-  const { id: user_id } = req.session.user;
+  const user_id = req.user.id;
   const { name, description, max_participants, cover_photo_path, github_repo, figma_link, trello_link, tech_requirements } = req.body;
 
   try {
     const project = await getProjectById(projectId);
-  if (!project) {
-    return res.status(404).send('Project not found');
-  }
-  if (user_id !== project.owner_id) {
-    return res.status(403).send('Unauthorized to edit project');
-  }
+    if (!project) {
+      return res.status(404).send('Project not found');
+    }
+    if (user_id !== project.owner_id) {
+      return res.status(403).send('Unauthorized to edit project');
+    }
     const updateProject = await editProject(
       projectId,
       name,
