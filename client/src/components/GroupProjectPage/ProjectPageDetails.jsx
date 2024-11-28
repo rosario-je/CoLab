@@ -29,7 +29,7 @@ export const ProjectPageDetails = ({ project }) => {
   } = project;
 
   useEffect(() => {
-    socket.current = io("http://localhost:8080/");
+    socket.current = io("https://colab-server-fqr4.onrender.com");
 
     socket.current.on("connect", () => {
       //console.log("Connected to server");
