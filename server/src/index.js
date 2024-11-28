@@ -9,16 +9,17 @@ import { Server } from "socket.io";
 import projectsRoutes from "./routes/projects_routes.js";
 import homeRoutes from "./routes/home_routes.js";
 import userRoutes from "./routes/user_routes.js";
-import db from "./db/connection.js";
 
 config();
+
+const serverURL = process.env.NODE_ENV === 'development' ? process.env.LOCAL_FRONT_API : process.env.FRONT_API
 
 const PORT = process.env.PORT || 8080;
 const app = express();
 const server = http.createServer(app);
 const io = new Server(server, {
   cors: {
-    origin: "https://co-lab-iota.vercel.app",
+    origin: [serverURL],
     methods: ["GET", "POST", "PUT", "DELETE", "PATCH"],
     credentials: true,
   },
@@ -26,7 +27,7 @@ const io = new Server(server, {
 
 app.use(
   cors({
-    origin: "https://co-lab-iota.vercel.app",
+    origin: [serverURL],
     methods: ["GET", "POST", "PUT", "DELETE", "PATCH"],
     credentials: true,
   })
@@ -38,9 +39,9 @@ app.use(cookieParser());
 app.use(
   cookieSession({
     name: "session",
-    secret: process.env.JWT_SECRET, // Used for signing cookies
+    secret: process.env.JWT_SECRET,
     httpOnly: true,
-    secure: process.env.NODE_ENV === "production", // Ensures cookies are secure in production
+    secure: process.env.NODE_ENV === "production",
     sameSite: process.env.NODE_ENV === "production" ? "None" : "Lax",
     maxAge: 24 * 60 * 60 * 1000, // 24 hours
   })

@@ -7,7 +7,13 @@ import { ContextProvider } from "./context/AppContext";
 import axios from "axios";
 
 axios.defaults.withCredentials = true;
-axios.defaults.baseURL = import.meta.env.VITE_API_URL;
+
+const serverURL =
+  import.meta.env.MODE === "development"
+    ? import.meta.env.VITE_LOCAL_API_URL
+    : import.meta.env.VITE_API_URL;
+
+axios.defaults.baseURL = serverURL;
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>

@@ -28,8 +28,13 @@ export const ProjectPageDetails = ({ project }) => {
     cover_photo_path,
   } = project;
 
+  const serverURL =
+    import.meta.env.NODE_ENV === "development"
+      ? import.meta.env.VITE_LOCAL_API_URL
+      : import.meta.env.VITE_API_URL;
+      
   useEffect(() => {
-    socket.current = io("https://colab-server-fqr4.onrender.com");
+    socket.current = io(serverURL);
 
     socket.current.on("connect", () => {
       //console.log("Connected to server");
