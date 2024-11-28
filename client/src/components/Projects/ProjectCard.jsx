@@ -32,7 +32,7 @@ export const ProjectCard = ({
 
   const socket = useRef(null);
   const { listen, isConnected } = useSocketManager();
-  const { setNotifications, error, setAppError, clearAppError } = useContext(AppContext);
+  const { setNotifications, error, setAppError, clearAppError, config } = useContext(AppContext);
 
   useEffect(() => {
     if (isConnected) {
@@ -53,7 +53,7 @@ export const ProjectCard = ({
     e.preventDefault();
     try {
       const requestToJoin = await axios.post(
-        `/api/projects/${project_id}/join`
+        `/api/projects/${project_id}/join`, config
       );
       setNotifications((prevNotifications) => [
         requestToJoin.data.data.message,
@@ -70,8 +70,14 @@ export const ProjectCard = ({
 
   const handleCompleteProject = async () => {
     try {
+      const token = localStorage.getItem("token");
+      const config = {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
       const response = await axios.patch(
-        `/api/dashboard/projects/${project_id}/complete`
+        `/api/dashboard/projects/${project_id}/complete`, config
       );
       //console.log("Project marked as complete: ", response.data);
       fetchUserProjects();
