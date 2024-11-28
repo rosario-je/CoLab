@@ -18,6 +18,7 @@ axios.defaults.withCredentials = true;
 const token = localStorage.getItem("token");
 axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
 
+
 function App() {
   return (
     <div className="App">
