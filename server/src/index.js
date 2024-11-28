@@ -1,7 +1,7 @@
 import "dotenv/config.js";
 import express from "express";
 import { config } from "dotenv";
-import session from "express-session";
+import cookieSession from "cookie-session";
 import cookieParser from "cookie-parser";
 import cors from "cors";
 import http from "http";
@@ -21,27 +21,28 @@ const io = new Server(server, {
     origin: "http://localhost:5173",
     methods: ["GET", "POST", "PUT", "DELETE", "PATCH"],
     credentials: true,
-  }
+  },
 });
 
-app.use(cors({
-  origin: "http://localhost:5173",
-  methods: ["GET", "POST", "PUT", "DELETE", "PATCH"],
-  credentials: true
-}));
+app.use(
+  cors({
+    origin: "http://localhost:5173",
+    methods: ["GET", "POST", "PUT", "DELETE", "PATCH"],
+    credentials: true,
+  })
+);
 app.use(express.json());
 app.use(cookieParser());
 
+// Configure cookie-based sessions
 app.use(
-  session({
-    secret: process.env.JWT_SECRET,
-    resave: false,
-    saveUninitialized: false,
-    cookie: { 
-      secure: process.env.NODE_ENV === "production", 
-      httpOnly: true,
-      sameSite: process.env.NODE_ENV === "production" ? 'None' : 'Lax',
-    },
+  cookieSession({
+    name: "session",
+    secret: process.env.JWT_SECRET, // Used for signing cookies
+    httpOnly: true,
+    secure: process.env.NODE_ENV === "production", // Ensures cookies are secure in production
+    sameSite: process.env.NODE_ENV === "production" ? "None" : "Lax",
+    maxAge: 24 * 60 * 60 * 1000, // 24 hours
   })
 );
 
@@ -59,11 +60,6 @@ io.on("connection", (socket) => {
   socket.on("joinProject", (projectId) => {
     socket.join(projectId);
     console.log(`User joined project: ${projectId}`);
-  });
-
-  socket.on("sendMessage", (messageData) => {
-    const { projectId, message } = messageData;
-    io.to(projectId).emit("receiveMessage", message);
   });
 
   socket.on("joinRoom", ({ userId }) => {
@@ -96,9 +92,9 @@ io.on("connection", (socket) => {
   });
 });
 
-
 export { io };
 
 server.listen(PORT, () => {
+  console.log(process.env.DATABASE_URL);
   console.log("Server is running on port", PORT);
 });
