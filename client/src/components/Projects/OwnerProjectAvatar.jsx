@@ -11,14 +11,21 @@ export const OwnerProjectAvatar = ({ owner, owner_username, owner_pic }) => {
         </p>
       )}
       <div
-        className="avatar w-20 border-icon-purple border-[3px] rounded-full"
+        className="avatar w-20 h-20 border-icon-purple border-[3px] rounded-full flex items-center justify-center"
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
       >
-        <img
-          src={`/profile_pics/${owner_pic}`}
-          alt={`${owner_username}'s Avatar`}
-        />
+        {owner_pic ? (
+          <img
+            src={`/profile_pics/${owner_pic}`}
+            alt={`${owner_username}'s Avatar`}
+            className="w-full h-full object-cover rounded-full"
+          />
+        ) : (
+          <span className="text-3xl font-bold text-white bg-gray-500 w-full h-full flex items-center justify-center rounded-full">
+            {owner_username && owner_username[0].toUpperCase()}
+          </span>
+        )}
       </div>
     </div>
   );
