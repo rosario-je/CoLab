@@ -32,7 +32,7 @@ export const UserLeftMenu = () => {
                 <a
                   className="flex items-center cursor-pointer"
                   onClick={() => {
-                    navigate(`/${currentUser.id}/myprojects`);
+                    if (currentUser) navigate(`/${currentUser.id}/myprojects`);
                   }}
                 >
                   <i className="fa-solid fa-briefcase group-hover:animate-bounceSlow group-hover:text-icon-purple group-hover:drop-shadow-white-glow mr-2"></i>
@@ -44,7 +44,8 @@ export const UserLeftMenu = () => {
                 <a
                   className="flex items-center cursor-pointer"
                   onClick={() => {
-                    navigate(`/${currentUser.id}/project/create`);
+                    if (currentUser)
+                      navigate(`/${currentUser.id}/project/create`);
                   }}
                 >
                   <i className="fa-solid fa-circle-plus group-hover:animate-bounceSlow group-hover:text-icon-purple group-hover:drop-shadow-white-glow mr-0.5"></i>
@@ -56,7 +57,8 @@ export const UserLeftMenu = () => {
                 <a
                   className="flex items-center cursor-pointer"
                   onClick={() => {
-                    navigate(`/${currentUser.id}/myprojects/requests`);
+                    if (currentUser)
+                      navigate(`/${currentUser.id}/myprojects/requests`);
                   }}
                 >
                   <div className="icon-container relative">
@@ -73,7 +75,8 @@ export const UserLeftMenu = () => {
                 <a
                   className="flex items-center cursor-pointer"
                   onClick={() => {
-                    navigate(`/${currentUser.id}/notifications`);
+                    if (currentUser)
+                      navigate(`/${currentUser.id}/notifications`);
                   }}
                 >
                   <div className="icon-container relative">
@@ -113,26 +116,39 @@ export const UserLeftMenu = () => {
       <div className="bottom-user-menu justify-center">
         <div className="flex justify-center pb-20 flex-col items-center gap-y-5 h-80">
           <div className="flex flex-row w-full space-y-1 items-center justify-center gap-x-4">
-            {currentUser.profile_pic ? (
-              <img
-                src={`/profile_pics/${currentUser.profile_pic}`}
-                alt="profile"
-                className="rounded-full h-24 w-24 border-icon-purple border-4"
-              />
+            {currentUser ? (
+              currentUser.profile_pic ? (
+                <img
+                  src={`/profile_pics/${currentUser.profile_pic}`}
+                  alt="profile"
+                  className="rounded-full h-24 w-24 border-icon-purple border-4"
+                />
+              ) : (
+                <div className="border-2 rounded-full bg-zinc-500 w-12 h-12 flex justify-center items-center">
+                  <h3 className="font-bold text-xl text-text-color">
+                    {currentUser?.firstName?.[0] ?? "N"}
+                    {currentUser?.lastName?.[0] ?? "A"}
+                  </h3>
+                </div>
+              )
             ) : (
               <div className="border-2 rounded-full bg-zinc-500 w-12 h-12 flex justify-center items-center">
-                <h3 className="font-bold text-xl text-text-color">
-                  {currentUser.firstName[0]}{currentUser.lastName[0]}
-                </h3>
+                <h3 className="font-bold text-xl text-text-color">N/A</h3>
               </div>
             )}
             <div className="flex flex-col space-y-1">
-              <h3 className="font-bold text-xl text-text-color">
-                @{currentUser.username}
-              </h3>
-              <h4 className="font-extralight text-sm italic">
-                {currentUser.email}
-              </h4>
+              {currentUser ? (
+                <>
+                  <h3 className="font-bold text-xl text-text-color">
+                    @{currentUser.username}
+                  </h3>
+                  <h4 className="font-extralight text-sm italic">
+                    {currentUser.email}
+                  </h4>
+                </>
+              ) : (
+                <p className="font-light text-text-color">Not logged in</p>
+              )}
             </div>
           </div>
         </div>
