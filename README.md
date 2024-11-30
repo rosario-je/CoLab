@@ -19,74 +19,11 @@
 ## Tech Stack
 
 - **Frontend**: React (Vite), TailwindCSS, DaisyUI
-- **Backend**: Express, PostgreSQL
-- **Authentication**: Session-based authentication through backend API
+- **Backend**: Express, PostgreSQL / Supabase
+- **Authentication**: Jason Web Tokens (JWT) | Bcrypt for password hashing (recent update)
 - **Real-time Communication**: Socket.IO
-- **Hosting**: TBD
+- **Hosting**: Render for backend | Vercel for frontend | SQL Database hosted on Supabase (recent update)
 
-## Installation
-
-### Prerequisites
-
-- Node.js
-- PostgreSQL
-
-### Backend Setup
-1. Clone the repository:
-
-```bash
-git clone https://github.com/rosario-je/colab-app.git
-cd colab-app
-```
-
-Install server dependencies:
-
-```bash
-cd server
-npm install
-```
-
-Set up environment variables in a .env file:
-
-```env
-PORT=5000
-DATABASE_URL=your_postgresql_database_url
-SESSION_SECRET=your_secret_key
-```
-
-Set up the database:
-
-```bash
-npm run migrate
-npm run seed
-```
-
-Start the backend server:
-
-```bash
-npm start
-```
-
-Frontend Setup
-
-Install client dependencies:
-
-```bash
-cd client
-npm install
-```
-
-Set up environment variables in a .env file:
-
-```env
-VITE_API_URL=http://localhost:5000
-```
-
-Start the frontend development server:
-
-```bash
-npm run dev
-```
 
 ### Usage
 
