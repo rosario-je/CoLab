@@ -22,7 +22,7 @@
 - **Backend**: Express, PostgreSQL / Supabase
 - **Authentication**: Jason Web Tokens (JWT) | Bcrypt for password hashing (recent update)
 - **Real-time Communication**: Socket.IO
-- **Hosting**: Render for backend | Vercel for frontend | SQL Database hosted on Supabase (recent update)
+- **Hosting**: Render for back-end | Vercel for front-end | SQL Database hosted on Supabase (recent update)
 
 
 ### Usage
