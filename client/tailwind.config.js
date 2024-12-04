@@ -1,7 +1,14 @@
 /** @type {import('tailwindcss').Config} */
 export default {
-  content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
+  content: ['./index.html', './src/**/*.{js,ts,jsx,tsx}'],
   theme: {
+    container: {
+      center: true,
+      padding: '15px',
+    },
+    fontFamily: {
+      primary: ['Roboto Flex', 'sans-serif']
+    },
     extend: {
       colors: {
         "text-color": "#F2F3F5", // main text color
@@ -62,7 +69,7 @@ export default {
           "50%": { transform: "rotate(0deg)", transformOrigin: "top" },
           "75%": { transform: "rotate(25deg)", transformOrigin: "top" },
           "100%": { transform: "rotate(0deg)", transformOrigin: "top" },
-        },        
+        },
         spin: {
           "0%": { transform: "rotate(0deg)" },
           "100%": { transform: "rotate(360deg)" },
@@ -83,5 +90,7 @@ export default {
       },
     },
   },
-  plugins: [require("daisyui")],
+  plugins: [
+    require("daisyui"),
+  ],
 };
