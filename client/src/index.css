@@ -1,3 +1,28 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.landingBtn {
+  @apply bg-landing-signin-button/90 rounded-full text-base text-white border-2 border-white border-opacity-40 hover:border-white hover:border-opacity-40 hover:bg-landing-gradient-two/70 transition ease-in-out;
+}
+
+.btnTextStyle {
+  @apply px-4 py-2;
+}
+
+.landingBox1 {
+  @apply bg-landing-blue rounded-box flex flex-col  lg:w-4/6 xl:w-2/5 place-items-center p-10 justify-around items-start border-2 border-white border-opacity-40;
+}
+
+.landingImg {
+  @apply bg-base-300 rounded-box grid  lg:w-4/6 xl:w-2/5  place-items-center border-2 border-landing-gradient-two;
+}
+
+.landingBoxTitle {
+  @apply font-black md:text-2xl lg:text-3xl xl:text-5xl text-white w-full
+}
+
+
+.landingBoxSubtitle {
+  @apply font-light  md:text-xl xl:text-4xl text-zinc-200
+}
