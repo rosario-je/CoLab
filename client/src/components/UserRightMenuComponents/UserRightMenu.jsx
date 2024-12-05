@@ -30,7 +30,7 @@ export const UserRightMenu = () => {
   }, []);
 
   return (
-    <div className="flex flex-col fixed top-0 right-0 w-[300px] h-full bg-menu-colors justify-between mt-5 pt-16">
+    <div className="  hidden lg:flex flex-col fixed top-0 right-0 w-[300px] h-full bg-menu-colors justify-between mt-5 pt-16">
       <ul className="menu">
         <li className="border-none">
           <h2 className="menu-title text-text-color text-lg pb-5">Projects</h2>
