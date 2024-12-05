@@ -11,7 +11,7 @@ export const OwnerProjectAvatar = ({ owner, owner_username, owner_pic }) => {
         </p>
       )}
       <div
-        className="avatar w-20 h-20 border-icon-purple border-[3px] rounded-full flex items-center justify-center"
+        className="avatar w-12 h-12 md:w-14 md:h-14 lg:w-20  lg:h-20 border-icon-purple border-[3px] rounded-full flex items-center justify-center"
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
       >
