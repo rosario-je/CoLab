@@ -9,8 +9,8 @@ export const LandingNavBar = () => {
 
   
   return (
-    <div className="fixed top-0 left-0 right-0 z-50">
-      <div className="navbar bg-landing-blue-dark/80 backdrop-blur-xl">
+    <div className="fixed top-0 left-0 right-0 z-50 bg-landing-blue-dark/80 backdrop-blur-xl">
+      <div className="navbar">
         <div className="flex-1">
           <a className="btn btn-ghost text-2xl text-text-color group">
             <img
