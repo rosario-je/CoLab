@@ -1,15 +1,16 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { AppContext } from "../context/AppContext";
 
 export const UserLeftMenu = () => {
   const navigate = useNavigate();
   const { notifications, currentUser, requests } = useContext(AppContext);
+  const [menuOpen, setMenuOpen] = useState(false);
 
   return (
-    <div className="flex flex-col fixed top-0 left-0 w-[300px] h-full bg-menu-colors justify-between mt-5 pt-16">
+    <div className="hidden lg:flex flex-col fixed top-0 left-0 w-[300px] h-screen bg-menu-colors justify-between">
       <div className="top-menu-items p-1">
-        <ul className="menu w-full flex-1 flex flex-col justify-between gap-y-24">
+        <ul className="menu w-full flex-1 flex flex-col justify-between gap-y-16">
           <li className="main-menu-left-menu">
             <h2 className="menu-title text-text-color text-lg pb-5">
               Main Menu
