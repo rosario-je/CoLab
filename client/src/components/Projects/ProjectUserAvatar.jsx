@@ -7,7 +7,7 @@ export const ProjectUserAvatar = ({ participant, borderColorClass }) => {
     <div className="flex flex-col items-center justify-center text-text-color">
       {isHovered && <p>{participant.participant_username}</p>}
       <div
-        className={`avatar w-20 h-20 flex items-center justify-center border-[3px] ${borderColorClass}`}
+        className={`avatar w-12 h-12 md:w-14 md:h-14 lg:w-20  lg:h-20 flex items-center justify-center border-[3px] ${borderColorClass}`}
         key={participant.participant_id}
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
