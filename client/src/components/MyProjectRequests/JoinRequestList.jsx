@@ -7,7 +7,7 @@ export const JoinRequestList = () => {
   return (
     <div className="my-join-requests h-full w-auto flex flex-col items-center mx-72">
       <div className="flex bg-menu-colors fixed left-[300px] right-[300px] z-10 top-20 h-[65px] justify-start items-center">
-        <h1 className="text-white text-2xl">My Project Requests</h1>
+        <h1 className="text-white text-2xl w-full text-center">My Project Requests</h1>
       </div>
       <div className="flex flex-col w-full items-center mt-16">
         {requests.length > 0 ? (
