@@ -93,7 +93,7 @@ export const ProjectCard = ({
     <div className="card bg-navbar-color md:w-full shadow-xl border-solid border-2 border-project-border/25 text-text-color/90 my-5 md:my-8">
       <div className="card-body h-auto">
         <div className="top-project-card-container flex flex-col md:flex-row justify-between items-center mb-5">
-          <div className="project-details-1 flex justify-start gap-x-2 md:gap-x-0 w-full md:w-[50%] md:space-x-4">
+          <div className="project-details-1 flex justify-start gap-x-2 md:gap-x-0 w-full md:w-[60%] md:space-x-4">
             <img
               src={
                 cover_photo_path ||
@@ -102,29 +102,29 @@ export const ProjectCard = ({
               alt="Project Cover"
               className="project-cover rounded-xl object-cover h-24 w-24 md:h-40 md:w-40 shadow-2xl border-2 border-text-color"
             />
-            <div className="flex flex-col justify-center">
+            <div className="flex flex-col justify-evenly md:justify-start md:pt-5">
               <h2 className="card-title font-bold text-base md:text-xl lg:text-4xl">
                 {name}
               </h2>
               {page === "myprojects" && isOwner ? (
-                <div className="flex flex-col gap-y-5 my-5 w-full">
+                <div className="flex lg:flex-col lg:gap-y-5 gap-x-5 md:my-5 w-full">
                   {is_in_progress ? (
                     <>
                       <button
-                        className="bg-icon-purple text-white text-base hover:bg-icon-purple-hover rounded-full w-[150px] p-1 font-semibold"
+                        className="bg-icon-purple text-white text-base hover:bg-icon-purple-hover rounded-full w-20 md:w-[50%] lg:w-[150px] p-1 font-semibold"
                         onClick={() => {
                           navigate(
                             `/${currentUserId}/project/${project_id}/edit`
                           );
                         }}
                       >
-                        Edit
+                        <h1 className="text-sm md:text-base">Edit</h1>
                       </button>
                       <button
-                        className="bg-icon-purple text-white text-base hover:bg-icon-purple-hover rounded-full w-[150px] p-1 font-semibold"
+                        className="bg-icon-purple text-white text-base hover:bg-icon-purple-hover rounded-full w-20 md:w-[50%] lg:w-[150px] p-1 font-semibold"
                         onClick={handleCompleteProject}
                       >
-                        Complete
+                        <h3 className="text-sm md:text-base">Complete</h3>
                       </button>
                     </>
                   ) : (
