@@ -41,7 +41,7 @@ export const Landing = () => {
               }}
               className="landingBtn"
             >
-              <h1>Get started</h1>
+              <h1 className="btnTextStyle">Get started</h1>
             </button>
           )}
         </div>
