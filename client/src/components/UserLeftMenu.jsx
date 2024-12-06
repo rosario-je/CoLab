@@ -1,11 +1,10 @@
-import React, { useContext, useState } from "react";
+import React, { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { AppContext } from "../context/AppContext";
 
 export const UserLeftMenu = () => {
   const navigate = useNavigate();
   const { notifications, currentUser, requests } = useContext(AppContext);
-  const [menuOpen, setMenuOpen] = useState(false);
 
   return (
     <div className="hidden lg:flex flex-col fixed top-0 left-0 w-[300px] h-screen bg-menu-colors justify-between">
@@ -32,9 +31,9 @@ export const UserLeftMenu = () => {
               <li className="group projects-btn">
                 <a
                   className="flex items-center cursor-pointer"
-                  onClick={() => {
-                    if (currentUser) navigate(`/${currentUser.id}/myprojects`);
-                  }}
+                  onClick={() =>
+                    currentUser && navigate(`/${currentUser.id}/myprojects`)
+                  }
                 >
                   <i className="fa-solid fa-briefcase group-hover:animate-bounceSlow group-hover:text-icon-purple group-hover:drop-shadow-white-glow mr-2"></i>
                   <p>My Projects</p>
@@ -44,10 +43,9 @@ export const UserLeftMenu = () => {
               <li className="group create-project-btn">
                 <a
                   className="flex items-center cursor-pointer"
-                  onClick={() => {
-                    if (currentUser)
-                      navigate(`/${currentUser.id}/project/create`);
-                  }}
+                  onClick={() =>
+                    currentUser && navigate(`/${currentUser.id}/project/create`)
+                  }
                 >
                   <i className="fa-solid fa-circle-plus group-hover:animate-bounceSlow group-hover:text-icon-purple group-hover:drop-shadow-white-glow mr-0.5"></i>
                   <p>Create a project</p>
@@ -57,10 +55,10 @@ export const UserLeftMenu = () => {
               <li className="group join-requests-btn">
                 <a
                   className="flex items-center cursor-pointer"
-                  onClick={() => {
-                    if (currentUser)
-                      navigate(`/${currentUser.id}/myprojects/requests`);
-                  }}
+                  onClick={() =>
+                    currentUser &&
+                    navigate(`/${currentUser.id}/myprojects/requests`)
+                  }
                 >
                   <div className="icon-container relative">
                     <i className="fa-solid fa-envelope group-hover:animate-bounceSlow group-hover:text-icon-purple group-hover:drop-shadow-white-glow mr-0.5"></i>
@@ -75,10 +73,9 @@ export const UserLeftMenu = () => {
               <li className="group notifications-btn">
                 <a
                   className="flex items-center cursor-pointer"
-                  onClick={() => {
-                    if (currentUser)
-                      navigate(`/${currentUser.id}/notifications`);
-                  }}
+                  onClick={() =>
+                    currentUser && navigate(`/${currentUser.id}/notifications`)
+                  }
                 >
                   <div className="icon-container relative">
                     <i className="fa-solid fa-comments group-hover:animate-bounceSlow group-hover:text-icon-purple group-hover:drop-shadow-white-glow mr-0.5"></i>
