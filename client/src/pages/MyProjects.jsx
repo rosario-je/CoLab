@@ -49,9 +49,9 @@ export const MyProjects = ({ handleCoLabHome }) => {
       <Navbar handleCoLabHome={handleCoLabHome} />
       <div className="flex flex-1 mt-16">
         <UserLeftMenu />
-        <div className="flex flex-col w-full bg-project-background overflow-hidden mx-72 px-10 mt-20">
-          <div className="flex bg-menu-colors fixed left-[300px] right-[300px] z-10 top-20 h-[65px] justify-start items-center">
-            <h1 className="text-white text-2xl">My Projects</h1>
+        <div className="flex flex-col w-full bg-project-background overflow-hidden lg:mx-72 px-5 lg:px-10 mt-16 lg:mt-20">
+          <div className="flex bg-menu-colors fixed left-0 right-0 lg:left-[300px] lg:right-[300px] z-10 top-16 lg:top-20 h-[65px] justify-start items-center">
+            <h1 className="text-white text-2xl w-full text-center">My Projects</h1>
           </div>
           {fetchingProjects ? (
             <Skeletons />
