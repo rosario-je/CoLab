@@ -58,6 +58,14 @@ const MobileNav = ({ handleHamburgerMenu, mobileMenu, handleLogout }) => {
         <li>
           <div className="w-[100px] h-[1px] bg-white" />
         </li>
+        <div className="user-info flex flex-col items-center gap-y-2">
+          <img
+            src={`/profile_pics/${currentUser.profile_pic}`}
+            alt="profile"
+            className="rounded-full h-16 w-16 border-icon-purple border-2"
+          />
+          <h3>@{currentUser.username}</h3>
+        </div>
         <li>
           <button onClick={handleLogout}>
             <div className="landingBtn">
