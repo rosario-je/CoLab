@@ -25,7 +25,7 @@ export const MyNotifications = () => {
       <div className="flex flex-1 mt-16">
         <UserLeftMenu />
         <div className="flex flex-col w-full h-full bg-project-background overflow-hidden pt-4">
-          <div className="h-full mx-[300px]">
+          <div>
             <NotificationsList />
           </div>
         </div>
