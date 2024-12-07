@@ -19,18 +19,18 @@ export const JoinRequestListItems = ({
 
   return (
     <>
-      <div className="card bg-navbar-color text-text-color/90 w-11/12 my-10 border-2 border-project-border/25">
+      <div className="card bg-navbar-color text-text-color/90 w-full my-10 border-2 border-project-border/25">
         <div className="card-body items-center text-center flex flex-col justify-center gap-[20px]">
-          <h2 className="requested-user self-start text-2xl font-semibold">
+          <h2 className="requested-user self-start lg:text-2xl font-semibold">
             @{requester_username}
           </h2>
 
-          <p className="self-start font-light text-2xl italic">
+          <p className="self-start font-light lg:text-2xl italic">
             Has requested to join:
           </p>
 
           <div className="card-actions w-full justify-between self-end">
-            <h2 className="text-3xl font-bold">{project_name}</h2>
+            <h2 className="text-start text-xl lg:text-3xl font-bold pb-3 lg:pb-0">{project_name}</h2>
             <div className="flex justify-center items-center gap-[15px]">
               <button
                 onClick={handleAcceptRequest}
