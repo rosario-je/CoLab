@@ -102,8 +102,8 @@ export const ProjectCard = ({
               alt="Project Cover"
               className="project-cover rounded-xl object-cover h-24 w-24 md:h-40 md:w-40 shadow-2xl border-2 border-text-color"
             />
-            <div className="flex flex-col justify-evenly md:justify-start md:pt-5">
-              <h2 className="card-title font-bold text-base md:text-xl lg:text-4xl">
+            <div className="flex flex-col justify-evenly ">
+              <h2 className="card-title font-bold text-base md:text-2xl lg:text-3xl">
                 {name}
               </h2>
               {page === "myprojects" && isOwner ? (
@@ -138,7 +138,7 @@ export const ProjectCard = ({
               ) : (
                 <>
                   <h3 className="font-semibold md:mt-5">
-                    <span className="text-icon-purple text-sm lg:text-xl">
+                    <span className="text-icon-purple text-sm md:text-lg lg:text-xl">
                       Creator:{" "}
                     </span>
                     @
