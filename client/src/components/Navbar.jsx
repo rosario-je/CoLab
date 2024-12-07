@@ -55,6 +55,7 @@ export const Navbar = () => {
           />
         </button>
         <MobileNav
+          currentUser={currentUser}
           handleHamburgerMenu={handleHamburgerMenu}
           mobileMenu={mobileMenu}
           handleLogout={handleLogout}
