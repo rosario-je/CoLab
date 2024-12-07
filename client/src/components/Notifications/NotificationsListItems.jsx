@@ -14,7 +14,7 @@ const handleDismissClick = () => {
 };
   return (
     <>
-      <div className="card bg-navbar-color text-text-color/90 my-10 w-3/4 border-2 border-project-border/25">
+      <div className="card bg-navbar-color text-text-color/90 my-10 w-full border-2 border-project-border/25">
         <button 
           onClick={handleDismissClick}
           className="btn btn-circle absolute top-0 right-0 mt-4 mr-4 border-2 border-project-border/25 hover:border-project-border/25">
@@ -33,7 +33,7 @@ const handleDismissClick = () => {
         </button>
         <div className="card-body items-center text-center flex flex-col justify-center gap-[20px]">
           <div className="card-actions w-full justify-between self-end">
-            <p className="font-light text-3xl my-12">{message}</p>
+            <p className="font-light text-xl lg:text-3xl my-12">{message}</p>
           </div>
         </div>
       </div>
