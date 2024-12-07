@@ -59,10 +59,7 @@ export const ProjectPage = ({ handleCoLabHome }) => {
       <Navbar handleCoLabHome={handleCoLabHome} />
       <div className="flex flex-1 mt-16">
         <UserLeftMenu />
-        <div
-          className="flex-grow flex flex-col overflow-y-auto"
-          style={{ marginLeft: "300px", marginRight: "300px" }}
-        >
+        <div className="flex-grow flex flex-col overflow-y-auto w-full lg:mx-[300px]">
           <ProjectPageDetails project={project} />
           <div className="fixed top-0 left-[300px] right-[300px] z-10">
             <div className="w-full bg-white py-2 px-4 shadow-md">
