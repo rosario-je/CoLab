@@ -120,27 +120,27 @@ export const ProjectPageDetails = ({ project }) => {
   };
 
   return (
-    <div className="project-container flex flex-col grow mt-3.5 bg-alt-grey/75">
-      <div className="project-details-container flex flex-row px-6 justify-between border-b-2 border-project-border/25 h-auto items-center  backdrop-blur-xl bg-alt-grey/75 fixed  top-20 z-10 left-[300px] right-[300px]">
-        <div className="project-details flex flex-row space-x-10 py-4">
+    <div className="project-container flex flex-col grow lg:mt-3.5 bg-alt-grey/75">
+      <div className="project-details-container flex flex-col md:flex-row lg:flex-row md:pb-5 px-6 justify-between border-b-2 border-project-border/25 h-auto items-center backdrop-blur-xl bg-alt-grey/75 fixed top-20 z-10 left-0 right-0 lg:left-[300px] lg:right-[300px]">
+        <div className="project-details pt-5 w-full lg:w-auto flex flex-col lg:flex-row space-y-2 lg:space-x-10 lg:py-4">
+
           <img
             src={
               cover_photo_path ||
               "https://staticg.sportskeeda.com/editor/2023/05/90701-16836967841966-1920.jpg"
             }
             alt="project cover"
-            className="rounded-lg w-40 border-2 border-project-border"
+            className="rounded-lg w-20 h-full md:w-32 lg:w-40 border-2 border-project-border"
           />
-
-          <div className="flex flex-col gap-y-6 justify-center">
+          <div className="flex flex-col gap-y-3 lg:gap-y-6 justify-center">
             {name && (
               <div className="project-title">
-                <h1 className="text-text-color/90 font-semibold text-4xl">
+                <h1 className="text-text-color/90 font-semibold md:text-2xl lg:text-4xl">
                   {name}
                 </h1>
               </div>
             )}
-            <div className="tech-stack flex flex-row justify-start gap-x-6">
+            <div className="tech-stack flex flex-row flex-wrap justify-start gap-x-2 gap-y-2 lg:gap-x-6">
               {tech_requirements &&
                 tech_requirements.map((tech, index) => (
                   <p
@@ -153,8 +153,8 @@ export const ProjectPageDetails = ({ project }) => {
             </div>
           </div>
         </div>
-        <div className="h-[150px] project-participants-avatars avatar-group flex flex-row flex-start gap-x-3">
-          <div className="h-full flex justify-center items-end pb-9">
+        <div className="project-participants-avatars avatar-group lg:h-[150px] w-full lg:w-auto flex lg:flex-row flex-start md:justify-end gap-x-3 pt-3 lg:pt-0">
+          <div className="h-full flex justify-center items-end pb-3 lg:pb-9">
             <OwnerProjectAvatar
               key={owner_id}
               owner={owner_email}
@@ -182,8 +182,8 @@ export const ProjectPageDetails = ({ project }) => {
           </div>
         )}
       </div>
-      <div className="fixed bottom-0 left-[300px] right-[300px] z-20">
-        <div className="message-input w-full py-4 px-11 bg-project-background">
+      <div className="fixed bottom-0 w-full lg:w-auto lg:left-[300px] lg:right-[300px] z-20">
+        <div className="message-input py-4 px-11 bg-project-background">
           <input
             onChange={(e) => {
               setMessage(e.target.value);
