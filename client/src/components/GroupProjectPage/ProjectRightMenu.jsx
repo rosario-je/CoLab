@@ -37,7 +37,7 @@ export const ProjectRightMenu = ({ project, owner, handleCompleteProject }) => {
   const isOwner = owner === currentUser.id;
 
   return (
-    <div className="flex flex-col fixed top-0 right-0 w-[300px] h-full bg-menu-colors mt-0 pt-24 z-10 pb-4">
+    <div className="hidden lg:flex flex-col fixed top-0 right-0 w-[300px] h-full bg-menu-colors mt-0 pt-24 z-10 pb-4">
       <div className="right-menu-items-top flex flex-row justify-around h-full">
         <div className="project-links bg-alt-grey w-24 flex flex-col items-center rounded-xl p-4 space-y-10 justify-top h-full">
           <div>
