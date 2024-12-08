@@ -92,7 +92,7 @@ export const ProjectCard = ({
   return (
     <div className="card bg-navbar-color md:w-full shadow-xl border-solid border-2 border-project-border/25 text-text-color/90 my-5 md:my-8">
       <div className="card-body h-auto">
-        <div className="top-project-card-container flex flex-col md:flex-row justify-between items-center mb-5">
+        <div className="top-project-card-container flex flex-col md:flex-row justify-between items-top mb-5">
           <div className="project-details-1 flex justify-start gap-x-2 md:gap-x-0 w-full md:w-[60%] md:space-x-4">
             <img
               src={
@@ -100,10 +100,10 @@ export const ProjectCard = ({
                 "https://staticg.sportskeeda.com/editor/2023/05/90701-16836967841966-1920.jpg"
               }
               alt="Project Cover"
-              className="project-cover rounded-xl object-cover h-24 w-24 md:h-40 md:w-40 shadow-2xl border-2 border-text-color"
+              className="project-cover rounded-xl object-cover h-24 w-24 md:h-40 md:w-40 lg:h-36 lg:w-36 xl:h-40 xl:w-40 shadow-2xl border-2 border-text-color"
             />
-            <div className="flex flex-col justify-evenly ">
-              <h2 className="card-title font-bold text-base md:text-2xl lg:text-3xl">
+            <div className="flex flex-col justify-start ">
+              <h2 className="card-title font-bold text-base md:text-2xl lg:text-xl xl:text-3xl">
                 {name}
               </h2>
               {page === "myprojects" && isOwner ? (
@@ -137,7 +137,7 @@ export const ProjectCard = ({
                 </div>
               ) : (
                 <>
-                  <h3 className="font-semibold md:mt-5">
+                  <h3 className="font-semibold md:mt-5 lg:mt-2 xl:mt-5">
                     <span className="text-icon-purple text-sm md:text-lg lg:text-xl">
                       Creator:{" "}
                     </span>
@@ -155,7 +155,7 @@ export const ProjectCard = ({
               )}
             </div>
           </div>
-          <div className="avatar-group  md:-space-x-2 rtl:space-x-reverse w-full justify-start md:w-2/5 lg:flex md:justify-end md:items-end self-end md:pb-10 pt-5 md:pt-0">
+          <div className="avatar-group  md:-space-x-2 rtl:space-x-reverse w-full h-full justify-start md:w-2/5 lg:flex md:flex-wrap md:justify-end md:items-start self-end md:pb-10 lg:pb-5 pt-5 md:pt-0">
             <OwnerProjectAvatar
               owner_username={owner_username}
               owner_pic={owner_pic}
@@ -173,10 +173,10 @@ export const ProjectCard = ({
             )}
           </div>
         </div>
-        <p className="font-light md:text-xl md:pt-5 mb-5 italic">
+        <p className="font-light md:text-xl md:pt-5 lg:pt-2 mb-5 italic">
           {description}
         </p>
-        <div className="flex card-actions w-full justify-between items-center">
+        <div className="flex card-actions w-full justify-between items-end">
           <div className="w-full lg:w-[60%] space-y-2 lg:space-y-5 pb-5 lg:pb-0">
             {tech_requirements.map((tech, index) => (
               <ProjectTechStack key={index} tech={tech} />
