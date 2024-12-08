@@ -30,11 +30,11 @@ export const UserRightMenu = () => {
   }, []);
 
   return (
-    <div className="  hidden lg:flex flex-col fixed top-0 right-0 w-[300px] h-full bg-menu-colors justify-between mt-5 pt-16">
+    <div className="hidden lg:flex flex-col fixed top-20 right-0 lg:w-[200px] 2xl:w-[300px] h-screen bg-menu-colors justify-between">
       <ul className="menu">
         <li className="border-none">
-          <h2 className="menu-title text-text-color text-lg pb-5">Projects</h2>
-          <ul className="side-projects text-xl font-light pt-5 space-y-5">
+          <h2 className="menu-title text-text-color lg:text-sm xl:text-lg pl-2 pb-5">Projects</h2>
+          <ul className="side-projects text-xl font-light pt-5 lg:space-y-3 xl:space-y-5 p-0 m-2 xl:auto">
             {rightMenuProjects.map((project) => {
               return (
                 <UserMenuProject
