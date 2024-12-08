@@ -7,15 +7,15 @@ export const UserLeftMenu = () => {
   const { notifications, currentUser, requests } = useContext(AppContext);
 
   return (
-    <div className="hidden lg:flex flex-col fixed top-0 left-0 w-[300px] h-screen bg-menu-colors justify-between">
+    <div className="hidden lg:flex flex-col fixed top-20 left-0 lg:w-[200px] 2xl:w-[300px] h-screen bg-menu-colors justify-start">
       <div className="top-menu-items p-1">
-        <ul className="menu w-full flex-1 flex flex-col justify-between gap-y-16">
+        <ul className="menu w-full flex-1 flex flex-col justify-between lg:gap-y-5 xl:gap-y-10 2xl:gap-y-16">
           <li className="main-menu-left-menu">
-            <h2 className="menu-title text-text-color text-lg pb-5">
+            <h2 className="menu-title text-text-color xl:text-sm 2xl:text-lg pl-2 pb-5">
               Main Menu
             </h2>
 
-            <ul className="menu-item text-xl font-light pt-5 space-y-3.5">
+            <ul className="menu-item xl:text-sm 2xl:text-xl font-light pt-5 space-y-3.5 list-none p-0 2xl:p-4 m-2 2xl:m-4">
               <li className="group feed-btn">
                 <a
                   className="flex items-center cursor-pointer"
@@ -90,9 +90,9 @@ export const UserLeftMenu = () => {
           </li>
 
           <li className="explore-section-left-menu">
-            <h2 className="menu-title text-text-color text-lg">Explore</h2>
+            <h2 className="menu-title text-text-color xl:text-sm 2xl:text-lg pl-2 pb-5">Explore</h2>
 
-            <ul className="text-lg font-light pt-5 space-y-3.5">
+            <ul className="xl:text-sm 2xl:text-lg font-light pt-5 space-y-3.5 p-0 2xl:p-4 m-2 2xl:m-4">
               <li className="group">
                 <a className="flex items-center cursor-pointer">
                   <i className="fa-solid fa-heart group-hover:animate-bounceSlow group-hover:text-icon-purple group-hover:drop-shadow-white-glow mr-2"></i>
@@ -112,14 +112,14 @@ export const UserLeftMenu = () => {
       </div>
 
       <div className="bottom-user-menu justify-center">
-        <div className="flex justify-center pb-20 flex-col items-center gap-y-5 h-80">
-          <div className="flex flex-row w-full space-y-1 items-center justify-center gap-x-4">
+        <div className="flex justify-center pb-20 flex-col items-center gap-y-5 ">
+          <div className="flex flex-col xl:flex-row w-full space-y-1 items-center justify-center gap-x-4">
             {currentUser ? (
               currentUser.profile_pic ? (
                 <img
                   src={`/profile_pics/${currentUser.profile_pic}`}
                   alt="profile"
-                  className="rounded-full h-24 w-24 border-icon-purple border-4"
+                  className="rounded-full lg:h-16 lg:w-16 2xl:h-24 2xl:w-24 border-icon-purple border-4"
                 />
               ) : (
                 <div className="border-2 rounded-full bg-zinc-500 w-12 h-12 flex justify-center items-center">
@@ -130,17 +130,17 @@ export const UserLeftMenu = () => {
                 </div>
               )
             ) : (
-              <div className="border-2 rounded-full bg-zinc-500 w-12 h-12 flex justify-center items-center">
+              <div className="border-2 rounded-full bg-zinc-500 w-12 h-12 flex justify-start xl:justify-center items-center">
                 <h3 className="font-bold text-xl text-text-color">N/A</h3>
               </div>
             )}
-            <div className="flex flex-col space-y-1">
+            <div className="flex flex-col space-y-1 text-center xl:text-start">
               {currentUser ? (
                 <>
-                  <h3 className="font-bold text-xl text-text-color">
+                  <h3 className="font-bold lg:text-lg xl:text-xl text-text-color">
                     @{currentUser.username}
                   </h3>
-                  <h4 className="font-extralight text-sm italic">
+                  <h4 className="font-extralight text-xs xl:text-sm italic">
                     {currentUser.email}
                   </h4>
                 </>
