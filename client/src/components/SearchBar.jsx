@@ -9,7 +9,7 @@ export const SearchBar = ({ handleSearch }) => {
     }
   };
   return (
-    <div className="search-bar z-10 fixed top-16 lg:top-20 left-[0px] right-[0px] lg:left-[300px] lg:right-[300px]">
+    <div className="search-bar z-10 fixed top-16 lg:top-20 left-[0px] right-[0px] lg:left-[200px] 2xl:left-[300px] lg:right-[200px] 2xl:right-[300px]">
       <label className="input flex items-center gap-2 bg-menu-colors rounded-none h-[65px]">
         <i className="fa-solid fa-magnifying-glass mx-3 text-[#ffffff]"></i>
         <input
