@@ -32,7 +32,7 @@ export const ProjectPageDetails = ({ project }) => {
     import.meta.env.NODE_ENV === "development"
       ? import.meta.env.VITE_LOCAL_API_URL
       : import.meta.env.VITE_API_URL;
-      
+
   useEffect(() => {
     socket.current = io(serverURL);
 
@@ -121,21 +121,22 @@ export const ProjectPageDetails = ({ project }) => {
 
   return (
     <div className="project-container flex flex-col grow lg:mt-3.5 bg-alt-grey/75">
-      <div className="project-details-container flex flex-col md:flex-row lg:flex-row md:pb-5 px-6 justify-between border-b-2 border-project-border/25 h-auto items-center backdrop-blur-xl bg-alt-grey/75 fixed top-20 z-10 left-0 right-0 lg:left-[300px] lg:right-[300px]">
-        <div className="project-details pt-5 w-full lg:w-auto flex flex-col lg:flex-row space-y-2 lg:space-x-10 lg:py-4">
-
-          <img
-            src={
-              cover_photo_path ||
-              "https://staticg.sportskeeda.com/editor/2023/05/90701-16836967841966-1920.jpg"
-            }
-            alt="project cover"
-            className="rounded-lg w-20 h-full md:w-32 lg:w-40 border-2 border-project-border"
-          />
+      <div className="project-details-container flex flex-col xl:flex-row md:pb-5 px-6 justify-between border-b-2 border-project-border/25 h-auto items-center backdrop-blur-xl bg-alt-grey/75 fixed top-20 z-10 left-0 right-0 lg:left-[200px] lg:right-[150px] xl:left-[200px] xl:right-[150px] 2xl:left-[300px] 2xl:right-[300px]">
+        <div className="project-details pt-5 w-full xl:w-auto flex flex-col md:flex-row space-y-2 md:gap-x-4 lg:gap-x-0 lg:space-x-10 lg:py-4">
+          <div>
+            <img
+              src={
+                cover_photo_path ||
+                "https://staticg.sportskeeda.com/editor/2023/05/90701-16836967841966-1920.jpg"
+              }
+              alt="project cover"
+              className="rounded-lg w-20 h-full md:w-32 lg: xl:w-40 border-2 border-project-border"
+            />
+          </div>
           <div className="flex flex-col gap-y-3 lg:gap-y-6 justify-center">
             {name && (
               <div className="project-title">
-                <h1 className="text-text-color/90 font-semibold md:text-2xl lg:text-4xl">
+                <h1 className="text-text-color/90 font-semibold md:text-2xl xl:text-4xl">
                   {name}
                 </h1>
               </div>
@@ -153,8 +154,8 @@ export const ProjectPageDetails = ({ project }) => {
             </div>
           </div>
         </div>
-        <div className="project-participants-avatars avatar-group lg:h-[150px] w-full lg:w-auto flex lg:flex-row flex-start md:justify-end gap-x-3 pt-3 lg:pt-0">
-          <div className="h-full flex justify-center items-end pb-3 lg:pb-9">
+        <div className="project-participants-avatars avatar-group xl:h-[150px] w-full xl:w-auto flex lg:flex-row flex-start md:justify-start gap-x-3 pt-3 lg:pt-0">
+          <div className="h-full flex justify-center items-end pb-3 xl:pb-9">
             <OwnerProjectAvatar
               key={owner_id}
               owner={owner_email}
@@ -182,7 +183,7 @@ export const ProjectPageDetails = ({ project }) => {
           </div>
         )}
       </div>
-      <div className="fixed bottom-0 w-full lg:w-auto lg:left-[300px] lg:right-[300px] z-20">
+      <div className="fixed bottom-0 w-full lg:w-auto lg:left-[200px] lg:right-[150px] xl:left-[200px] xl:right-[150px] 2xl:left-[300px] 2xl:right-[300px] z-20">
         <div className="message-input py-4 px-11 bg-project-background">
           <input
             onChange={(e) => {
