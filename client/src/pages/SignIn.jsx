@@ -55,9 +55,9 @@ export const SignIn = () => {
   return (
     <div className="hero bg-gradient-to-bl from-landing-gradient-one to-landing-gradient-two min-h-screen flex items-center flex-col justify-center space-y-16">
       {error && <UserErrorMessage error={error} />}
-      <div className="container mx-auto flex justify-between items-center h-full px-4">
-        <div className="w-1/2 flex flex-col items-center text-center p-8 ">
-          <h1 className="text-5xl font-bold text-white">
+      <div className="container mx-auto flex flex-col lg:flex-row justify-between items-center h-full px-4">
+        <div className="w-full lg:w-1/2 flex flex-col items-center text-center p-8 ">
+          <h1 className="text-xl lg:text-5xl font-bold text-white">
             Welcome back to CoLab!
           </h1>
           <p className="py-6 text-2xl font-light text-white">
@@ -65,7 +65,7 @@ export const SignIn = () => {
           </p>
         </div>
 
-        <div className="w-1/2 flex flex-col items-center">
+        <div className="w-full lg:w-1/2 flex flex-col items-center">
           <div className="card bg-project-background w-full max-w-md p-8 rounded-lg shadow-lg flex flex-col items-center">
             <h2 className="text-4xl font-bold mb-4 text-text-color">Sign In</h2>
             <form className="w-full" onSubmit={handleAccountLogin}>
