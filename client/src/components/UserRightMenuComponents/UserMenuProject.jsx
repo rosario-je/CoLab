@@ -11,11 +11,11 @@ export const UserMenuProject = ({ project, currentUser }) => {
     >
       <a className="flex items-center">
         <img
-          className="rounded-full w-14 h-14 border-2 border-project-border/25"
+          className="rounded-full lg:w-12 lg:h-12 2xl:w-14 2xl:h-14 border-2 border-project-border/25"
           src={project.cover_photo_path || "https://staticg.sportskeeda.com/editor/2023/05/90701-16836967841966-1920.jpg"}
           alt={project.name}
         />
-        <h2 className="text-lg">{project.name}</h2>
+        <h2 className="text-xs 2xl:text-lg">{project.name}</h2>
       </a>
     </li>
   );
