@@ -86,7 +86,7 @@ export const Dashboard = ({ handleCoLabHome }) => {
               </div>
             )}
           </div>
-          <div className="flex flex-col grow justify-center overflow-y-auto lg:mx-72 mt-16 px-5 lg:px-10 h-max bg-project-background">
+          <div className="flex flex-col grow justify-center overflow-y-auto lg:mx-48 2xl:mx-72 mt-16 px-5 lg:px-10 h-max bg-project-background">
             {fetchingProjects ? (
               <Skeletons />
             ) : (
