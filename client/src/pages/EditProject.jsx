@@ -47,12 +47,17 @@ export const EditProject = () => {
   }, [projectId]);
 
   return (
-    <div className="flex flex-col h-screen mx-72">
+    <div className="flex flex-col h-screen lg:mx-48 2xl:mx-72">
       <Navbar />
       <div className="flex flex-1 mt-16">
         <UserLeftMenu />
-        <div className="flex flex-col w-full h-full bg-project-background overflow-hidden">
-          <div className="flex-grow flex justify-center h-full mx-10 my-5">
+        <div className="flex flex-col w-full h-full bg-project-background overflow-hidden mt-10">
+          <div className="flex-grow flex justify-center h-full mx-1 lg:mx-10 mb-3 md:py-5">
+            <div className="pageBanner">
+              <h1 className="text-white text-xl md:text-base  w-full text-center">
+                Edit Project
+              </h1>
+            </div>
             <ProjectEditField project={project} />
           </div>
         </div>
