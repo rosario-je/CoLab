@@ -35,22 +35,36 @@ export const ChatUserMessage = ({ message }) => {
   }
 
   return (
-    <div className="chat chat-start px-4">
-      <div className="chat-image avatar">
-        <div className="w-10 rounded-full">
-          <img
-            alt="Tailwind CSS chat bubble component"
-            src={`/profile_pics/${message.profile_pic}`}
-          />
+    <div className="chat chat-start px-4 font-primary">
+      <div className="flex chat-image avatar h-full items-center">
+        <div className="w-10 h-10 rounded-full items-center">
+          {message.profile_pic ? (
+            <img
+              alt="Tailwind CSS chat bubble component"
+              src={`/profile_pics/${message.profile_pic}`}
+            />
+          ) : (
+            <div className="flex w-10 h-10 items-center justify-center bg-zinc-800 font-primary">
+              <h2 className="font-extrabold">{message.username[0].toUpperCase()}</h2>
+            </div>
+          )}
         </div>
       </div>
-      <div className="flex flex-row chat-header font-semibold pb-2 items-end text-text-color text-base">
-        <h3 className="flex items-end">{message.username}</h3>
-        <time className="flex text-xs opacity-50 pl-3 items-center">
-          <h5>{timeDescription}</h5>
-        </time>
+      <div className="flex flex-col chat-header text-text-color text-base gap-x-2">
+        <div className="flex flex-row items-center gap-x-2">
+          <h3 className="text-[13px] font-black ">{message.username}</h3>
+          <time>
+            <h5 className=" opacity-40 items-center text-[9px] font-light">
+              {timeDescription}
+            </h5>
+          </time>
+        </div>
+        <div>
+          <p className="text-[15px] md:text-lg text-zinc-300">
+            {message.message}
+          </p>
+        </div>
       </div>
-      <div className="chat-bubble bg-menu-colors text-text-color/90"><p className="text-lg bg-menu-colors">{message.message}</p></div>
     </div>
   );
 };
