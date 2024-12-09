@@ -26,3 +26,15 @@
 .landingBoxSubtitle {
   @apply font-light  md:text-xl xl:text-4xl text-zinc-200
 }
+
+.projectCardBtn {
+  @apply bg-website-purple hover:bg-website-purple-hover transition-all ease-in-out text-white text-base rounded-full
+}
+
+.projectCardBtnTxt {
+  @apply text-[12px] md:text-base font-medium px-3 py-2
+}
+
+.projectPageMobileBtn {
+  @apply bg-landing-signin-button/90 rounded-xl text-base text-white border-2 border-white border-opacity-40 hover:border-white hover:border-opacity-40 hover:bg-landing-gradient-two/70 transition ease-in-out
+}
