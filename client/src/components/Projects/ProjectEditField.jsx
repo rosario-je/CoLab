@@ -163,21 +163,23 @@ export const ProjectEditField = ({ project }) => {
       )}
 
       <form
-        className="flex flex-col h-full w-full justify-around"
+        className="flex flex-col h-full w-full justify-around px-5 lg:px-0"
         onSubmit={editProject}
       >
         {/* PROJECT TITLE */}
-        <div className="project-title flex justify-between py-4 mt-5 mb-10">
-          <div className="w-auto">
+        <div className="project-title flex flex-col lg:flex-row gap-x-2 justify-between py-4 mt-5 mb-10 items-center lg:items-start">
+          <div className="w-[100%] lg:w-auto pb-4">
             <h3 className="text-white">Project Title</h3>
-            <h6>Choose a title for your new project</h6>
+            <h6 className="text-sm w-[100%] pt-2">
+              Choose a title for your new project
+            </h6>
           </div>
-          <div className="w-auto">
+          <div className="w-[100%] lg:w-auto">
             <input
               type="text"
               name="name"
               placeholder="Title"
-              className="input input-bordered bg-navbar-color w-96"
+              className="input input-bordered bg-navbar-color w-[100%] lg:w-96"
               value={projectData.name}
               onChange={handleInputChange}
               required
@@ -197,14 +199,16 @@ export const ProjectEditField = ({ project }) => {
         )}
 
         {/* PROJECT DESCRIPTION */}
-        <div className="project-description flex items-start w-full mb-10 justify-between py-4">
-          <div className="w-auto">
+        <div className="project-description flex flex-col lg:flex-row items-start w-full mb-10 justify-between py-4">
+          <div className="w-[100%] lg:w-auto pb-4">
             <h3 className="text-white">Project Description</h3>
-            <h6>Provide a description about the project</h6>
+            <h6 className="text-sm w-[80%] pt-2">
+              Provide a description about the project
+            </h6>
           </div>
           <div className="flex flex-col">
             <textarea
-              className="textarea textarea-bordered text-base min-h-[150px] min-w-[50px] bg-navbar-color resize-none mb-5 self-center w-96"
+              className="textarea textarea-bordered text-base min-h-[150px] min-w-[50px] bg-navbar-color resize-none mb-2 self-center w-[100%] lg:w-96"
               placeholder="Description..."
               value={projectData.description}
               onChange={handleDescriptionChange}
@@ -220,7 +224,7 @@ export const ProjectEditField = ({ project }) => {
         <div className="user-capacity-container flex justify-between py-4 mb-10">
           <div className="w-auto">
             <h3 className="text-white">User Capacity</h3>
-            <h6>
+            <h6 className="text-sm w-[60%] pt-2">
               Pick the maximum amount of users that can request to join this
               project
             </h6>
@@ -248,7 +252,9 @@ export const ProjectEditField = ({ project }) => {
         <div className="tech-stack flex justify-between py-4 mb-10">
           <div className="w-auto">
             <h3 className="text-white">Tech Stack</h3>
-            <h6>Choose the tech stack this project will utilize</h6>
+            <h6 className="text-sm w-[60%] pt-2">
+              Choose the tech stack this project will utilize
+            </h6>
           </div>
           <div className="tech-stack-select w-auto gap-y-3">
             <button
@@ -269,26 +275,28 @@ export const ProjectEditField = ({ project }) => {
         </div>
 
         {/* COVER PHOTO */}
-        <div className="images-input flex justify-between items-center w-full mb-10 py-4">
-          <div className="choose-file w-auto self-start">
+        <div className="images-input flex flex-col lg:flex-row justify-between lg:items-start mb-10 py-4">
+          <div className="choose-file flex flex-col w-auto self-start">
             <h3 className="text-white">Cover Photo</h3>
-            <h6>
+            <h6 className="text-sm w-[80%] pt-2 pb-2">
               Choose images to showcase the design or what might represent the
               design of the project
             </h6>
             {projectData.cover_photo_path && (
               <button
                 type="button"
-                className="text-text-color/90 mt-5 btn bg-navbar-color hover:bg-reject hover:border-reject text-lg group mr-5 h-auto w-auto"
+                className="text-white btn hover:bg-reject w-auto md:w-[30%] h-auto"
                 onClick={handleRemoveCoverPhoto}
               >
-                {/* <i className="fa-solid fa-image group-hover:text-white group-hover:drop-shadow-white-glow"></i>
-                {projectData.cover_photo_path} */}
-                <img className="h-32 p-2.5" src={projectData.cover_photo_path} alt="" />
+                <img
+                  src={projectData.cover_photo_path}
+                  alt="project cover"
+                  className="py-4"
+                />
               </button>
             )}
           </div>
-          <div className="file-input-container w-1/3 flex flex-col justify-center items-end gap-5">
+          <div className="file-input-container lg:w-1/3 flex flex-col justify-center items-center lg:items-end gap-5 pt-5">
             {projectData.cover_photo_path ? (
               <>
                 <input
@@ -315,11 +323,11 @@ export const ProjectEditField = ({ project }) => {
                   name="newPicture"
                   value={projectData.newPicture} // Ensure this is mapped to the right state
                   onChange={handleInputChange}
-                  className="input input-bordered bg-navbar-color w-full"
+                  className="input input-bordered bg-navbar-color w-full text-center lg:text-start"
                 />
                 <button
                   type="button"
-                  className="btn bg-alt-grey hover:bg-alt-grey-hover text-text-color/80 text-base w-1/2 border-2 border-project-border/35 hover:border-project-border/35"
+                  className="btn bg-alt-grey hover:bg-alt-grey-hover text-text-color/90 text-base lg:w-1/2 border-2 border-project-border/35 hover:border-project-border/35"
                   onClick={handleAddCoverPhoto}
                 >
                   Add Picture
@@ -376,7 +384,7 @@ export const ProjectEditField = ({ project }) => {
           </div>
         </div>
 
-        <div className="flex justify-end mt-10">
+        <div className="flex flex-col justify-end h-full">
           <button
             className="btn bg-website-purple hover:bg-website-purple-hover text-white text-base rounded-full w-auto h-14 self-end border-2 border-project-border/25 hover:border-project-border/25"
             disabled={projectEditing}
