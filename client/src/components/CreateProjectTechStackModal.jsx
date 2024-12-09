@@ -13,10 +13,6 @@ export const CreateProjectTechStackModal = ({
 
   const [allSelectedTech, setAllSelectedTech] = useState(tech_names);
 
-  useEffect(() => {
-    // console.log("Live array of selected technologies:", allSelectedTech);
-  }, [allSelectedTech]);
-
   const frontendOptions = [
     "React",
     "Angular",
@@ -63,6 +59,38 @@ export const CreateProjectTechStackModal = ({
   
   const testingOptions = ["Jest", "Mocha", "Jasmine", "Cypress", "Chai"];
   
+  const techObject = [
+    {
+      title: "Frontend",
+      options: frontendOptions,
+      selected: selectedFrontend,
+      setSelected: setSelectedFrontend,
+    },
+    {
+      title: "Backend",
+      options: backendOptions,
+      selected: selectedBackend,
+      setSelected: setSelectedBackend,
+    },
+    {
+      title: "Database",
+      options: databaseOptions,
+      selected: selectedDatabase,
+      setSelected: setSelectedDatabase,
+    },
+    {
+      title: "DevOps",
+      options: devOpsOptions,
+      selected: selectedDevOps,
+      setSelected: setSelectedDevOps,
+    },
+    {
+      title: "Testing/Quality Assurance",
+      options: testingOptions,
+      selected: selectedTesting,
+      setSelected: setSelectedTesting,
+    },
+  ]
 
   const handleSelect = (setSelectedFunc, selectedTech, tech) => {
     setSelectedFunc((prevSelected) =>
@@ -109,7 +137,7 @@ export const CreateProjectTechStackModal = ({
   return (
     <div className="fixed inset-0 flex items-center justify-center z-50 w-screen h-screen">
       <div className="fixed inset-0 bg-black bg-opacity-50 w-screen h-screen"></div>
-      <div className="relative bg-alt-grey text-text-color/80 rounded-lg p-8 shadow-lg w-auto h-auto overflow-y-auto">
+      <div className="relative bg-alt-grey text-text-color/80 rounded-lg p-8 shadow-lg  h-auto h-[80%] md:h-auto overflow-y-auto w-[80%]">
         <button
           className="absolute top-4 right-4 text-2xl hover:animate-spin hover:text-reject mt-3 mr-6"
           onClick={handleTechStacksModal}
@@ -118,40 +146,9 @@ export const CreateProjectTechStackModal = ({
         </button>
         <h1 className="text-2xl mb-4 font-bold">Add Languages</h1>
 
-        {[
-          {
-            title: "Frontend",
-            options: frontendOptions,
-            selected: selectedFrontend,
-            setSelected: setSelectedFrontend,
-          },
-          {
-            title: "Backend",
-            options: backendOptions,
-            selected: selectedBackend,
-            setSelected: setSelectedBackend,
-          },
-          {
-            title: "Database",
-            options: databaseOptions,
-            selected: selectedDatabase,
-            setSelected: setSelectedDatabase,
-          },
-          {
-            title: "DevOps",
-            options: devOpsOptions,
-            selected: selectedDevOps,
-            setSelected: setSelectedDevOps,
-          },
-          {
-            title: "Testing/Quality Assurance",
-            options: testingOptions,
-            selected: selectedTesting,
-            setSelected: setSelectedTesting,
-          },
-        ].map(({ title, options, selected, setSelected }, index) => (
+        {techObject.map(({ title, options, selected, setSelected }, index) => (
           <div key={index} className="mb-4">
-            <h3 className="text-lg mb-2">{title}</h3>
+            <h3 className="text-lg pb-[1px] border-b-[1px]">{title}</h3>
             <div className="flex flex-wrap gap-2">
               {options.map((tech) => (
                 <div
