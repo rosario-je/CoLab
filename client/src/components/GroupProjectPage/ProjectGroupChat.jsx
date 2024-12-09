@@ -11,7 +11,7 @@ export const ProjectGroupChat = ({ chat }) => {
   }, [chat]);
 
   return (
-    <div className="chat-messages flex flex-col gap-y-5 justify-end ">
+    <div className="chat-messages flex flex-col gap-y-8 justify-end ">
       {chat &&
         chat.map((message, index) => (
           <ChatUserMessage key={index} message={message} />
