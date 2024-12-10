@@ -49,7 +49,7 @@ export const MyProjects = ({ handleCoLabHome }) => {
       <Navbar handleCoLabHome={handleCoLabHome} />
       <div className="flex flex-1 mt-16">
         <UserLeftMenu />
-        <div className="flex flex-col grow justify-center overflow-y-auto lg:mx-48 2xl:mx-72 mt-10 px-5 lg:px-10 h-max bg-project-background">
+        <div className="flex flex-col grow justify-start overflow-y-auto lg:mx-48 2xl:mx-72 mt-10 md:mt-16 px-5 lg:px-10 h-full bg-project-background">
           <div className="flex bg-menu-colors fixed left-0 right-0 lg:left-[200px] lg:right-[200px] 2xl:left-[300px] 2xl:right-[300px] z-10 top-16 lg:top-20 h-[45px] md:h-[65px] justify-start items-center">
             <h1 className="text-white text-xl md:text-base  w-full text-center">My Projects</h1>
           </div>
