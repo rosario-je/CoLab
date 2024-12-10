@@ -22,10 +22,7 @@ const ContextProvider = (props) => {
     ["id", "email", "firstName", "lastName", "username", "profile_pic"]
   );
 
-  const config = {
-    headers: { Authorization: `Bearer ${token}` },
-  };
-
+  
   const currentUser = {
     id,
     email,
@@ -34,7 +31,10 @@ const ContextProvider = (props) => {
     username,
     profile_pic,
   };
-
+  
+  const config = {
+    headers: { Authorization: `Bearer ${token}` },
+  };
   // Function to set the token
   useEffect(() => {
     const storedToken = localStorage.getItem("token");
