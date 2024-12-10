@@ -141,7 +141,9 @@ export const ProjectCreateField = () => {
         <div className="project-title flex flex-col lg:flex-row gap-x-2 justify-between py-4 mt-5 mb-10 items-center lg:items-start">
           <div className="w-[100%] lg:w-auto pb-4">
             <h3 className="text-white">Project Title</h3>
-            <h6 className="text-sm w-[100%] pt-2">Choose a title for your new project</h6>
+            <h6 className="text-sm w-[100%] pt-2">
+              Choose a title for your new project
+            </h6>
           </div>
           <div className="w-[100%] lg:w-auto">
             <input
@@ -171,7 +173,9 @@ export const ProjectCreateField = () => {
         <div className="project-description flex flex-col lg:flex-row items-start w-full mb-10 justify-between py-4">
           <div className="w-[100%] lg:w-auto pb-4">
             <h3 className="text-white">Project Description</h3>
-            <h6 className="text-sm w-[80%] pt-2">Provide a description about the project</h6>
+            <h6 className="text-sm w-[80%] pt-2">
+              Provide a description about the project
+            </h6>
           </div>
           <div className="flex flex-col w-[100%] lg:w-auto">
             <textarea
@@ -218,7 +222,9 @@ export const ProjectCreateField = () => {
         <div className="tech-stack flex justify-between py-4 mb-10">
           <div className="w-auto">
             <h3 className="text-white">Tech Stack</h3>
-            <h6 className="text-sm w-[60%] pt-2">Choose the tech stack this project will utilize</h6>
+            <h6 className="text-sm w-[60%] pt-2">
+              Choose the tech stack this project will utilize
+            </h6>
           </div>
           <div className="tech-stack-select w-auto gap-y-3">
             <button
@@ -233,20 +239,23 @@ export const ProjectCreateField = () => {
         </div>
 
         {/* COVER PHOTO */}
-        <div className="images-input flex flex-col lg:flex-row justify-between items-center w-full mb-10 py-4">
-          <div className="choose-file w-auto self-start">
+        <div className="images-input flex flex-col lg:flex-row justify-between lg:items-start mb-10 py-4">
+          <div className="choose-file flex flex-col w-auto self-start">
             <h3 className="text-white">Cover Photo</h3>
-            <h6 className="text-sm w-[100%] pt-2">
+            <h6 className="text-sm w-[80%] pt-2 pb-2">
               Choose images to showcase the design or what might represent the
               design of the project
             </h6>
             {projectData.cover_photo_path && (
               <button
-                className="text-white mt-5 btn hover:bg-reject text-lg group mr-5"
+                className="text-white btn hover:bg-reject w-auto md:w-[30%] h-auto"
                 onClick={handleRemoveCoverPhoto}
               >
-                <i className="fa-solid fa-image group-hover:text-white group-hover:drop-shadow-white-glow"></i>
-                {projectData.cover_photo_path}
+                <img
+                  src={projectData.cover_photo_path}
+                  alt="project cover"
+                  className="py-4"
+                />
               </button>
             )}
           </div>

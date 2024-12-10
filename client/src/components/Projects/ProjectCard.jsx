@@ -34,6 +34,7 @@ export const ProjectCard = ({
   const { listen, isConnected } = useSocketManager();
   const { setNotifications, error, setAppError, clearAppError, config } =
     useContext(AppContext);
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (isConnected) {
@@ -42,8 +43,6 @@ export const ProjectCard = ({
       });
     }
   }, []);
-
-  const navigate = useNavigate();
 
   const isOwner = owner_id === currentUserId;
   const isParticipant = participants.some(
@@ -90,20 +89,22 @@ export const ProjectCard = ({
   };
 
   return (
-    <div className="card bg-navbar-color md:w-full shadow-xl border-solid border-2 border-project-border/25 text-text-color/90 my-5 md:my-8">
+    <div className="card bg-navbar-color my-5 md:my-8 md:w-full shadow-xl border-solid border-2 border-project-border/25 text-text-color/90 font-primary">
       <div className="card-body h-auto">
         <div className="top-project-card-container flex flex-col md:flex-row justify-between items-top mb-5">
           <div className="project-details-1 flex justify-start gap-x-2 md:gap-x-0 w-full md:w-[60%] md:space-x-4">
-            <img
-              src={
-                cover_photo_path ||
-                "https://staticg.sportskeeda.com/editor/2023/05/90701-16836967841966-1920.jpg"
-              }
-              alt="Project Cover"
-              className="project-cover rounded-xl object-cover h-24 w-24 md:h-40 md:w-40 lg:h-36 lg:w-36 xl:h-40 xl:w-40 shadow-2xl border-2 border-text-color"
-            />
-            <div className="flex flex-col justify-start ">
-              <h2 className="card-title font-bold text-base md:text-2xl lg:text-xl xl:text-3xl">
+            <div className="self-center w-auto">
+              <img
+                src={
+                  cover_photo_path ||
+                  "https://staticg.sportskeeda.com/editor/2023/05/90701-16836967841966-1920.jpg"
+                }
+                alt="Project Cover"
+                className="project-cover rounded-full md:rounded-xl object-cover  shadow-2xl border-2 border-text-color h-20 w-20 md:h-40 md:w-40 lg:h-36 lg:w-36 xl:h-40 xl:w-40"
+              />
+            </div>
+            <div className="flex flex-col justify-evenly ">
+              <h2 className="card-title tracking-tight font-bold text-[14px] md:text-2xl lg:text-xl xl:text-3xl">
                 {name}
               </h2>
               {page === "myprojects" && isOwner ? (
@@ -138,16 +139,16 @@ export const ProjectCard = ({
               ) : (
                 <>
                   <h3 className="font-semibold md:mt-5 lg:mt-2 xl:mt-5">
-                    <span className="text-icon-purple text-sm md:text-lg lg:text-xl">
+                    <span className="text-icon-purple text-[12px] md:text-lg lg:text-xl">
                       Creator:{" "}
                     </span>
-                    @
-                    <span className="text-sm italic text-text-color/90">
+                    <span className="text-[12px] md:text-sm">@</span>
+                    <span className="text-[12px] md:text-sm italic text-text-color/90">
                       {owner_username}{" "}
                     </span>
                   </h3>
                   {!is_in_progress && (
-                    <h3 className="font-semibold text-confirm lg:text-lg lg:mt-3">
+                    <h3 className="font-semibold text-confirm text-[12px] md:text-base lg:text-lg lg:mt-3">
                       Completed
                     </h3>
                   )}
@@ -155,7 +156,7 @@ export const ProjectCard = ({
               )}
             </div>
           </div>
-          <div className="avatar-group  md:-space-x-2 rtl:space-x-reverse w-full h-full justify-start md:w-2/5 lg:flex md:flex-wrap md:justify-end md:items-start self-end md:pb-10 lg:pb-5 pt-5 md:pt-0">
+          <div className="avatar-group  md:-space-x-2 rtl:space-x-reverse w-full h-full justify-start md:w-2/5 lg:flex md:flex-wrap md:justify-end md:items-end self-end md:pb-10 lg:pb-5 pt-5 md:pt-0">
             <OwnerProjectAvatar
               owner_username={owner_username}
               owner_pic={owner_pic}
@@ -173,7 +174,7 @@ export const ProjectCard = ({
             )}
           </div>
         </div>
-        <p className="font-light md:text-xl md:pt-5 lg:pt-2 mb-5 italic">
+        <p className="font-light text-[12px] md:text-xl md:pt-5 lg:pt-2 mb-5 italic">
           {description}
         </p>
         <div className="flex card-actions w-full justify-between items-end">
@@ -189,9 +190,9 @@ export const ProjectCard = ({
                   onClick={() => {
                     navigate(`/${currentUserId}/project/${project_id}`);
                   }}
-                  className="btn bg-website-purple hover:bg-website-purple-hover text-white text-base rounded-full"
+                  className="projectCardBtn"
                 >
-                  View Project
+                  <h3 className="projectCardBtnTxt">View Project</h3>
                 </button>
               ) : (
                 <div className="flex gap-x-2">
@@ -215,11 +216,8 @@ export const ProjectCard = ({
           ) : participants.length < max_participants ? (
             <>
               {is_in_progress ? (
-                <button
-                  onClick={handleJoinRequest}
-                  className="btn bg-website-purple hover:bg-website-purple-hover text-white text-base rounded-full"
-                >
-                  Request to Join
+                <button onClick={handleJoinRequest} className="projectCardBtn">
+                  <h3 className="projectCardBtnTxt">Request to Join</h3>
                 </button>
               ) : (
                 <button className="btn bg-icon-purple hover:bg-icon-purple-hover text-white text-base rounded-full">

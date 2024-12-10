@@ -1,10 +1,38 @@
-import React, { useContext } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { AppContext } from "../context/AppContext";
 
 export const UserLeftMenu = () => {
   const navigate = useNavigate();
-  const { notifications, currentUser, requests } = useContext(AppContext);
+  const { notifications, requests } = useContext(AppContext);
+  const [currentUser, setCurrentUser] = useState({});
+
+  useEffect(() => {
+    const getUserData = (keys) =>
+      keys.reduce((acc, key) => {
+        acc[key] = localStorage.getItem(key);
+        return acc;
+      }, {});
+
+    const { id, email, firstName, lastName, username, profile_pic } =
+      getUserData([
+        "id",
+        "email",
+        "firstName",
+        "lastName",
+        "username",
+        "profile_pic",
+      ]);
+
+    setCurrentUser({
+      id,
+      email,
+      firstName,
+      lastName,
+      username,
+      profile_pic,
+    });
+  }, []);
 
   return (
     <div className="hidden lg:flex flex-col fixed top-20 left-0 lg:w-[200px] 2xl:w-[300px] h-screen bg-menu-colors justify-start">
@@ -90,7 +118,9 @@ export const UserLeftMenu = () => {
           </li>
 
           <li className="explore-section-left-menu">
-            <h2 className="menu-title text-text-color xl:text-sm 2xl:text-lg pl-2 pb-5">Explore</h2>
+            <h2 className="menu-title text-text-color xl:text-sm 2xl:text-lg pl-2 pb-5">
+              Explore
+            </h2>
 
             <ul className="xl:text-sm 2xl:text-lg font-light pt-5 space-y-3.5 p-0 2xl:p-4 m-2 2xl:m-4">
               <li className="group">

@@ -14,7 +14,7 @@ const handleDismissClick = () => {
 };
   return (
     <>
-      <div className="card bg-navbar-color text-text-color/90 my-10 w-full border-2 border-project-border/25">
+      <div className="card bg-navbar-color text-text-color/90 my-5 w-full border-2 border-project-border/25">
         <button 
           onClick={handleDismissClick}
           className="btn btn-circle absolute top-0 right-0 mt-4 mr-4 border-2 border-project-border/25 hover:border-project-border/25">

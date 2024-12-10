@@ -19,7 +19,7 @@ export const ProjectUserAvatar = ({ participant, borderColorClass }) => {
             className="w-full h-full object-cover"
           />
         ) : (
-          <span className="text-3xl font-bold text-white bg-gray-500 w-full h-full flex items-center justify-center">
+          <span className="text-4xl font-primary font-extrabold text-white bg-zinc-800 w-full h-full flex items-center justify-center">
             {participant.participant_username &&
               participant.participant_username[0].toUpperCase()}
           </span>
